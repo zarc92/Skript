@@ -1,0 +1,4801 @@
+<!doctype html>
+<html>
+<head>
+    <title>Skript Documentation - 2.2-dev19</title>
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div id="global-navigation">
+  <a href="index.html">Home</a>
+  <a href="events.html">Events</a>
+  <a href="conditions.html">Conditions</a>
+  <a href="effects.html">Effects</a>
+  <a href="expressions.html">Expressions</a>
+  <a href="classes.html">Types</a>
+  <a href="functions.html">Functions</a>
+</div>
+
+    <div id="content">
+      <h1>Expressions</h1>
+
+
+
+<div id="Region" class="item-title">Region</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [event-]region</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#region'>region</a> involved in an event.
+This expression requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on region enter:
+<br>	region is {forbidden region}
+<br>	cancel the event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Command Sender" class="item-title">Command Sender</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [command['s]] (sender|executor)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The player or the console who sent a command. Mostly useful in <a href='../commands/'>commands</a> and <a href='../events/#command'>command events</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      make the command sender execute "/say hi!"
+<br>on command:
+<br>	log "%executor% used command /%command% %arguments%" to "commands.log"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Parse Error" class="item-title">Parse Error</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [last] [parse] error</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The error which caused the last <a href='#ExprParse'>parse operation</a> to fail, which might not be set if a pattern was used and the pattern didn't match the provided text at all.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {var} to line 1 parsed as integer
+<br>if {var} is not set:
+<br>	parse error is set:
+<br>		message "<red>Line 1 is invalid: %last parse error%"
+<br>	else:
+<br>		message "<red>Please put an integer on line 1!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Version" class="item-title">Version</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(0¦[craft]bukkit|1¦minecraft|2¦skript)( |-)version</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The version of Bukkit, Minecraft or Skript respectively.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "This server is running Minecraft %minecraft version% on Bukkit %bukkit version%"
+<br>message "This server is powered by Skript %skript version%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Block" class="item-title">Block</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [event-]block</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The block involved in the event, e.g. the clicked block or the placed block.
+Can optionally include a direction as well, e.g. 'block above' or 'block in front of the player'.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      block is ore
+<br>set block below to air
+<br>spawn a creeper above the block
+<br>loop blocks in radius 4:
+<br>	loop-block is obsidian
+<br>	set loop-block to water
+<br>block is a chest:
+<br>	clear the inventory of the block
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Script Name" class="item-title">Script Name</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] script[['s] name]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Holds the current script's name (the file name without '.sk').
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on script load:
+<br>	set {running.%script%} to true
+<br>on script unload:
+<br>	set {running.%script%} to false
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Upper/lower Case Text" class="item-title">Upper/lower Case Text</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%string% in (0¦upper|1¦lower) case</span></li>
+<li><span class="skript-code-inline">capitalized %string%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev16</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Copy of given text in upper or lower case.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      "oops!" in upper case # OOPS!
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Unknown Name" class="item-title">Unknown Name</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(raw|minecraft|vanilla) name of %itemtypes%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>unknown</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Now" class="item-title">Now</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">now</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The current <a href='../classes/#date'>system time</a> of the server. Use <a href='#ExprTime'>time</a> to get the <a href='../classes/#time'>Minecraft time</a> of a world.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      broadcast "Current server time: %now%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Location" class="item-title">Location</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [event-](location|position)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The location where an event happened (e.g. at an entity or block), or a location <a href='#ExprDirection'>relative</a> to another (e.g. 1 meter above another location).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      drop 5 apples at the event-location # exactly the same as writing 'drop 5 apples'
+<br>set {_loc} to the location 1 meter above the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Clicked Block/Entity" class="item-title">Clicked Block/Entity</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] clicked (block|%-*itemtype/entitydata%)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The clicked block or entity - only useful in click events
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "You clicked on a %type of clicked entity%!"
+<br>clicked block is a chest:
+<br>	show the inventory of the clicked block to the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Worlds" class="item-title">Worlds</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(the|all)] worlds</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    All worlds of the server, useful for looping.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop all worlds:
+<br>	broadcast "You're in %loop-world%" to loop-world
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Command" class="item-title">Command</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (full|complete|whole) command</span></li>
+<li><span class="skript-code-inline">[the] command [label]</span></li>
+<li><span class="skript-code-inline">[the] arguments</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The command that caused an 'on command' event (excluding the leading slash and all arguments)
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # prevent any commands except for the /exit command during some game
+<br>on command:
+<br>{game.%player%.is playing} is true
+<br>command is not "exit"
+<br>message "You're not allowed to use commands during the game"
+<br>cancel the event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Unknown Name" class="item-title">Unknown Name</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(0¦(regular|normal)|1¦(strong|upgraded|level 2)|2¦(extended|long)) ][(20¦(splash|exploding)|40¦lingering) ]potion of %potioneffecttype%</span></li>
+<li><span class="skript-code-inline">[(0¦(regular|normal)|1¦(strong|upgraded|level 2)|2¦(extended|long)) ][(20¦(splash|exploding)|40¦lingering) ]%potioneffecttype% potion</span></li>
+<li><span class="skript-code-inline">(water bottle|bottle of water)</span></li>
+<li><span class="skript-code-inline">potion</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>unknown</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Experience" class="item-title">Experience</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (spawned|dropped|) [e]xp[erience] [orb[s]]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    How much experience was spawned in an <a href='../events/#experience_spawn'>experience spawn</a> event. Can be changed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on experience spawn:
+<br>	add 5 to the spawned experience
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Loop value" class="item-title">Loop value</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] loop-<.+></span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The currently looped value.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # countdown:
+<br>loop 10 times:
+<br>	message "%11 - loop-number%"
+<br>	wait a second
+<br># generate a 10x10 floor made of randomly coloured wool below the player:
+<br>loop blocks from the block below the player to the block 10 east of the block below the player:
+<br>	loop blocks from the loop-block to the block 10 north of the loop-block:
+<br>		set loop-block-2 to any wool
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Unknown Name" class="item-title">Unknown Name</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[chat][( |-)]recipients</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>unknown</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Attacked" class="item-title">Attacked</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (attacked|damaged|victim) [<(.+)>]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The victim of a damage event, e.g. when a player attacks a zombie this expression represents the zombie.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on damage:
+<br>	victim is a creeper
+<br>	damage the attacked by 1 heart
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Final Damage" class="item-title">Final Damage</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] final damage</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev19</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    How much damage is done in a damage event, considering all types of damage reduction. Can NOT be changed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "%final damage%" to victim
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Me" class="item-title">Me</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">me</span></li>
+<li><span class="skript-code-inline">my[self]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A 'me' expression that can be used in effect commands only.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      !heal me
+<br>!kick myself
+<br>!give a diamond axe to me
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Message" class="item-title">Message</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [chat( |-)]message</span></li>
+<li><span class="skript-code-inline">[the] (join|log[ ]in)( |-)message</span></li>
+<li><span class="skript-code-inline">[the] (quit|leave|log[ ]out|kick)( |-)message</span></li>
+<li><span class="skript-code-inline">[the] death( |-)message</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.6 (chat message), 1.4.9 (join & quit messages), 2.0 (death message)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The (chat) message of a chat event, the join message of a join event, the quit message of a quit event, or the death message on a death event. This expression is mostly useful for being changed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on chat:
+<br>	player has permission "admin"
+<br>	set message to "<red>%message%"
+<br>
+<br>on first join:
+<br>	set join message to "Welcome %player% to our awesome server!"
+<br>on join:
+<br>	player has played before
+<br>	set join message to "Welcome back, %player%!"
+<br>
+<br>on quit:
+<br>	set quit message to "%player% left this awesome server!"
+<br>
+<br>on death:
+<br>	set the death message to "%player% died!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Saturation" class="item-title">Saturation</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] saturation [of %players%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-Fixes-V10</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The saturation of a player.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      saturation of player is 20 #Not hungry!
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Last Spawned Entity" class="item-title">Last Spawned Entity</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [last[ly]] (0¦spawned|1¦shot) %*entitydata%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3 (spawned entity), 2.0 (shot entity)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Holds the entity that was spawned most recently with the <a href='../effects/#EffSpawn'>spawn effect</a>, or shot with the <a href='../effects/#EffShoot'>shoot effect</a>. Please note that even though you can spawn multiple mobs simultaneously (e.g. with 'spawn 5 creepers'), only the last spawned mob is saved and can be used. If you spawn an entity and shoot a projectile you can however access both.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      spawn a priest
+<br>set {%spawned priest%.healer} to true
+<br>shoot an arrow from the last spawned entity
+<br>ignite the shot projectile
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Drops" class="item-title">Drops</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] drops</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Only works in death events. Holds the drops of the dying creature. Drops can be prevented by removing them with "remove ... from drops", e.g. "remove all pickaxes from the drops", or "clear drops" if you don't want any drops at all.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      clear drops
+<br>remove 4 planks from the drops
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Attacker" class="item-title">Attacker</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (attacker|damager)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The attacker of a damage event, e.g. when a player attacks a zombie this expression represents the player.
+Please note that the attacker can also be a block, e.g. a cactus or lava, but this expression will not be set in these cases.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on damage:
+<br>	attacker is a player
+<br>	health of attacker is less than or equal to 2
+<br>	damage victim by 1 heart
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Inventory Action" class="item-title">Inventory Action</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] inventory action</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev16</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#inventoryaction'>inventory action</a> of an inventory event. Please click on the link for more information.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      inventory action is pickup all
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Shooter" class="item-title">Shooter</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] shooter [of %projectile%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3.7</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The shooter of a projectile.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      shooter is a skeleton
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Console" class="item-title">Console</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (console|server)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Represents the server's console which can receive messages and execute commands
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      execute console command "/stop"
+<br>send "message to console" to the console
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Argument" class="item-title">Argument</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] last arg[ument][s]</span></li>
+<li><span class="skript-code-inline">[the] arg[ument][s](-| )<(\d+)></span></li>
+<li><span class="skript-code-inline">[the] <(\d*1)st|(\d*2)nd|(\d*3)rd|(\d*[4-90])th> arg[ument][s]</span></li>
+<li><span class="skript-code-inline">[the] arg[ument][s]</span></li>
+<li><span class="skript-code-inline">[the] %*classinfo%( |-)arg[ument][( |-)<\d+>]</span></li>
+<li><span class="skript-code-inline">[the] arg[ument]( |-)%*classinfo%[( |-)<\d+>]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Only usable in command events. Holds the value of the nth argument given to the command, e.g. if the command "/tell &lt;player&gt; &lt;text&gt;" is used like "/tell Njol Hello Njol!" argument 1 is the player named "Njol" and argument 2 is "Hello Njol!".
+One can also use the type of the argument instead of its index to address the argument, e.g. in the above example 'player-argument' is the same as 'argument 1'.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      give the item-argument to the player-argument
+<br>damage the player-argument by the number-argument
+<br>give a diamond pickaxe to the argument
+<br>add argument 1 to argument 2
+<br>heal the last argument
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Item" class="item-title">Item</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] item</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The item involved in an event, e.g. in a drop, dispense, pickup or craft event.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on dispense:
+<br>	item is a clock
+<br>	set the time to 6:00
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Damage" class="item-title">Damage</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] damage</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3.5</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    How much damage is done in a damage event, possibly ignoring armour, criticals and/or enchantments. Can be changed (remember that in Skript '1' is one full heart, not half a heart).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      increase the damage by 2
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Damage Cause" class="item-title">Damage Cause</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] damage (cause|type)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#damagecause'>damage cause</a> of a damage event. Please click on the link for more information.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      damage cause is lava, fire or burning
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Blocks in Region" class="item-title">Blocks in Region</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(all|the)] blocks (in|of) [[the] region[s]] %regions%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    All blocks in a <a href='../classes/#region'>region</a>.
+This expression requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop all blocks in the region {arena.%{faction.%player%}%}:
+<br>	clear the loop-block
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Block" class="item-title">Block</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] block %direction% [%location%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The block involved in the event, e.g. the clicked block or the placed block.
+Can optionally include a direction as well, e.g. 'block above' or 'block in front of the player'.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      block is ore
+<br>set block below to air
+<br>spawn a creeper above the block
+<br>loop blocks in radius 4:
+<br>	loop-block is obsidian
+<br>	set loop-block to water
+<br>block is a chest:
+<br>	clear the inventory of the block
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Random" class="item-title">Random</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[a] random %*classinfo% [out] of %objects%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.9</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets a random item out of a set, e.g. a random player out of all players online.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      give a diamond to a random player out of all players
+<br>give a random item out of all items to the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Location At" class="item-title">Location At</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (location|position) [at] [\(][x[ ][=[ ]]]%number%, [y[ ][=[ ]]]%number%, [and] [z[ ][=[ ]]]%number%[\)] [[(in|of) [[the] world]] %world%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Allows to create a <a href='../classes/#location'>location</a> from three coordinates and a world.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_loc} to the location at arg-1, arg-2, arg-3 of the world arg-4
+<br>distance between the player and the location (0, 0, 0) is less than 200
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Parse" class="item-title">Parse</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%string% parsed as (%-*classinfo%|"<.*>")</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Parses text as a given type, or as a given pattern.
+This expression can be used in two different ways: One which parses the entire text as a single instance of a type, e.g. as a number, and one that parses the text according to a pattern.
+If the given text could not be parsed, this expression will return nothing and the <a href='#ExprParseError'>parse error</a> will be set if some information is available.
+Some notes about parsing with a pattern:
+- The pattern must be a <a href='../patterns/'>Skript pattern</a>, e.g. percent signs are used to define where to parse which types, e.g. put a %number% or %items% in the pattern if you expect a number or some items there.
+- You <i>have to</i> save the expression's value in a list variable, e.g. <code>set {parsed::*} to message parsed as "..."</code>.
+- The list variable will contain the parsed values from all %types% in the pattern in order. If a type was plural, e.g. %items%, the variable's value at the respective index will be a list variable, e.g. the values will be stored in {parsed::1::*}, not {parsed::1}.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {var} to line 1 parsed as number
+<br>on chat:
+<br>	set {var::*} to message parsed as "buying %items% for %money%"
+<br>	if parse error is set:
+<br>		message "%parse error%"
+<br>	else if {var::*} is set:
+<br>		cancel event
+<br>		remove {var::2} from the player's balance
+<br>		give {var::1::*} to the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Location" class="item-title">Location</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (location|position) %directions% [%location%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The location where an event happened (e.g. at an entity or block), or a location <a href='#ExprDirection'>relative</a> to another (e.g. 1 meter above another location).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      drop 5 apples at the event-location # exactly the same as writing 'drop 5 apples'
+<br>set {_loc} to the location 1 meter above the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Direction" class="item-title">Direction</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]] [to the]] (2¦north[(-| |)(4¦east|5¦west)][(ward(s|ly|)|er(n|ly|))] [of]|3¦south[(-| |)(11¦east|10¦west)][(ward(s|ly|)|er(n|ly|))] [of]|(4¦east|5¦west)[(ward(s|ly|)|er(n|ly|))] [of]|0¦above|0¦over|(0¦up|1¦down)[ward(s|ly|)]|1¦below|1¦under[neath]|1¦beneath) [%-direction%]</span></li>
+<li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]]] in [the] (0¦direction|1¦horizontal direction|2¦facing|3¦horizontal facing) of %entity/block% (of|from|)</span></li>
+<li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]]] in %entity/block%'[s] (0¦direction|1¦horizontal direction|2¦facing|3¦horizontal facing) (of|from|)</span></li>
+<li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]]] (0¦in[ ]front [of]|0¦forward[s]|2¦behind|2¦backwards|[to the] (1¦right|-1¦left) [of])</span></li>
+<li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]]] horizontal[ly] (0¦in[ ]front [of]|0¦forward[s]|2¦behind|2¦backwards|to the (1¦right|-1¦left) [of])</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0 (basic), 2.0 (extended)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A helper expression for the <a href='../classes/#direction'>direction type</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      thrust the player upwards
+<br>set the block behind the player to water
+<br>loop blocks above the player:
+<br>	set {_rand} to a random integer between 1 and 10
+<br>	set the block {_rand} meters south east of the loop-block to stone
+<br>block in horizontal facing of the clicked entity from the player is air
+<br>spawn a creeper 1.5 meters horizontally behind the player
+<br>spawn a TNT 5 meters above and 2 meters horizontally behind the player
+<br>thrust the last spawned TNT in the horizontal direction of the player with speed 0.2
+<br>push the player upwards and horizontally forward at speed 0.5
+<br>push the clicked entity in in the direction of the player at speed -0.5
+<br>open the inventory of the block 2 blocks below the player to the player
+<br>teleport the clicked entity behind the player
+<br>grow a regular tree 2 meters horizontally behind the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Numbers" class="item-title">Numbers</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(all|the)] (numbers|1¦integers) (between|from) %number% (and|to) %number%</span></li>
+<li><span class="skript-code-inline">%number% times</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.6</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    All numbers between two given numbers, useful for looping.
+Use 'numbers' if your start is not an integer and you want to keep the fractional part of the start number constant, or use 'integers' if you only want to loop integers.
+An integer loop from 1 to a number x can also be written as 'loop x times'.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop 5 times: # loops 1, 2, 3, 4, 5
+<br>loop numbers from 2.5 to 5.5: # loops 2.5, 3.5, 4.5, 5.5
+<br>loop integers from 2.9 to 5.1: # same as '3 to 5', i.e. loops 3, 4, 5
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Random Number" class="item-title">Random Number</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[a] random (1¦integer|2¦number) (from|between) %number% (to|and) %number%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A random number or integer between two given numbers. Use 'number' if you want any number with decimal parts, or use use 'integer' if you only want whole numbers.
+Please note that the order of the numbers doesn't matter, i.e. <code>random number between 2 and 1</code> will work as well as <code>random number between 1 and 2</code>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set the player's health to a random number between 5 and 10
+<br>send "You rolled a %random integer from 1 to 6%!" to the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Alphabetical Sort" class="item-title">Alphabetical Sort</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">alphabetically sorted %strings%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev18b</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Sorts given strings in alphabetical order.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_list::*} to alphabetically sorted {_list::*
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Block Sphere" class="item-title">Block Sphere</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(all|the|) blocks in radius %number% [(of|around) %location%]</span></li>
+<li><span class="skript-code-inline">(all|the|) blocks around %location% in radius %number%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    All blocks in a sphere around a center, mostly useful for looping.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop blocks in radius 5 around the player:
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Coloured / Uncoloured" class="item-title">Coloured / Uncoloured</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(colo[u]r-|colo[u]red )%strings%</span></li>
+<li><span class="skript-code-inline">(un|non)[-](colo[u]r-|colo[u]red )%strings%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Parses &lt;colour&gt;s (including chat styles) in a message or removes any colours & chat styles from the message.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on chat:
+<br>	set message to coloured message
+<br>command /fade <player>:
+<br>	trigger:
+<br>		set display name of the player-argument to uncoloured display name of the player-argument
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Join & Split" class="item-title">Join & Split</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(concat[enate]|join) %strings% [(with|using|by) [[the] delimiter] %-string%]</span></li>
+<li><span class="skript-code-inline">split %string% (at|using|by) [[the] delimiter] %string%</span></li>
+<li><span class="skript-code-inline">%string% split (at|using|by) [[the] delimiter] %string%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Joins several texts with a common delimiter (e.g. ", "), or splits a text into multiple texts at a given delimiter.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "Online players: %join all players with " | "%" # %all players% would use the default "x, y, and z"
+<br>set {_s::} to the string argument split at ","
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Distance" class="item-title">Distance</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] distance between %location% and %location%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The distance between two points.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      distance between the player and {%player%.home} is smaller than 20:
+<br>	message "You're very close to your home!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Targeted Block" class="item-title">Targeted Block</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] target[ed] block[s] [of %players%]</span></li>
+<li><span class="skript-code-inline">%players%'[s] target[ed] block[s]</span></li>
+<li><span class="skript-code-inline">[the] actual[ly] target[ed] block[s] [of %players%]</span></li>
+<li><span class="skript-code-inline">%players%'[s] actual[ly] target[ed] block[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The block at the crosshair. This regards all blocks that are not air as fully opaque, e.g. torches will be like a solid stone block for this expression.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # A command to set the block a player looks at to a specific type:
+<br>command /setblock <material>:
+<br>    trigger:
+<br>        set targeted block to argument
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Sorted List" class="item-title">Sorted List</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">sorted %objects%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev19</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Sorts given list in natural order. All objects in list must be comparable; usually if you think you can compare it, it can be compared.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_list::*} to  sorted {_list::*
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Items" class="item-title">Items</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(all|every)] item(s|[ ]types)</span></li>
+<li><span class="skript-code-inline">items of type[s] %itemtypes%</span></li>
+<li><span class="skript-code-inline">[(all|every)] block(s|[ ]types)</span></li>
+<li><span class="skript-code-inline">blocks of type[s] %itemtypes%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Items or blocks of a specific type, useful for looping.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop items of type ore and log:
+<br>	block contains loop-item
+<br>	message "Theres at least one %loop-item% in this block"
+<br>drop all blocks at the player # drops one of every block at the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Subtext" class="item-title">Subtext</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (part|sub[ ](text|string)) of %strings% (between|from) (ind(ex|ices)|character[s]|) %number% (and|to) (index|character|) %number%</span></li>
+<li><span class="skript-code-inline">[the] (1¦first|2¦last) [%-number%] character[s] of %strings%</span></li>
+<li><span class="skript-code-inline">[the] %number% (1¦first|2¦last) characters of %strings%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Extracts part of a text. You can either get the first &lt;x&gt; characters, the last &lt;x&gt; characters, or the characters between indices &lt;x&gt; and &lt;y&gt;. The indices &lt;x&gt; and &lt;y&gt; should be between 1 and the <a href='#ExprLength'>length</a> of the text (other values will be fit into this range).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_s} to the first 5 characters of the text argument
+<br>message "%subtext of {_s} from characters 2 to (the length of {_s} - 1)%" # removes the first and last character from {_s} and sends it to the player or console
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Index Of" class="item-title">Index Of</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (0¦|0¦first|1¦last) index of %string% in %string%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The first or last index of a character (or text) in a text, or -1 if it doesn't occur in the text. Indices range from 1 to the <a href='#ExprIndexOf'>length</a> of the text.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_@} to the first index of "@" in the text argument
+<br>if {_s} contains "abc":
+<br>	set {_s} to the first (index of "abc" in {_s} + 3) characters of {_s} # removes everything after the first "abc" from {_s}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Blocks" class="item-title">Blocks</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] blocks %direction% [%locations%]</span></li>
+<li><span class="skript-code-inline">[the] blocks from %location% [on] %direction%</span></li>
+<li><span class="skript-code-inline">[the] blocks from %block% to %block%</span></li>
+<li><span class="skript-code-inline">[the] blocks between %block% and %block%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Blocks relative to other blocks or between other blocks. Can be used to get blocks relative to other blocks or for looping.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop blocks above the player:
+<br>loop blocks between the block below the player and the targeted block:
+<br>set the blocks below the player, the victim and the targeted block to air
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Difference" class="item-title">Difference</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">difference (between|of) %object% and %object%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The difference between two values, e.g. <a href='../classes/#number'>numbers</a>, <a href='../classes/#date'>dates</a> or <a href='../classes/#time'>times</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      difference between {command.%player%.lastuse} and now is smaller than a minute:
+<br>  message "You have to wait a minute before using this command again!"
+<br>  stop
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Regions At" class="item-title">Regions At</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] region(1¦s|) %direction% %locations%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    All <a href='../classes/#region'>regions</a> at a particular <a href='../classes/#location'>location</a>.
+This expression requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      On click on a sign:
+<br>	line 1 of the clicked block is "[region info]"
+<br>	set {_regions::*} to regions at the clicked block
+<br>	if {_regions::*} is empty:
+<br>		message "No regions exist at this sign."
+<br>	else:
+<br>		message "Regions containing this sign: <gold>%{_regions::*}%<r>."
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Region Members & Owners" class="item-title">Region Members & Owners</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(all|the|) (0¦members|1¦owner[s]) of [[the] region[s]] %regions%</span></li>
+<li><span class="skript-code-inline">[[the] region[s]] %regions%'[s] (0¦members|1¦owner[s])</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A list of members or owners of a <a href='../classes/#region'>region</a>.
+This expression requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on entering of a region:
+<br>	message "You're entering %region% whose owners are %owners of region%".
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Length" class="item-title">Length</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] length of %strings%</span></li>
+<li><span class="skript-code-inline">%strings%'[s] length</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The length of a text, in number of characters.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_l} to length of the string argument
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Type of" class="item-title">Type of</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] type of %entitydatas/itemstacks%</span></li>
+<li><span class="skript-code-inline">%entitydatas/itemstacks%'[s] type</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The type of a block/item or entity. The type of an item is only it's id and data value, i.e. it ignores the amount, enchantments etc., and the type of an entity is e.g. 'wolf' or 'player'.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on rightclick on an entity:
+<br>	message "This is a %type of clicked entity%!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="UUID" class="item-title">UUID</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] UUID of %offlineplayers/worlds%</span></li>
+<li><span class="skript-code-inline">%offlineplayers/worlds%'[s] UUID</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1.2, 2.2 (offline players' UUIDs)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The UUID of a player or world.
+In the future there will be an option to use a player's UUID instead of the name in variable names (i.e. when %player% is used), but for now this can be used.
+<em>Please note that this expression does not work for offline players!</em>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # prevents people from joining the server if they use the name of a player
+<br># who has played on this server at least once since this script has been added
+<br>on login:
+<br>	{uuids.%name of player%} exists:
+<br>		{uuids.%name of player%} is not UUID of player
+<br>		kick player due to "Someone with your name has played on this server before"
+<br>	else:
+<br>		set {uuids.%name of player%} to UUID of player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Inventory" class="item-title">Inventory</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] inventor(y|ies) of %inventoryholders%</span></li>
+<li><span class="skript-code-inline">%inventoryholders%'[s] inventor(y|ies)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The inventory of a block or player. You can usually omit this expression and can directly add or remove items to/from blocks or players.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      add a plank to the player's inventory
+<br>clear the player's inventory
+<br>remove 5 wool from the inventory of the clicked block
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Bed" class="item-title">Bed</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] bed[s] [location[s]] of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] bed[s] [location[s]]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The bed location of a player, i.e. the spawn point of a player if he ever slept in a bed and the bed still exists and is unobstructed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      bed of player exists:
+<br>	teleport player the the player's bed
+<br>else:
+<br>	teleport the player to the world's spawn point
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Level" class="item-title">Level</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] level of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] level</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The level of a player.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      reduce the victim's level by 1
+<br>set the player's level to 0
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Enchantment Level" class="item-title">Enchantment Level</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (%-enchantment% level|level of [[the] enchant[ment]] %-enchantment%) o(f|n) %itemtypes%</span></li>
+<li><span class="skript-code-inline">%itemtypes%'[s] (%-enchantment% level|level of [[the] enchant[ment]] %-enchantment%)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The level of a particular <a href='../classes/#enchantment'>enchantment</a> on an item
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player' tool is a sword of sharpness:
+<br>	message "You have a sword of sharpness %level of sharpness of the player's tool% equipped"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Time" class="item-title">Time</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] time [(in|of) %worlds%]</span></li>
+<li><span class="skript-code-inline">%worlds%'[s] time</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#time'>time</a> of a world.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      time in world is between 18:00 and 6:00:
+<br>	broadcast "It's night-time, watch out for monsters!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Biome" class="item-title">Biome</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] biome (of|%direction%) %location%</span></li>
+<li><span class="skript-code-inline">%location%'[s] biome</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The biome at a certain location. Please note that biomes are only defined for x/z-columns, i.e. the <a href='#ExprAltitude'>altitude</a> (y-coordinate) doesn't matter. 
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # damage player in deserts constantly
+<br>every real minute:
+<br>	loop all players:
+<br>		biome at loop-player is desert
+<br>		damage the loop-player by 1
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Target" class="item-title">Target</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] target[[ed] %-*entitydata%] [of %livingentities%]</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] target[[ed] %-*entitydata%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    For players this is the entity at the crosshair, while for mobs and experience orbs it represents the entity they are attacking/following (if any).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on entity target:
+<br>    entity's target is a player
+<br>    send "You're being followed by an %entity%!" to target of entity
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Yaw / Pitch" class="item-title">Yaw / Pitch</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (0¦yaw|1¦pitch) of %locations%</span></li>
+<li><span class="skript-code-inline">%locations%'[s] (0¦yaw|1¦pitch)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The yaw or pitch of a location. You likely won't need this expression ever if you don't know what this means.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      log "%player%: %location of player%, %player's yaw%, %player's pitch%" to "playerlocs.log"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Health" class="item-title">Health</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] health of %livingentities%</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] health</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The health of a creature, e.g. a player, mob, villager, etc. from 0 to the creature's max health, e.g. 10 for players.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "You have %health% HP left."
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Game Mode" class="item-title">Game Mode</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] game[ ]mode of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] game[ ]mode</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The gamemode of a player.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player's gamemode is survival
+<br>set the player's gamemode to creative
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Data Value" class="item-title">Data Value</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] ((data|damage)[s] [value[s]]|durabilit(y|ies)) of %itemstacks/slots%</span></li>
+<li><span class="skript-code-inline">%itemstacks/slots%'[s] ((data|damage)[s] [value[s]]|durabilit(y|ies))</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The data value of an item.
+You usually don't need this expression as you can check and set items with aliases easily, but this expression can e.g. be used to "add 1 to data of &lt;item&gt;", e.g. for cycling through all wool colours.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      add 1 to the data value of the clicked block
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Altitude" class="item-title">Altitude</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] altitude[s] of %locations%</span></li>
+<li><span class="skript-code-inline">%locations%'[s] altitude[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.3</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Effectively an alias of 'y-<a href='#ExprCoordinate'>coordinate</a> of …', it represents the height of some object above bedrock.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on damage:
+<br>	altitude of the attacker is higher that the altitude of the victim
+<br>	set damage to damage * 1.2
+    </div>
+
+  </div>
+</div>
+
+
+<div id="World" class="item-title">World</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] world [of %location/entity%]</span></li>
+<li><span class="skript-code-inline">%location/entity%'[s] world</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The world the event occurred in.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      world is "world_nether"
+<br>teleport the player to the world's spawn
+<br>set the weather in the player's world to rain
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Element of" class="item-title">Element of</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(-1¦[the] first|1¦[the] last|0¦[a] random) element [out] of %objects%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The first, last or a random element of a set, e.g. a list variable.
+See also: <a href='#ExprRandom'>random</a>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      give a random element out of {free items::*} to the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Level Progress" class="item-title">Level Progress</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] level progress of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] level progress</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The progress a player has made until the next level. Remember that this value is between 0 and 1, not 0 and 100!
+Changing this value can cause a player's level to change if the resulting level progess is negative or larger than 1, e.g.<code>increase the player's level progress by 0.5</code> will make the player gain a level if his progress was more than 50%.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # use the exp bar as mana
+<br>on rightclick with a blaze rod:
+<br>	player's level progress is larger than 0.2
+<br>	shoot a fireball from the player
+<br>	reduce the player's level progress by 0.2
+<br>every 2 seconds:
+<br>	loop all players:
+<br>		level progress of loop-player is smaller than 0.9:
+<br>			increase level progress of the loop-player by 0.1
+<br>		else:
+<br>			set level progress of the loop-player to 0.99
+<br>on xp spawn:
+<br>	cancel event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Passenger" class="item-title">Passenger</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] passenger[s] of %entities%</span></li>
+<li><span class="skript-code-inline">%entities%'[s] passenger[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The passenger of a vehicle, or the rider of a mob.
+See also: <a href='#ExprVehicle'>vehicle</a>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      passenger of the minecart is a creeper or a cow
+<br>the saddled pig's passenger is a player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Colour of" class="item-title">Colour of</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] colo[u]r[s] of %itemstacks/entities%</span></li>
+<li><span class="skript-code-inline">%itemstacks/entities%'[s] colo[u]r[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#color'>colour</a> of an item, can also be used to colour chat messages with "&lt;%colour of ...%&gt;this text is coloured!".
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on click on wool:
+<br>	message "This wool block is <%colour of block%>%colour of block%<reset>!"
+<br>	set the colour of the block to black
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Speed" class="item-title">Speed</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (0¦walk[ing]|1¦fl(y[ing]|ight))[( |-])speed of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] (0¦walk[ing]|1¦fl(y[ing]|ight))[( |-])speed</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A player's walking or flying speed. Both can be changed, but values must be between -1 and 1 (excessive values will be changed to -1 or 1 respectively). Negative values reverse directions.
+Please note that changing a player's speed will change his FOV just like potions do.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set the player's walk speed to 1
+<br>increase the argument's fly speed by 0.1
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Facing" class="item-title">Facing</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (1¦horizontal|) facing of %livingentities/blocks%</span></li>
+<li><span class="skript-code-inline">%livingentities/blocks%'[s] (1¦horizontal|) facing</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The facing of an entity or block, i.e. exactly north, south, east, west, up or down (unlike <a href='#ExprDirection'>direction</a> which is the exact direction, e.g. '0.5 south and 0.7 east')
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # makes a bridge
+<br>loop blocks from the block below the player in the horizontal facing of the player:
+<br>	set block to cobblestone
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Compass Target" class="item-title">Compass Target</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] compass target of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] compass target</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The location a player's compass is pointing at.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # make all player's compasses target a player stored in {compass target.%player%}
+<br>every 5 seconds:
+<br>	loop all players:
+<br>		set the loop-player's compass target to location of {compass target.%loop-player%}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="IP" class="item-title">IP</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">IP[s][( |-)address[es]] of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] IP[s][( |-)address[es]]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The IP address of a player.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      IP-ban the player # is equal to the next line
+<br>ban the IP-address of the player
+<br>broadcast "Banned the IP %IP of player%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Hash" class="item-title">Hash</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[md5]( |-)hash(ed|[( |-|)code] of) %strings%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Hashes the given text using the MD5 algorithm. This is useful for storing passwords or IP addresses without having to store them literally.
+Please note that an MD5 hash is irreversible, i.e. you won't be able to get the original text back (which is the point of storing passwords like this). Brute-force attacks can still be performed on hashes though which can easily crack short or insecure passwords.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      command /setpass <text>:
+<br>	trigger:
+<br>		set {password.%player%} to hashed text-argument
+<br>command /login <text>:
+<br>	trigger:
+<br>		{password.%player%} is hashed text-argument:
+<br>			message "login successful."
+<br>		else:
+<br>			message "wrong password!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Food Level" class="item-title">Food Level</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (food|hunger)[[ ](level|met(er|re)|bar)] [of %player%]</span></li>
+<li><span class="skript-code-inline">%player%'[s] (food|hunger)[[ ](level|met(er|re)|bar)]</span></li>
+<li><span class="skript-code-inline">feed [the] %player%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The food level of a player from 0 to 10. Has several aliases: food/hunger level/meter/bar. 
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set the player's food level to 10
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Max Health" class="item-title">Max Health</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] max[imum] health of %livingentities%</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] max[imum] health</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The maximum health of an entity, e.g. 10 for a player
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on join:
+<br>	set the maximum health of the player to 100
+<br>spawn a giant
+<br>set the last spawned entity's max health to 1000
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Remaining Air" class="item-title">Remaining Air</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] remaining air of %livingentities%</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] remaining air</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    How much time a player has left underwater before starting to drown.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player's remaining air is less than 3 seconds:
+<br>	send "hurry, get to the surface!" to the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Armour Slot" class="item-title">Armour Slot</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (0¦boot[s]|0¦shoe[s]|1¦leg[ging][s]|2¦chestplate[s]|3¦helm[et][s]) [slot] of %livingentities%</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] (0¦boot[s]|0¦shoe[s]|1¦leg[ging][s]|2¦chestplate[s]|3¦helm[et][s]) [slot]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A part of a player's armour, i.e. the boots, leggings, chestplate or helmet.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set chestplate of the player to a diamond chestplate
+<br>helmet of player is neither a helmet nor air # player is wearing a block, e.g. from another plugin
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Head location" class="item-title">Head location</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (head|eye[s]) [location[s]] of %livingentities%</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] (head|eye[s]) [location[s]]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The location of an entity's head, mostly useful for players and e.g. looping blocks in the player's line of sight.
+Please note that this location is only accurate for entities whose head is exactly above their center, i.e. players, endermen, zombies, skeletons, etc., but not sheep, pigs or cows.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set the block at the player's head to air
+<br>set the block in front of the player's eyes to glass
+<br>loop blocks in front of the player's head:
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Last Damage Cause" class="item-title">Last Damage Cause</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] last damage cause of %livingentities%</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] last damage cause</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-Fixes-V10</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Cause of last damage done to an entity
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set last damage cause of event-entity to fire tick
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Former/Future State" class="item-title">Former/Future State</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (former|past|old) [state] [of] %~object%</span></li>
+<li><span class="skript-code-inline">%~object% before [the event]</span></li>
+<li><span class="skript-code-inline">[the] (future|to-be|new) [state] [of] %~object%</span></li>
+<li><span class="skript-code-inline">%~object%(-to-be| after[(wards| the event)])</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Represents the value of an expression before an event happened or the value it will have directly after the event, e.g. the old or new level respectively in a <a href='../events/#level_change'>level change event</a>.
+Note: The past, future and present states of an expression are sometimes called 'time states' of an expression.
+Note 2: If you don't specify whether to use the past or future state of an expression that has different values, its default value will be used which is usually the value after the event.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on teleport:
+<br>	former world was "world_nether" # or 'world was'
+<br>	world will be "world" # or 'world after the event is'
+<br>on tool change:
+<br>	past tool is an axe
+<br>	the tool after the event will be air
+<br>on weather change:
+<br>	set {weather.%world%.old} to past weather
+<br>	set {weather.%world%.current} to the new weather
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Weather" class="item-title">Weather</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] weather [(in|of) %worlds%]</span></li>
+<li><span class="skript-code-inline">%worlds%'[s] weather</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The weather in the given or the current world.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set weather to clear
+<br>weather in "world" is rainy
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Glowing" class="item-title">Glowing</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] glowing of %entities%</span></li>
+<li><span class="skript-code-inline">%entities%'[s] glowing</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev18</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Indicates if targeted entity is glowing (new 1.9 effect) or not. Glowing entities can be seen through walls.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set glowing of player on
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Furnace Slot" class="item-title">Furnace Slot</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (0¦ore|1¦fuel|2¦result)[s] [slot[s]] of %blocks%</span></li>
+<li><span class="skript-code-inline">%blocks%'[s] (0¦ore|1¦fuel|2¦result)[s] [slot[s]]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A slot of a furnace, i.e. either the ore, fuel or result slot.
+Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace' is not an existing expression.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set the fuel slot of the clicked block to a lava bucket
+<br>set the block's ore slot to 64 iron ore
+<br>give the result of the block to the player
+<br>clear the result slot of the block
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Id" class="item-title">Id</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] id(1¦s|) of %itemtype%</span></li>
+<li><span class="skript-code-inline">%itemtype%'[s] id(1¦s|)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The id of a specific item. You usually don't need this expression as you can likely do everything with aliases.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "the ID of %type of the clicked block% is %id of the clicked block%."
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Amount of Items" class="item-title">Amount of Items</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (amount|number) of %itemtypes% (in|of) %inventories%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Counts how many of a particular <a href='../classes/#itemtype'>item type</a> are in a given inventory.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "You have %number of ores in the player's inventory% ores in your inventory."
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Maximum Stack Size" class="item-title">Maximum Stack Size</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] max[imum] stack[[ ]size] of %itemstack%</span></li>
+<li><span class="skript-code-inline">%itemstack%'[s] max[imum] stack[[ ]size]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The maximum stack size of the specified material, e.g. 64 for torches, 16 for buckets, and 1 for swords.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "You can only pick up %max stack size of player's tool% of %type of (player's tool)%" to player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Amount" class="item-title">Amount</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(amount|number|size) of %objects%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The amount of something.
+Please note that <code>amount of &lt;items&gt;</code> will not return the number of items, but the number of stacks, e.g. 1 for a stack of 64 torches.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "There are %number of all players% players online!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Unbreakable Items" class="item-title">Unbreakable Items</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">unbreakable %itemtypes%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev13b</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Creates unbreakable copies of given items.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      unbreakable iron sword #Creates unbreakable iron sword
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Coordinate" class="item-title">Coordinate</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (0¦x|1¦y|2¦z)(-| )(coord[inate]|pos[ition]|loc[ation])[s] of %locations%</span></li>
+<li><span class="skript-code-inline">%locations%'[s] (0¦x|1¦y|2¦z)(-| )(coord[inate]|pos[ition]|loc[ation])[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.3</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Represents a given coordinate of a location. 
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player's y-coordinate is smaller than 40:
+<br>	message "Watch out for lava!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Items In" class="item-title">Items In</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[all] items (in|of|contained in|out of) (|1¦inventor(y|ies)) %inventories%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    All items in an inventory. Useful for looping or storing in a list variable.
+Please note that the positions of the items in the inventory are not saved, only their order is preserved.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop all items in the player's inventory:
+<br>	loop-item is enchanted
+<br>	remove loop-item from the player
+<br>set {inventory.%player%} to items in the player's inventory
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Light Level" class="item-title">Light Level</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(1¦sky|1¦sun|2¦block)[ ]]light[ ]level [(of|%direction%) %location%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets the light level at a certain location which ranges from 0 to 15.
+It can be separated into sunlight (15 = direct sunlight, 1-14 = indirect) and block light (torches, glowstone, etc.). The total light level of a block is the maximum of the two different light types.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # set vampire players standing in bright sunlight on fire
+<br>every 5 seconds:
+<br>	loop all players:
+<br>		{vampire.%loop-player%} is true
+<br>		sunlight level at the loop-player is greater than 10
+<br>		ignite the loop-player for 5 seconds
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Vehicle" class="item-title">Vehicle</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] vehicle[s] of %entities%</span></li>
+<li><span class="skript-code-inline">%entities%'[s] vehicle[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The vehicle an entity is in, if any. This can actually be any entity, e.g. spider jockeys are skeletons that ride on a spider, so the spider is the 'vehicle' of the skeleton.
+See also: <a href='#ExprPassenger'>passenger</a>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      vehicle of the player is a minecart
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Lore" class="item-title">Lore</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] lore of %itemstack/itemtype%</span></li>
+<li><span class="skript-code-inline">%itemstack/itemtype%'[s] lore</span></li>
+<li><span class="skript-code-inline">[the] line %number% of [the] lore of %itemstack/itemtype%</span></li>
+<li><span class="skript-code-inline">[the] line %number% of %itemstack/itemtype%'[s] lore</span></li>
+<li><span class="skript-code-inline">[the] %number%(st|nd|rd|th) line of [the] lore of %itemstack/itemtype%</span></li>
+<li><span class="skript-code-inline">[the] %number%(st|nd|rd|th) line of %itemstack/itemtype%'[s] lore</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    An item's lore.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set the 1st line of the item's lore to "<orange>Excalibur 2.0"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Chunk" class="item-title">Chunk</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] chunk[s] (of|%-directions%) %locations%</span></li>
+<li><span class="skript-code-inline">%locations%'[s] chunk[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#chunk'>chunk</a> a block, location or entity is in
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      add the chunk at the player to {protected chunks::*}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Named Item" class="item-title">Named Item</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%itemtypes% (named|with name[s]) %string%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Directly names an item, useful for defining a named item in a script. If you want to (re)name existing items you can either use this expression or use <code>set <a href='#ExprName'>name of &lt;item&gt;</a> to &lt;text&gt;</code>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      give a diamond sword of sharpness 100 named "<gold>Excalibur" to the player
+<br>set tool of player to the player's tool named "<gold>Wand"
+<br>set the name of the player's tool to "<gold>Wand"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Unknown Name" class="item-title">Unknown Name</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon) [of %livingentities%]</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon)</span></li>
+<li><span class="skript-code-inline">[the] (off[ ]hand tool|off[ ] hand item|shield[ item]) [of %livingentities%]</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] (off[ ]hand tool|off[ ] hand item|shield[ item])</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>unknown</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Tool" class="item-title">Tool</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (tool|held item|weapon) [of %livingentities%]</span></li>
+<li><span class="skript-code-inline">%livingentities%'[s] (tool|held item|weapon)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The item a player is holding.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is holding a pickaxe
+<br># is the same as
+<br>player's tool is a pickaxe
+<br>player's off hand tool is shield #Only for Minecraft 1.9
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Ender Chest" class="item-title">Ender Chest</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] ender[ ]chest[s] of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] ender[ ]chest[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The ender chest of a player
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      open the player's ender chest to the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Sign Text" class="item-title">Sign Text</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] line %number% [of %block%]</span></li>
+<li><span class="skript-code-inline">[the] (1¦1st|1¦first|2¦2nd|2¦second|3¦3rd|3¦third|4¦4th|4¦fourth) line [of %block%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A line of text on a sign. Can be changed, but remember that there is a 16 character limit per line (including colour codes that use 2 characters each).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on rightclick on sign:
+<br>	line 2 of the clicked block is "[Heal]":
+<br>		heal the player
+<br>	set line 3 to "%player%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Spawn" class="item-title">Spawn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] spawn[s] [(point|location)[s]] [of %worlds%]</span></li>
+<li><span class="skript-code-inline">%worlds%'[s] spawn[s] [(point|location)[s]]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The spawnpoint of a world.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      teleport all players to spawn
+<br>set the spawn point of "world" to the player's location
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Rounding" class="item-title">Rounding</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(a|the|) round[ed] down %number%</span></li>
+<li><span class="skript-code-inline">(a|the|) round[ed] %number%</span></li>
+<li><span class="skript-code-inline">(a|the|) round[ed] up %number%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Rounds numbers normally, up (ceiling) or down (floor) respectively
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {var} to rounded health of player
+<br>set line 1 of the block to round(1.5 * player's level)
+<br>set {_x} to floor({_y}) - ceil({_x})
+<br>add rounded down argument to the player's health
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Skull" class="item-title">Skull</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] skull of %offlineplayers/entities/entitydatas%</span></li>
+<li><span class="skript-code-inline">%offlineplayers/entities/entitydatas%'[s] skull</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets a skull item representing a player or an entity.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      give the victim's skull to the attacker
+<br>set the block at the entity to the entity's skull
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Cursor Slot" class="item-title">Cursor Slot</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] cursor slot of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] cursor slot</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev17</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The item which player has on their cursor. This slot is always empty if player has no inventories open.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      cursor slot of player is dirt
+<br>set cursor slot of player to 64 diamonds
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Location" class="item-title">Location</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(location|position) of %location%</span></li>
+<li><span class="skript-code-inline">%location%'[s] (location|position)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The location of a block or entity. This not only represents the x, y and z coordinates of the location but also includes the world and the direction an entity is looking (e.g. teleporting to a saved location will make the teleported entity face the same saved direction every time).
+Please note that the location of an entity is at it's feet, use <a href='#ExprEyeLocation'>head location</a> to get the location of the head.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {home.%player%} to the location of the player
+<br>message "You home was set to %player's location% in %player's world%."
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Name / Display Name" class="item-title">Name / Display Name</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (2¦)(player|tab)[ ]list name[s] of %players%</span></li>
+<li><span class="skript-code-inline">%players%'[s] (2¦)(player|tab)[ ]list name[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item or <a href='../classes/#livingentity'>a living entity</a>.
+The differences between the different names are:
+<ul>
+<li>name: Minecraft account name of a player (unmodifiable), or the custom name of an item or mob (modifiable).</li>
+<li>display name: The name of a player as displayed in the chat and messages, e.g. when including %player% in a message. This name can be changed freely and can include colour codes, and is shared among all plugins (e.g. chat plugins will use a changed name).</li>
+<li>tab list name: The name of a player used in the player lists that usually opens with the tab key. Please note that this is limited to 16 characters, including colour codes which are counted as 2 characters each, and that no two players can have the same tab list name at the same time.</li>
+</ul>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on join:
+<br>	player has permission "name.red"
+<br>	set the player's display name to "<red>[admin]<gold>%name of player%"
+<br>	set the player's tablist name to "<green>%name of player%"
+<br>set the name of the player's tool to "Legendary Sword of Awesomeness"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Name / Display Name" class="item-title">Name / Display Name</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (1¦)(display|nick|chat)[ ]name[s] of %itemstacks/slots/livingentities/players%</span></li>
+<li><span class="skript-code-inline">%itemstacks/slots/livingentities/players%'[s] (1¦)(display|nick|chat)[ ]name[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item or <a href='../classes/#livingentity'>a living entity</a>.
+The differences between the different names are:
+<ul>
+<li>name: Minecraft account name of a player (unmodifiable), or the custom name of an item or mob (modifiable).</li>
+<li>display name: The name of a player as displayed in the chat and messages, e.g. when including %player% in a message. This name can be changed freely and can include colour codes, and is shared among all plugins (e.g. chat plugins will use a changed name).</li>
+<li>tab list name: The name of a player used in the player lists that usually opens with the tab key. Please note that this is limited to 16 characters, including colour codes which are counted as 2 characters each, and that no two players can have the same tab list name at the same time.</li>
+</ul>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on join:
+<br>	player has permission "name.red"
+<br>	set the player's display name to "<red>[admin]<gold>%name of player%"
+<br>	set the player's tablist name to "<green>%name of player%"
+<br>set the name of the player's tool to "Legendary Sword of Awesomeness"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Name / Display Name" class="item-title">Name / Display Name</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (0¦)name[s] of %itemstacks/slots/livingentities/players%</span></li>
+<li><span class="skript-code-inline">%itemstacks/slots/livingentities/players%'[s] (0¦)name[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item or <a href='../classes/#livingentity'>a living entity</a>.
+The differences between the different names are:
+<ul>
+<li>name: Minecraft account name of a player (unmodifiable), or the custom name of an item or mob (modifiable).</li>
+<li>display name: The name of a player as displayed in the chat and messages, e.g. when including %player% in a message. This name can be changed freely and can include colour codes, and is shared among all plugins (e.g. chat plugins will use a changed name).</li>
+<li>tab list name: The name of a player used in the player lists that usually opens with the tab key. Please note that this is limited to 16 characters, including colour codes which are counted as 2 characters each, and that no two players can have the same tab list name at the same time.</li>
+</ul>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on join:
+<br>	player has permission "name.red"
+<br>	set the player's display name to "<red>[admin]<gold>%name of player%"
+<br>	set the player's tablist name to "<green>%name of player%"
+<br>set the name of the player's tool to "Legendary Sword of Awesomeness"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Entities" class="item-title">Entities</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[all] %*entitydatas% [(in|of) [world[s]] %-worlds%]</span></li>
+<li><span class="skript-code-inline">[all] entities of type[s] %entitydatas% [(in|of) [world[s]] %-worlds%]</span></li>
+<li><span class="skript-code-inline">[all] %*entitydatas% (within|[with]in radius) %number% [(block[s]|met(er|re)[s])] (of|around) %location%</span></li>
+<li><span class="skript-code-inline">[all] entities of type[s] %entitydatas% in radius %number% (of|around) %location%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    all entities in all world, in a specific world or in a radius around a certain location, e.g. 'all players', 'all creepers in the player's world', or 'players in radius 100 of the player'.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      kill all creepers in the player's world
+<br>send "Psst!" to all players witin 100 meters of the player
+<br>give a diamond to all ops
+<br>heal all tamed wolves in radius 2000 around {town center}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Arithmetic" class="item-title">Arithmetic</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%number%[ ]+[ ]%number%</span></li>
+<li><span class="skript-code-inline">%number%[ ]-[ ]%number%</span></li>
+<li><span class="skript-code-inline">%number%[ ]*[ ]%number%</span></li>
+<li><span class="skript-code-inline">%number%[ ]/[ ]%number%</span></li>
+<li><span class="skript-code-inline">%number%[ ]^[ ]%number%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Arithmetic expressions, e.g. 1+2, (2 - health of player)/3, etc.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set the player's health to 10 - the player's health
+<br>loop (argument + 2)/5 times:
+<br>	message "Two useless numbers: %loop-num*2 - 5%, %2^loop-num - 1%"
+<br>message "You have %health of player * 2% half hearts of HP!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Creature/Entity/Player/Projectile/Villager/Powered Creeper/etc." class="item-title">Creature/Entity/Player/Projectile/Villager/Powered Creeper/etc.</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [event-]<.+></span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The entity involved in an event (an entity is a player, a creature or an inanimate object like ignited TNT, a dropped item or an arrow).
+You can use the specific type of the entity that's involved in the event, e.g. in a 'death of a creeper' event you can use 'the creeper' instead of 'the entity'.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      give a diamond sword of sharpness 3 to the player
+<br>kill the creeper
+<br>kill all powered creepers in the wolf's world
+<br>projectile is an arrow
+    </div>
+
+  </div>
+</div>
+
+
+<div id="X of Item" class="item-title">X of Item</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%number% of %itemstacks/entitytype%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    An expression to be able to use a certain amount of items where the amount can be any expression. Please note that is expression is not stable and might be replaced in the future.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      give level of player of pickaxes to the player
+    </div>
+
+  </div>
+</div>
+
+
+    </div>
+    <!-- other things are inserted here -->
+</body>
+</html>

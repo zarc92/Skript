@@ -1,0 +1,1307 @@
+<!doctype html>
+<html>
+<head>
+    <title>Skript Documentation - 2.2-dev19</title>
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div id="global-navigation">
+  <a href="index.html">Home</a>
+  <a href="events.html">Events</a>
+  <a href="conditions.html">Conditions</a>
+  <a href="effects.html">Effects</a>
+  <a href="expressions.html">Expressions</a>
+  <a href="classes.html">Types</a>
+  <a href="functions.html">Functions</a>
+</div>
+
+    <div id="content">
+      <h1>Conditions</h1>
+
+
+
+<div id="Is Holding" class="item-title">Is Holding</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[%livingentities%] ha(s|ve) %itemtypes% in [main] hand</span></li>
+<li><span class="skript-code-inline">[%livingentities%] (is|are) holding %itemtypes% [in main hand]</span></li>
+<li><span class="skript-code-inline">[%livingentities%] ha(s|ve) %itemtypes% in off[(-| )]hand</span></li>
+<li><span class="skript-code-inline">[%livingentities%] (is|are) holding %itemtypes% in off[(-| )]hand</span></li>
+<li><span class="skript-code-inline">[%livingentities%] (ha(s|ve) not|do[es]n't have) %itemtypes% in [main] hand</span></li>
+<li><span class="skript-code-inline">[%livingentities%] (is not|isn't) holding %itemtypes% [in main hand]</span></li>
+<li><span class="skript-code-inline">[%livingentities%] (ha(s|ve) not|do[es]n't have) %itemtypes% in off[(-| )]hand</span></li>
+<li><span class="skript-code-inline">[%livingentities%] (is not|isn't) holding %itemtypes% in off[(-| )]hand</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is holdign a specific item. Cannot be used with endermen, use 'entity is [not] an enderman holding &lt;item type&gt;' instead.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is holding a stick
+<br>victim isn't holding a sword of sharpness
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Exists/Is Set" class="item-title">Exists/Is Set</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%~objects% (exist[s]|(is|are) set)</span></li>
+<li><span class="skript-code-inline">%~objects% (do[es](n't| not) exist|(is|are)(n't| not) set)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a given expression or variable is set.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      {teamscript.%player%.preferred team} is not set
+<br>on damage:
+<br>	projectile exists
+<br>	broadcast "%attacker% used a %projectile% to attack %victim%!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Blocking" class="item-title">Is Blocking</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%players% (is|are) (blocking|defending)</span></li>
+<li><span class="skript-code-inline">%players% (isn't|is not|aren't|are not) (blocking|defending)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is blocking with his sword.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      victim is blocking
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Damage Cause" class="item-title">Damage Cause</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] damage (was|is|has)(0¦|1¦n('|o)t) [been] (caused|done|made) by %damagecause%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Tests what kind of damage caused a <a href='../events/#damage'>damage event</a>. Refer to the <a href='../classes/#damagecause'>Damage Cause</a> type for a list of all possible causes.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # make players use their potions of fire resistance whenever they take any kind of fire damage
+<br>on damage:
+<br>	damage was caused by lava, fire or burning
+<br>	victim is a player
+<br>	victim has a potion of fire resistance
+<br>	cancel event
+<br>	apply fire resistance to the victim for 30 seconds
+<br>	remove 1 potion of fire resistance from the victim
+<br># prevent mobs from dropping items under certain circumstances
+<br>on death;
+<br>	entity is not a player
+<br>	damage wasn't caused by a block explosion, an attack, a projectile, a potion, fire, burning, thorns or poison
+<br>	clear drops
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Has Played Before" class="item-title">Has Played Before</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%offlineplayer% [(has|did)] [already] play[ed] [on (this|the) server] (before|already)</span></li>
+<li><span class="skript-code-inline">%offlineplayer% (has not|hasn't|did not|didn't) [(already|yet)] play[ed] [on (this|the) server] (before|already|yet)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player has played on this server before. You can also use <a href='../events/#first_join'>on first join</a> if you want to make triggers for new players.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player has played on this server before
+<br>player hasn't played before
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Riding" class="item-title">Is Riding</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%entities% (is|are) riding [%entitydatas%]</span></li>
+<li><span class="skript-code-inline">%entities% (isn't|is not|aren't|are not) riding [%entitydatas%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Tests whether an entity is riding another or is in a vehicle.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is riding a saddled pig
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Online" class="item-title">Is Online</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%offlineplayers% ((is|are) online|(is not|isn't|are not|aren't) offline)</span></li>
+<li><span class="skript-code-inline">%offlineplayers% ((is|are) offline|(is not|isn't|are not|aren't) online)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is online.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is online
+<br>player-argument is offline
+    </div>
+
+  </div>
+</div>
+
+
+<div id="PvP" class="item-title">PvP</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(is PvP|PvP is) enabled [in %worlds%]</span></li>
+<li><span class="skript-code-inline">(is PvP|PvP is) disabled [in %worlds%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks the PvP state of a world.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      PvP is enabled
+<br>PvP is disabled in "world"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Banned" class="item-title">Is Banned</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%offlineplayers/strings% (is|are) banned</span></li>
+<li><span class="skript-code-inline">%players/strings% (is|are) IP(-| |)banned</span></li>
+<li><span class="skript-code-inline">%offlineplayers/strings% (isn't|is not|aren't|are not) banned</span></li>
+<li><span class="skript-code-inline">%players/strings% (isn't|is not|aren't|are not) IP(-| |)banned</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player or IP is banned.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is banned
+<br>victim is not IP-banned
+<br>"127.0.0.1" is banned
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Can Hold" class="item-title">Can Hold</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%inventories% (can hold|ha(s|ve) [enough] space (for|to hold)) %itemtypes%</span></li>
+<li><span class="skript-code-inline">%inventories% (can(no|')t hold|(ha(s|ve) not|ha(s|ve)n't|do[es]n't have) [enough] space (for|to hold)) %itemtypes%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Tests whether a player or a chest can hold the given item.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      block can hold 200 cobblestone
+<br>player has enough space for 64 feathers
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Burning" class="item-title">Is Burning</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%entities% (is|are) (burning|ignited|on fire)</span></li>
+<li><span class="skript-code-inline">%entities% (isn't|is not|aren't|are not) (burning|ignited|on fire)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an entity is on fire, e.g. a zombie due to being in sunlight, or any entity after falling into lava.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # increased attack against buring targets
+<br>victim is burning:
+<br>	increase damage by 2
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Alive" class="item-title">Is Alive</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%livingentities% (is|are) (1¦alive|0¦dead)</span></li>
+<li><span class="skript-code-inline">%livingentities% (isn't|is not|aren't|are not) (1¦alive|0¦dead)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whetehr an entity is alive. This is mostly useful to check whether an entity stored in a variable does still exist
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      {villagerbuddy.%player%} is dead
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Empty" class="item-title">Is Empty</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%inventories/slots/strings% (is|are) empty</span></li>
+<li><span class="skript-code-inline">%inventories/slots/strings% (isn't|is not|aren't|are not) empty</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an inventory, an inventory slot, or a text is empty.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player's inventory is empty
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Contains" class="item-title">Contains</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%inventories% ha(s|ve) %itemtypes% [in [(the[ir]|his|her|its)] inventory]</span></li>
+<li><span class="skript-code-inline">%inventories/strings/objects% contain[s] %itemtypes/strings/objects%</span></li>
+<li><span class="skript-code-inline">%inventories% do[es](n't| not) have %itemtypes% [in [(the[ir]|his|her|its)] inventory]</span></li>
+<li><span class="skript-code-inline">%inventories/strings/objects% do[es](n't| not) contain %itemtypes/strings/objects%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an inventory contains the given item, a text contains another piece of text, or a list of objects (e.g. a {list variable::*}) contains another object.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      block contains 20 cobblestone
+<br>player has 4 flint and 2 iron ingots
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Flying" class="item-title">Is Flying</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%players% (is|are) flying</span></li>
+<li><span class="skript-code-inline">%players% (isn't|is not|aren't|are not) flying</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is flying
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is not flying
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is in World" class="item-title">Is in World</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%entities% (is|are) in [[the] world[s]] %worlds%</span></li>
+<li><span class="skript-code-inline">%entities% (is not|isn't|are not|aren't) in [[the] world[s]] %worlds%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an entity is in a specific world
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is in "world"
+<br>argument isn't in world "world_nether"
+<br>the player is in the world of the victim
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Poisoned" class="item-title">Is Poisoned</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%livingentities% (is|are) poisoned</span></li>
+<li><span class="skript-code-inline">%livingentities% (isn't|is not|aren't|are not) poisoned</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an entity is poisoned.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is poisoned:
+<br>	cure the player from posion
+<br>	message "You have been cured!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Time" class="item-title">Time</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%date% (was|were)( more|(n't| not) less) than %timespan% [ago]</span></li>
+<li><span class="skript-code-inline">%date% (was|were)((n't| not) more| less) than %timespan% [ago]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Tests whether a given <a href='../classes/#date'>real time</a> was more or less than some <a href='../classes/#timespan'>time span</a> ago.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      command /command_with_cooldown:
+<br>	trigger:
+<br>		{command.%player%.lastused} was less than a minute ago:
+<br>			message "Please wait a minute between uses of this command."
+<br>			stop
+<br>		set {command.%player%.lastused} to now
+<br>		# ... actual command trigger here ...
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Enchanted" class="item-title">Is Enchanted</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%itemtypes% (is|are) enchanted [with %-enchantmenttype%]</span></li>
+<li><span class="skript-code-inline">%itemtypes% (isn't|is not|aren't|are not) enchanted [with %-enchantmenttype%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.6</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an item is enchanted.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      tool of the player is enchanted with efficiency 2
+<br>helm, chestplate, leggings or boots are enchanted
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Has Permission" class="item-title">Has Permission</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[%commandsenders%] (do[es]n't|don't|do[es] not) have [the] permission[s] %strings%</span></li>
+<li><span class="skript-code-inline">[%commandsenders%] ha(s|ve) [the] permission[s] %strings%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Test whether a player has a certain permission.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player has permission "skript.tree"
+<br>victim has the permission "admin":
+<br>	send "You're attacking an admin!" to attacker
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Sprinting" class="item-title">Is Sprinting</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%players% (is|are) sprinting</span></li>
+<li><span class="skript-code-inline">%players% (isn't|is not|aren't|are not) sprinting</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is sprinting
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is not sprinting
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Sneaking" class="item-title">Is Sneaking</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%players% (is|are) sneaking</span></li>
+<li><span class="skript-code-inline">%players% (isn't|is not|aren't|are not) sneaking</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is sneaking
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # prevent mobs from seeing sneaking players if they are at least 4 meters apart
+<br>on target:
+<br>	target is sneaking
+<br>	distance of target and the entity is bigger than 4
+<br>	cancel the event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Chance" class="item-title">Chance</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">chance of %number%(1¦\%|)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A condition that randomly succeeds or fails.
+Valid values are between 0% and 100%, or if the percent sign is omitted between 0 and 1.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      chance of 50%:
+<br>	drop a diamond
+<br>chance of {var}% # {var} between 0 and 100
+<br>chance of {var} # {var} between 0 and 1
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Wearing" class="item-title">Is Wearing</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%livingentities% (is|are) wearing %itemtypes%</span></li>
+<li><span class="skript-code-inline">%livingentities% (isn't|is not|aren't|are not) wearing %itemtypes%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is wearing some armour.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is wearing an iron chestplate and iron leggings
+<br>player is wearing all diamond armour
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Comparison" class="item-title">Comparison</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) ((greater|more|higher|bigger|larger) than|above)|\>) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as)|\>=) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) ((less|smaller) than|below)|\<) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) (less|smaller|below) [than] or (equal to|the same as)|\<=) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects% (2¦)((is|are) (not|4¦neither)|isn't|aren't|!=) [equal to] %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects% (is|are|=) [(equal to|the same as)] %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects% (is|are) between %objects% and %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects% (2¦)(is not|are not|isn't|aren't) between %objects% and %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) ((greater|more|higher|bigger|larger) than|above) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) ((less|smaller) than|below) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) (less|smaller|below) [than] or (equal to|the same as) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@-1% (2¦)((was|were) (not|4¦neither)|wasn't|weren't) [equal to] %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@-1% (was|were) [(equal to|the same as)] %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@-1% (was|were) between %objects% and %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@-1% (2¦)(was not|were not|wasn't|weren't) between %objects% and %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) ((greater|more|higher|bigger|larger) than|above) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) ((less|smaller) than|below) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) (less|smaller|below) [than] or (equal to|the same as) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@1% (2¦)((will (not|4¦neither) be|won't be)|(isn't|aren't|is not|are not) (turning|changing) [in]to) [equal to] %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@1% (will be [(equal to|the same as)]|(is|are) (turning|changing) [in]to) %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@1% will be between %objects% and %objects%</span></li>
+<li><span class="skript-code-inline">(1¦neither|) %objects@1% (2¦)(will not be|won't be) between %objects% and %objects%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A very general condition, it simply compares two values. Usually you can only compare for equality (e.g. block is/isn't of &lt;type&gt;), but some values can also be compared using greater than/less than. In that case you can also test for whether an object is between two others.
+Note: This is the only element where not all patterns are shown. It has actually another two sets of similar patters, but with <code>(was|were)</code> or <code>will be</code> instead of <code>(is|are)</code> respectively, which check different <a href='../expressions/#ExprTimeState'>time states</a> of the first expression.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      the clicked block is a stone slab or a double stone slab
+<br>time in the player's world is greater than 8:00
+<br>the creature is not an enderman or an ender dragon
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Sleeping" class="item-title">Is Sleeping</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%players% (is|are) sleeping</span></li>
+<li><span class="skript-code-inline">%players% (isn't|is not|aren't|are not) sleeping</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is sleeping.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # cut your enemies' throats in their sleep >=)
+<br>on attack:
+<br>	attacker is holding a sword
+<br>	victim is sleeping
+<br>	increase the damage by 1000
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is of Type" class="item-title">Is of Type</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%itemstacks/entities% (is|are) of type[s] %itemtypes/entitydatas%</span></li>
+<li><span class="skript-code-inline">%itemstacks/entities% (isn't|is not|aren't|are not) of type[s] %itemtypes/entitydatas%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an item of entity is of the given type. This is mostly useful for variables, as you can use the general 'is' condition otherwise (e.g. 'victim is a creeper').
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      tool is of type {*selected type}
+<br>victim is of type {villager type}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Weather" class="item-title">Weather</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">is %weathertypes% [in %worlds%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether the weather in a world is of a specific type.
+<i>I welcome any ideas how to write this condition differently.</i>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      is thundering
+<br>is raining in "world" or "world2"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Is Member/Owner of Region" class="item-title">Is Member/Owner of Region</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%offlineplayers% (is|are) (0¦[a] member|1¦[(the|an)] owner) of [[the] region] %regions%</span></li>
+<li><span class="skript-code-inline">%offlineplayers% (is|are)(n't| not) (0¦[a] member|1¦[(the|an)] owner) of [[the] region] %regions%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is a member or owner of a particular region.
+This condition requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on region enter:
+<br>	player is the owner of the region
+<br>	message "Welcome back to %region%!"
+<br>	send "%player% just entered %region%!" to all members of the region
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Can Build" class="item-title">Can Build</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%players% (can|(is|are) allowed to) build %directions% %locations%</span></li>
+<li><span class="skript-code-inline">%players% (can('t|not)|(is|are)(n't| not) allowed to) build %directions% %locations%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Tests whether a player is allowed to build at a certain location.
+This condition requires a supported <a href='../classes/#region'>regions</a> plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      command /setblock <material>:
+<br>	description: set the block at your crosshair to a different type
+<br>	trigger:
+<br>		player cannot build at the targeted block:
+<br>			message "You do not have permission to change blocks there!"
+<br>			stop
+<br>		set the targeted block to argument
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Region Contains" class="item-title">Region Contains</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[[the] region] %regions% contain[s] %directions% %locations%</span></li>
+<li><span class="skript-code-inline">%locations% (is|are) ([contained] in|part of) [[the] region] %regions%</span></li>
+<li><span class="skript-code-inline">[[the] region] %regions% (do|does)(n't| not) contain %directions% %locations%</span></li>
+<li><span class="skript-code-inline">%locations% (is|are)(n't| not) (contained in|part of) [[the] region] %regions%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a location is contained in a particular <a href='../classes/#region'>region</a>.
+This condition requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is in the region {regions::3}
+<br>on region enter:
+<br>	region contains {flags.%world%.red}
+<br>	message "The red flag is near!"
+    </div>
+
+  </div>
+</div>
+
+
+    </div>
+    <!-- other things are inserted here -->
+</body>
+</html>
