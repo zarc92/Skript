@@ -20,7 +20,7 @@
 
 
 
-<div id="On Server Start/Stop" class="item-title">On Server Start/Stop</div>
+<div id="At Time" class="item-title">At Time</div>
 <div class="item-content">
   <table>
 
@@ -28,8 +28,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(0Â¦server|1Â¦skript) (start|load|enable)</span></li>
-<li><span class="skript-code-inline">(0Â¦server|1Â¦skript) (stop|unload|disable)</span></li>
+          <li><span class="skript-code-inline">at %time% [in %worlds%]</span></li>
 
         </ul>
       </td>
@@ -37,13 +36,13 @@
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0</td>
+      <td>1.3.4</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when the server starts or stops (actually, when Skript starts or stops, so a /reload will trigger these events as well).
+    An event that occurs at a given <a href='../classes/#time'>minecraft time</a> in every world or only in specific worlds.
   </div>
 
   <div class="item-examples">
@@ -51,8 +50,8 @@
     Examples:
 
     <div class="skript-code-block">
-      on Skript start
-<br>on server stop
+      at 18:00
+<br>at 7am in "world"
     </div>
 
   </div>
@@ -67,7 +66,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[block] (break[ing]|1Â¦min(e|ing)) [[of] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">[block] (break[ing]|1¦min(e|ing)) [[of] %itemtypes%]</span></li>
 
         </ul>
       </td>
@@ -249,7 +248,7 @@
 </div>
 
 
-<div id="On Block Growth" class="item-title">On Block Growth</div>
+<div id="On Chat" class="item-title">On Chat</div>
 <div class="item-content">
   <table>
 
@@ -257,7 +256,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(plant|crop|block) grow[(th|ing)] [[of] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">chat</span></li>
 
         </ul>
       </td>
@@ -265,13 +264,13 @@
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-Fixes-V10</td>
+      <td>1.4.1</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a crop grows.
+    Called whenever a player chats.
   </div>
 
   <div class="item-examples">
@@ -279,7 +278,127 @@
     Examples:
 
     <div class="skript-code-block">
-      on crop growth
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Click" class="item-title">On Click</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(1¦right|2¦left)(| |-)][mouse(| |-)]click[ing] [on %-entitydata/itemtype%] [(with|using|holding) %itemtype%]</span></li>
+<li><span class="skript-code-inline">[(1¦right|2¦left)(| |-)][mouse(| |-)]click[ing] (with|using|holding) %itemtype% on %entitydata/itemtype%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a user clicks on a block, an entity or air with or without an item in their hand.
+Please note that rightclick events with an empty hand while not looking at a block are not sent to the server, so there's no way to detect them.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on click
+<br>on rightclick holding a fishing rod
+<br>on leftclick on a stone or obsidian
+<br>on rightclick on a creeper
+<br>on click with a sword
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Command" class="item-title">On Command</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">command [%-string%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player enters a command (not neccessarily a Skript command).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on command
+<br>on command "/stop"
+<br>on command "pm Njol "
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Damage" class="item-title">On Damage</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">damag(e|ing) [of %entitydata%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity receives damage, e.g. by an attack from another entity, lava, fire, drowning, fall, suffocation, etc.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on damage
+<br>on damage of a player
     </div>
 
   </div>
@@ -365,7 +484,7 @@
 </div>
 
 
-<div id="On Damage" class="item-title">On Damage</div>
+<div id="On Enderman/Sheep" class="item-title">On Enderman/Sheep</div>
 <div class="item-content">
   <table>
 
@@ -373,7 +492,9 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">damag(e|ing) [of %entitydata%]</span></li>
+          <li><span class="skript-code-inline">enderman place</span></li>
+<li><span class="skript-code-inline">enderman pickup</span></li>
+<li><span class="skript-code-inline">sheep eat</span></li>
 
         </ul>
       </td>
@@ -381,51 +502,13 @@
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.0</td>
+      <td></td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when an entity receives damage, e.g. by an attack from another entity, lava, fire, drowning, fall, suffocation, etc.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on damage
-<br>on damage of a player
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On Chat" class="item-title">On Chat</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">chat</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.1</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called whenever a player chats.
+    Called when an enderman places or picks up a block, or a sheep eats grass respectively.
   </div>
 
   <div class="item-examples">
@@ -434,45 +517,6 @@
 
     <div class="skript-code-block">
       
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On Grow" class="item-title">On Grow</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">grow [of %-structuretype%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a tree or giant mushroom grows to full size.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on grow
-<br>on grow of a tree
-<br>on grow of a huge jungle tree
     </div>
 
   </div>
@@ -503,6 +547,84 @@
 
   <div class="item-description">
     Called when a mob starts/stops following/attacking another entity, usually a player.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Experience Spawn" class="item-title">On Experience Spawn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[e]xp[erience] [orb] spawn</span></li>
+<li><span class="skript-code-inline">spawn of [a[n]] [e]xp[erience] [orb]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called whenever experience is about to spawn. This is a helper event for easily being able to stop xp from spawning, as all you can currently do is cancel the event.
+Please note that it's impossible to detect xp orbs spawned by plugins (including Skript) with Bukkit, thus make sure that you have no such plugins if you don't want any xp orbs to spawn. (Many plugins that only <i>change</i> the experience dropped by blocks or entities will be detected without problems though)
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on xp spawn:
+<br>	world is "minigame_world"
+<br>	cancel event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On First Join" class="item-title">On First Join</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">first (join|login)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3.7</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player joins the server for the first time.
   </div>
 
   <div class="item-examples">
@@ -549,6 +671,379 @@
     <div class="skript-code-block">
       on gamemode change
 <br>on gamemode change to adventure
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Grow" class="item-title">On Grow</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">grow [of (1¦%-structuretype%|2¦%-itemtype%)]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0 (2.2-dev20 for plants)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a tree, giant mushroom or plant grows to next stage.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on grow
+<br>on grow of a tree
+<br>on grow of a huge jungle tree
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Dispense" class="item-title">On Dispense</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">dispens(e|ing) [[of] %itemtypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a dispenser dispenses an item.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Item Spawn" class="item-title">On Item Spawn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">item spawn[ing] [[of] %itemtypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called whenever an item stack is spawned in a world, e.g. as drop of a block or mob, a player throwing items out of his inventory, or a dispenser dispensing an item (not shooting it).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Drop" class="item-title">On Drop</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] drop[ing] [[of] %itemtypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player drops an item from his inventory.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Craft" class="item-title">On Craft</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] craft[ing] [[of] %itemtypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player crafts an item.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Prepare Craft" class="item-title">On Prepare Craft</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] (preparing|beginning) craft[ing] [[of] %itemtypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-Fixes-V10</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called just before displaying crafting result to player. Note that setting the result item might or might not work due to Bukkit bugs.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Pick Up" class="item-title">On Pick Up</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] (pick[ ]up|picking up) [[of] %itemtypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player picks up an item. Please note that the item is still on the ground when this event is called.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Consume" class="item-title">On Consume</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] ((eat|drink)[ing]|consum(e|ing)) [[of] %itemtypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player is done eating/drinking something, e.g. an apple, bread, meat, milk or a potion.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Inventory Click" class="item-title">On Inventory Click</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] inventory(-| )click[ing] [[at] %itemtypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-Fixes-V10</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when clicking on inventory slot.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Move On" class="item-title">On Move On</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(step|walk)[ing] (on|over) %*itemtypes%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player moves onto a certain type of block. Please note that using this event can cause lag if there are many players online.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on walking on dirt or grass
+<br>on stepping on stone
     </div>
 
   </div>
@@ -632,7 +1127,7 @@
 </div>
 
 
-<div id="On Experience Spawn" class="item-title">On Experience Spawn</div>
+<div id="On Pressure Plate / Trip" class="item-title">On Pressure Plate / Trip</div>
 <div class="item-content">
   <table>
 
@@ -640,8 +1135,46 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[e]xp[erience] [orb] spawn</span></li>
-<li><span class="skript-code-inline">spawn of [a[n]] [e]xp[erience] [orb]</span></li>
+          <li><span class="skript-code-inline">[step[ping] on] [a] [pressure] plate</span></li>
+<li><span class="skript-code-inline">(trip|[step[ping] on] [a] tripwire)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0 (pressure plate), 1.4.4 (tripwire)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a <i>player</i> steps on a pressure plate or tripwire respectively.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Script Load/Unload" class="item-title">On Script Load/Unload</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[script] (load|init|enable)</span></li>
+<li><span class="skript-code-inline">[script] (unload|stop|disable)</span></li>
 
         </ul>
       </td>
@@ -655,8 +1188,7 @@
   </table>
 
   <div class="item-description">
-    Called whenever experience is about to spawn. This is a helper event for easily being able to stop xp from spawning, as all you can currently do is cancel the event.
-Please note that it's impossible to detect xp orbs spawned by plugins (including Skript) with Bukkit, thus make sure that you have no such plugins if you don't want any xp orbs to spawn. (Many plugins that only <i>change</i> the experience dropped by blocks or entities will be detected without problems though)
+    Called directly after the trigger is loaded, or directly before the whole script is unloaded.
   </div>
 
   <div class="item-examples">
@@ -664,9 +1196,87 @@ Please note that it's impossible to detect xp orbs spawned by plugins (including
     Examples:
 
     <div class="skript-code-block">
-      on xp spawn:
-<br>	world is "minigame_world"
-<br>	cancel event
+      on load:
+<br>	set {running.%script%} to true
+<br>on unload:
+<br>	set {running.%script%} to false
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Server Start/Stop" class="item-title">On Server Start/Stop</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(0¦server|1¦skript) (start|load|enable)</span></li>
+<li><span class="skript-code-inline">(0¦server|1¦skript) (stop|unload|disable)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when the server starts or stops (actually, when Skript starts or stops, so a /reload will trigger these events as well).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on Skript start
+<br>on server stop
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Weather Change" class="item-title">On Weather Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">weather change [to %weathertypes%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a world's weather changes.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on weather change
+<br>on weather change to sunny
     </div>
 
   </div>
@@ -2966,7 +3576,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Pressure Plate / Trip" class="item-title">On Pressure Plate / Trip</div>
+<div id="On EventVehicleSteer" class="item-title">On EventVehicleSteer</div>
 <div class="item-content">
   <table>
 
@@ -2974,8 +3584,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[step[ping] on] [a] [pressure] plate</span></li>
-<li><span class="skript-code-inline">(trip|[step[ping] on] [a] tripwire)</span></li>
+          <li><span class="skript-code-inline">vehicle (steer|button press)</span></li>
 
         </ul>
       </td>
@@ -2983,13 +3592,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.0 (pressure plate), 1.4.4 (tripwire)</td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a <i>player</i> steps on a pressure plate or tripwire respectively.
+    
   </div>
 
   <div class="item-examples">
@@ -3004,7 +3613,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Move On" class="item-title">On Move On</div>
+<div id="On EventResourcePackStatus" class="item-title">On EventResourcePackStatus</div>
 <div class="item-content">
   <table>
 
@@ -3012,7 +3621,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(step|walk)[ing] (on|over) %*itemtypes%</span></li>
+          <li><span class="skript-code-inline">resource pack (status|response)</span></li>
 
         </ul>
       </td>
@@ -3020,51 +3629,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0</td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a player moves onto a certain type of block. Please note that using this event can cause lag if there are many players online.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on walking on dirt or grass
-<br>on stepping on stone
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On Dispense" class="item-title">On Dispense</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">dispens(e|ing) [[of] %itemtypes%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a dispenser dispenses an item.
+    
   </div>
 
   <div class="item-examples">
@@ -3079,7 +3650,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Item Spawn" class="item-title">On Item Spawn</div>
+<div id="On On Inventory Open" class="item-title">On On Inventory Open</div>
 <div class="item-content">
   <table>
 
@@ -3087,7 +3658,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">item spawn[ing] [[of] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">inventory open</span></li>
 
         </ul>
       </td>
@@ -3095,13 +3666,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td></td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called whenever an item stack is spawned in a world, e.g. as drop of a block or mob, a player throwing items out of his inventory, or a dispenser dispensing an item (not shooting it).
+    
   </div>
 
   <div class="item-examples">
@@ -3116,7 +3687,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Drop" class="item-title">On Drop</div>
+<div id="On On Break Of Item" class="item-title">On On Break Of Item</div>
 <div class="item-content">
   <table>
 
@@ -3124,7 +3695,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[player] drop[ing] [[of] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">item break</span></li>
 
         </ul>
       </td>
@@ -3132,13 +3703,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td></td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a player drops an item from his inventory.
+    
   </div>
 
   <div class="item-examples">
@@ -3153,7 +3724,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Craft" class="item-title">On Craft</div>
+<div id="On Item Despawn" class="item-title">On Item Despawn</div>
 <div class="item-content">
   <table>
 
@@ -3161,7 +3732,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[player] craft[ing] [[of] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">item (despawn|despawning)</span></li>
 
         </ul>
       </td>
@@ -3169,13 +3740,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td></td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a player crafts an item.
+    
   </div>
 
   <div class="item-examples">
@@ -3190,7 +3761,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Prepare Craft" class="item-title">On Prepare Craft</div>
+<div id="On EventNamedSound" class="item-title">On EventNamedSound</div>
 <div class="item-content">
   <table>
 
@@ -3198,7 +3769,8 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[player] (preparing|beginning) craft[ing] [[of] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">[named] sound [(trigger|play)]</span></li>
+<li><span class="skript-code-inline">player hear sound</span></li>
 
         </ul>
       </td>
@@ -3206,13 +3778,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-Fixes-V10</td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called just before displaying crafting result to player. Note that setting the result item might or might not work due to Bukkit bugs.
+    
   </div>
 
   <div class="item-examples">
@@ -3227,7 +3799,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Pick Up" class="item-title">On Pick Up</div>
+<div id="On EventStatistics" class="item-title">On EventStatistics</div>
 <div class="item-content">
   <table>
 
@@ -3235,7 +3807,8 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[player] (pick[ ]up|picking up) [[of] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">statistic[s] (increment|increase)</span></li>
+<li><span class="skript-code-inline">statistic[s] (increment|increase) of %statistic%</span></li>
 
         </ul>
       </td>
@@ -3243,13 +3816,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td></td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a player picks up an item. Please note that the item is still on the ground when this event is called.
+    
   </div>
 
   <div class="item-examples">
@@ -3264,7 +3837,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Consume" class="item-title">On Consume</div>
+<div id="On EventFishingState" class="item-title">On EventFishingState</div>
 <div class="item-content">
   <table>
 
@@ -3272,7 +3845,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[player] ((eat|drink)[ing]|consum(e|ing)) [[of] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">[fishing] state of %fishingstate%</span></li>
 
         </ul>
       </td>
@@ -3280,13 +3853,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0</td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a player is done eating/drinking something, e.g. an apple, bread, meat, milk or a potion.
+    
   </div>
 
   <div class="item-examples">
@@ -3301,7 +3874,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Inventory Click" class="item-title">On Inventory Click</div>
+<div id="On WorldEdit block change" class="item-title">On WorldEdit block change</div>
 <div class="item-content">
   <table>
 
@@ -3309,7 +3882,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[player] inventory(-| )click[ing] [[at] %itemtypes%]</span></li>
+          <li><span class="skript-code-inline">world[ ]edit [block] (chang(e|ing)|edit[ing])</span></li>
 
         </ul>
       </td>
@@ -3317,288 +3890,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-Fixes-V10</td>
+      <td>unknown</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when clicking on inventory slot.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On Enderman/Sheep" class="item-title">On Enderman/Sheep</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">enderman place</span></li>
-<li><span class="skript-code-inline">enderman pickup</span></li>
-<li><span class="skript-code-inline">sheep eat</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an enderman places or picks up a block, or a sheep eats grass respectively.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On Script Load/Unload" class="item-title">On Script Load/Unload</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[script] (load|init|enable)</span></li>
-<li><span class="skript-code-inline">[script] (unload|stop|disable)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called directly after the trigger is loaded, or directly before the whole script is unloaded.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on load:
-<br>	set {running.%script%} to true
-<br>on unload:
-<br>	set {running.%script%} to false
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On Command" class="item-title">On Command</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">command [%-string%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player enters a command (not neccessarily a Skript command).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on command
-<br>on command "/stop"
-<br>on command "pm Njol "
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On Click" class="item-title">On Click</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[(1Â¦right|2Â¦left)(| |-)][mouse(| |-)]click[ing] [on %-entitydata/itemtype%] [(with|using|holding) %itemtype%]</span></li>
-<li><span class="skript-code-inline">[(1Â¦right|2Â¦left)(| |-)][mouse(| |-)]click[ing] (with|using|holding) %itemtype% on %entitydata/itemtype%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a user clicks on a block, an entity or air with or without an item in their hand.
-Please note that rightclick events with an empty hand while not looking at a block are not sent to the server, so there's no way to detect them.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on click
-<br>on rightclick holding a fishing rod
-<br>on leftclick on a stone or obsidian
-<br>on rightclick on a creeper
-<br>on click with a sword
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On Weather Change" class="item-title">On Weather Change</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">weather change [to %weathertypes%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a world's weather changes.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on weather change
-<br>on weather change to sunny
-    </div>
-
-  </div>
-</div>
-
-
-<div id="At Time" class="item-title">At Time</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">at %time% [in %worlds%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.3.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    An event that occurs at a given <a href='../classes/#time'>minecraft time</a> in every world or only in specific worlds.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      at 18:00
-<br>at 7am in "world"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="On First Join" class="item-title">On First Join</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">first (join|login)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.3.7</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player joins the server for the first time.
+    
   </div>
 
   <div class="item-examples">
@@ -3621,8 +3919,8 @@ Please note that rightclick events with an empty hand while not looking at a blo
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(0Â¦enter[ing]|1Â¦leav(e|ing)|1Â¦exit[ing]) [of] ([a] region|[[the] region] %-regions%)</span></li>
-<li><span class="skript-code-inline">region (0Â¦enter[ing]|1Â¦leav(e|ing)|1Â¦exit[ing])</span></li>
+          <li><span class="skript-code-inline">(0¦enter[ing]|1¦leav(e|ing)|1¦exit[ing]) [of] ([a] region|[[the] region] %-regions%)</span></li>
+<li><span class="skript-code-inline">region (0¦enter[ing]|1¦leav(e|ing)|1¦exit[ing])</span></li>
 
         </ul>
       </td>
