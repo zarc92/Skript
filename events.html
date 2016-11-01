@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
 <head>
-    <title>Skript Documentation - 2.2-dev19</title>
+    <meta charset="UTF-8">
+    <title>Skript Documentation - 2.2-dev21</title>
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -249,43 +250,6 @@
 </div>
 
 
-<div id="On Block Growth" class="item-title">On Block Growth</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(plant|crop|block) grow[(th|ing)] [[of] %itemtypes%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-Fixes-V10</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a crop grows.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on crop growth
-    </div>
-
-  </div>
-</div>
-
-
 <div id="On Death" class="item-title">On Death</div>
 <div class="item-content">
   <table>
@@ -448,7 +412,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">grow [of %-structuretype%]</span></li>
+          <li><span class="skript-code-inline">grow [of (1¦%-structuretype%|2¦%-itemtype%)]</span></li>
 
         </ul>
       </td>
@@ -456,13 +420,13 @@
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.0</td>
+      <td>1.0 (2.2-dev20 for plants)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a tree or giant mushroom grows to full size.
+    Called when a tree, giant mushroom or plant grows to next stage.
   </div>
 
   <div class="item-examples">
@@ -2929,7 +2893,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="On Armor Stand Manipulation" class="item-title">On Armor Stand Manipulation</div>
+<div id="On Gliding State Change" class="item-title">On Gliding State Change</div>
 <div class="item-content">
   <table>
 
@@ -2937,7 +2901,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">armor stand manipulat(e|ion)</span></li>
+          <li><span class="skript-code-inline">(gliding state change|toggling gliding)</span></li>
 
         </ul>
       </td>
@@ -2945,13 +2909,13 @@ World management plugins might change the behaviour of this event though.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-dev19</td>
+      <td>2.2-dev21</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when player tries to edit contents of the armor stand. Usually this happens by clicking it.
+    Called when an entity toggles glider on or off, or when server toggles gliding state of an entity forcibly.
   </div>
 
   <div class="item-examples">
@@ -2959,7 +2923,156 @@ World management plugins might change the behaviour of this event though.
     Examples:
 
     <div class="skript-code-block">
-      on armor stand manipulation
+      on toggling gliding:
+<br>	cancel the event # bad idea, but you CAN do it!
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On AoE Cloud Effect" class="item-title">On AoE Cloud Effect</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(area effect|AoE cloud) effect</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when area effect cloud applies it's potion effect. This happens every 5 ticks by default.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Sheep Regrow Wool" class="item-title">On Sheep Regrow Wool</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">sheep [re]grow[ing] wool</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when sheep regrows it's sheared wool back.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Inventory Open" class="item-title">On Inventory Open</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">inventory open[ed]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an inventory is opened for player.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="On Inventory Close" class="item-title">On Inventory Close</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">inventory close[d]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when player's currently viewed inventory is closed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
     </div>
 
   </div>

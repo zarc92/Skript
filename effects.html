@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
 <head>
-    <title>Skript Documentation - 2.2-dev19</title>
+    <meta charset="UTF-8">
+    <title>Skript Documentation - 2.2-dev21</title>
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -131,6 +132,44 @@
     <div class="skript-code-block">
       teleport the player to {homes.%player%}
 <br>teleport the attacker to the victim
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Force Respawn" class="item-title">Force Respawn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">force %players% to respawn</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Forces player(s) to respawn if they are dead. If this is called without delay from death event, one tick is waited before respawn attempt.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on death of player:
+<br>	force event-player to respawn
     </div>
 
   </div>
@@ -504,8 +543,8 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">replace (all|every|) %strings% in %string% with %string%</span></li>
-<li><span class="skript-code-inline">replace (all|every|) %strings% with %string% in %string%</span></li>
+          <li><span class="skript-code-inline">replace (all|every|) %strings% in %string% with %strings%</span></li>
+<li><span class="skript-code-inline">replace (all|every|) %strings% with %string% in %strings%</span></li>
 
         </ul>
       </td>

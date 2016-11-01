@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
 <head>
-    <title>Skript Documentation - 2.2-dev19</title>
+    <meta charset="UTF-8">
+    <title>Skript Documentation - 2.2-dev21</title>
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -1126,6 +1127,43 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
     <div class="skript-code-block">
       execute console command "/stop"
 <br>send "message to console" to the console
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Click Action" class="item-title">Click Action</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] click action</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev20</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#inventoryaction'>click action</a> of an inventory event. Please click on the link for more information.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      click action is left mouse button
     </div>
 
   </div>
@@ -2402,6 +2440,44 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
+<div id="Gravity" class="item-title">Gravity</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] gravity of %entities%</span></li>
+<li><span class="skript-code-inline">%entities%'[s] gravity</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    If entity is affected by gravity or not, i.e. if it has Minecraft 1.10+ NoGravity flag.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set gravity of player off
+    </div>
+
+  </div>
+</div>
+
+
 <div id="Bed" class="item-title">Bed</div>
 <div class="item-content">
   <table>
@@ -3616,6 +3692,44 @@ Note 2: If you don't specify whether to use the past or future state of an expre
 </div>
 
 
+<div id="Unix Timestamp" class="item-title">Unix Timestamp</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [unix] time[stamp] of %dates%</span></li>
+<li><span class="skript-code-inline">%dates%'[s] [unix] time[stamp]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev20</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Converts real world date to Unix timestamp (yyyy-MM-dd HH:mm:ss z).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      unix time of now
+    </div>
+
+  </div>
+</div>
+
+
 <div id="Furnace Slot" class="item-title">Furnace Slot</div>
 <div class="item-content">
   <table>
@@ -4406,6 +4520,44 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
+<div id="Gliding State" class="item-title">Gliding State</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (gliding|glider) [state] of %entities%</span></li>
+<li><span class="skript-code-inline">%entities%'[s] (gliding|glider) [state]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Sets of gets gliding state of player. It allows you to set gliding state of entity even if they do not have <a href="http://minecraft.gamepedia.com/Elytra">Elytra</a> equipped.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set gliding of player to off
+    </div>
+
+  </div>
+</div>
+
+
 <div id="Location" class="item-title">Location</div>
 <div class="item-content">
   <table>
@@ -4463,13 +4615,13 @@ Please note that the location of an entity is at it's feet, use <a href='#ExprEy
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name)</td>
+      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name), 2.2-dev20 (inventory name)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item or <a href='../classes/#livingentity'>a living entity</a>.
+    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item, en entity or an inventory.
 The differences between the different names are:
 <ul>
 <li>name: Minecraft account name of a player (unmodifiable), or the custom name of an item or mob (modifiable).</li>
@@ -4502,8 +4654,8 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (1¦)(display|nick|chat)[ ]name[s] of %itemstacks/slots/livingentities/players%</span></li>
-<li><span class="skript-code-inline">%itemstacks/slots/livingentities/players%'[s] (1¦)(display|nick|chat)[ ]name[s]</span></li>
+          <li><span class="skript-code-inline">[the] (1¦)(display|nick|chat)[ ]name[s] of %itemstacks/slots/livingentities/players/inventories%</span></li>
+<li><span class="skript-code-inline">%itemstacks/slots/livingentities/players/inventories%'[s] (1¦)(display|nick|chat)[ ]name[s]</span></li>
 
         </ul>
       </td>
@@ -4511,13 +4663,13 @@ The differences between the different names are:
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name)</td>
+      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name), 2.2-dev20 (inventory name)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item or <a href='../classes/#livingentity'>a living entity</a>.
+    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item, en entity or an inventory.
 The differences between the different names are:
 <ul>
 <li>name: Minecraft account name of a player (unmodifiable), or the custom name of an item or mob (modifiable).</li>
@@ -4550,8 +4702,8 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (0¦)name[s] of %itemstacks/slots/livingentities/players%</span></li>
-<li><span class="skript-code-inline">%itemstacks/slots/livingentities/players%'[s] (0¦)name[s]</span></li>
+          <li><span class="skript-code-inline">[the] (0¦)name[s] of %itemstacks/slots/livingentities/players/inventories%</span></li>
+<li><span class="skript-code-inline">%itemstacks/slots/livingentities/players/inventories%'[s] (0¦)name[s]</span></li>
 
         </ul>
       </td>
@@ -4559,13 +4711,13 @@ The differences between the different names are:
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name)</td>
+      <td>1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name), 2.2-dev20 (inventory name)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item or <a href='../classes/#livingentity'>a living entity</a>.
+    Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item, en entity or an inventory.
 The differences between the different names are:
 <ul>
 <li>name: Minecraft account name of a player (unmodifiable), or the custom name of an item or mob (modifiable).</li>
