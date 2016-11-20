@@ -1,84 +1,85 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
-apply plugin: 'java'
-apply plugin: 'maven'
-
-repositories {
-	jcenter()
-
-	maven {
-		url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'maven'
+	
+	repositories {
+		jcenter()
+	
+		maven {
+			url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+		}
+	
+		maven {
+			url 'https://oss.sonatype.org/content/groups/public/'
+		}
+	
+		maven {
+			url 'http://maven.elmakers.com/repository/'
+		}
+	
+		maven {
+			url 'http://maven.sk89q.com/repo'
+		}
+	
+	//	maven {
+	//		url 'http://nexus.theyeticave.net/content/repositories/pub_releases'
+	//	}
 	}
 
-	maven {
-		url 'https://oss.sonatype.org/content/groups/public/'
+	dependencies {
+		compile 'org.spigotmc:spigot-api:1.11-R0.1-SNAPSHOT'
+		compile 'org.eclipse.jdt:org.eclipse.jdt.annotation:1.1.0'
+		compile 'com.google.code.findbugs:findbugs:2.0.3'
+		compile 'de.slikey:EffectLib:5.0'
+		compile 'com.sk89q:worldguard:6.1.1-SNAPSHOT'
+		compile 'net.milkbowl.vault:Vault:1.5.3'
+	
+		testCompile 'junit:junit:4.12'
+		testCompile 'org.easymock:easymock:3.4'
+	
+		compile fileTree(dir: 'lib', include: '*.jar')
 	}
-
-	maven {
-		url 'http://maven.elmakers.com/repository/'
+	
+	configurations.all {
+		resolutionStrategy.dependencySubstitution {
+			substitute module('org.bukkit:bukkit') with module('org.spigotmc:spigot-api:1.11.2-R0.1-SNAPSHOT')
+		}
 	}
-
-	maven {
-		url 'http://maven.sk89q.com/repo'
+	
+	processResources {
+		filter ReplaceTokens, tokens: [
+			"version" : project.property("version")
+		]
 	}
-
-//	maven {
-//		url 'http://nexus.theyeticave.net/content/repositories/pub_releases'
-//	}
-}
-
-dependencies {
-	compile 'org.spigotmc:spigot-api:1.11-R0.1-SNAPSHOT'
-	compile 'org.eclipse.jdt:org.eclipse.jdt.annotation:1.1.0'
-	compile 'com.google.code.findbugs:findbugs:2.0.3'
-	compile 'de.slikey:EffectLib:5.0'
-	compile 'com.sk89q:worldguard:6.1.1-SNAPSHOT'
-	compile 'net.milkbowl.vault:Vault:1.5.3'
-
-	testCompile 'junit:junit:4.12'
-	testCompile 'org.easymock:easymock:3.4'
-
-	compile fileTree(dir: 'lib', include: '*.jar')
-}
-
-configurations.all {
-	resolutionStrategy.dependencySubstitution {
-		substitute module('org.bukkit:bukkit') with module('org.spigotmc:spigot-api:1.10.2-R0.1-SNAPSHOT')
+	
+	jar {
+		archiveName 'Skript.jar'
 	}
-}
-
-processResources {
-	filter ReplaceTokens, tokens: [
-		"version" : project.property("version")
-	]
-}
-
-jar {
-	archiveName 'Skript.jar'
-}
-
-configurations {
-	ecj
-}
-
-dependencies {
-	ecj 'org.eclipse.jdt.core.compiler:ecj:4.6.1'
-}
-
-compileJava {
-	options.fork = true
-	options.encoding = 'UTF-8'
-	options.compilerArgs = ['-properties', '.settings/org.eclipse.jdt.core.prefs', '-encoding', 'UTF-8']
-	options.forkOptions.with {
-		executable = 'java'
-		jvmArgs = ['-classpath', project.configurations.ecj.asPath, 'org.eclipse.jdt.internal.compiler.batch.Main']
+	
+	configurations {
+		ecj
+	}
+	
+	dependencies {
+		ecj 'org.eclipse.jdt.core.compiler:ecj:4.6.1'
+	}
+	
+	compileJava {
+		options.fork = true
+		options.encoding = 'UTF-8'
+		options.compilerArgs = ['-properties', '.settings/org.eclipse.jdt.core.prefs', '-encoding', 'UTF-8']
+		options.forkOptions.with {
+			executable = 'java'
+			jvmArgs = ['-classpath', project.configurations.ecj.asPath, 'org.eclipse.jdt.internal.compiler.batch.Main']
+		}
+	}
+	
+	uploadArchives {
+	    repositories.mavenDeployer {
+	        pom.groupId = "ch.njol"
+	        repository(url: "file:///itemapi_repo/")
+	    }
 	}
 }
-
-uploadArchives {
-    repositories.mavenDeployer {
-        pom.groupId = "ch.njol"
-        repository(url: "file:///itemapi_repo/")
-    }
-}
-
