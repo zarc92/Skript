@@ -1,4 +1,11 @@
+*/target
+*/dep
+*/build
+*/.gradle
+*/bin
 /target
 /dep
-/build/
-/.gradle/
+/build
+/.gradle
+/bin
+/Combined

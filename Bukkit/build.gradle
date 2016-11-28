@@ -1,3 +1,16 @@
+dependencies {
+	compile 'org.spigotmc:spigot-api:1.11-R0.1-SNAPSHOT'
+	compile 'de.slikey:EffectLib:5.0'
+	compile 'com.sk89q:worldguard:6.1.1-SNAPSHOT'
+	compile 'net.milkbowl.vault:Vault:1.5.3'
+
+	testCompile 'junit:junit:4.12'
+	testCompile 'org.easymock:easymock:3.4'
+
+	compile fileTree(dir: '../lib', include: '*.jar')
+	compile project(':Yggdrasil')
+}
+
 configurations {
 	ecj
 }

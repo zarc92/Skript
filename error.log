@@ -1,0 +1,1982 @@
+----------
+1. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffLog.java (at line 105)
+	final File f = new File(logsFolder, s); // REMIND what if s contains '..'?
+	                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND what if s contains '..'?
+----------
+----------
+2. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffIgnite.java (at line 105)
+	return "set " + entities.toString(e, debug) + " on fire for " + (duration != null ? duration.toString(e, debug) : Timespan.fromTicks(DEFAULT_DURATION).toString());
+	                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method fromTicks(int) from the type Timespan is deprecated
+----------
+----------
+3. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/IndeterminateDelay.java (at line 57)
+	}, d.getTicks());
+	     ^^^^^^^^^^
+The method getTicks() from the type Timespan is deprecated
+----------
+----------
+4. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffExit.java (at line 58)
+	public class EffExit extends Effect { // TODO [code style] warn user about code after a stop effect
+	                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO [code style] warn user about code after a stop effect
+----------
+----------
+5. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffBan.java (at line 110)
+	Bukkit.getBanList(BanList.Type.NAME).addBan(((Player) o).getName(), reason, expires, source); // FIXME [UUID] ban UUID
+	                                                                                                 ^^^^^^^^^^^^^^^^^^^^^
+FIXME [UUID] ban UUID
+----------
+----------
+6. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/mirre/EffScriptOptionLoops.java (at line 22)
+	package ch.njol.skript.effects.mirre;
+	        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A default nullness annotation has not been specified for the package ch.njol.skript.effects.mirre
+----------
+----------
+7. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffReplace.java (at line 52)
+	// TODO add 'replace all <items> in <inventories> with <item>'
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO add 'replace all <items> in <inventories> with <item>'
+----------
+----------
+8. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffEquip.java (at line 109)
+	switch (item.getType()) {// TODO !Update with every version [items]
+	                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO !Update with every version [items]
+----------
+9. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffEquip.java (at line 155)
+	//				//REMIND this + think...
+	  				  ^^^^^^^^^^^^^^^^^^^^^^
+REMIND this + think...
+----------
+----------
+10. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffPush.java (at line 83)
+	en.setVelocity(en.getVelocity().add(mod)); // REMIND add NoCheatPlus exception to players
+	                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND add NoCheatPlus exception to players
+----------
+----------
+11. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffCancelEvent.java (at line 77)
+	return true; // TODO warning if some event(s) cannot be cancelled even though some can (needs a way to be suppressed)
+	                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO warning if some event(s) cannot be cancelled even though some can (needs a way to be suppressed)
+----------
+----------
+12. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffChange.java (at line 273)
+	changed.change(e, delta, mode); // REMIND use a random element out of delta if changed only supports changing a single instance
+	                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND use a random element out of delta if changed only supports changing a single instance
+----------
+----------
+13. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/effects/EffToggle.java (at line 68)
+	// TODO !Update with every version [blocks]
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO !Update with every version [blocks]
+----------
+----------
+14. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/Timespan.java (at line 41)
+	public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { // REMIND unit
+	                                                                                  ^^^^^^^^^^^
+REMIND unit
+----------
+----------
+15. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/DelayedChangeBlock.java (at line 389)
+	// TODO Auto-generated method stub
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO Auto-generated method stub
+----------
+----------
+16. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/Utils.java (at line 320)
+	* TODO !Update with every version [blocks]
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO !Update with every version [blocks]
+----------
+17. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/Utils.java (at line 401)
+	private final static Pattern stylePattern = Pattern.compile("<([^<>]+)>");
+	                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Null type safety: The expression of type 'Pattern' needs unchecked conversion to conform to '@NonNull Pattern'
+----------
+18. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/Utils.java (at line 469)
+	// TODO improve
+	   ^^^^^^^^^^^^
+TODO improve
+----------
+19. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/Utils.java (at line 545)
+	return c;
+	       ^
+Null type safety: The expression of type 'Class<capture#39-of ?>' needs unchecked conversion to conform to '@NonNull Class<?>'
+----------
+----------
+20. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/BlockStateBlock.java (at line 391)
+	// TODO Auto-generated method stub
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO Auto-generated method stub
+----------
+----------
+21. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 86)
+	return Direction.getFacing(((Direction) raw).getDirection(l), false); // TODO allow this to not be a literal
+	                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO allow this to not be a literal
+----------
+22. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 96)
+	FIREWORKS_SPARK(Effect.FIREWORKS_SPARK),
+	                       ^^^^^^^^^^^^^^^
+The field Effect.FIREWORKS_SPARK is deprecated
+----------
+23. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 97)
+	CRIT(Effect.CRIT),
+	            ^^^^
+The field Effect.CRIT is deprecated
+----------
+24. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 98)
+	MAGIC_CRIT(Effect.MAGIC_CRIT),
+	                  ^^^^^^^^^^
+The field Effect.MAGIC_CRIT is deprecated
+----------
+25. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 99)
+	POTION_SWIRL(Effect.POTION_SWIRL) {
+	                    ^^^^^^^^^^^^
+The field Effect.POTION_SWIRL is deprecated
+----------
+26. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 105)
+	POTION_SWIRL_TRANSPARENT(Effect.POTION_SWIRL_TRANSPARENT) {
+	                                ^^^^^^^^^^^^^^^^^^^^^^^^
+The field Effect.POTION_SWIRL_TRANSPARENT is deprecated
+----------
+27. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 111)
+	SPELL(Effect.SPELL),
+	             ^^^^^
+The field Effect.SPELL is deprecated
+----------
+28. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 112)
+	INSTANT_SPELL(Effect.INSTANT_SPELL),
+	                     ^^^^^^^^^^^^^
+The field Effect.INSTANT_SPELL is deprecated
+----------
+29. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 113)
+	WITCH_SPELL(Effect.WITCH_MAGIC),
+	                   ^^^^^^^^^^^
+The field Effect.WITCH_MAGIC is deprecated
+----------
+30. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 114)
+	NOTE(Effect.NOTE),
+	            ^^^^
+The field Effect.NOTE is deprecated
+----------
+31. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 115)
+	PORTAL(Effect.PORTAL),
+	              ^^^^^^
+The field Effect.PORTAL is deprecated
+----------
+32. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 116)
+	FLYING_GLYPH(Effect.FLYING_GLYPH),
+	                    ^^^^^^^^^^^^
+The field Effect.FLYING_GLYPH is deprecated
+----------
+33. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 117)
+	FLAME(Effect.FLAME),
+	             ^^^^^
+The field Effect.FLAME is deprecated
+----------
+34. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 118)
+	LAVA_POP(Effect.LAVA_POP),
+	                ^^^^^^^^
+The field Effect.LAVA_POP is deprecated
+----------
+35. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 119)
+	FOOTSTEP(Effect.FOOTSTEP),
+	                ^^^^^^^^
+The field Effect.FOOTSTEP is deprecated
+----------
+36. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 120)
+	SPLASH(Effect.SPLASH),
+	              ^^^^^^
+The field Effect.SPLASH is deprecated
+----------
+37. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 121)
+	PARTICLE_SMOKE(Effect.PARTICLE_SMOKE), // Why separate particle... ?
+	                      ^^^^^^^^^^^^^^
+The field Effect.PARTICLE_SMOKE is deprecated
+----------
+38. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 122)
+	EXPLOSION_HUGE(Effect.EXPLOSION_HUGE),
+	                      ^^^^^^^^^^^^^^
+The field Effect.EXPLOSION_HUGE is deprecated
+----------
+39. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 123)
+	EXPLOSION_LARGE(Effect.EXPLOSION_LARGE),
+	                       ^^^^^^^^^^^^^^^
+The field Effect.EXPLOSION_LARGE is deprecated
+----------
+40. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 124)
+	EXPLOSION(Effect.EXPLOSION),
+	                 ^^^^^^^^^
+The field Effect.EXPLOSION is deprecated
+----------
+41. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 125)
+	VOID_FOG(Effect.VOID_FOG),
+	                ^^^^^^^^
+The field Effect.VOID_FOG is deprecated
+----------
+42. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 126)
+	SMALL_SMOKE(Effect.SMALL_SMOKE),
+	                   ^^^^^^^^^^^
+The field Effect.SMALL_SMOKE is deprecated
+----------
+43. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 127)
+	CLOUD(Effect.CLOUD),
+	             ^^^^^
+The field Effect.CLOUD is deprecated
+----------
+44. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 128)
+	COLOURED_DUST(Effect.COLOURED_DUST) {
+	                     ^^^^^^^^^^^^^
+The field Effect.COLOURED_DUST is deprecated
+----------
+45. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 134)
+	SNOWBALL_BREAK(Effect.SNOWBALL_BREAK),
+	                      ^^^^^^^^^^^^^^
+The field Effect.SNOWBALL_BREAK is deprecated
+----------
+46. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 135)
+	WATER_DRIP(Effect.WATERDRIP),
+	                  ^^^^^^^^^
+The field Effect.WATERDRIP is deprecated
+----------
+47. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 136)
+	LAVA_DRIP(Effect.LAVADRIP),
+	                 ^^^^^^^^
+The field Effect.LAVADRIP is deprecated
+----------
+48. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 137)
+	SNOW_SHOVEL(Effect.SNOW_SHOVEL),
+	                   ^^^^^^^^^^^
+The field Effect.SNOW_SHOVEL is deprecated
+----------
+49. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 138)
+	SLIME(Effect.SLIME),
+	             ^^^^^
+The field Effect.SLIME is deprecated
+----------
+50. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 139)
+	HEART(Effect.HEART),
+	             ^^^^^
+The field Effect.HEART is deprecated
+----------
+51. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 140)
+	ANGRY_VILLAGER(Effect.VILLAGER_THUNDERCLOUD),
+	                      ^^^^^^^^^^^^^^^^^^^^^
+The field Effect.VILLAGER_THUNDERCLOUD is deprecated
+----------
+52. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 141)
+	HAPPY_VILLAGER(Effect.HAPPY_VILLAGER),
+	                      ^^^^^^^^^^^^^^
+The field Effect.HAPPY_VILLAGER is deprecated
+----------
+53. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 142)
+	LARGE_SMOKE(Effect.LARGE_SMOKE),
+	                   ^^^^^^^^^^^
+The field Effect.LARGE_SMOKE is deprecated
+----------
+54. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 143)
+	ITEM_CRACK(Effect.ITEM_BREAK) {
+	                  ^^^^^^^^^^
+The field Effect.ITEM_BREAK is deprecated
+----------
+55. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 159)
+	BLOCK_BREAK(Effect.TILE_BREAK) {
+	                   ^^^^^^^^^^
+The field Effect.TILE_BREAK is deprecated
+----------
+56. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 176)
+	BLOCK_DUST(Effect.TILE_DUST) {
+	                  ^^^^^^^^^
+The field Effect.TILE_DUST is deprecated
+----------
+57. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/VisualEffect.java (at line 200)
+	this.name = effect.getName();
+	                   ^^^^^^^^^
+The method getName() from the type Effect is deprecated
+----------
+----------
+58. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/PotionEffectUtils.java (at line 91)
+	// REMIND flags?
+	   ^^^^^^^^^^^^^
+REMIND flags?
+----------
+----------
+59. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/WeatherType.java (at line 117)
+	// REMIND flags?
+	   ^^^^^^^^^^^^^
+REMIND flags?
+----------
+----------
+60. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/BlockUtils.java (at line 37)
+	* TODO !Update with every version [blocks] - also update aliases-*.sk
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO !Update with every version [blocks] - also update aliases-*.sk
+----------
+61. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/BlockUtils.java (at line 105)
+	* @param applyPhysics TODO add effect that sets block without physics checks
+	                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO add effect that sets block without physics checks
+----------
+62. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/BlockUtils.java (at line 258)
+	// REMIND rails?
+	   ^^^^^^^^^^^^^
+REMIND rails?
+----------
+63. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/BlockUtils.java (at line 266)
+	// TODO !Update with every version [blocks]
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO !Update with every version [blocks]
+----------
+----------
+64. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/EquipmentSlot.java (at line 179)
+	return "the " + slot.name().toLowerCase(Locale.ENGLISH) + " of " + Classes.toString(e.getHolder()); // TODO localise?
+	                                                                                                       ^^^^^^^^^^^^^^
+TODO localise?
+----------
+65. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/EquipmentSlot.java (at line 194)
+	return false; // TODO maybe fix this
+	                 ^^^^^^^^^^^^^^^^^^^
+TODO maybe fix this
+----------
+----------
+66. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/Slot.java (at line 32)
+	* Represents a container for a single item. This can e.g. be an inventory slot or an item frame. // TODO actually make an item frame slot
+	                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO actually make an item frame slot
+----------
+----------
+67. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/util/EnchantmentType.java (at line 103)
+	// REMIND flags?
+	   ^^^^^^^^^^^^^
+REMIND flags?
+----------
+----------
+68. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/RegionsPlugin.java (at line 44)
+	// REMIND support more plugins?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND support more plugins?
+----------
+----------
+69. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 35)
+	import me.ryanhamshire.GriefPrevention.Claim;
+	       ^^
+The import me cannot be resolved
+----------
+70. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 36)
+	import me.ryanhamshire.GriefPrevention.DataStore;
+	       ^^
+The import me cannot be resolved
+----------
+71. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 37)
+	import me.ryanhamshire.GriefPrevention.GriefPrevention;
+	       ^^
+The import me cannot be resolved
+----------
+72. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 58)
+	public class GriefPreventionHook extends RegionsPlugin<GriefPrevention> {
+	                                                       ^^^^^^^^^^^^^^^
+GriefPrevention cannot be resolved to a type
+----------
+73. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 72)
+	supportsUUIDs = Skript.fieldExists(Claim.class, "ownerID");
+	                                   ^^^^^
+Claim cannot be resolved to a type
+----------
+74. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 74)
+	getClaim = DataStore.class.getDeclaredMethod("getClaim", long.class);
+	           ^^^^^^^^^
+DataStore cannot be resolved to a type
+----------
+75. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 76)
+	if (!Claim.class.isAssignableFrom(getClaim.getReturnType()))
+	     ^^^^^
+Claim cannot be resolved to a type
+----------
+76. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 80)
+	claimsField = DataStore.class.getDeclaredField("claims");
+	              ^^^^^^^^^
+DataStore cannot be resolved to a type
+----------
+77. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 86)
+	Skript.error("Skript " + Skript.getVersion() + " is not compatible with GriefPrevention " + plugin.getDescription().getVersion() + "."
+	                                                                                            ^^^^^^
+GriefPrevention cannot be resolved to a type
+----------
+78. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 94)
+	Claim getClaim(final long id) {
+	^^^^^
+Claim cannot be resolved to a type
+----------
+79. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 97)
+	return (Claim) getClaim.invoke(plugin.dataStore, id);
+	        ^^^^^
+Claim cannot be resolved to a type
+----------
+80. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 97)
+	return (Claim) getClaim.invoke(plugin.dataStore, id);
+	                               ^^^^^^
+GriefPrevention cannot be resolved to a type
+----------
+81. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 108)
+	final List<?> claims = (List<?>) claimsField.get(plugin.dataStore);
+	                                                 ^^^^^^
+GriefPrevention cannot be resolved to a type
+----------
+82. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 110)
+	if (!(claim instanceof Claim))
+	                       ^^^^^
+Claim cannot be resolved to a type
+----------
+83. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 112)
+	if (((Claim) claim).getID() == id)
+	    ^^^^^^^^^^^^^^^
+Claim cannot be resolved to a type
+----------
+84. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 112)
+	if (((Claim) claim).getID() == id)
+	      ^^^^^
+Claim cannot be resolved to a type
+----------
+85. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 113)
+	return (Claim) claim;
+	        ^^^^^
+Claim cannot be resolved to a type
+----------
+86. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 131)
+	return plugin.allowBuild(p, l) == null; // returns reason string if not allowed to build
+	       ^^^^^^
+GriefPrevention cannot be resolved to a type
+----------
+87. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 141)
+	private transient Claim claim;
+	                  ^^^^^
+Claim cannot be resolved to a type
+----------
+88. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 146)
+	public GriefPreventionRegion(final Claim c) {
+	                                   ^^^^^
+Claim cannot be resolved to a type
+----------
+89. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 147)
+	claim = c;
+	^^^^^
+Claim cannot be resolved to a type
+----------
+90. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 152)
+	return claim.contains(l, false, false);
+	       ^^^^^
+Claim cannot be resolved to a type
+----------
+91. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 167)
+	return p.getName().equalsIgnoreCase(claim.getOwnerName());
+	                                    ^^^^^
+Claim cannot be resolved to a type
+----------
+92. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 173)
+	if (claim.isAdminClaim()) // Admin claims do not have owners! (fixes NPE)
+	    ^^^^^
+Claim cannot be resolved to a type
+----------
+93. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 176)
+	return Arrays.asList(Bukkit.getOfflinePlayer(claim.ownerID));
+	                                             ^^^^^
+Claim cannot be resolved to a type
+----------
+94. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 178)
+	return Arrays.asList(Bukkit.getOfflinePlayer(claim.getOwnerName()));
+	                                             ^^^^^
+Claim cannot be resolved to a type
+----------
+95. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 183)
+	final Location lower = claim.getLesserBoundaryCorner(), upper = claim.getGreaterBoundaryCorner();
+	                       ^^^^^
+Claim cannot be resolved to a type
+----------
+96. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 183)
+	final Location lower = claim.getLesserBoundaryCorner(), upper = claim.getGreaterBoundaryCorner();
+	                                                                ^^^^^
+Claim cannot be resolved to a type
+----------
+97. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 194)
+	return "Claim #" + claim.getID();
+	                   ^^^^^
+Claim cannot be resolved to a type
+----------
+98. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 201)
+	f.putPrimitive("id", claim.getID());
+	                     ^^^^^
+Claim cannot be resolved to a type
+----------
+99. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 208)
+	final Claim c = getClaim(id);
+	      ^^^^^
+Claim cannot be resolved to a type
+----------
+100. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 208)
+	final Claim c = getClaim(id);
+	                ^^^^^^^^
+The method getClaim(long) from the type GriefPreventionHook refers to the missing type Claim
+----------
+101. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 211)
+	claim = c;
+	^^^^^
+Claim cannot be resolved to a type
+----------
+102. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 227)
+	return claim.equals(((GriefPreventionRegion) o).claim);
+	       ^^^^^
+Claim cannot be resolved to a type
+----------
+103. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 227)
+	return claim.equals(((GriefPreventionRegion) o).claim);
+	                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Claim cannot be resolved to a type
+----------
+104. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 232)
+	return claim.hashCode();
+	       ^^^^^
+Claim cannot be resolved to a type
+----------
+105. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 240)
+	final Claim c = plugin.dataStore.getClaimAt(l, false, null);
+	      ^^^^^
+Claim cannot be resolved to a type
+----------
+106. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 240)
+	final Claim c = plugin.dataStore.getClaimAt(l, false, null);
+	                ^^^^^^
+GriefPrevention cannot be resolved to a type
+----------
+107. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 242)
+	return Arrays.asList(new GriefPreventionRegion(c));
+	              ^^^^^^
+The method asList(T...) in the type Arrays is not applicable for the arguments (GriefPreventionHook.GriefPreventionRegion)
+----------
+108. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 250)
+	final Claim c = getClaim(Long.parseLong(name));
+	      ^^^^^
+Claim cannot be resolved to a type
+----------
+109. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/GriefPreventionHook.java (at line 250)
+	final Claim c = getClaim(Long.parseLong(name));
+	                ^^^^^^^^
+The method getClaim(long) from the type GriefPreventionHook refers to the missing type Claim
+----------
+----------
+110. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 43)
+	import com.bekvon.bukkit.residence.Residence;
+	       ^^^^^^^^^^
+The import com.bekvon cannot be resolved
+----------
+111. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 44)
+	import com.bekvon.bukkit.residence.api.ResidenceApi;
+	       ^^^^^^^^^^
+The import com.bekvon cannot be resolved
+----------
+112. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 45)
+	import com.bekvon.bukkit.residence.protection.ClaimedResidence;
+	       ^^^^^^^^^^
+The import com.bekvon cannot be resolved
+----------
+113. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 46)
+	import com.bekvon.bukkit.residence.protection.CuboidArea;
+	       ^^^^^^^^^^
+The import com.bekvon cannot be resolved
+----------
+114. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 47)
+	import com.bekvon.bukkit.residence.protection.ResidencePermissions;
+	       ^^^^^^^^^^
+The import com.bekvon cannot be resolved
+----------
+115. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 67)
+	public class ResidenceHook extends RegionsPlugin<Residence> {
+	                                                 ^^^^^^^^^
+Residence cannot be resolved to a type
+----------
+116. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 83)
+	final ClaimedResidence res = Residence.getResidenceManager().getByLoc(l);
+	      ^^^^^^^^^^^^^^^^
+ClaimedResidence cannot be resolved to a type
+----------
+117. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 83)
+	final ClaimedResidence res = Residence.getResidenceManager().getByLoc(l);
+	                             ^^^^^^^^^
+Residence cannot be resolved
+----------
+118. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 86)
+	ResidencePermissions perms = res.getPermissions();
+	^^^^^^^^^^^^^^^^^^^^
+ResidencePermissions cannot be resolved to a type
+----------
+119. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 94)
+	final ClaimedResidence res = Residence.getResidenceManager().getByLoc(l);
+	      ^^^^^^^^^^^^^^^^
+ClaimedResidence cannot be resolved to a type
+----------
+120. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 94)
+	final ClaimedResidence res = Residence.getResidenceManager().getByLoc(l);
+	                             ^^^^^^^^^
+Residence cannot be resolved
+----------
+121. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 104)
+	final ClaimedResidence res = Residence.getResidenceManager().getByName(name);
+	      ^^^^^^^^^^^^^^^^
+ClaimedResidence cannot be resolved to a type
+----------
+122. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 104)
+	final ClaimedResidence res = Residence.getResidenceManager().getByName(name);
+	                             ^^^^^^^^^
+Residence cannot be resolved
+----------
+123. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 127)
+	private transient ClaimedResidence res;
+	                  ^^^^^^^^^^^^^^^^
+ClaimedResidence cannot be resolved to a type
+----------
+124. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 135)
+	public ResidenceRegion(final World w, ClaimedResidence r) {
+	                                      ^^^^^^^^^^^^^^^^
+ClaimedResidence cannot be resolved to a type
+----------
+125. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 136)
+	res = r;
+	^^^
+ClaimedResidence cannot be resolved to a type
+----------
+126. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 143)
+	f.putObject("region", res.getName());
+	                      ^^^
+ClaimedResidence cannot be resolved to a type
+----------
+127. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 153)
+	ClaimedResidence res = Residence.getResidenceManager().getByName((String) region);
+	^^^^^^^^^^^^^^^^
+ClaimedResidence cannot be resolved to a type
+----------
+128. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 153)
+	ClaimedResidence res = Residence.getResidenceManager().getByName((String) region);
+	                       ^^^^^^^^^
+Residence cannot be resolved
+----------
+129. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 156)
+	this.res = res;
+	^^^^^^^^
+ClaimedResidence cannot be resolved to a type
+----------
+130. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 161)
+	return res.containsLoc(l);
+	       ^^^
+ClaimedResidence cannot be resolved to a type
+----------
+131. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 166)
+	return res.getPermissions().playerHas(p.getName(), "build", false);
+	       ^^^
+ClaimedResidence cannot be resolved to a type
+----------
+132. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 177)
+	return res.getPermissions().playerHas(p.getName(), "build", false);
+	       ^^^
+ClaimedResidence cannot be resolved to a type
+----------
+133. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 194)
+	return res.getName() + " in world " + world.getName();
+	       ^^^
+ClaimedResidence cannot be resolved to a type
+----------
+134. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/hooks/regions/ResidenceHook.java (at line 215)
+	return res.getName().hashCode();
+	       ^^^
+ClaimedResidence cannot be resolved to a type
+----------
+----------
+135. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/util/ConvertedExpression.java (at line 71)
+	public static <F, T> ConvertedExpression<F, T> newInstance(final Expression<F> v, final Class<T>... to) {
+	                                                                                                    ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+136. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/util/ConvertedExpression.java (at line 73)
+	for (final Class<T> c : to) { // REMIND try more converters? -> also change WrapperExpression (and maybe ExprLoopValue)
+	                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND try more converters? -> also change WrapperExpression (and maybe ExprLoopValue)
+----------
+----------
+137. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/util/SimpleExpression.java (at line 167)
+	// TODO return a kleenean (UNKNOWN if 'all' is null or empty)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO return a kleenean (UNKNOWN if 'all' is null or empty)
+----------
+138. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/util/SimpleExpression.java (at line 199)
+	protected <R> ConvertedExpression<T, ? extends R> getConvertedExpr(final Class<R>... to) {
+	                                                                                     ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+139. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/util/SimpleExpression.java (at line 274)
+	protected final boolean setTime(final int time, final Expression<?> mustbeDefaultVar, final Class<? extends Event>... applicableEvents) {
+	                                                                                                                      ^^^^^^^^^^^^^^^^
+Type safety: Potential heap pollution via varargs parameter applicableEvents
+----------
+----------
+140. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/UnparsedLiteral.java (at line 86)
+	public <R> Literal<? extends R> getConvertedExpression(final Class<R>... to) {
+	                                                                         ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+141. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/UnparsedLiteral.java (at line 91)
+	public <R> Literal<? extends R> getConvertedExpression(final ParseContext context, final Class<? extends R>... to) {
+	                                                                                                               ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+----------
+142. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/function/FunctionReference.java (at line 184)
+	l.addAll(Arrays.asList(parameters[i].getArray(e))); // TODO what if an argument is not available? pass null or abort?
+	                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO what if an argument is not available? pass null or abort?
+----------
+143. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/function/FunctionReference.java (at line 188)
+	params[i] = parameters[i].getArray(e); // TODO what if an argument is not available? pass null or abort?
+	                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO what if an argument is not available? pass null or abort?
+----------
+----------
+144. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/function/ScriptFunction.java (at line 76)
+	// REMIND track possible types of local variables (including undefined variables) (consider functions, commands, and EffChange) - maybe make a general interface for this purpose
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND track possible types of local variables (including undefined variables) (consider functions, commands, and EffChange) - maybe make a general interface for this purpose
+----------
+----------
+145. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/function/Function.java (at line 73)
+	// TODO allow setting parameters by name
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO allow setting parameters by name
+----------
+146. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/function/Function.java (at line 86)
+	// FIXME what happens with a delay in a function?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FIXME what happens with a delay in a function?
+----------
+----------
+147. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/function/Functions.java (at line 150)
+	final String name = "" + m.group(1); // TODO check for name uniqueness (currently functions with same name silently override each other)
+	                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO check for name uniqueness (currently functions with same name silently override each other)
+----------
+----------
+148. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/Variable.java (at line 196)
+	public <R> Variable<R> getConvertedExpression(final Class<R>... to) {
+	                                                                ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+149. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/Variable.java (at line 244)
+	@SuppressWarnings({"deprecation"})
+	                   ^^^^^^^^^^^^^
+Unnecessary @SuppressWarnings("deprecation")
+----------
+----------
+150. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/SkriptParser.java (at line 722)
+	final FunctionReference<T> e = new FunctionReference<>(functionName, pi.getNode(), pi.config != null ? pi.config.getFile() : null, types, params);//.toArray(new Expression[params.size()]));
+	                                                                                      ^^^^^^
+Redundant null check: The field config is specified as @NonNull
+----------
+----------
+151. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/Expression.java (at line 138)
+	public <R> Expression<? extends R> getConvertedExpression(final Class<R>... to);
+	                                                                            ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+152. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/Expression.java (at line 153)
+	* This method must return true if this is a {@link #isSingle() single} expression. // TODO make this method irrelevant for single expressions
+	                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO make this method irrelevant for single expressions
+----------
+----------
+153. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/ScriptManager.java (at line 97)
+	private CommandSender viewer;
+	                      ^^^^^^
+The value of the field ScriptManager.viewer is not used
+----------
+----------
+154. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/ParserInstance.java (at line 100)
+	// TODO - for now, ignore
+	   ^^^^^^^^^^^^^^^^^^^^^^
+TODO - for now, ignore
+----------
+155. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/ParserInstance.java (at line 105)
+	// TODO - for now, ignore
+	   ^^^^^^^^^^^^^^^^^^^^^^
+TODO - for now, ignore
+----------
+156. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/ParserInstance.java (at line 124)
+	private int numCommands;
+	            ^^^^^^^^^^^
+The value of the field ParserInstance.numCommands is not used
+----------
+157. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/ParserInstance.java (at line 125)
+	private int numFunctions;
+	            ^^^^^^^^^^^^
+The value of the field ParserInstance.numFunctions is not used
+----------
+158. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/ParserInstance.java (at line 126)
+	private int numTriggers;
+	            ^^^^^^^^^^^
+The value of the field ParserInstance.numTriggers is not used
+----------
+159. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/ParserInstance.java (at line 285)
+	loopedExpr = loopedExpr.getConvertedExpression(Object.class);
+	             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Type safety: A generic array of Class<Object> is created for a varargs parameter
+----------
+160. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/ParserInstance.java (at line 464)
+	// TODO allow to make these override existing variables
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO allow to make these override existing variables
+----------
+----------
+161. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/parser/LoaderInstance.java (at line 83)
+	// TODO report error
+	   ^^^^^^^^^^^^^^^^^
+TODO report error
+----------
+----------
+162. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/VariableString.java (at line 202)
+	@SuppressWarnings("unchecked")
+	                  ^^^^^^^^^^^
+Unnecessary @SuppressWarnings("unchecked")
+----------
+163. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/VariableString.java (at line 597)
+	/* REMIND allow special characters?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND allow special characters?
+----------
+----------
+164. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/ParseContext.java (at line 35)
+	* TODO? replace with {@link #DUMMY} + {@link SkriptParser#PARSE_LITERALS}
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO? replace with {@link #DUMMY} + {@link SkriptParser#PARSE_LITERALS}
+----------
+----------
+165. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/SyntaxElement.java (at line 32)
+	* TODO find a better name for this
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO find a better name for this
+----------
+166. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/SyntaxElement.java (at line 64)
+	// TODO [code style] add equals to be able to find out whether two elements are equal (useful for e.g. 'if <a>: ... [else] if not <a>: ...')
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO [code style] add equals to be able to find out whether two elements are equal (useful for e.g. 'if <a>: ... [else] if not <a>: ...')
+----------
+----------
+167. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/Literal.java (at line 39)
+	public <R> Literal<? extends R> getConvertedExpression(Class<R>... to);
+	                                                                   ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+----------
+168. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/Testable.java (at line 29)
+	* TODO implement this
+	  ^^^^^^^^^^^^^^^^^^^
+TODO implement this
+----------
+----------
+169. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/lang/Conditional.java (at line 33)
+	* TODO: make this an expression
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO: make this an expression
+----------
+----------
+170. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptCommand.java (at line 60)
+	// TODO /skript scripts show/list - lists all enabled and/or disabled scripts in the scripts folder and/or subfolders (maybe add a pattern [using * and **])
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO /skript scripts show/list - lists all enabled and/or disabled scripts in the scripts folder and/or subfolders (maybe add a pattern [using * and **])
+----------
+171. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptCommand.java (at line 61)
+	// TODO document this command on the website
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO document this command on the website
+----------
+172. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptCommand.java (at line 104)
+	private final static ArgsMessage m_changes_title = new ArgsMessage(NODE + ".update.changes.title");
+	                                 ^^^^^^^^^^^^^^^
+The value of the field SkriptCommand.m_changes_title is not used
+----------
+173. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptCommand.java (at line 119)
+	private final static void message(final CommandSender sender, String what, final Object... args) {
+	                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method message(CommandSender, String, Object...) from the type SkriptCommand is never used locally
+----------
+174. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptCommand.java (at line 255)
+	if (f == null) // TODO allow disabling deleted/renamed scripts
+	                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO allow disabling deleted/renamed scripts
+----------
+175. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptCommand.java (at line 324)
+	// TODO not supported yet
+	   ^^^^^^^^^^^^^^^^^^^^^^
+TODO not supported yet
+----------
+176. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptCommand.java (at line 326)
+	// TODO not supported yet
+	   ^^^^^^^^^^^^^^^^^^^^^^
+TODO not supported yet
+----------
+----------
+177. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/command/Commands.java (at line 85)
+	//TODO option to disable replacement of <color>s in command arguments?
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO option to disable replacement of <color>s in command arguments?
+----------
+178. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/command/Commands.java (at line 404)
+	try { // TODO see if this works with multithreaded parser..
+	         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO see if this works with multithreaded parser..
+----------
+----------
+179. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/Serializer.java (at line 128)
+	@SuppressWarnings({"unchecked", "null"})
+	                                ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+180. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/NumberArithmetic.java (at line 29)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+181. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/DefaultConverters.java (at line 83)
+	// TODO improve handling of interfaces
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO improve handling of interfaces
+----------
+----------
+182. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/BukkitClasses.java (at line 91)
+	// TODO vectors
+	   ^^^^^^^^^^^^
+TODO vectors
+----------
+183. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/BukkitClasses.java (at line 433)
+	// FIXME update doc
+	   ^^^^^^^^^^^^^^^^
+FIXME update doc
+----------
+184. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/BukkitClasses.java (at line 451)
+	// REMIND allow shortcuts '[over]world', 'nether' and '[the_]end' (server.properties: 'level-name=world') // inconsistent with 'world is "..."'
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND allow shortcuts '[over]world', 'nether' and '[the_]end' (server.properties: 'level-name=world') // inconsistent with 'world is "..."'
+----------
+185. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/BukkitClasses.java (at line 711)
+	// TODO return an unresolved player and resolve it on a different thread after the command was parsed, and block the command until it is ready
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO return an unresolved player and resolve it on a different thread after the command was parsed, and block the command until it is ready
+----------
+186. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/BukkitClasses.java (at line 712)
+	// FIXME add note to changelog if not fixed in the next update
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FIXME add note to changelog if not fixed in the next update
+----------
+187. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/BukkitClasses.java (at line 1068)
+	// REMIND make my own damage cause class (that e.g. stores the attacker entity, the projectile, or the attacking block)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND make my own damage cause class (that e.g. stores the attacker entity, the projectile, or the attacking block)
+----------
+----------
+188. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/SkriptClasses.java (at line 451)
+	// TODO remove
+	   ^^^^^^^^^^^
+TODO remove
+----------
+----------
+189. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/DefaultFunctions.java (at line 45)
+	* FIXME generate/write documentation
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FIXME generate/write documentation
+----------
+190. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/DefaultFunctions.java (at line 307)
+	// FIXME document on ExprLocation as well
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FIXME document on ExprLocation as well
+----------
+----------
+191. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/DefaultComparators.java (at line 203)
+	// TODO !Update with every version [entities]
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO !Update with every version [entities]
+----------
+192. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/DefaultComparators.java (at line 212)
+	//		entityMaterials.put(Fish.class, Material.RAW_FISH); // TODO 1.7
+	  		                                                       ^^^^^^^^
+TODO 1.7
+----------
+----------
+193. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/BukkitEventValues.java (at line 179)
+	// REMIND workaround of the event's location being at the entity in block events that have an entity event value
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND workaround of the event's location being at the entity in block events that have an entity event value
+----------
+194. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/BukkitEventValues.java (at line 747)
+	// CraftItemEvent REMIND maybe re-add this when Skript parser is reworked?
+	                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND maybe re-add this when Skript parser is reworked?
+----------
+----------
+195. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/DefaultChangers.java (at line 69)
+	case RESET: // REMIND reset entity? (unshear, remove held item, reset weapon/armour, ...)
+	               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND reset entity? (unshear, remove held item, reset weapon/armour, ...)
+----------
+196. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/data/DefaultChangers.java (at line 284)
+	return null; // REMIND regenerate?
+	                ^^^^^^^^^^^^^^^^^^
+REMIND regenerate?
+----------
+----------
+197. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/classes/ConfigurationSerializer.java (at line 59)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+198. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 151)
+	generated += generateFunction(descTemp, info);
+	                                        ^^^^
+Null type safety: The expression of type 'JavaFunction<capture#21-of ?>' needs unchecked conversion to conform to '@NonNull JavaFunction<?>'
+----------
+199. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 196)
+	// Assume element.pattern generate; TODO
+	                                    ^^^^
+TODO
+----------
+200. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 213)
+	return desc;
+	       ^^^^
+Null type safety: The expression of type 'String' needs unchecked conversion to conform to '@NonNull String'
+----------
+201. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 238)
+	// Assume element.pattern generate; TODO
+	                                    ^^^^
+TODO
+----------
+202. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 251)
+	return desc;
+	       ^^^^
+Null type safety: The expression of type 'String' needs unchecked conversion to conform to '@NonNull String'
+----------
+203. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 276)
+	// Assume element.pattern generate; TODO
+	                                    ^^^^
+TODO
+----------
+204. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 292)
+	return desc;
+	       ^^^^
+Null type safety: The expression of type 'String' needs unchecked conversion to conform to '@NonNull String'
+----------
+205. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 317)
+	// Assume element.pattern generate; TODO
+	                                    ^^^^
+TODO
+----------
+206. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/HTMLGenerator.java (at line 333)
+	return desc;
+	       ^^^^
+Null type safety: The expression of type 'String' needs unchecked conversion to conform to '@NonNull String'
+----------
+----------
+207. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/Documentation.java (at line 55)
+	* TODO list special expressions for events and event values
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO list special expressions for events and event values
+----------
+208. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/doc/Documentation.java (at line 56)
+	* TODO compare doc in code with changed one of the webserver and warn about differences?
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO compare doc in code with changed one of the webserver and warn about differences?
+----------
+----------
+209. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/aliases/Aliases.java (at line 60)
+	* FIXME rename
+	  ^^^^^^^^^^^^
+FIXME rename
+----------
+----------
+210. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/aliases/ItemType.java (at line 94)
+	// TODO empty == unenchanted, add expression "unenchanted <item>"
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO empty == unenchanted, add expression "unenchanted <item>"
+----------
+211. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/aliases/ItemType.java (at line 175)
+	// TODO metadata - spawners, skulls, etc.
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO metadata - spawners, skulls, etc.
+----------
+212. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/aliases/ItemType.java (at line 309)
+	// TODO metadata
+	   ^^^^^^^^^^^^^
+TODO metadata
+----------
+213. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/aliases/ItemType.java (at line 650)
+	* REMIND If this ItemType represents multiple items with OR, this function will immediately return false.<br/>
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND If this ItemType represents multiple items with OR, this function will immediately return false.<br/>
+----------
+214. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/aliases/ItemType.java (at line 810)
+	public boolean removeAll(final List<ItemStack>... lists) {
+	                                                  ^^^^^
+Type safety: Potential heap pollution via varargs parameter lists
+----------
+215. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/aliases/ItemType.java (at line 827)
+	public boolean removeFrom(final List<ItemStack>... lists) {
+	                                                   ^^^^^
+Type safety: Potential heap pollution via varargs parameter lists
+----------
+----------
+216. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/registrations/Classes.java (at line 657)
+	assert Enum.class.isAssignableFrom(Kleenean.class) && Tag.getType(Kleenean.class) == Tag.T_ENUM : Tag.getType(Kleenean.class); // TODO why is this check here?
+	                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO why is this check here?
+----------
+217. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/registrations/Classes.java (at line 686)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+218. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/registrations/EventValues.java (at line 106)
+	public static <T, E extends Event> void registerEventValue(final Class<E> e, final Class<T> c, final Getter<T, E> g, final int time, final @Nullable String excludeErrorMessage, final @Nullable Class<? extends E>... excludes) {
+	                                                                                                                                                                                                                       ^^^^^^^^
+Type safety: Potential heap pollution via varargs parameter excludes
+----------
+219. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/registrations/EventValues.java (at line 120)
+	public static <T, E extends Event> void registerEventValue(final Class<E> e, final Class<T> c, final ch.njol.skript.classes.SerializableGetter<T, E> g, final int time, final @Nullable String excludeErrorMessage, final @Nullable Class<? extends E>... excludes) {
+	                                                                                                                                                                                                                                                          ^^^^^^^^
+Type safety: Potential heap pollution via varargs parameter excludes
+----------
+220. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/registrations/EventValues.java (at line 138)
+	@SuppressWarnings({"null", "unchecked"})
+	                   ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+221. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/registrations/Comparators.java (at line 67)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+222. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/registrations/Converters.java (at line 89)
+	// REMIND how to manage overriding of converters? - shouldn't actually matter
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND how to manage overriding of converters? - shouldn't actually matter
+----------
+223. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/registrations/Converters.java (at line 135)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+224. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/mirre/FilterPrintStream.java (at line 1)
+	package ch.njol.skript.mirre;
+	        ^^^^^^^^^^^^^^^^^^^^
+A default nullness annotation has not been specified for the package ch.njol.skript.mirre
+----------
+----------
+225. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/bukkitutil/PlayerUtils.java (at line 44)
+	* TODO check all updates and find out which ones are not required
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO check all updates and find out which ones are not required
+----------
+226. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/bukkitutil/PlayerUtils.java (at line 60)
+	@SuppressWarnings("deprecation")
+	                  ^^^^^^^^^^^^^
+Unnecessary @SuppressWarnings("deprecation")
+----------
+----------
+227. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/bukkitutil/UnresolvedOfflinePlayer.java (at line 51)
+	final static LinkedBlockingQueue<UnresolvedOfflinePlayer> toResolve = new LinkedBlockingQueue<UnresolvedOfflinePlayer>();
+	                                                                          ^^^^^^^^^^^^^^^^^^^
+Redundant specification of type arguments <UnresolvedOfflinePlayer>
+----------
+228. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/bukkitutil/UnresolvedOfflinePlayer.java (at line 57)
+	if (toResolve == null) {
+				Skript.exception(new NullPointerException("null offline player resolve queue"), "An error happened when trying to enably resolving offline players, so"
+						+ " the feature has been turned off. Please report this at https://github.com/bensku/Skript/issues/237");
+				return;
+			}
+	                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Dead code
+----------
+229. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/bukkitutil/UnresolvedOfflinePlayer.java (at line 111)
+	@SuppressWarnings("deprecation")
+	                  ^^^^^^^^^^^^^
+Unnecessary @SuppressWarnings("deprecation")
+----------
+----------
+230. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/entity/SimpleEntityData.java (at line 221)
+	// TODO !Update with every version [entities]
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO !Update with every version [entities]
+----------
+----------
+231. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/entity/GuardianData.java (at line 53)
+	isElder = e.isElder();
+	            ^^^^^^^^^
+The method isElder() from the type Guardian is deprecated
+----------
+232. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/entity/GuardianData.java (at line 60)
+	entity.setElder(true);
+	       ^^^^^^^^^^^^^^
+The method setElder(boolean) from the type Guardian is deprecated
+----------
+233. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/entity/GuardianData.java (at line 66)
+	return entity.isElder() == isElder;
+	              ^^^^^^^^^
+The method isElder() from the type Guardian is deprecated
+----------
+----------
+234. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/entity/MinecartData.java (at line 42)
+	@SuppressWarnings("deprecation")
+	                  ^^^^^^^^^^^^^
+Unnecessary @SuppressWarnings("deprecation")
+----------
+----------
+235. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/entity/EntityData.java (at line 73)
+	public abstract class EntityData<E extends Entity> implements SyntaxElement, YggdrasilExtendedSerializable {// TODO extended horse support, zombie villagers // REMIND unit
+	                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO extended horse support, zombie villagers //
+----------
+236. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/entity/EntityData.java (at line 73)
+	public abstract class EntityData<E extends Entity> implements SyntaxElement, YggdrasilExtendedSerializable {// TODO extended horse support, zombie villagers // REMIND unit
+	                                                                                                                                                                ^^^^^^^^^^^
+REMIND unit
+----------
+----------
+237. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/entity/ZombieVillagerData.java (at line 37)
+	private final static boolean villagerSupport = Skript.isRunningMinecraft(1, 11); // TODO test on 1.9/1.10
+	                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+TODO test on 1.9/1.10
+----------
+----------
+238. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/Updater.java (at line 286)
+	// TODO automatic downloading
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO automatic downloading
+----------
+239. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/Updater.java (at line 335)
+	// TODO does anybody actually use this?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO does anybody actually use this?
+----------
+----------
+240. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptConfig.java (at line 99)
+	public final static Option<Boolean> usePlayerUUIDsInVariableNames = new Option<Boolean>("use player UUIDs in variable names", false); // TODO change to true later (as well as in the default config)
+	                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO change to true later (as well as in the default config)
+----------
+241. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptConfig.java (at line 102)
+	private final static DateFormat shortDateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+	                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Null type safety: The expression of type 'DateFormat' needs unchecked conversion to conform to '@NonNull DateFormat'
+----------
+----------
+242. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/config/Config.java (at line 259)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+243. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/config/Config.java (at line 278)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+244. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/config/SectionNode.java (at line 386)
+	* REMIND breaks saving - separator argument can be different from config.sepator
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND breaks saving - separator argument can be different from config.sepator
+----------
+----------
+245. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/SkriptEventHandler.java (at line 117)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+246. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/ScriptLoader.java (at line 115)
+	private static Class<? extends Event>[] currentEvents = null;
+	                                        ^^^^^^^^^^^^^
+The value of the field ScriptLoader.currentEvents is not used
+----------
+247. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/ScriptLoader.java (at line 165)
+	private static String indentation = "";
+	                      ^^^^^^^^^^^
+The value of the field ScriptLoader.indentation is not used
+----------
+----------
+248. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/FlatFileStorage.java (at line 57)
+	* TODO use a database (SQLite) instead and only load a limited amount of variables into RAM - e.g. 2 GB (configurable). If more variables are available they will be loaded when
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO use a database (SQLite) instead and only load a limited amount of variables into RAM - e.g. 2 GB (configurable). If more variables are available they will be loaded when
+----------
+249. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/FlatFileStorage.java (at line 280)
+	while ((cw = changesWriter.get()) == null) {
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Null comparison always yields false: The variable cw cannot be null at this location
+----------
+250. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/FlatFileStorage.java (at line 280)
+	while ((cw = changesWriter.get()) == null) {
+					try {
+						changesWriter.wait();
+					} catch (final InterruptedException e) {
+						Thread.currentThread().interrupt();
+					}
+				}
+	                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Dead code
+----------
+251. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/FlatFileStorage.java (at line 334)
+	if (changesWriter.get() != null)
+	    ^^^^^^^^^^^^^^^^^^^
+Redundant null check: The method get() cannot return null
+----------
+252. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/FlatFileStorage.java (at line 405)
+	Skript.error("Unable to make a final save of the database '" + databaseName + "' (no variables are lost): " + ExceptionUtils.toString(e)); // FIXME happens at random - check locks/threads
+	                                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FIXME happens at random - check locks/threads
+----------
+----------
+253. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/VariablesStorage.java (at line 45)
+	// FIXME ! large databases (>25 MB) cause the server to be unresponsive instead of loading slowly
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FIXME ! large databases (>25 MB) cause the server to be unresponsive instead of loading slowly
+----------
+254. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/VariablesStorage.java (at line 261)
+	// REMIND add repetitive error and/or stop saving variables altogether?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND add repetitive error and/or stop saving variables altogether?
+----------
+----------
+255. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 32)
+	import lib.PatPeter.SQLibrary.Database;
+	       ^^^
+The import lib cannot be resolved
+----------
+256. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 33)
+	import lib.PatPeter.SQLibrary.DatabaseException;
+	       ^^^
+The import lib cannot be resolved
+----------
+257. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 34)
+	import lib.PatPeter.SQLibrary.MySQL;
+	       ^^^
+The import lib cannot be resolved
+----------
+258. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 35)
+	import lib.PatPeter.SQLibrary.SQLibrary;
+	       ^^^
+The import lib cannot be resolved
+----------
+259. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 36)
+	import lib.PatPeter.SQLibrary.SQLite;
+	       ^^^
+The import lib cannot be resolved
+----------
+260. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 54)
+	* TODO create a metadata table to store some properties (e.g. Skript version, Yggdrasil version) -- but what if some variables cannot be converted? move them to a different table?
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO create a metadata table to store some properties (e.g. Skript version, Yggdrasil version) -- but what if some variables cannot be converted? move them to a different table?
+----------
+261. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 55)
+	* TODO create my own database connector or find a better one
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO create my own database connector or find a better one
+----------
+262. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 88)
+	return new MySQL(SkriptLogger.LOGGER, "[Skript]", host, port, database, user, password);
+	           ^^^^^
+MySQL cannot be resolved to a type
+----------
+263. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 105)
+	return new SQLite(SkriptLogger.LOGGER, "[Skript]", f.getParent(), name.substring(0, name.length() - ".db".length()));
+	           ^^^^^^
+SQLite cannot be resolved to a type
+----------
+264. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 122)
+	final SynchronizedReference<Database> db = new SynchronizedReference<>(null);
+	                            ^^^^^^^^
+Database cannot be resolved to a type
+----------
+265. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 122)
+	final SynchronizedReference<Database> db = new SynchronizedReference<>(null);
+	                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The constructor SynchronizedReference<Database>(Database) refers to the missing type Database
+----------
+266. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 145)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+267. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 147)
+	if (p == null || !(p instanceof SQLibrary)) {
+	                                ^^^^^^^^^
+SQLibrary cannot be resolved to a type
+----------
+268. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 159)
+	final Database db;
+	      ^^^^^^^^
+Database cannot be resolved to a type
+----------
+269. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 164)
+	this.db.set(db = (Database) o);
+	^^^^^^^
+Database cannot be resolved to a type
+----------
+270. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 164)
+	this.db.set(db = (Database) o);
+	                  ^^^^^^^^
+Database cannot be resolved to a type
+----------
+271. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 166)
+	if (e instanceof DatabaseException) {// not in a catch clause to not produce a ClassNotFoundException when this class is loaded and SQLibrary is not present
+	                 ^^^^^^^^^^^^^^^^^
+DatabaseException cannot be resolved to a type
+----------
+272. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 270)
+	synchronized (DatabaseStorage.this.db) {
+	              ^^^^^^^^^^^^^^^^^^^^^^^
+Database cannot be resolved to a type
+----------
+273. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 272)
+	final Database db = DatabaseStorage.this.db.get();
+	      ^^^^^^^^
+Database cannot be resolved to a type
+----------
+274. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 272)
+	final Database db = DatabaseStorage.this.db.get();
+	                    ^^^^^^^^^^^^^^^^^^^^^^^
+Database cannot be resolved to a type
+----------
+275. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 298)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+276. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 299)
+	final Database db = DatabaseStorage.this.db.get();
+	      ^^^^^^^^
+Database cannot be resolved to a type
+----------
+277. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 299)
+	final Database db = DatabaseStorage.this.db.get();
+	                    ^^^^^^^^^^^^^^^^^^^^^^^
+Database cannot be resolved to a type
+----------
+278. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 331)
+	// TODO don't print this message when Skript loads (because scripts are loaded after variables and take some time)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO don't print this message when Skript loads (because scripts are loaded after variables and take some time)
+----------
+279. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 367)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+280. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 371)
+	final Database db = this.db.get();
+	      ^^^^^^^^
+Database cannot be resolved to a type
+----------
+281. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 371)
+	final Database db = this.db.get();
+	                    ^^^^^^^
+Database cannot be resolved to a type
+----------
+282. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 395)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+283. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 396)
+	final Database db = this.db.get();
+	      ^^^^^^^^
+Database cannot be resolved to a type
+----------
+284. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 396)
+	final Database db = this.db.get();
+	                    ^^^^^^^
+Database cannot be resolved to a type
+----------
+285. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 431)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+286. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 432)
+	final Database db = this.db.get();
+	      ^^^^^^^^
+Database cannot be resolved to a type
+----------
+287. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 432)
+	final Database db = this.db.get();
+	                    ^^^^^^^
+Database cannot be resolved to a type
+----------
+288. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 471)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+289. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 472)
+	// REMIND get the actual maximum size from the database
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND get the actual maximum size from the database
+----------
+290. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 505)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+291. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 507)
+	final Database db = this.db.get();
+	      ^^^^^^^^
+Database cannot be resolved to a type
+----------
+292. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 507)
+	final Database db = this.db.get();
+	                    ^^^^^^^
+Database cannot be resolved to a type
+----------
+293. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 515)
+	this.db.set(null);
+	^^^^^^^
+Database cannot be resolved to a type
+----------
+294. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 527)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+295. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 528)
+	if (closed || db.get() == null)
+	              ^^
+Database cannot be resolved to a type
+----------
+296. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 546)
+	if (!closed) { // Skript may have been disabled in the meantime // TODO not fixed
+	                                                                   ^^^^^^^^^^^^^^
+TODO not fixed
+----------
+297. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 551)
+	synchronized (db) {
+	              ^^
+Database cannot be resolved to a type
+----------
+298. ERROR in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/DatabaseStorage.java (at line 552)
+	if (closed || db.get() == null)
+	              ^^
+Database cannot be resolved to a type
+----------
+----------
+299. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/VariablesMap.java (at line 48)
+	if ('0' <= c1 && c1 <= '9' && '0' <= c2 && c2 <= '9') { // TODO negative numbers? what about {blah-%number%}? // '-' < '0'
+	                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO negative numbers? what about {blah-%number%}? // '-' < '0'
+----------
+----------
+300. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/Variables.java (at line 142)
+	if (tvs != null)
+	    ^^^
+Redundant null check: The variable tvs cannot be null at this location
+----------
+301. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/Variables.java (at line 145)
+	break;
+	^^^^^^
+Dead code
+----------
+302. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/Variables.java (at line 302)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+303. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/Variables.java (at line 358)
+	if (tvs != null) {
+	    ^^^
+Redundant null check: The variable tvs cannot be null at this location
+----------
+304. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/Variables.java (at line 375)
+	variablesLock.writeLock().lock();
+	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Dead code
+----------
+305. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/Variables.java (at line 377)
+	variables.setVariable(name, value);
+	                      ^^^^
+Null type safety: The expression of type 'String' needs unchecked conversion to conform to '@NonNull String'
+----------
+306. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/Variables.java (at line 386)
+	s.save(name, v != null ? v.type : null, v != null ? v.data : null);
+	       ^^^^
+Null type safety: The expression of type 'String' needs unchecked conversion to conform to '@NonNull String'
+----------
+307. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/variables/Variables.java (at line 388)
+	source.save(name, null, null);
+	            ^^^^
+Null type safety: The expression of type 'String' needs unchecked conversion to conform to '@NonNull String'
+----------
+----------
+308. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtClick.java (at line 99)
+	//Skript.info("matchedPattern is " + matchedPattern); // TODO there is something wrong here...
+	                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO there is something wrong here...
+----------
+309. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtClick.java (at line 111)
+	tools = (Literal<ItemType>) args[1 - matchedPattern];
+	        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Type safety: Unchecked cast from Literal<capture#9-of ?> to Literal<ItemType>
+----------
+310. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtClick.java (at line 117)
+	Skript.info(e.getEventName());
+	            ^^^^^^^^^^^^^^^^
+Null type safety: The expression of type 'String' needs unchecked conversion to conform to '@NonNull String'
+----------
+----------
+311. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtPressurePlate.java (at line 41)
+	// TODO is EntityInteractEvent similar for entities?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO is EntityInteractEvent similar for entities?
+----------
+312. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtPressurePlate.java (at line 61)
+	// TODO !Update with every version [blocks]
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO !Update with every version [blocks]
+----------
+----------
+313. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtItem.java (at line 63)
+	// TODO limit to InventoryAction.PICKUP_* and similar (e.g. COLLECT_TO_CURSOR)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO limit to InventoryAction.PICKUP_
+----------
+314. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtItem.java (at line 78)
+	// TODO brew event
+	   ^^^^^^^^^^^^^^^
+TODO brew event
+----------
+----------
+315. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtGrow.java (at line 50)
+	Skript.registerEvent("Grow", EvtGrow.class, CollectionUtils.array(StructureGrowEvent.class, BlockGrowEvent.class),
+	                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Type safety: A generic array of Class<? extends Event&Cancellable> is created for a varargs parameter
+----------
+----------
+316. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtBlock.java (at line 65)
+	// TODO 'block destroy' event for any kind of block destruction (player, water, trampling, fall (sand, toches, ...), etc) -> BlockPhysicsEvent?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO 'block destroy' event for any kind of block destruction (player, water, trampling, fall (sand, toches, ...), etc) -> BlockPhysicsEvent?
+----------
+317. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtBlock.java (at line 66)
+	// REMIND attacking an item frame first removes its item; include this in on block damage?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND attacking an item frame first removes its item; include this in on block damage?
+----------
+318. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtBlock.java (at line 137)
+	//Hacky code to fix Java 8 compilation problems... TODO maybe use lambdas instead and break Java 7?
+	                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO maybe use lambdas instead and break Java 7?
+----------
+----------
+319. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtEntityBlockChange.java (at line 67)
+	// TODO silverfishes
+	   ^^^^^^^^^^^^^^^^^
+TODO silverfishes
+----------
+----------
+320. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/SimpleEvents.java (at line 238)
+	// TODO improve - on fish [of %entitydata%] (and/or itemtype), on reel, etc.
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO improve - on fish [of %entitydata%] (and/or itemtype), on reel, etc.
+----------
+321. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/SimpleEvents.java (at line 271)
+	// TODO level up/down
+	   ^^^^^^^^^^^^^^^^^^
+TODO level up/down
+----------
+----------
+322. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtMoveOn.java (at line 56)
+	public class EvtMoveOn extends SelfRegisteringSkriptEvent { // TODO on jump
+	                                                               ^^^^^^^^^^^^
+TODO on jump
+----------
+----------
+323. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/events/EvtCommand.java (at line 40)
+	public class EvtCommand extends SkriptEvent { // TODO condition to check whether a given command exists, & a conditon to check whether it's a custom skript command
+	                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO condition to check whether a given command exists, & a conditon to check whether it's a custom skript command
+----------
+----------
+324. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/localization/Language.java (at line 238)
+	l.putAll(load(new FileInputStream(f), name));
+	              ^^^^^^^^^^^^^^^^^^^^^^
+Potential resource leak: '<unassigned Closeable value>' may not be closed
+----------
+----------
+325. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/localization/Noun.java (at line 45)
+	// TODO remove NO_GENDER and add boolean/flag uncountable (e.g. Luft: 'die Luft', aber nicht 'eine Luft')
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO remove NO_GENDER and add boolean/flag uncountable (e.g. Luft: 'die Luft', aber nicht 'eine Luft')
+----------
+----------
+326. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/Skript.java (at line 129)
+	// TODO meaningful error if someone uses an %expression with percent signs% outside of text or a variable
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO meaningful error if someone uses an %expression with percent signs% outside of text or a variable
+----------
+327. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/Skript.java (at line 350)
+	Documentation.generate(); // TODO move to test classes?
+	                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO move to test classes?
+----------
+328. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/Skript.java (at line 734)
+	EvtSkript.onSkriptStop(); // TODO [code style] warn user about delays in Skript stop events
+	                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO [code style] warn user about delays in Skript stop events
+----------
+329. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/Skript.java (at line 843)
+	// TODO localise Infinity, -Infinity, NaN (and decimal point?)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO localise Infinity, -Infinity, NaN (and decimal point?)
+----------
+----------
+330. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprIdOf.java (at line 163)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+331. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprSkull.java (at line 30)
+	import org.bukkit.entity.Skeleton.SkeletonType;
+	       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The type Skeleton.SkeletonType is deprecated
+----------
+332. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprSkull.java (at line 77)
+	if (o instanceof SkeletonData ? ((SkeletonData) o).isWither() : ((Skeleton) o).getSkeletonType() == SkeletonType.WITHER) {
+	                                                                               ^^^^^^^^^^^^^^^^^
+The method getSkeletonType() from the type Skeleton is deprecated
+----------
+333. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprSkull.java (at line 77)
+	if (o instanceof SkeletonData ? ((SkeletonData) o).isWither() : ((Skeleton) o).getSkeletonType() == SkeletonType.WITHER) {
+	                                                                                                    ^^^^^^^^^^^^
+The type Skeleton.SkeletonType is deprecated
+----------
+334. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprSkull.java (at line 77)
+	if (o instanceof SkeletonData ? ((SkeletonData) o).isWither() : ((Skeleton) o).getSkeletonType() == SkeletonType.WITHER) {
+	                                                                                                                 ^^^^^^
+The field Skeleton.SkeletonType.WITHER is deprecated
+----------
+----------
+335. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprSignText.java (at line 112)
+	// TODO allow add, remove, and remove all (see ExprLore)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO allow add, remove, and remove all (see ExprLore)
+----------
+----------
+336. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprDirection.java (at line 76)
+	// TODO think about parsing statically & dynamically (also in general)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO think about parsing statically & dynamically (also in general)
+----------
+337. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprDirection.java (at line 78)
+	// TODO direction of %location% (from|relative to) %location%
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO direction of %location% (from|relative to) %location%
+----------
+----------
+338. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprAttacked.java (at line 67)
+	@SuppressWarnings("unchecked")
+	                  ^^^^^^^^^^^
+Unnecessary @SuppressWarnings("unchecked")
+----------
+----------
+339. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprParse.java (at line 129)
+	if (p == null || !p.canParse(ParseContext.COMMAND)) { // TODO special parse context?
+	                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO special parse context?
+----------
+----------
+340. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLore.java (at line 55)
+	* TODO make a 'line %number% of %text%' expression and figure out how to deal with signs (4 lines, delete = empty, etc...)
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO make a 'line %number% of %text%' expression and figure out how to deal with signs (4 lines, delete = empty, etc...)
+----------
+341. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLore.java (at line 139)
+	// TODO test (especially remove)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO test (especially remove)
+----------
+342. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLore.java (at line 180)
+	final int l = Math2.fit(0, n.intValue() - 1, 99); // TODO figure out the actual maximum
+	                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO figure out the actual maximum
+----------
+----------
+343. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLoopValue.java (at line 56)
+	* TODO expression to get the current # of execution (e.g. loop-index/number/count/etc (not number though));
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO expression to get the current # of execution (e.g. loop-index/number/count/etc (not number though));
+----------
+----------
+344. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprTypeOf.java (at line 74)
+	protected <R> ConvertedExpression<Object, ? extends R> getConvertedExpr(final Class<R>... to) {
+	                                                                                          ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+----------
+345. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprValue.java (at line 40)
+	//	static { // REMIND add this (>2.0)
+	  	            ^^^^^^^^^^^^^^^^^^^^^^
+REMIND add this (>2.0)
+----------
+346. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprValue.java (at line 75)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+347. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprYawPitch.java (at line 61)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+348. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprRemainingAir.java (at line 58)
+	return Timespan.fromTicks(e.getRemainingAir());
+	                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The method fromTicks(int) from the type Timespan is deprecated
+----------
+----------
+349. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprUUID.java (at line 43)
+	// TODO [UUID] update documentation after release. Add note about requiring Bukkit 1.7.(9/10)?
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO [UUID] update documentation after release. Add note about requiring Bukkit 1.7.(9/10)?
+----------
+----------
+350. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprEventCancelled.java (at line 39)
+	* TODO actually allow to have triggers execute for cancelled events
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO actually allow to have triggers execute for cancelled events
+----------
+----------
+351. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLevel.java (at line 60)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+352. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprPotionEffect.java (at line 38)
+	// REMIND create
+	   ^^^^^^^^^^^^^
+REMIND create
+----------
+----------
+353. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLightLevel.java (at line 79)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+354. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprAmount.java (at line 40)
+	* TODO should 'amount of [item]' return the size of the stack?
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO should 'amount of [item]' return the size of the stack?
+----------
+----------
+355. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprPassenger.java (at line 50)
+	public class ExprPassenger extends SimplePropertyExpression<Entity, Entity> { // REMIND create 'vehicle' and 'passenger' expressions for vehicle enter/exit events?
+	                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+REMIND create 'vehicle' and 'passenger' expressions for vehicle enter/exit events?
+----------
+----------
+356. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLevelProgress.java (at line 64)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+357. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprSpeed.java (at line 67)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+358. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprCoordinate.java (at line 63)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+359. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/base/WrapperExpression.java (at line 74)
+	protected <R> ConvertedExpression<T, ? extends R> getConvertedExpr(final Class<R>... to) {
+	                                                                                     ^^
+Type safety: Potential heap pollution via varargs parameter to
+----------
+----------
+360. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/base/EventValueExpression.java (at line 82)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+361. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprAltitude.java (at line 46)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+362. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLastDamageCause.java (at line 73)
+	return dmgEvt.getCause();
+	       ^^^^^^^^^^^^^^^^^
+Null type safety: The expression of type 'EntityDamageEvent.DamageCause' needs unchecked conversion to conform to '@NonNull EntityDamageEvent.DamageCause'
+----------
+----------
+363. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprUnbreakable.java (at line 86)
+	((ItemMeta) meta).spigot().setUnbreakable(true);
+	                           ^^^^^^^^^^^^^^^^^^^^
+The method setUnbreakable(boolean) from the type ItemMeta.Spigot is deprecated
+----------
+----------
+364. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprBlocks.java (at line 60)
+	"[the] blocks %direction% [%locations%]", // TODO doesn't loop all blocks?
+	                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO doesn't loop all blocks?
+----------
+----------
+365. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprName.java (at line 259)
+	// TODO find a better method for handling changes (in general)
+	   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TODO find a better method for handling changes (in general)
+----------
+----------
+366. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprMaxHealth.java (at line 55)
+	@SuppressWarnings("null")
+	                  ^^^^^^
+Unnecessary @SuppressWarnings("null")
+----------
+----------
+367. WARNING in /home/benjami/Data/Koodaukset/Skript/Combined/src/main/java/ch/njol/skript/expressions/ExprLocationAt.java (at line 41)
+	* FIXME doesn't parse - update documentation when fixed
+	  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FIXME doesn't parse - update documentation when fixed
+----------
+367 problems (105 errors, 262 warnings)
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':Combined:compileJava'.
+> Compilation failed with exit code 255; see the compiler error output for details.
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.

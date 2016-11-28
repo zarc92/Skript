@@ -4,9 +4,8 @@
 
 rootProject.name = 'Skript'
 
-include 'Core'
+include 'Combined'
 include 'Yggdrasil'
-include 'Parser'
-include 'LegacyParser'
-include 'Bukkit'
-//include 'sponge'
+//include 'LegacyParser'
+//include 'Bukkit'
+//include 'Sponge'
