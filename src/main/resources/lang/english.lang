@@ -692,6 +692,9 @@ entities:
 	butcher:
 		name: butcher¦s
 		pattern: <age> butcher(|1¦s)|(4¦)butcher (kid(|1¦s)|child(|1¦ren))
+	nitwit:
+		name: nitwit¦s
+		pattern: <age> nitwit(|1¦s)|(4¦)nitwit (kid(|1¦s)|child(|1¦ren))
 	witch:
 		name: witch¦es
 		pattern: witch(|1¦es)
@@ -757,6 +760,12 @@ entities:
 	skeleton horse:
 		name: skeleton horse¦s
 		pattern: <age> skeleton horse(|1¦s)|skeleton <age> horse(|1¦s)|skeleton (4¦)foal(|1¦s)
+	llama:
+		name: llama¦s
+		pattern: llama(|1¦s)
+	llama spit:
+		name: llama spit¦s
+		pattern: llama spit(|1¦s)
 	elder guardian:
 		name: elder guardian¦s
 		pattern: elder guardian(|1¦s)
@@ -838,6 +847,21 @@ entities:
 	zombie butcher:
 		name: zombie butcher¦s
 		pattern: zombie butcher(|1¦s)
+	zombie nitwit:
+		name: zombie nitwit¦s
+		pattern: zombie nitwit(|1¦s)
+	evoker:
+		name: evoker¦s
+		pattern: evoker(|1¦s)
+	evoker fangs:
+		name: evoker fangs
+		pattern: evoker fangs
+	vex:
+		name: vex¦es
+		pattern: vex(|1¦es)
+	vindicator:
+		name: vindicator¦s
+		pattern: vindicator(|1¦s)
 	monster:
 		name: monster¦s
 		pattern: monster(|1¦s)
