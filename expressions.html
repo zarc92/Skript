@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Skript Documentation - 2.2-dev21c</title>
+    <title>Skript Documentation - 2.2-dev23b</title>
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -1369,6 +1369,48 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
+<div id="Inventory Slot" class="item-title">Inventory Slot</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] slot %number% of %inventory%</span></li>
+<li><span class="skript-code-inline">%inventory%'[s] slot %number%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev23b</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Represents a slot in a inventory. It can be used to change the item in a inventory too.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      if slot 0 of player is air:
+<br>	set slot 0 of player to 2 stones
+<br>	remove 1 stone from slot 0 of player
+<br>	add 2 stones to slot 0 of player
+<br>	clear slot 1 of player
+    </div>
+
+  </div>
+</div>
+
+
 <div id="Block" class="item-title">Block</div>
 <div class="item-content">
   <table>
@@ -2361,8 +2403,8 @@ This expression requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] UUID of %offlineplayers/worlds%</span></li>
-<li><span class="skript-code-inline">%offlineplayers/worlds%'[s] UUID</span></li>
+          <li><span class="skript-code-inline">[the] UUID of %entities/offlineplayers/worlds%</span></li>
+<li><span class="skript-code-inline">%entities/offlineplayers/worlds%'[s] UUID</span></li>
 
         </ul>
       </td>
@@ -2370,15 +2412,15 @@ This expression requires a supported regions plugin to be installed.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.1.2, 2.2 (offline players' UUIDs)</td>
+      <td>2.1.2, 2.2 (offline players' UUIDs), 2.2-dev23b (entitiy's UUIDs)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    The UUID of a player or world.
+    The UUID of a player, entity or world.
 In the future there will be an option to use a player's UUID instead of the name in variable names (i.e. when %player% is used), but for now this can be used.
-<em>Please note that this expression does not work for offline players!</em>
+<em>Please note that this expression does not work for offline players if you are under 1.8!</em>
   </div>
 
   <div class="item-examples">
@@ -2756,6 +2798,43 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
+<div id="Item Amount" class="item-title">Item Amount</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">item[[ ]stack] (amount|size|number) of %itemstack%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev23b</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets the amount of an <a href='../classes/#itemstack'>item stack</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "You have got %item amount of player's tool% %player's tool% in your hand !" to player
+    </div>
+
+  </div>
+</div>
+
+
 <div id="Health" class="item-title">Health</div>
 <div class="item-content">
   <table>
@@ -2921,7 +3000,7 @@ You usually don't need this expression as you can check and set items with alias
       <td>
         <ul>
           <li><span class="skript-code-inline">[the] world [of %location/entity%]</span></li>
-<li><span class="skript-code-inline">%location/entity%'[s] world</span></li>
+<li><span class="skript-code-inline">%location/entity%['s] world</span></li>
 
         </ul>
       </td>
@@ -3236,6 +3315,45 @@ Please note that changing a player's speed will change his FOV just like potions
 <br>every 5 seconds:
 <br>	loop all players:
 <br>		set the loop-player's compass target to location of {compass target.%loop-player%}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Open Inventory" class="item-title">Open Inventory</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (current|open|top) inventory of %player%</span></li>
+<li><span class="skript-code-inline">%player%'[s] (current|open|top) inventory</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev23b</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Return the open inventory of a player.
+If no inventory is open, it returns the own player's crafting inventory.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set slot 1 of open inventory of player to diamond sword
     </div>
 
   </div>

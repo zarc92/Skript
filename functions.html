@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Skript Documentation - 2.2-dev21c</title>
+    <title>Skript Documentation - 2.2-dev23b</title>
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -24,45 +24,6 @@
   Tutorial for doing so is planned, but right now you need to seek it elsewhere.
 </p>
 
-
-
-<div id="tan" class="item-title">tan</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">tan(Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    The tangent function. This is basically <code><a href='#sin'>sin</a>(arg)/<a href='#cos'>cos</a>(arg)</code>. Uses degrees, not radians.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      tan(0) = 0
-<br>tan(45) = 1
-<br>tan(89.99) = 5729.5779
-    </div>
-
-  </div>
-</div>
 
 
 <div id="date" class="item-title">date</div>
@@ -105,45 +66,6 @@ A time zone and DST offset can be specified as well (in minutes), if they are le
 </div>
 
 
-<div id="ceiling" class="item-title">ceiling</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">ceiling(Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Alias of <a href='#ceil'>ceil</a>.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      ceiling(2.34) = 3
-<br>ceiling(2) = 2
-<br>ceiling(2.99) = 3
-    </div>
-
-  </div>
-</div>
-
-
 <div id="ln" class="item-title">ln</div>
 <div class="item-content">
   <table>
@@ -178,46 +100,6 @@ Returns NaN (not a number) if the argument is negative.
       ln(1) = 0
 <br>ln(exp(5)) = 5
 <br>ln(2) = 0.6931
-    </div>
-
-  </div>
-</div>
-
-
-<div id="product" class="item-title">product</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">product(Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Calculates the product of a list of numbers.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      product(1) = 1
-<br>product(2, 3, 4) = 24
-<br>product({some list variable::*})
-<br>product(2, {_v::*}, and the player's y-coordinate)
     </div>
 
   </div>
@@ -305,45 +187,6 @@ Returns NaN (not a number) if any of the arguments are negative.
 </div>
 
 
-<div id="max" class="item-title">max</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">max(Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Returns the maximum number from a list of numbers.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      max(1) = 1
-<br>max(1, 2, 3, 4) = 4
-<br>max({some list variable::*})
-    </div>
-
-  </div>
-</div>
-
-
 <div id="cos" class="item-title">cos</div>
 <div class="item-content">
   <table>
@@ -422,84 +265,6 @@ Returns NaN (not a number) if any of the arguments are negative.
 </div>
 
 
-<div id="ceil" class="item-title">ceil</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">ceil(Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Rounds a number down, i.e. returns the closest integer larger than or equal to the argument.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      ceil(2.34) = 3
-<br>ceil(2) = 2
-<br>ceil(2.99) = 3
-    </div>
-
-  </div>
-</div>
-
-
-<div id="acos" class="item-title">acos</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">acos(Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    The inverse of the <a href='#cos'>cosine</a>, also called arccos. Returns result in degrees, not radians. Only returns values from 0 to 180.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      acos(0) = 90
-<br>acos(1) = 0
-<br>acos(0.5) = 30
-    </div>
-
-  </div>
-</div>
-
-
 <div id="atan" class="item-title">atan</div>
 <div class="item-content">
   <table>
@@ -533,44 +298,6 @@ Returns NaN (not a number) if any of the arguments are negative.
       atan(0) = 0
 <br>atan(1) = 45
 <br>atan(10000) = 89.9943
-    </div>
-
-  </div>
-</div>
-
-
-<div id="abs" class="item-title">abs</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">abs(Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Returns the absolute value of the argument, i.e. makes the argument positive.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      abs(3) = 3
-<br>abs(-2) = 2
     </div>
 
   </div>
@@ -647,46 +374,6 @@ Returns NaN (not a number) if any of the arguments are negative.
 
     <div class="skript-code-block">
       set {_nether} to world("%{_world}%_nether")
-    </div>
-
-  </div>
-</div>
-
-
-<div id="round" class="item-title">round</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">round(Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Rounds a number, i.e. returns the closest integer to the argument.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      round(2.34) = 2
-<br>round(2) = 2
-<br>round(2.99) = 3
-<br>round(2.5) = 3
     </div>
 
   </div>
@@ -771,7 +458,7 @@ Returns NaN (not a number) if the argument is negative.
 </div>
 
 
-<div id="asin" class="item-title">asin</div>
+<div id="vector" class="item-title">vector</div>
 <div class="item-content">
   <table>
 
@@ -779,7 +466,7 @@ Returns NaN (not a number) if the argument is negative.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">asin(Number)</span></li>
+          <li><span class="skript-code-inline">vector(Number, Number, Number)</span></li>
 
         </ul>
       </td>
@@ -787,13 +474,13 @@ Returns NaN (not a number) if the argument is negative.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2</td>
+      <td>2.2-dev23</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    The inverse of the <a href='#sin'>sine</a>, also called arcsin. Returns result in degrees, not radians. Only returns values from -90 to 90.
+    Constructs a vector.
   </div>
 
   <div class="item-examples">
@@ -801,47 +488,7 @@ Returns NaN (not a number) if the argument is negative.
     Examples:
 
     <div class="skript-code-block">
-      asin(0) = 0
-<br>asin(1) = 90
-<br>asin(0.5) = 30
-    </div>
-
-  </div>
-</div>
-
-
-<div id="location" class="item-title">location</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">location(Number, Number, Number, World, Number, Number)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Creates a location from a world and 3 coordinates, with an optional yaw and pitch.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      location(0, 128, 0)
-<br>location(player's x-coordinate, player's y-coordinate + 5, player's z-coordinate, player's world, 0, 90)
+      vector(0, 0, 0)
     </div>
 
   </div>
@@ -959,6 +606,396 @@ The returned angle is measured counterclockwise in a standard mathematical coord
       atan2(0, 1) = 0
 <br>atan2(10, 0) = 90
 <br>atan2(-10, 5) = -63.4349
+    </div>
+
+  </div>
+</div>
+
+
+<div id="tan" class="item-title">tan</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">tan(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The tangent function. This is basically <code><a href='#sin'>sin</a>(arg)/<a href='#cos'>cos</a>(arg)</code>. Uses degrees, not radians.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      tan(0) = 0
+<br>tan(45) = 1
+<br>tan(89.99) = 5729.5779
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ceiling" class="item-title">ceiling</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">ceiling(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Alias of <a href='#ceil'>ceil</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      ceiling(2.34) = 3
+<br>ceiling(2) = 2
+<br>ceiling(2.99) = 3
+    </div>
+
+  </div>
+</div>
+
+
+<div id="product" class="item-title">product</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">product(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Calculates the product of a list of numbers.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      product(1) = 1
+<br>product(2, 3, 4) = 24
+<br>product({some list variable::*})
+<br>product(2, {_v::*}, and the player's y-coordinate)
+    </div>
+
+  </div>
+</div>
+
+
+<div id="max" class="item-title">max</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">max(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Returns the maximum number from a list of numbers.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      max(1) = 1
+<br>max(1, 2, 3, 4) = 4
+<br>max({some list variable::*})
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ceil" class="item-title">ceil</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">ceil(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Rounds a number down, i.e. returns the closest integer larger than or equal to the argument.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      ceil(2.34) = 3
+<br>ceil(2) = 2
+<br>ceil(2.99) = 3
+    </div>
+
+  </div>
+</div>
+
+
+<div id="acos" class="item-title">acos</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">acos(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The inverse of the <a href='#cos'>cosine</a>, also called arccos. Returns result in degrees, not radians. Only returns values from 0 to 180.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      acos(0) = 90
+<br>acos(1) = 0
+<br>acos(0.5) = 30
+    </div>
+
+  </div>
+</div>
+
+
+<div id="abs" class="item-title">abs</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">abs(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Returns the absolute value of the argument, i.e. makes the argument positive.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      abs(3) = 3
+<br>abs(-2) = 2
+    </div>
+
+  </div>
+</div>
+
+
+<div id="round" class="item-title">round</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">round(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Rounds a number, i.e. returns the closest integer to the argument.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      round(2.34) = 2
+<br>round(2) = 2
+<br>round(2.99) = 3
+<br>round(2.5) = 3
+    </div>
+
+  </div>
+</div>
+
+
+<div id="asin" class="item-title">asin</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">asin(Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The inverse of the <a href='#sin'>sine</a>, also called arcsin. Returns result in degrees, not radians. Only returns values from -90 to 90.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      asin(0) = 0
+<br>asin(1) = 90
+<br>asin(0.5) = 30
+    </div>
+
+  </div>
+</div>
+
+
+<div id="location" class="item-title">location</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">location(Number, Number, Number, World, Number, Number)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Creates a location from a world and 3 coordinates, with an optional yaw and pitch.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      location(0, 128, 0)
+<br>location(player's x-coordinate, player's y-coordinate + 5, player's z-coordinate, player's world, 0, 90)
     </div>
 
   </div>

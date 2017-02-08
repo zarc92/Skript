@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Skript Documentation - 2.2-dev21c</title>
+    <title>Skript Documentation - 2.2-dev23b</title>
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -543,8 +543,10 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">replace (all|every|) %strings% in %string% with %strings%</span></li>
+          <li><span class="skript-code-inline">replace (all|every|) %strings% in %strings% with %string%</span></li>
 <li><span class="skript-code-inline">replace (all|every|) %strings% with %string% in %strings%</span></li>
+<li><span class="skript-code-inline">replace (all|every|) %itemstacks% in %inventories% with %itemstack%</span></li>
+<li><span class="skript-code-inline">replace (all|every|) %itemstacks% with %itemstack% in %inventories%</span></li>
 
         </ul>
       </td>
@@ -552,13 +554,14 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0</td>
+      <td>2.0, 2.2-dev23b (replace in muliple strings and replace items in inventory)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
     Replaces all occurrences of a given text with another text. Please note that you can only change variables and a few expressions, e.g. a <a href='../expressions/#ExprMessage'>message</a> or a line of a sign.
+Starting with 2.2-dev23b, you can replace items in a inventory too.
   </div>
 
   <div class="item-examples">
@@ -571,6 +574,8 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 <br># The following acts as a simple chat censor, but it will e.g. censor mass, hassle, assassin, etc. as well:
 <br>on chat:
 <br>	replace all "fuck", "bitch" and "ass" with "****" in the message
+<br> 
+<br>replace all stone and dirt in player's inventory and player's top inventory with diamond
     </div>
 
   </div>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Skript Documentation - 2.2-dev21c</title>
+    <title>Skript Documentation - 2.2-dev23b</title>
     <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -200,6 +200,43 @@ Please read the article on <a href='../strings/'>Texts and Variable Names</a> to
 
   <div class="item-description">
     A location in a <a href='#world'>world</a>. Locations are world-specific and even store a <a href='#direction'>direction</a>, e.g. if you save a location and later teleport to it you will face the exact same direction you did when you saved the location.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="Vector" class="item-title">Vector</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">vector(x, y, z)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev23</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Vector is a collection of numbers. In Minecraft, 3D vectors are used to express velocities of entities.
   </div>
 
   <div class="item-examples">
@@ -560,7 +597,7 @@ You have two possibilities to use players as command arguments: &lt;player&gt; a
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">Protection, Fire Protection, Feather Falling, Blast Protection, Projectile Protection, Respiration, Aqua Affinity, Mending, Thorns, enchantments.names.vanishing_curse, Depth Strider, Frost Walker, enchantments.names.binding_curse, Sharpness, Smite, Bane of Arthropods, Knockback, Fire Aspect, Looting, Efficiency, Silk Touch, Unbreaking, Fortune, Power, Punch, Flame, Infinity, Luck of the Sea, Lure</span></li>
+          <li><span class="skript-code-inline">Protection, Fire Protection, Feather Falling, Blast Protection, Projectile Protection, Respiration, Aqua Affinity, Mending, Thorns, Curse of Vanishing, Depth Strider, Frost Walker, Curse of Binding, Sharpness, Smite, Bane of Arthropods, Knockback, Fire Aspect, Looting, enchantments.names.sweeping, Efficiency, Silk Touch, Unbreaking, Fortune, Power, Punch, Flame, Infinity, Luck of the Sea, Lure</span></li>
 
         </ul>
       </td>
@@ -1427,7 +1464,7 @@ Please note that currently 'material' is exactly the same as 'item', i.e. can ha
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">contact, attack, projectile, suffocation, fall, fire, burning, melting, lava, drowning, block explosion, entity explosion, void, lightning, suicide, starvation, poison, potion, wither, falling block, thorns, dragon's breath, unknown, hitting wall while flying, magma, damage causes.cramming</span></li>
+          <li><span class="skript-code-inline">contact, attack, damage causes.entity_sweep_attack, projectile, suffocation, fall, fire, burning, melting, lava, drowning, block explosion, entity explosion, void, lightning, suicide, starvation, poison, potion, wither, falling block, thorns, dragon's breath, unknown, hitting wall while flying, magma, cramming</span></li>
 
         </ul>
       </td>
