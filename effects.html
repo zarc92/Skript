@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Skript Documentation - 2.2-dev23b</title>
-    <link href="css/styles.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Skript Documentation - 2.2-dev26</title>
+  <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-    <div id="global-navigation">
+  <div id="global-navigation">
   <a href="index.html">Home</a>
   <a href="events.html">Events</a>
   <a href="conditions.html">Conditions</a>
@@ -16,12 +16,55 @@
   <a href="functions.html">Functions</a>
 </div>
 
-    <div id="content">
-      <h1>Effects</h1>
+  <nav>
+    <p id="nav-title">Table of Contents</p>
+    <div>
+      <p><a href="#EffPotion">Potion Effects</a></p>
+<p><a href="#Delay">Delay</a></p>
+<p><a href="#EffTeleport">Teleport</a></p>
+<p><a href="#EffRespawn">Force Respawn</a></p>
+<p><a href="#EffCancelEvent">Cancel Event</a></p>
+<p><a href="#EffKick">Kick</a></p>
+<p><a href="#EffExit">Exit</a></p>
+<p><a href="#EffVisualEffect">Play Effect</a></p>
+<p><a href="#EffOp">op/deop</a></p>
+<p><a href="#EffEquip">Equip</a></p>
+<p><a href="#EffShear">Shear</a></p>
+<p><a href="#EffSpawn">Spawn</a></p>
+<p><a href="#EffScriptOptionLoops">Loop Version</a></p>
+<p><a href="#EffReplace">Replace</a></p>
+<p><a href="#EffBroadcast">Broadcast</a></p>
+<p><a href="#EffIgnite">Ignite/Extinguish</a></p>
+<p><a href="#EffTree">Tree</a></p>
+<p><a href="#EffHealth">Damage/Heal/Repair</a></p>
+<p><a href="#EffKill">Kill</a></p>
+<p><a href="#EffColorArmor">Colour Items</a></p>
+<p><a href="#EffBan">Ban</a></p>
+<p><a href="#EffShoot">Shoot</a></p>
+<p><a href="#EffEnchant">Enchant/Disenchant</a></p>
+<p><a href="#EffVehicle">Vehicle</a></p>
+<p><a href="#EffPvP">PvP</a></p>
+<p><a href="#EffExplosion">Explosion</a></p>
+<p><a href="#EffCommand">Command</a></p>
+<p><a href="#EffMessage">Message</a></p>
+<p><a href="#EffDrop">Drop</a></p>
+<p><a href="#EffReturn">Return</a></p>
+<p><a href="#EffOpenInventory">Open/Close Inventory</a></p>
+<p><a href="#EffChange">Change: Set/Add/Remove/Delete/Reset</a></p>
+<p><a href="#EffPush">Push</a></p>
+<p><a href="#EffLog">Log</a></p>
+<p><a href="#EffToggle">Toggle</a></p>
+<p><a href="#EffPoison">Poison/Cure</a></p>
+<p><a href="#EffLightning">Lightning</a></p>
+
+    </div>
+  </nav>
+  <div id="content">
+    <h1>Effects</h1>
 
 
 
-<div id="Potion Effects" class="item-title">Potion Effects</div>
+<div id="EffPotion" class="item-title">Potion Effects</div>
 <div class="item-content">
   <table>
 
@@ -29,7 +72,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">apply [potion of] %potioneffecttypes% [potion] [[[of] tier] %-number%] to %livingentities% [for %-timespan%]</span></li>
+          <li><span class="skript-code-inline">apply [potion of] %<a href='classes.html#potioneffecttype'>potions</a>% [potion] [[[of] tier] %<a href='classes.html#number'>number</a>%] to %<a href='classes.html#livingentity'>living entities</a>% [for %<a href='classes.html#timespan'>time span</a>%]</span></li>
 
         </ul>
       </td>
@@ -69,7 +112,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(wait|halt) [for] %timespan%</span></li>
+          <li><span class="skript-code-inline">(wait|halt) [for] %<a href='classes.html#timespan'>time span</a>%</span></li>
 
         </ul>
       </td>
@@ -100,7 +143,7 @@
 </div>
 
 
-<div id="Teleport" class="item-title">Teleport</div>
+<div id="EffTeleport" class="item-title">Teleport</div>
 <div class="item-content">
   <table>
 
@@ -108,7 +151,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">teleport %entities% (to|%direction%) %location%</span></li>
+          <li><span class="skript-code-inline">teleport %<a href='classes.html#entity'>entities</a>% (to|%<a href='classes.html#direction'>direction</a>%) %<a href='classes.html#location'>location</a>%</span></li>
 
         </ul>
       </td>
@@ -138,7 +181,7 @@
 </div>
 
 
-<div id="Force Respawn" class="item-title">Force Respawn</div>
+<div id="EffRespawn" class="item-title">Force Respawn</div>
 <div class="item-content">
   <table>
 
@@ -146,7 +189,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">force %players% to respawn</span></li>
+          <li><span class="skript-code-inline">force %<a href='classes.html#player'>players</a>% to respawn</span></li>
 
         </ul>
       </td>
@@ -176,7 +219,7 @@
 </div>
 
 
-<div id="Cancel Event" class="item-title">Cancel Event</div>
+<div id="EffCancelEvent" class="item-title">Cancel Event</div>
 <div class="item-content">
   <table>
 
@@ -217,7 +260,7 @@
 </div>
 
 
-<div id="Kick" class="item-title">Kick</div>
+<div id="EffKick" class="item-title">Kick</div>
 <div class="item-content">
   <table>
 
@@ -225,7 +268,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">kick %players% [(by reason of|because [of]|on account of|due to) %-string%]</span></li>
+          <li><span class="skript-code-inline">kick %<a href='classes.html#player'>players</a>% [(by reason of|because [of]|on account of|due to) %<a href='classes.html#string'>text</a>%]</span></li>
 
         </ul>
       </td>
@@ -256,7 +299,7 @@
 </div>
 
 
-<div id="Exit" class="item-title">Exit</div>
+<div id="EffExit" class="item-title">Exit</div>
 <div class="item-content">
   <table>
 
@@ -265,9 +308,9 @@
       <td>
         <ul>
           <li><span class="skript-code-inline">(exit|stop) [trigger]</span></li>
-<li><span class="skript-code-inline">(exit|stop) [(1|a|the|this)] (0¦section|1¦loop|2¦conditional)</span></li>
-<li><span class="skript-code-inline">(exit|stop) <\d+> (0¦section|1¦loop|2¦conditional)s</span></li>
-<li><span class="skript-code-inline">(exit|stop) all (0¦section|1¦loop|2¦conditional)s</span></li>
+<li><span class="skript-code-inline">(exit|stop) [(1|a|the|this)] (section|loop|conditional)</span></li>
+<li><span class="skript-code-inline">(exit|stop) &lt;\d+&gt; (section|loop|conditional)s</span></li>
+<li><span class="skript-code-inline">(exit|stop) all (section|loop|conditional)s</span></li>
 
         </ul>
       </td>
@@ -302,7 +345,7 @@
 </div>
 
 
-<div id="Play Effect" class="item-title">Play Effect</div>
+<div id="EffVisualEffect" class="item-title">Play Effect</div>
 <div class="item-content">
   <table>
 
@@ -310,8 +353,8 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(play|show) %visualeffects% (on|%directions%) %entities/locations% [(to %-players%|in (radius|range) of %number%)]</span></li>
-<li><span class="skript-code-inline">(play|show) %number% %visualeffects% (on|%directions%) %locations% [(to %-players%|in (radius|range) of %number%)]</span></li>
+          <li><span class="skript-code-inline">(play|show) %<a href='classes.html#visualeffect'>visual effects</a>% (on|%<a href='classes.html#direction'>directions</a>%) %<a href='classes.html#entity'>entities</a>/<a href='classes.html#location'>locations</a>% [(to %<a href='classes.html#player'>players</a>%|in (radius|range) of %<a href='classes.html#number'>number</a>%)]</span></li>
+<li><span class="skript-code-inline">(play|show) %<a href='classes.html#number'>number</a>% %<a href='classes.html#visualeffect'>visual effects</a>% (on|%<a href='classes.html#direction'>directions</a>%) %<a href='classes.html#location'>locations</a>% [(to %<a href='classes.html#player'>players</a>%|in (radius|range) of %<a href='classes.html#number'>number</a>%)]</span></li>
 
         </ul>
       </td>
@@ -342,7 +385,7 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 </div>
 
 
-<div id="op/deop" class="item-title">op/deop</div>
+<div id="EffOp" class="item-title">op/deop</div>
 <div class="item-content">
   <table>
 
@@ -350,7 +393,7 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[de[-]]op %offlineplayers%</span></li>
+          <li><span class="skript-code-inline">[de[-]]op %<a href='classes.html#offlineplayer'>offline players</a>%</span></li>
 
         </ul>
       </td>
@@ -380,7 +423,7 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 </div>
 
 
-<div id="Equip" class="item-title">Equip</div>
+<div id="EffEquip" class="item-title">Equip</div>
 <div class="item-content">
   <table>
 
@@ -388,8 +431,8 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">equip [%livingentity%] with %itemtypes%</span></li>
-<li><span class="skript-code-inline">make %livingentity% wear %itemtypes%</span></li>
+          <li><span class="skript-code-inline">equip [%<a href='classes.html#livingentity'>living entity</a>%] with %<a href='classes.html#itemtype'>item types</a>%</span></li>
+<li><span class="skript-code-inline">make %<a href='classes.html#livingentity'>living entity</a>% wear %<a href='classes.html#itemtype'>item types</a>%</span></li>
 
         </ul>
       </td>
@@ -419,7 +462,7 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 </div>
 
 
-<div id="Shear" class="item-title">Shear</div>
+<div id="EffShear" class="item-title">Shear</div>
 <div class="item-content">
   <table>
 
@@ -427,8 +470,8 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">shear %livingentities%</span></li>
-<li><span class="skript-code-inline">un[-]shear %livingentities%</span></li>
+          <li><span class="skript-code-inline">shear %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">un[-]shear %<a href='classes.html#livingentity'>living entities</a>%</span></li>
 
         </ul>
       </td>
@@ -458,7 +501,7 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 </div>
 
 
-<div id="Spawn" class="item-title">Spawn</div>
+<div id="EffSpawn" class="item-title">Spawn</div>
 <div class="item-content">
   <table>
 
@@ -466,8 +509,8 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">spawn %entitytypes% [%directions% %locations%]</span></li>
-<li><span class="skript-code-inline">spawn %number% of %entitytypes% [%directions% %locations%]</span></li>
+          <li><span class="skript-code-inline">spawn %<a href='classes.html#entitytype'>entity types</a>% [%<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%]</span></li>
+<li><span class="skript-code-inline">spawn %<a href='classes.html#number'>number</a>% of %<a href='classes.html#entitytype'>entity types</a>% [%<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%]</span></li>
 
         </ul>
       </td>
@@ -497,7 +540,7 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 </div>
 
 
-<div id="Loop Version" class="item-title">Loop Version</div>
+<div id="EffScriptOptionLoops" class="item-title">Loop Version</div>
 <div class="item-content">
   <table>
 
@@ -505,7 +548,7 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">use[s] (1¦old|2¦new|1¦2.1.2|2¦2.2) loops</span></li>
+          <li><span class="skript-code-inline">use[s] (old|new|2.1.2|2.2) loops</span></li>
 
         </ul>
       </td>
@@ -535,7 +578,7 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 </div>
 
 
-<div id="Replace" class="item-title">Replace</div>
+<div id="EffReplace" class="item-title">Replace</div>
 <div class="item-content">
   <table>
 
@@ -543,10 +586,10 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">replace (all|every|) %strings% in %strings% with %string%</span></li>
-<li><span class="skript-code-inline">replace (all|every|) %strings% with %string% in %strings%</span></li>
-<li><span class="skript-code-inline">replace (all|every|) %itemstacks% in %inventories% with %itemstack%</span></li>
-<li><span class="skript-code-inline">replace (all|every|) %itemstacks% with %itemstack% in %inventories%</span></li>
+          <li><span class="skript-code-inline">replace [(all|every)] %<a href='classes.html#string'>texts</a>% in %<a href='classes.html#string'>texts</a>% with %<a href='classes.html#string'>text</a>%</span></li>
+<li><span class="skript-code-inline">replace [(all|every)] %<a href='classes.html#string'>texts</a>% with %<a href='classes.html#string'>text</a>% in %<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">replace [(all|every)] %<a href='classes.html#itemstack'>item stacks</a>% in %<a href='classes.html#inventory'>inventories</a>% with %<a href='classes.html#itemstack'>item stack</a>%</span></li>
+<li><span class="skript-code-inline">replace [(all|every)] %<a href='classes.html#itemstack'>item stacks</a>% with %<a href='classes.html#itemstack'>item stack</a>% in %<a href='classes.html#inventory'>inventories</a>%</span></li>
 
         </ul>
       </td>
@@ -554,14 +597,14 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0, 2.2-dev23b (replace in muliple strings and replace items in inventory)</td>
+      <td>2.0, 2.2-dev24 (replace in muliple strings and replace items in inventory)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
     Replaces all occurrences of a given text with another text. Please note that you can only change variables and a few expressions, e.g. a <a href='../expressions/#ExprMessage'>message</a> or a line of a sign.
-Starting with 2.2-dev23b, you can replace items in a inventory too.
+Starting with 2.2-dev24, you can replace items in a inventory too.
   </div>
 
   <div class="item-examples">
@@ -582,7 +625,7 @@ Starting with 2.2-dev23b, you can replace items in a inventory too.
 </div>
 
 
-<div id="Broadcast" class="item-title">Broadcast</div>
+<div id="EffBroadcast" class="item-title">Broadcast</div>
 <div class="item-content">
   <table>
 
@@ -590,7 +633,7 @@ Starting with 2.2-dev23b, you can replace items in a inventory too.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">broadcast %strings% [(to|in) %-worlds%]</span></li>
+          <li><span class="skript-code-inline">broadcast %<a href='classes.html#string'>texts</a>% [(to|in) %<a href='classes.html#world'>worlds</a>%]</span></li>
 
         </ul>
       </td>
@@ -620,7 +663,7 @@ Starting with 2.2-dev23b, you can replace items in a inventory too.
 </div>
 
 
-<div id="Ignite/Extinguish" class="item-title">Ignite/Extinguish</div>
+<div id="EffIgnite" class="item-title">Ignite/Extinguish</div>
 <div class="item-content">
   <table>
 
@@ -628,9 +671,9 @@ Starting with 2.2-dev23b, you can replace items in a inventory too.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(ignite|set fire to) %entities% [for %-timespan%]</span></li>
-<li><span class="skript-code-inline">(set|light) %entities% on fire [for %-timespan%]</span></li>
-<li><span class="skript-code-inline">extinguish %entities%</span></li>
+          <li><span class="skript-code-inline">(ignite|set fire to) %<a href='classes.html#entity'>entities</a>% [for %<a href='classes.html#timespan'>time span</a>%]</span></li>
+<li><span class="skript-code-inline">(set|light) %<a href='classes.html#entity'>entities</a>% on fire [for %<a href='classes.html#timespan'>time span</a>%]</span></li>
+<li><span class="skript-code-inline">extinguish %<a href='classes.html#entity'>entities</a>%</span></li>
 
         </ul>
       </td>
@@ -660,7 +703,7 @@ Starting with 2.2-dev23b, you can replace items in a inventory too.
 </div>
 
 
-<div id="Tree" class="item-title">Tree</div>
+<div id="EffTree" class="item-title">Tree</div>
 <div class="item-content">
   <table>
 
@@ -668,8 +711,8 @@ Starting with 2.2-dev23b, you can replace items in a inventory too.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(grow|create|generate) tree [of type %structuretype%] %directions% %locations%</span></li>
-<li><span class="skript-code-inline">(grow|create|generate) %structuretype% [tree] %directions% %locations%</span></li>
+          <li><span class="skript-code-inline">(grow|create|generate) tree [of type %<a href='classes.html#structuretype'>tree type</a>%] %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">(grow|create|generate) %<a href='classes.html#structuretype'>tree type</a>% [tree] %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
 
         </ul>
       </td>
@@ -699,7 +742,7 @@ This may require that there is enough space above the given location and that th
 </div>
 
 
-<div id="Damage/Heal/Repair" class="item-title">Damage/Heal/Repair</div>
+<div id="EffHealth" class="item-title">Damage/Heal/Repair</div>
 <div class="item-content">
   <table>
 
@@ -707,9 +750,9 @@ This may require that there is enough space above the given location and that th
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">damage %slots/livingentities/itemstack% by %number% [heart[s]][ with fake cause %-damagecause%]</span></li>
-<li><span class="skript-code-inline">heal %livingentities% [by %-number% [heart[s]]]</span></li>
-<li><span class="skript-code-inline">repair %slots/itemstack% [by %-number%]</span></li>
+          <li><span class="skript-code-inline">damage %<a href='classes.html#slot'>slots</a>/<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#itemstack'>item stack</a>% by %<a href='classes.html#number'>number</a>% [heart[s]][ with fake cause %<a href='classes.html#damagecause'>damage cause</a>%]</span></li>
+<li><span class="skript-code-inline">heal %<a href='classes.html#livingentity'>living entities</a>% [by %<a href='classes.html#number'>number</a>% [heart[s]]]</span></li>
+<li><span class="skript-code-inline">repair %<a href='classes.html#slot'>slots</a>/<a href='classes.html#itemstack'>item stack</a>% [by %<a href='classes.html#number'>number</a>%]</span></li>
 
         </ul>
       </td>
@@ -740,7 +783,7 @@ This may require that there is enough space above the given location and that th
 </div>
 
 
-<div id="Kill" class="item-title">Kill</div>
+<div id="EffKill" class="item-title">Kill</div>
 <div class="item-content">
   <table>
 
@@ -748,7 +791,7 @@ This may require that there is enough space above the given location and that th
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">kill %entities%</span></li>
+          <li><span class="skript-code-inline">kill %<a href='classes.html#entity'>entities</a>%</span></li>
 
         </ul>
       </td>
@@ -780,7 +823,7 @@ Note: This effect does not set the entitie's health to 0 (which causes issues), 
 </div>
 
 
-<div id="Colour Armour" class="item-title">Colour Armour</div>
+<div id="EffColorArmor" class="item-title">Colour Items</div>
 <div class="item-content">
   <table>
 
@@ -788,8 +831,8 @@ Note: This effect does not set the entitie's health to 0 (which causes issues), 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(dye|colo[u]r|paint) %slots/itemstack% %color%</span></li>
-<li><span class="skript-code-inline">(dye|colo[u]r|paint) %slots/itemstack% \(%number%, %number%, %number%\)</span></li>
+          <li><span class="skript-code-inline">(dye|colo[u]r|paint) %<a href='classes.html#slot'>slots</a>/<a href='classes.html#itemstack'>item stack</a>% %<a href='classes.html#color'>color</a>%</span></li>
+<li><span class="skript-code-inline">(dye|colo[u]r|paint) %<a href='classes.html#slot'>slots</a>/<a href='classes.html#itemstack'>item stack</a>% \(%<a href='classes.html#number'>number</a>%, %<a href='classes.html#number'>number</a>%, %<a href='classes.html#number'>number</a>%\)</span></li>
 
         </ul>
       </td>
@@ -797,13 +840,13 @@ Note: This effect does not set the entitie's health to 0 (which causes issues), 
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0</td>
+      <td>2.0 (2.2-dev26 for maps and potions)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Colours leather armour in a given <a href='../classes/#color'>colour</a>. You can also use RGB codes if you feel limited with the 16 default colours. RGB codes are three numbers from 0 to 255 in the order <code>(red, green, blue)</code>, where <code>(0,0,0)</code> is black and <code>(255,255,255)</code> is white.
+    Colours items in a given <a href='classes.html#color'>colour</a>. You can also use RGB codes if you feel limited with the 16 default colours. RGB codes are three numbers from 0 to 255 in the order <code>(red, green, blue)</code>, where <code>(0,0,0)</code> is black and <code>(255,255,255)</code> is white. Armor is colourable for all Minecraft versions. With Minecraft 1.11 or newer you can also colour potions and maps. Note that the colours might not look exactly how you'd expect.
   </div>
 
   <div class="item-examples">
@@ -819,7 +862,7 @@ Note: This effect does not set the entitie's health to 0 (which causes issues), 
 </div>
 
 
-<div id="Ban" class="item-title">Ban</div>
+<div id="EffBan" class="item-title">Ban</div>
 <div class="item-content">
   <table>
 
@@ -827,12 +870,12 @@ Note: This effect does not set the entitie's health to 0 (which causes issues), 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">ban %strings/offlineplayers% [(by reason of|because [of]|on account of|due to) %-string%]</span></li>
-<li><span class="skript-code-inline">unban %strings/offlineplayers%</span></li>
-<li><span class="skript-code-inline">ban %players% by IP [(by reason of|because [of]|on account of|due to) %-string%]</span></li>
-<li><span class="skript-code-inline">unban %players% by IP</span></li>
-<li><span class="skript-code-inline">IP(-| )ban %players% [(by reason of|because [of]|on account of|due to) %-string%]</span></li>
-<li><span class="skript-code-inline">(IP(-| )unban|un[-]IP[-]ban) %players%</span></li>
+          <li><span class="skript-code-inline">ban %<a href='classes.html#string'>texts</a>/<a href='classes.html#offlineplayer'>offline players</a>% [(by reason of|because [of]|on account of|due to) %<a href='classes.html#string'>text</a>%]</span></li>
+<li><span class="skript-code-inline">unban %<a href='classes.html#string'>texts</a>/<a href='classes.html#offlineplayer'>offline players</a>%</span></li>
+<li><span class="skript-code-inline">ban %<a href='classes.html#player'>players</a>% by IP [(by reason of|because [of]|on account of|due to) %<a href='classes.html#string'>text</a>%]</span></li>
+<li><span class="skript-code-inline">unban %<a href='classes.html#player'>players</a>% by IP</span></li>
+<li><span class="skript-code-inline">IP(-| )ban %<a href='classes.html#player'>players</a>% [(by reason of|because [of]|on account of|due to) %<a href='classes.html#string'>text</a>%]</span></li>
+<li><span class="skript-code-inline">(IP(-| )unban|un[-]IP[-]ban) %<a href='classes.html#player'>players</a>%</span></li>
 
         </ul>
       </td>
@@ -864,7 +907,7 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
 </div>
 
 
-<div id="Shoot" class="item-title">Shoot</div>
+<div id="EffShoot" class="item-title">Shoot</div>
 <div class="item-content">
   <table>
 
@@ -872,8 +915,8 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">shoot %entitydatas% [from %livingentities/locations%] [(at|with) (speed|velocity) %-number%] [%-direction%]</span></li>
-<li><span class="skript-code-inline">(make|let) %livingentities/locations% shoot %entitydatas% [(at|with) (speed|velocity) %-number%] [%-direction%]</span></li>
+          <li><span class="skript-code-inline">shoot %<a href='classes.html#entitydata'>entity types</a>% [from %<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#location'>locations</a>%] [(at|with) (speed|velocity) %<a href='classes.html#number'>number</a>%] [%<a href='classes.html#direction'>direction</a>%]</span></li>
+<li><span class="skript-code-inline">(make|let) %<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#location'>locations</a>% shoot %<a href='classes.html#entitydata'>entity types</a>% [(at|with) (speed|velocity) %<a href='classes.html#number'>number</a>%] [%<a href='classes.html#direction'>direction</a>%]</span></li>
 
         </ul>
       </td>
@@ -904,7 +947,7 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
 </div>
 
 
-<div id="Enchant/Disenchant" class="item-title">Enchant/Disenchant</div>
+<div id="EffEnchant" class="item-title">Enchant/Disenchant</div>
 <div class="item-content">
   <table>
 
@@ -912,8 +955,8 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">enchant %~itemstack% with %enchantmenttypes%</span></li>
-<li><span class="skript-code-inline">disenchant %~itemstack%</span></li>
+          <li><span class="skript-code-inline">enchant %~<a href='classes.html#itemstack'>item stack</a>% with %<a href='classes.html#enchantmenttype'>enchantment types</a>%</span></li>
+<li><span class="skript-code-inline">disenchant %~<a href='classes.html#itemstack'>item stack</a>%</span></li>
 
         </ul>
       </td>
@@ -943,7 +986,7 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
 </div>
 
 
-<div id="Vehicle" class="item-title">Vehicle</div>
+<div id="EffVehicle" class="item-title">Vehicle</div>
 <div class="item-content">
   <table>
 
@@ -951,9 +994,9 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(make|let|force) %entities% [to] (ride|mount) [(in|on)] %entity/entitydatas%</span></li>
-<li><span class="skript-code-inline">(make|let|force) %entities% [to] (dismount|(dismount|leave) (from|of|) (any|the[ir]|his|her|) vehicle[s])</span></li>
-<li><span class="skript-code-inline">(eject|dismount) (any|the|) passenger[s] (of|from) %entities%</span></li>
+          <li><span class="skript-code-inline">(make|let|force) %<a href='classes.html#entity'>entities</a>% [to] (ride|mount) [(in|on)] %<a href='classes.html#entity'>entities</a>/<a href='classes.html#entitydata'>entity types</a>%</span></li>
+<li><span class="skript-code-inline">[(make|let|force) %<a href='classes.html#entity'>entities</a>% [to] (dismount|(dismount|leave) (from|of)] [(any|the[ir]|his|her)] vehicle[s])</span></li>
+<li><span class="skript-code-inline">[(eject|dismount) (any|the)] passenger[s] (of|from) %<a href='classes.html#entity'>entities</a>%</span></li>
 
         </ul>
       </td>
@@ -983,7 +1026,7 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
 </div>
 
 
-<div id="PvP" class="item-title">PvP</div>
+<div id="EffPvP" class="item-title">PvP</div>
 <div class="item-content">
   <table>
 
@@ -991,8 +1034,8 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">enable PvP [in %worlds%]</span></li>
-<li><span class="skript-code-inline">disable PVP [in %worlds%]</span></li>
+          <li><span class="skript-code-inline">enable PvP [in %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">disable PVP [in %<a href='classes.html#world'>worlds</a>%]</span></li>
 
         </ul>
       </td>
@@ -1022,7 +1065,7 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
 </div>
 
 
-<div id="Explosion" class="item-title">Explosion</div>
+<div id="EffExplosion" class="item-title">Explosion</div>
 <div class="item-content">
   <table>
 
@@ -1030,10 +1073,10 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(create|make)] [an] explosion (of|with) (force|strength|power) %number% [%directions% %locations%]</span></li>
-<li><span class="skript-code-inline">[(create|make)] [a] safe explosion (of|with) (force|strength|power) %number% [%directions% %locations%]</span></li>
-<li><span class="skript-code-inline">[(create|make)] [a] fake explosion [%directions% %locations%]</span></li>
-<li><span class="skript-code-inline">[(create|make)] [an] explosion[ ]effect [%directions% %locations%]</span></li>
+          <li><span class="skript-code-inline">[(create|make)] [an] explosion (of|with) (force|strength|power) %<a href='classes.html#number'>number</a>% [%<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%]</span></li>
+<li><span class="skript-code-inline">[(create|make)] [a] safe explosion (of|with) (force|strength|power) %<a href='classes.html#number'>number</a>% [%<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%]</span></li>
+<li><span class="skript-code-inline">[(create|make)] [a] fake explosion [%<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%]</span></li>
+<li><span class="skript-code-inline">[(create|make)] [an] explosion[ ]effect [%<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%]</span></li>
 
         </ul>
       </td>
@@ -1065,7 +1108,7 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
 </div>
 
 
-<div id="Command" class="item-title">Command</div>
+<div id="EffCommand" class="item-title">Command</div>
 <div class="item-content">
   <table>
 
@@ -1073,9 +1116,9 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[execute] [the] command %strings% [by %-commandsenders%]</span></li>
-<li><span class="skript-code-inline">[execute] [the] %commandsenders% command %strings%</span></li>
-<li><span class="skript-code-inline">(let|make) %commandsenders% execute [[the] command] %strings%</span></li>
+          <li><span class="skript-code-inline">[execute] [the] command %<a href='classes.html#string'>texts</a>% [by %<a href='classes.html#commandsender'>players/console</a>%]</span></li>
+<li><span class="skript-code-inline">[execute] [the] %<a href='classes.html#commandsender'>players/console</a>% command %<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">(let|make) %<a href='classes.html#commandsender'>players/console</a>% execute [[the] command] %<a href='classes.html#string'>texts</a>%</span></li>
 
         </ul>
       </td>
@@ -1105,7 +1148,7 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
 </div>
 
 
-<div id="Message" class="item-title">Message</div>
+<div id="EffMessage" class="item-title">Message</div>
 <div class="item-content">
   <table>
 
@@ -1113,7 +1156,7 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(message|send [message]) %strings% [to %commandsenders%]</span></li>
+          <li><span class="skript-code-inline">(message|send [message]) %<a href='classes.html#string'>texts</a>% [to %<a href='classes.html#commandsender'>players/console</a>%]</span></li>
 
         </ul>
       </td>
@@ -1121,7 +1164,7 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.0</td>
+      <td>1.0 (2.2-dev26 for advanced features)</td>
     </tr>
 
   </table>
@@ -1146,7 +1189,7 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
 </div>
 
 
-<div id="Drop" class="item-title">Drop</div>
+<div id="EffDrop" class="item-title">Drop</div>
 <div class="item-content">
   <table>
 
@@ -1154,8 +1197,8 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">drop %itemtypes/experience% [%directions% %locations%]</span></li>
-<li><span class="skript-code-inline">drop %itemtypes/experience% [%directions% %locations%] without velocity</span></li>
+          <li><span class="skript-code-inline">drop %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#experience'>experience point</a>% [%<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%]</span></li>
+<li><span class="skript-code-inline">drop %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#experience'>experience point</a>% [%<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%] without velocity</span></li>
 
         </ul>
       </td>
@@ -1185,7 +1228,7 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
 </div>
 
 
-<div id="Return" class="item-title">Return</div>
+<div id="EffReturn" class="item-title">Return</div>
 <div class="item-content">
   <table>
 
@@ -1193,7 +1236,7 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">return %objects%</span></li>
+          <li><span class="skript-code-inline">return %<a href='classes.html#object'>objects</a>%</span></li>
 
         </ul>
       </td>
@@ -1223,7 +1266,7 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
 </div>
 
 
-<div id="Open/Close Inventory" class="item-title">Open/Close Inventory</div>
+<div id="EffOpenInventory" class="item-title">Open/Close Inventory</div>
 <div class="item-content">
   <table>
 
@@ -1231,9 +1274,9 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(0¦open|1¦show) ((20¦(crafting [table]|workbench)|40¦chest|60¦anvil) (view|window|inventory|)|%-inventory%) (to|for) %players%</span></li>
-<li><span class="skript-code-inline">close [the] inventory [view] (to|of|for) %players%</span></li>
-<li><span class="skript-code-inline">close %players%'[s] inventory [view]</span></li>
+          <li><span class="skript-code-inline">[(open|show) (((crafting [table]|workbench)|chest|anvil) (view|window|inventory)]|%<a href='classes.html#inventory'>inventory</a>%) (to|for) %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">close [the] inventory [view] (to|of|for) %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">close %<a href='classes.html#player'>players</a>%'[s] inventory [view]</span></li>
 
         </ul>
       </td>
@@ -1264,7 +1307,7 @@ Please note that currently 'show' and 'open' have the same effect, but 'show' wi
 </div>
 
 
-<div id="Change: Set/Add/Remove/Delete/Reset" class="item-title">Change: Set/Add/Remove/Delete/Reset</div>
+<div id="EffChange" class="item-title">Change: Set/Add/Remove/Delete/Reset</div>
 <div class="item-content">
   <table>
 
@@ -1272,15 +1315,15 @@ Please note that currently 'show' and 'open' have the same effect, but 'show' wi
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(add|give) %objects% to %~objects%</span></li>
-<li><span class="skript-code-inline">increase %~objects% by %objects%</span></li>
-<li><span class="skript-code-inline">give %~objects% %objects%</span></li>
-<li><span class="skript-code-inline">set %~objects% to %objects%</span></li>
-<li><span class="skript-code-inline">remove (all|every) %objects% from %~objects%</span></li>
-<li><span class="skript-code-inline">(remove|subtract) %objects% from %~objects%</span></li>
-<li><span class="skript-code-inline">reduce %~objects% by %objects%</span></li>
-<li><span class="skript-code-inline">(delete|clear) %~objects%</span></li>
-<li><span class="skript-code-inline">reset %~objects%</span></li>
+          <li><span class="skript-code-inline">(add|give) %<a href='classes.html#object'>objects</a>% to %~<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">increase %~<a href='classes.html#object'>objects</a>% by %<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">give %~<a href='classes.html#object'>objects</a>% %<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">set %~<a href='classes.html#object'>objects</a>% to %<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">remove (all|every) %<a href='classes.html#object'>objects</a>% from %~<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">(remove|subtract) %<a href='classes.html#object'>objects</a>% from %~<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">reduce %~<a href='classes.html#object'>objects</a>% by %<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">(delete|clear) %~<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">reset %~<a href='classes.html#object'>objects</a>%</span></li>
 
         </ul>
       </td>
@@ -1329,7 +1372,7 @@ Please note that currently 'show' and 'open' have the same effect, but 'show' wi
 </div>
 
 
-<div id="Push" class="item-title">Push</div>
+<div id="EffPush" class="item-title">Push</div>
 <div class="item-content">
   <table>
 
@@ -1337,7 +1380,7 @@ Please note that currently 'show' and 'open' have the same effect, but 'show' wi
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(push|thrust) %entities% %direction% [(at|with) (speed|velocity|force) %-number%]</span></li>
+          <li><span class="skript-code-inline">(push|thrust) %<a href='classes.html#entity'>entities</a>% %<a href='classes.html#direction'>direction</a>% [(at|with) (speed|velocity|force) %<a href='classes.html#number'>number</a>%]</span></li>
 
         </ul>
       </td>
@@ -1367,7 +1410,7 @@ Please note that currently 'show' and 'open' have the same effect, but 'show' wi
 </div>
 
 
-<div id="Log" class="item-title">Log</div>
+<div id="EffLog" class="item-title">Log</div>
 <div class="item-content">
   <table>
 
@@ -1375,7 +1418,7 @@ Please note that currently 'show' and 'open' have the same effect, but 'show' wi
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">log %strings% [(to|in) [file[s]] %-strings%]</span></li>
+          <li><span class="skript-code-inline">log %<a href='classes.html#string'>texts</a>% [(to|in) [file[s]] %<a href='classes.html#string'>texts</a>%]</span></li>
 
         </ul>
       </td>
@@ -1406,7 +1449,7 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
 </div>
 
 
-<div id="Toggle" class="item-title">Toggle</div>
+<div id="EffToggle" class="item-title">Toggle</div>
 <div class="item-content">
   <table>
 
@@ -1414,9 +1457,9 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(close|turn off|de[-]activate) %blocks%</span></li>
-<li><span class="skript-code-inline">(toggle|switch) [[the] state of] %blocks%</span></li>
-<li><span class="skript-code-inline">(open|turn on|activate) %blocks%</span></li>
+          <li><span class="skript-code-inline">(close|turn off|de[-]activate) %<a href='classes.html#block'>blocks</a>%</span></li>
+<li><span class="skript-code-inline">(toggle|switch) [[the] state of] %<a href='classes.html#block'>blocks</a>%</span></li>
+<li><span class="skript-code-inline">(open|turn on|activate) %<a href='classes.html#block'>blocks</a>%</span></li>
 
         </ul>
       </td>
@@ -1448,7 +1491,7 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
 </div>
 
 
-<div id="Poison/Cure" class="item-title">Poison/Cure</div>
+<div id="EffPoison" class="item-title">Poison/Cure</div>
 <div class="item-content">
   <table>
 
@@ -1456,8 +1499,8 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">poison %livingentities% [for %-timespan%]</span></li>
-<li><span class="skript-code-inline">(cure|unpoison) %livingentities% [(from|of) poison]</span></li>
+          <li><span class="skript-code-inline">poison %<a href='classes.html#livingentity'>living entities</a>% [for %<a href='classes.html#timespan'>time span</a>%]</span></li>
+<li><span class="skript-code-inline">(cure|unpoison) %<a href='classes.html#livingentity'>living entities</a>% [(from|of) poison]</span></li>
 
         </ul>
       </td>
@@ -1488,7 +1531,7 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
 </div>
 
 
-<div id="Lightning" class="item-title">Lightning</div>
+<div id="EffLightning" class="item-title">Lightning</div>
 <div class="item-content">
   <table>
 
@@ -1496,7 +1539,7 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(create|strike) lightning(1¦[ ]effect|) %directions% %locations%</span></li>
+          <li><span class="skript-code-inline">(create|strike) lightning[[ ]effect] %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
 
         </ul>
       </td>
@@ -1526,7 +1569,7 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
 </div>
 
 
-    </div>
-    <!-- other things are inserted here -->
+  </div>
+  <!-- other things are inserted here -->
 </body>
 </html>

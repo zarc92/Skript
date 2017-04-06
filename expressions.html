@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Skript Documentation - 2.2-dev23b</title>
-    <link href="css/styles.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Skript Documentation - 2.2-dev26</title>
+  <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-    <div id="global-navigation">
+  <div id="global-navigation">
   <a href="index.html">Home</a>
   <a href="events.html">Events</a>
   <a href="conditions.html">Conditions</a>
@@ -16,12 +16,143 @@
   <a href="functions.html">Functions</a>
 </div>
 
-    <div id="content">
-      <h1>Expressions</h1>
+  <nav>
+    <p id="nav-title">Table of Contents</p>
+    <div>
+      <p><a href="#ExprRegion">Region</a></p>
+<p><a href="#ExprCommandSender">Command Sender</a></p>
+<p><a href="#ExprParseError">Parse Error</a></p>
+<p><a href="#ExprVersion">Version</a></p>
+<p><a href="#ExprBlock">Block</a></p>
+<p><a href="#ExprScript">Script Name</a></p>
+<p><a href="#ExprStringCase">Upper/lower Case Text</a></p>
+<p><a href="#ExprRawName">Raw Name</a></p>
+<p><a href="#ExprNow">Now</a></p>
+<p><a href="#ExprLocation">Location</a></p>
+<p><a href="#ExprClicked">Clicked Block/Entity</a></p>
+<p><a href="#ExprWorlds">Worlds</a></p>
+<p><a href="#ExprCommand">Command</a></p>
+<p><a href="#ExprPotionItem">Potion (item)</a></p>
+<p><a href="#ExprExperience">Experience</a></p>
+<p><a href="#ExprLoopValue">Loop value</a></p>
+<p><a href="#ExprChatRecipients">Chat Recipients</a></p>
+<p><a href="#ExprAttacked">Attacked</a></p>
+<p><a href="#ExprFinalDamage">Final Damage</a></p>
+<p><a href="#ExprMe">Me</a></p>
+<p><a href="#ExprMessage">Message</a></p>
+<p><a href="#ExprSaturation">Saturation</a></p>
+<p><a href="#ExprLastSpawnedEntity">Last Spawned Entity</a></p>
+<p><a href="#ExprDrops">Drops</a></p>
+<p><a href="#ExprAttacker">Attacker</a></p>
+<p><a href="#ExprInventoryAction">Inventory Action</a></p>
+<p><a href="#ExprShooter">Shooter</a></p>
+<p><a href="#LitConsole">Console</a></p>
+<p><a href="#ExprClickAction">Click Action</a></p>
+<p><a href="#ExprArgument">Argument</a></p>
+<p><a href="#ExprItem">Item</a></p>
+<p><a href="#ExprTamer">Tamer</a></p>
+<p><a href="#ExprDamage">Damage</a></p>
+<p><a href="#ExprDamageCause">Damage Cause</a></p>
+<p><a href="#ExprBlocksInRegion">Blocks in Region</a></p>
+<p><a href="#ExprInventorySlot">Inventory Slot</a></p>
+<p><a href="#ExprBlock">Block</a></p>
+<p><a href="#ExprRandom">Random</a></p>
+<p><a href="#ExprLocationAt">Location At</a></p>
+<p><a href="#ExprParse">Parse</a></p>
+<p><a href="#ExprLocation">Location</a></p>
+<p><a href="#ExprDirection">Direction</a></p>
+<p><a href="#ExprNumbers">Numbers</a></p>
+<p><a href="#ExprRandomNumber">Random Number</a></p>
+<p><a href="#ExprAlphabetList">Alphabetical Sort</a></p>
+<p><a href="#ExprBlockSphere">Block Sphere</a></p>
+<p><a href="#ExprColoured">Coloured / Uncoloured</a></p>
+<p><a href="#ExprJoinSplit">Join & Split</a></p>
+<p><a href="#ExprDistance">Distance</a></p>
+<p><a href="#ExprTargetedBlock">Targeted Block</a></p>
+<p><a href="#ExprSortedList">Sorted List</a></p>
+<p><a href="#ExprItems">Items</a></p>
+<p><a href="#ExprSubstring">Subtext</a></p>
+<p><a href="#ExprIndexOf">Index Of</a></p>
+<p><a href="#ExprBlocks">Blocks</a></p>
+<p><a href="#ExprDifference">Difference</a></p>
+<p><a href="#ExprRegionsAt">Regions At</a></p>
+<p><a href="#ExprMembersOfRegion">Region Members & Owners</a></p>
+<p><a href="#ExprLength">Length</a></p>
+<p><a href="#ExprTypeOf">Type of</a></p>
+<p><a href="#ExprUUID">UUID</a></p>
+<p><a href="#ExprInventory">Inventory</a></p>
+<p><a href="#ExprGravity">Gravity</a></p>
+<p><a href="#ExprBed">Bed</a></p>
+<p><a href="#ExprLevel">Level</a></p>
+<p><a href="#ExprEnchantmentLevel">Enchantment Level</a></p>
+<p><a href="#ExprTime">Time</a></p>
+<p><a href="#ExprBiome">Biome</a></p>
+<p><a href="#ExprTarget">Target</a></p>
+<p><a href="#ExprYawPitch">Yaw / Pitch</a></p>
+<p><a href="#ExprItemAmount">Item Amount</a></p>
+<p><a href="#ExprHealth">Health</a></p>
+<p><a href="#ExprGameMode">Game Mode</a></p>
+<p><a href="#ExprDurability">Data Value</a></p>
+<p><a href="#ExprAltitude">Altitude</a></p>
+<p><a href="#ExprWorld">World</a></p>
+<p><a href="#ExprElement">Element of</a></p>
+<p><a href="#ExprLevelProgress">Level Progress</a></p>
+<p><a href="#ExprPassenger">Passenger</a></p>
+<p><a href="#ExprColorOf">Colour of</a></p>
+<p><a href="#ExprSpeed">Speed</a></p>
+<p><a href="#ExprFacing">Facing</a></p>
+<p><a href="#ExprCompassTarget">Compass Target</a></p>
+<p><a href="#ExprOpenInventory">Open Inventory</a></p>
+<p><a href="#ExprIP">IP</a></p>
+<p><a href="#ExprHash">Hash</a></p>
+<p><a href="#ExprFoodLevel">Food Level</a></p>
+<p><a href="#ExprMaxHealth">Max Health</a></p>
+<p><a href="#ExprRemainingAir">Remaining Air</a></p>
+<p><a href="#ExprArmorSlot">Armour Slot</a></p>
+<p><a href="#ExprEyeLocation">Head location</a></p>
+<p><a href="#ExprLastDamageCause">Last Damage Cause</a></p>
+<p><a href="#ExprTimeState">Former/Future State</a></p>
+<p><a href="#ExprWeather">Weather</a></p>
+<p><a href="#ExprGlowing">Glowing</a></p>
+<p><a href="#ExprUnixTime">Unix Timestamp</a></p>
+<p><a href="#ExprFurnaceSlot">Furnace Slot</a></p>
+<p><a href="#ExprIdOf">Id</a></p>
+<p><a href="#ExprAmountOfItems">Amount of Items</a></p>
+<p><a href="#ExprMaxStack">Maximum Stack Size</a></p>
+<p><a href="#ExprAmount">Amount</a></p>
+<p><a href="#ExprUnbreakable">Unbreakable Items</a></p>
+<p><a href="#ExprCoordinate">Coordinate</a></p>
+<p><a href="#ExprItemsIn">Items In</a></p>
+<p><a href="#ExprLightLevel">Light Level</a></p>
+<p><a href="#ExprVehicle">Vehicle</a></p>
+<p><a href="#ExprLore">Lore</a></p>
+<p><a href="#ExprChunk">Chunk</a></p>
+<p><a href="#ExprNamed">Named Item</a></p>
+<p><a href="#ExprTool">Tool</a></p>
+<p><a href="#ExprEnderChest">Ender Chest</a></p>
+<p><a href="#ExprSignText">Sign Text</a></p>
+<p><a href="#ExprSpawn">Spawn</a></p>
+<p><a href="#ExprRound">Rounding</a></p>
+<p><a href="#ExprSkull">Skull</a></p>
+<p><a href="#ExprCursorSlot">Cursor Slot</a></p>
+<p><a href="#ExprGlidingState">Gliding State</a></p>
+<p><a href="#ExprLocationOf">Location</a></p>
+<p><a href="#ExprName">Name / Display Name</a></p>
+<p><a href="#ExprName">Name / Display Name</a></p>
+<p><a href="#ExprName">Name / Display Name</a></p>
+<p><a href="#ExprEntities">Entities</a></p>
+<p><a href="#ExprArithmetic">Arithmetic</a></p>
+<p><a href="#ExprEntity">Creature/Entity/Player/Projectile/Villager/Powered Creeper/etc.</a></p>
+<p><a href="#ExprXOf">X of Item</a></p>
+
+    </div>
+  </nav>
+  <div id="content">
+    <h1>Expressions</h1>
 
 
 
-<div id="Region" class="item-title">Region</div>
+<div id="ExprRegion" class="item-title">Region</div>
 <div class="item-content">
   <table>
 
@@ -43,7 +174,7 @@
   </table>
 
   <div class="item-description">
-    The <a href='../classes/#region'>region</a> involved in an event.
+    The <a href='classes.html#region'>region</a> involved in an event.
 This expression requires a supported regions plugin to be installed.
   </div>
 
@@ -61,7 +192,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Command Sender" class="item-title">Command Sender</div>
+<div id="ExprCommandSender" class="item-title">Command Sender</div>
 <div class="item-content">
   <table>
 
@@ -100,7 +231,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Parse Error" class="item-title">Parse Error</div>
+<div id="ExprParseError" class="item-title">Parse Error</div>
 <div class="item-content">
   <table>
 
@@ -142,7 +273,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Version" class="item-title">Version</div>
+<div id="ExprVersion" class="item-title">Version</div>
 <div class="item-content">
   <table>
 
@@ -150,7 +281,7 @@ This expression requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(0¦[craft]bukkit|1¦minecraft|2¦skript)( |-)version</span></li>
+          <li><span class="skript-code-inline">([craft]bukkit|minecraft|skript)( |-)version</span></li>
 
         </ul>
       </td>
@@ -180,7 +311,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Block" class="item-title">Block</div>
+<div id="ExprBlock" class="item-title">Block</div>
 <div class="item-content">
   <table>
 
@@ -225,7 +356,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Script Name" class="item-title">Script Name</div>
+<div id="ExprScript" class="item-title">Script Name</div>
 <div class="item-content">
   <table>
 
@@ -265,7 +396,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Upper/lower Case Text" class="item-title">Upper/lower Case Text</div>
+<div id="ExprStringCase" class="item-title">Upper/lower Case Text</div>
 <div class="item-content">
   <table>
 
@@ -273,8 +404,8 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%string% in (0¦upper|1¦lower) case</span></li>
-<li><span class="skript-code-inline">capitalized %string%</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#string'>text</a>% in (upper|lower) case</span></li>
+<li><span class="skript-code-inline">capitalized %<a href='classes.html#string'>text</a>%</span></li>
 
         </ul>
       </td>
@@ -303,7 +434,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Raw Name" class="item-title">Raw Name</div>
+<div id="ExprRawName" class="item-title">Raw Name</div>
 <div class="item-content">
   <table>
 
@@ -311,7 +442,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(raw|minecraft|vanilla) name of %itemtypes%</span></li>
+          <li><span class="skript-code-inline">(raw|minecraft|vanilla) name of %<a href='classes.html#itemtype'>item types</a>%</span></li>
 
         </ul>
       </td>
@@ -340,7 +471,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Now" class="item-title">Now</div>
+<div id="ExprNow" class="item-title">Now</div>
 <div class="item-content">
   <table>
 
@@ -362,7 +493,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
   </table>
 
   <div class="item-description">
-    The current <a href='../classes/#date'>system time</a> of the server. Use <a href='#ExprTime'>time</a> to get the <a href='../classes/#time'>Minecraft time</a> of a world.
+    The current <a href='classes.html#date'>system time</a> of the server. Use <a href='#ExprTime'>time</a> to get the <a href='classes.html#time'>Minecraft time</a> of a world.
   </div>
 
   <div class="item-examples">
@@ -377,7 +508,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Location" class="item-title">Location</div>
+<div id="ExprLocation" class="item-title">Location</div>
 <div class="item-content">
   <table>
 
@@ -415,7 +546,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Clicked Block/Entity" class="item-title">Clicked Block/Entity</div>
+<div id="ExprClicked" class="item-title">Clicked Block/Entity</div>
 <div class="item-content">
   <table>
 
@@ -423,7 +554,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] clicked (block|%-*itemtype/entitydata%)</span></li>
+          <li><span class="skript-code-inline">[the] clicked (block|%*<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#entitydata'>entity type</a>%)</span></li>
 
         </ul>
       </td>
@@ -454,7 +585,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Worlds" class="item-title">Worlds</div>
+<div id="ExprWorlds" class="item-title">Worlds</div>
 <div class="item-content">
   <table>
 
@@ -492,7 +623,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Command" class="item-title">Command</div>
+<div id="ExprCommand" class="item-title">Command</div>
 <div class="item-content">
   <table>
 
@@ -536,7 +667,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Potion (item)" class="item-title">Potion (item)</div>
+<div id="ExprPotionItem" class="item-title">Potion (item)</div>
 <div class="item-content">
   <table>
 
@@ -544,8 +675,8 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(0¦(regular|normal)|1¦(strong|upgraded|level 2)|2¦(extended|long)) ][(20¦(splash|exploding)|40¦lingering) ]potion of %potioneffecttype%</span></li>
-<li><span class="skript-code-inline">[(0¦(regular|normal)|1¦(strong|upgraded|level 2)|2¦(extended|long)) ][(20¦(splash|exploding)|40¦lingering) ]%potioneffecttype% potion</span></li>
+          <li><span class="skript-code-inline">[((regular|normal)|(strong|upgraded|level 2)|(extended|long)) ][((splash|exploding)|lingering) ]potion of %<a href='classes.html#potioneffecttype'>potion</a>%</span></li>
+<li><span class="skript-code-inline">[((regular|normal)|(strong|upgraded|level 2)|(extended|long)) ][((splash|exploding)|lingering) ]%<a href='classes.html#potioneffecttype'>potion</a>% potion</span></li>
 <li><span class="skript-code-inline">(water bottle|bottle of water)</span></li>
 <li><span class="skript-code-inline">potion</span></li>
 
@@ -576,7 +707,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Experience" class="item-title">Experience</div>
+<div id="ExprExperience" class="item-title">Experience</div>
 <div class="item-content">
   <table>
 
@@ -584,7 +715,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (spawned|dropped|) [e]xp[erience] [orb[s]]</span></li>
+          <li><span class="skript-code-inline">[the] [(spawned|dropped)] [e]xp[erience] [orb[s]]</span></li>
 
         </ul>
       </td>
@@ -614,7 +745,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Loop value" class="item-title">Loop value</div>
+<div id="ExprLoopValue" class="item-title">Loop value</div>
 <div class="item-content">
   <table>
 
@@ -622,7 +753,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] loop-<.+></span></li>
+          <li><span class="skript-code-inline">[the] loop-&lt;.+&gt;</span></li>
 
         </ul>
       </td>
@@ -658,7 +789,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Chat Recipients" class="item-title">Chat Recipients</div>
+<div id="ExprChatRecipients" class="item-title">Chat Recipients</div>
 <div class="item-content">
   <table>
 
@@ -695,7 +826,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Attacked" class="item-title">Attacked</div>
+<div id="ExprAttacked" class="item-title">Attacked</div>
 <div class="item-content">
   <table>
 
@@ -703,7 +834,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (attacked|damaged|victim) [<(.+)>]</span></li>
+          <li><span class="skript-code-inline">[the] (attacked|damaged|victim) [&lt;(.+)&gt;]</span></li>
 
         </ul>
       </td>
@@ -734,7 +865,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Final Damage" class="item-title">Final Damage</div>
+<div id="ExprFinalDamage" class="item-title">Final Damage</div>
 <div class="item-content">
   <table>
 
@@ -771,7 +902,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Me" class="item-title">Me</div>
+<div id="ExprMe" class="item-title">Me</div>
 <div class="item-content">
   <table>
 
@@ -811,7 +942,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Message" class="item-title">Message</div>
+<div id="ExprMessage" class="item-title">Message</div>
 <div class="item-content">
   <table>
 
@@ -865,7 +996,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Saturation" class="item-title">Saturation</div>
+<div id="ExprSaturation" class="item-title">Saturation</div>
 <div class="item-content">
   <table>
 
@@ -873,7 +1004,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] saturation [of %players%]</span></li>
+          <li><span class="skript-code-inline">[the] saturation [of %<a href='classes.html#player'>players</a>%]</span></li>
 
         </ul>
       </td>
@@ -902,7 +1033,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Last Spawned Entity" class="item-title">Last Spawned Entity</div>
+<div id="ExprLastSpawnedEntity" class="item-title">Last Spawned Entity</div>
 <div class="item-content">
   <table>
 
@@ -910,7 +1041,8 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] [last[ly]] (0¦spawned|1¦shot) %*entitydata%</span></li>
+          <li><span class="skript-code-inline">[the] [last[ly]] (spawned|shot) %*<a href='classes.html#entitydata'>entity type</a>%</span></li>
+<li><span class="skript-code-inline">[the] [last[ly]] dropped (item)</span></li>
 
         </ul>
       </td>
@@ -918,13 +1050,13 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.3 (spawned entity), 2.0 (shot entity)</td>
+      <td>1.3 (spawned entity), 2.0 (shot entity), 2.2-dev26 (dropped item)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Holds the entity that was spawned most recently with the <a href='../effects/#EffSpawn'>spawn effect</a>, or shot with the <a href='../effects/#EffShoot'>shoot effect</a>. Please note that even though you can spawn multiple mobs simultaneously (e.g. with 'spawn 5 creepers'), only the last spawned mob is saved and can be used. If you spawn an entity and shoot a projectile you can however access both.
+    Holds the entity that was spawned most recently with the <a href='../effects/#EffSpawn'>spawn effect</a>, drop with the <a href='../effects/#EffDrop'>drop effect</a> or shot with the <a href='../effects/#EffShoot'>shoot effect</a>. Please note that even though you can spawn multiple mobs simultaneously (e.g. with 'spawn 5 creepers'), only the last spawned mob is saved and can be used. If you spawn an entity, shoot a projectile and drop a item you can however access all them together.
   </div>
 
   <div class="item-examples">
@@ -936,13 +1068,15 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 <br>set {%spawned priest%.healer} to true
 <br>shoot an arrow from the last spawned entity
 <br>ignite the shot projectile
+<br>drop a diamond sword
+<br>push last dropped item upwards
     </div>
 
   </div>
 </div>
 
 
-<div id="Drops" class="item-title">Drops</div>
+<div id="ExprDrops" class="item-title">Drops</div>
 <div class="item-content">
   <table>
 
@@ -980,7 +1114,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Attacker" class="item-title">Attacker</div>
+<div id="ExprAttacker" class="item-title">Attacker</div>
 <div class="item-content">
   <table>
 
@@ -1021,7 +1155,7 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
 </div>
 
 
-<div id="Inventory Action" class="item-title">Inventory Action</div>
+<div id="ExprInventoryAction" class="item-title">Inventory Action</div>
 <div class="item-content">
   <table>
 
@@ -1058,7 +1192,7 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
 </div>
 
 
-<div id="Shooter" class="item-title">Shooter</div>
+<div id="ExprShooter" class="item-title">Shooter</div>
 <div class="item-content">
   <table>
 
@@ -1066,7 +1200,7 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] shooter [of %projectile%]</span></li>
+          <li><span class="skript-code-inline">[the] shooter [of %<a href='classes.html#projectile'>projectile</a>%]</span></li>
 
         </ul>
       </td>
@@ -1095,7 +1229,7 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
 </div>
 
 
-<div id="Console" class="item-title">Console</div>
+<div id="LitConsole" class="item-title">Console</div>
 <div class="item-content">
   <table>
 
@@ -1133,7 +1267,7 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
 </div>
 
 
-<div id="Click Action" class="item-title">Click Action</div>
+<div id="ExprClickAction" class="item-title">Click Action</div>
 <div class="item-content">
   <table>
 
@@ -1170,7 +1304,7 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
 </div>
 
 
-<div id="Argument" class="item-title">Argument</div>
+<div id="ExprArgument" class="item-title">Argument</div>
 <div class="item-content">
   <table>
 
@@ -1179,11 +1313,11 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
       <td>
         <ul>
           <li><span class="skript-code-inline">[the] last arg[ument][s]</span></li>
-<li><span class="skript-code-inline">[the] arg[ument][s](-| )<(\d+)></span></li>
-<li><span class="skript-code-inline">[the] <(\d*1)st|(\d*2)nd|(\d*3)rd|(\d*[4-90])th> arg[ument][s]</span></li>
+<li><span class="skript-code-inline">[the] arg[ument][s](-| )&lt;(\d+)&gt;</span></li>
+<li><span class="skript-code-inline">[the] &lt;(\d*1)st|(\d*2)nd|(\d*3)rd|(\d*[4-90])th&gt; arg[ument][s]</span></li>
 <li><span class="skript-code-inline">[the] arg[ument][s]</span></li>
-<li><span class="skript-code-inline">[the] %*classinfo%( |-)arg[ument][( |-)<\d+>]</span></li>
-<li><span class="skript-code-inline">[the] arg[ument]( |-)%*classinfo%[( |-)<\d+>]</span></li>
+<li><span class="skript-code-inline">[the] %*<a href='classes.html#classinfo'>type</a>%( |-)arg[ument][( |-)&lt;\d+&gt;]</span></li>
+<li><span class="skript-code-inline">[the] arg[ument]( |-)%*<a href='classes.html#classinfo'>type</a>%[( |-)&lt;\d+&gt;]</span></li>
 
         </ul>
       </td>
@@ -1217,7 +1351,7 @@ One can also use the type of the argument instead of its index to address the ar
 </div>
 
 
-<div id="Item" class="item-title">Item</div>
+<div id="ExprItem" class="item-title">Item</div>
 <div class="item-content">
   <table>
 
@@ -1256,7 +1390,44 @@ One can also use the type of the argument instead of its index to address the ar
 </div>
 
 
-<div id="Damage" class="item-title">Damage</div>
+<div id="ExprTamer" class="item-title">Tamer</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] tamer</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev25</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The tamer of an entity. Can only be used in entity tame events. You can use 'event-entity' to refer tamed entity itself.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprDamage" class="item-title">Damage</div>
 <div class="item-content">
   <table>
 
@@ -1293,7 +1464,7 @@ One can also use the type of the argument instead of its index to address the ar
 </div>
 
 
-<div id="Damage Cause" class="item-title">Damage Cause</div>
+<div id="ExprDamageCause" class="item-title">Damage Cause</div>
 <div class="item-content">
   <table>
 
@@ -1330,7 +1501,7 @@ One can also use the type of the argument instead of its index to address the ar
 </div>
 
 
-<div id="Blocks in Region" class="item-title">Blocks in Region</div>
+<div id="ExprBlocksInRegion" class="item-title">Blocks in Region</div>
 <div class="item-content">
   <table>
 
@@ -1338,7 +1509,7 @@ One can also use the type of the argument instead of its index to address the ar
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(all|the)] blocks (in|of) [[the] region[s]] %regions%</span></li>
+          <li><span class="skript-code-inline">[(all|the)] blocks (in|of) [[the] region[s]] %<a href='classes.html#region'>regions</a>%</span></li>
 
         </ul>
       </td>
@@ -1369,7 +1540,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Inventory Slot" class="item-title">Inventory Slot</div>
+<div id="ExprInventorySlot" class="item-title">Inventory Slot</div>
 <div class="item-content">
   <table>
 
@@ -1377,8 +1548,8 @@ This expression requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] slot %number% of %inventory%</span></li>
-<li><span class="skript-code-inline">%inventory%'[s] slot %number%</span></li>
+          <li><span class="skript-code-inline">[the] slot %<a href='classes.html#number'>number</a>% of %<a href='classes.html#inventory'>inventory</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventory</a>%'[s] slot %<a href='classes.html#number'>number</a>%</span></li>
 
         </ul>
       </td>
@@ -1386,7 +1557,7 @@ This expression requires a supported regions plugin to be installed.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-dev23b</td>
+      <td>2.2-dev24</td>
     </tr>
 
   </table>
@@ -1411,7 +1582,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Block" class="item-title">Block</div>
+<div id="ExprBlock" class="item-title">Block</div>
 <div class="item-content">
   <table>
 
@@ -1419,7 +1590,7 @@ This expression requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] block %direction% [%location%]</span></li>
+          <li><span class="skript-code-inline">[the] block %<a href='classes.html#direction'>direction</a>% [%<a href='classes.html#location'>location</a>%]</span></li>
 
         </ul>
       </td>
@@ -1456,7 +1627,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Random" class="item-title">Random</div>
+<div id="ExprRandom" class="item-title">Random</div>
 <div class="item-content">
   <table>
 
@@ -1464,7 +1635,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[a] random %*classinfo% [out] of %objects%</span></li>
+          <li><span class="skript-code-inline">[a] random %*<a href='classes.html#classinfo'>type</a>% [out] of %<a href='classes.html#object'>objects</a>%</span></li>
 
         </ul>
       </td>
@@ -1494,7 +1665,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Location At" class="item-title">Location At</div>
+<div id="ExprLocationAt" class="item-title">Location At</div>
 <div class="item-content">
   <table>
 
@@ -1502,7 +1673,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (location|position) [at] [\(][x[ ][=[ ]]]%number%, [y[ ][=[ ]]]%number%, [and] [z[ ][=[ ]]]%number%[\)] [[(in|of) [[the] world]] %world%]</span></li>
+          <li><span class="skript-code-inline">[the] (location|position) [at] [\(][x[ ][=[ ]]]%<a href='classes.html#number'>number</a>%, [y[ ][=[ ]]]%<a href='classes.html#number'>number</a>%, [and] [z[ ][=[ ]]]%<a href='classes.html#number'>number</a>%[\)] [[(in|of) [[the] world]] %<a href='classes.html#world'>world</a>%]</span></li>
 
         </ul>
       </td>
@@ -1532,7 +1703,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="Parse" class="item-title">Parse</div>
+<div id="ExprParse" class="item-title">Parse</div>
 <div class="item-content">
   <table>
 
@@ -1540,7 +1711,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%string% parsed as (%-*classinfo%|"<.*>")</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#string'>text</a>% parsed as (%*<a href='classes.html#classinfo'>type</a>%|&quot;&lt;.*&gt;&quot;)</span></li>
 
         </ul>
       </td>
@@ -1583,7 +1754,7 @@ Some notes about parsing with a pattern:
 </div>
 
 
-<div id="Location" class="item-title">Location</div>
+<div id="ExprLocation" class="item-title">Location</div>
 <div class="item-content">
   <table>
 
@@ -1591,7 +1762,7 @@ Some notes about parsing with a pattern:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (location|position) %directions% [%location%]</span></li>
+          <li><span class="skript-code-inline">[the] (location|position) %<a href='classes.html#direction'>directions</a>% [%<a href='classes.html#location'>location</a>%]</span></li>
 
         </ul>
       </td>
@@ -1621,7 +1792,7 @@ Some notes about parsing with a pattern:
 </div>
 
 
-<div id="Direction" class="item-title">Direction</div>
+<div id="ExprDirection" class="item-title">Direction</div>
 <div class="item-content">
   <table>
 
@@ -1629,11 +1800,11 @@ Some notes about parsing with a pattern:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]] [to the]] (2¦north[(-| |)(4¦east|5¦west)][(ward(s|ly|)|er(n|ly|))] [of]|3¦south[(-| |)(11¦east|10¦west)][(ward(s|ly|)|er(n|ly|))] [of]|(4¦east|5¦west)[(ward(s|ly|)|er(n|ly|))] [of]|0¦above|0¦over|(0¦up|1¦down)[ward(s|ly|)]|1¦below|1¦under[neath]|1¦beneath) [%-direction%]</span></li>
-<li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]]] in [the] (0¦direction|1¦horizontal direction|2¦facing|3¦horizontal facing) of %entity/block% (of|from|)</span></li>
-<li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]]] in %entity/block%'[s] (0¦direction|1¦horizontal direction|2¦facing|3¦horizontal facing) (of|from|)</span></li>
-<li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]]] (0¦in[ ]front [of]|0¦forward[s]|2¦behind|2¦backwards|[to the] (1¦right|-1¦left) [of])</span></li>
-<li><span class="skript-code-inline">[%-number% [(block|met(er|re))[s]]] horizontal[ly] (0¦in[ ]front [of]|0¦forward[s]|2¦behind|2¦backwards|to the (1¦right|-1¦left) [of])</span></li>
+          <li><span class="skript-code-inline">[%<a href='classes.html#number'>number</a>% [[(block|met(er|re))[s]] [to the]] (north[(-| )][(east|west)][(ward(s|ly)]|er[(n|ly)])] [of]|south[[(-| )][(east|west)][(ward(s|ly)]|er[(n|ly)])] [of]|[(east|west)[(ward(s|ly)]|er[(n|ly)])] [of]|above|over|[(up|down)[ward(s|ly)]]|below|under[neath]|beneath) [%<a href='classes.html#direction'>direction</a>%]</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#number'>number</a>% [[(block|met(er|re))[s]]] in [the] (direction|horizontal direction|facing|horizontal facing) of %<a href='classes.html#entity'>entity</a>/<a href='classes.html#block'>block</a>% (of|from)]</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#number'>number</a>% [[(block|met(er|re))[s]]] in %<a href='classes.html#entity'>entity</a>/<a href='classes.html#block'>block</a>%'[s] (direction|horizontal direction|facing|horizontal facing) (of|from)]</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#number'>number</a>% [(block|met(er|re))[s]]] (in[ ]front [of]|forward[s]|behind|backwards|[to the] (right|left) [of])</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#number'>number</a>% [(block|met(er|re))[s]]] horizontal[ly] (in[ ]front [of]|forward[s]|behind|backwards|to the (right|left) [of])</span></li>
 
         </ul>
       </td>
@@ -1647,7 +1818,7 @@ Some notes about parsing with a pattern:
   </table>
 
   <div class="item-description">
-    A helper expression for the <a href='../classes/#direction'>direction type</a>.
+    A helper expression for the <a href='classes.html#direction'>direction type</a>.
   </div>
 
   <div class="item-examples">
@@ -1675,7 +1846,7 @@ Some notes about parsing with a pattern:
 </div>
 
 
-<div id="Numbers" class="item-title">Numbers</div>
+<div id="ExprNumbers" class="item-title">Numbers</div>
 <div class="item-content">
   <table>
 
@@ -1683,8 +1854,8 @@ Some notes about parsing with a pattern:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(all|the)] (numbers|1¦integers) (between|from) %number% (and|to) %number%</span></li>
-<li><span class="skript-code-inline">%number% times</span></li>
+          <li><span class="skript-code-inline">[(all|the)] (numbers|integers) (between|from) %<a href='classes.html#number'>number</a>% (and|to) %<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#number'>number</a>% times</span></li>
 
         </ul>
       </td>
@@ -1717,7 +1888,7 @@ An integer loop from 1 to a number x can also be written as 'loop x times'.
 </div>
 
 
-<div id="Random Number" class="item-title">Random Number</div>
+<div id="ExprRandomNumber" class="item-title">Random Number</div>
 <div class="item-content">
   <table>
 
@@ -1725,7 +1896,7 @@ An integer loop from 1 to a number x can also be written as 'loop x times'.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[a] random (1¦integer|2¦number) (from|between) %number% (to|and) %number%</span></li>
+          <li><span class="skript-code-inline">[a] random (integer|number) (from|between) %<a href='classes.html#number'>number</a>% (to|and) %<a href='classes.html#number'>number</a>%</span></li>
 
         </ul>
       </td>
@@ -1756,7 +1927,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Alphabetical Sort" class="item-title">Alphabetical Sort</div>
+<div id="ExprAlphabetList" class="item-title">Alphabetical Sort</div>
 <div class="item-content">
   <table>
 
@@ -1764,7 +1935,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">alphabetically sorted %strings%</span></li>
+          <li><span class="skript-code-inline">alphabetically sorted %<a href='classes.html#string'>texts</a>%</span></li>
 
         </ul>
       </td>
@@ -1793,7 +1964,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Block Sphere" class="item-title">Block Sphere</div>
+<div id="ExprBlockSphere" class="item-title">Block Sphere</div>
 <div class="item-content">
   <table>
 
@@ -1801,8 +1972,8 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(all|the|) blocks in radius %number% [(of|around) %location%]</span></li>
-<li><span class="skript-code-inline">(all|the|) blocks around %location% in radius %number%</span></li>
+          <li><span class="skript-code-inline">[(all|the)] blocks in radius %<a href='classes.html#number'>number</a>% [(of|around) %<a href='classes.html#location'>location</a>%]</span></li>
+<li><span class="skript-code-inline">[(all|the)] blocks around %<a href='classes.html#location'>location</a>% in radius %<a href='classes.html#number'>number</a>%</span></li>
 
         </ul>
       </td>
@@ -1831,7 +2002,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Coloured / Uncoloured" class="item-title">Coloured / Uncoloured</div>
+<div id="ExprColoured" class="item-title">Coloured / Uncoloured</div>
 <div class="item-content">
   <table>
 
@@ -1839,8 +2010,8 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(colo[u]r-|colo[u]red )%strings%</span></li>
-<li><span class="skript-code-inline">(un|non)[-](colo[u]r-|colo[u]red )%strings%</span></li>
+          <li><span class="skript-code-inline">(colo[u]r-|colo[u]red )%<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">(un|non)[-](colo[u]r-|colo[u]red )%<a href='classes.html#string'>texts</a>%</span></li>
 
         </ul>
       </td>
@@ -1873,7 +2044,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Join & Split" class="item-title">Join & Split</div>
+<div id="ExprJoinSplit" class="item-title">Join & Split</div>
 <div class="item-content">
   <table>
 
@@ -1881,9 +2052,9 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(concat[enate]|join) %strings% [(with|using|by) [[the] delimiter] %-string%]</span></li>
-<li><span class="skript-code-inline">split %string% (at|using|by) [[the] delimiter] %string%</span></li>
-<li><span class="skript-code-inline">%string% split (at|using|by) [[the] delimiter] %string%</span></li>
+          <li><span class="skript-code-inline">(concat[enate]|join) %<a href='classes.html#string'>texts</a>% [(with|using|by) [[the] delimiter] %<a href='classes.html#string'>text</a>%]</span></li>
+<li><span class="skript-code-inline">split %<a href='classes.html#string'>text</a>% (at|using|by) [[the] delimiter] %<a href='classes.html#string'>text</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#string'>text</a>% split (at|using|by) [[the] delimiter] %<a href='classes.html#string'>text</a>%</span></li>
 
         </ul>
       </td>
@@ -1913,7 +2084,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Distance" class="item-title">Distance</div>
+<div id="ExprDistance" class="item-title">Distance</div>
 <div class="item-content">
   <table>
 
@@ -1921,7 +2092,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] distance between %location% and %location%</span></li>
+          <li><span class="skript-code-inline">[the] distance between %<a href='classes.html#location'>location</a>% and %<a href='classes.html#location'>location</a>%</span></li>
 
         </ul>
       </td>
@@ -1951,7 +2122,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Targeted Block" class="item-title">Targeted Block</div>
+<div id="ExprTargetedBlock" class="item-title">Targeted Block</div>
 <div class="item-content">
   <table>
 
@@ -1959,10 +2130,10 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] target[ed] block[s] [of %players%]</span></li>
-<li><span class="skript-code-inline">%players%'[s] target[ed] block[s]</span></li>
-<li><span class="skript-code-inline">[the] actual[ly] target[ed] block[s] [of %players%]</span></li>
-<li><span class="skript-code-inline">%players%'[s] actual[ly] target[ed] block[s]</span></li>
+          <li><span class="skript-code-inline">[the] target[ed] block[s] [of %<a href='classes.html#player'>players</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] target[ed] block[s]</span></li>
+<li><span class="skript-code-inline">[the] actual[ly] target[ed] block[s] [of %<a href='classes.html#player'>players</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] actual[ly] target[ed] block[s]</span></li>
 
         </ul>
       </td>
@@ -1994,7 +2165,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Sorted List" class="item-title">Sorted List</div>
+<div id="ExprSortedList" class="item-title">Sorted List</div>
 <div class="item-content">
   <table>
 
@@ -2002,7 +2173,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">sorted %objects%</span></li>
+          <li><span class="skript-code-inline">sorted %<a href='classes.html#object'>objects</a>%</span></li>
 
         </ul>
       </td>
@@ -2031,7 +2202,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Items" class="item-title">Items</div>
+<div id="ExprItems" class="item-title">Items</div>
 <div class="item-content">
   <table>
 
@@ -2040,9 +2211,9 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td>
         <ul>
           <li><span class="skript-code-inline">[(all|every)] item(s|[ ]types)</span></li>
-<li><span class="skript-code-inline">items of type[s] %itemtypes%</span></li>
+<li><span class="skript-code-inline">items of type[s] %<a href='classes.html#itemtype'>item types</a>%</span></li>
 <li><span class="skript-code-inline">[(all|every)] block(s|[ ]types)</span></li>
-<li><span class="skript-code-inline">blocks of type[s] %itemtypes%</span></li>
+<li><span class="skript-code-inline">blocks of type[s] %<a href='classes.html#itemtype'>item types</a>%</span></li>
 
         </ul>
       </td>
@@ -2074,7 +2245,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Subtext" class="item-title">Subtext</div>
+<div id="ExprSubstring" class="item-title">Subtext</div>
 <div class="item-content">
   <table>
 
@@ -2082,9 +2253,9 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (part|sub[ ](text|string)) of %strings% (between|from) (ind(ex|ices)|character[s]|) %number% (and|to) (index|character|) %number%</span></li>
-<li><span class="skript-code-inline">[the] (1¦first|2¦last) [%-number%] character[s] of %strings%</span></li>
-<li><span class="skript-code-inline">[the] %number% (1¦first|2¦last) characters of %strings%</span></li>
+          <li><span class="skript-code-inline">[the] [(part|sub[ ](text|string)) of %<a href='classes.html#string'>texts</a>% (between|from) (ind(ex|ices)|character[s])] %<a href='classes.html#number'>number</a>% [(and|to) (index|character)] %<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">[the] (first|last) [%<a href='classes.html#number'>number</a>%] character[s] of %<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">[the] %<a href='classes.html#number'>number</a>% (first|last) characters of %<a href='classes.html#string'>texts</a>%</span></li>
 
         </ul>
       </td>
@@ -2114,7 +2285,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Index Of" class="item-title">Index Of</div>
+<div id="ExprIndexOf" class="item-title">Index Of</div>
 <div class="item-content">
   <table>
 
@@ -2122,7 +2293,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (0¦|0¦first|1¦last) index of %string% in %string%</span></li>
+          <li><span class="skript-code-inline">[the] [(first|last)] index of %<a href='classes.html#string'>text</a>% in %<a href='classes.html#string'>text</a>%</span></li>
 
         </ul>
       </td>
@@ -2153,7 +2324,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Blocks" class="item-title">Blocks</div>
+<div id="ExprBlocks" class="item-title">Blocks</div>
 <div class="item-content">
   <table>
 
@@ -2161,10 +2332,10 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] blocks %direction% [%locations%]</span></li>
-<li><span class="skript-code-inline">[the] blocks from %location% [on] %direction%</span></li>
-<li><span class="skript-code-inline">[the] blocks from %block% to %block%</span></li>
-<li><span class="skript-code-inline">[the] blocks between %block% and %block%</span></li>
+          <li><span class="skript-code-inline">[the] blocks %<a href='classes.html#direction'>direction</a>% [%<a href='classes.html#location'>locations</a>%]</span></li>
+<li><span class="skript-code-inline">[the] blocks from %<a href='classes.html#location'>location</a>% [on] %<a href='classes.html#direction'>direction</a>%</span></li>
+<li><span class="skript-code-inline">[the] blocks from %<a href='classes.html#block'>block</a>% to %<a href='classes.html#block'>block</a>%</span></li>
+<li><span class="skript-code-inline">[the] blocks between %<a href='classes.html#block'>block</a>% and %<a href='classes.html#block'>block</a>%</span></li>
 
         </ul>
       </td>
@@ -2195,7 +2366,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Difference" class="item-title">Difference</div>
+<div id="ExprDifference" class="item-title">Difference</div>
 <div class="item-content">
   <table>
 
@@ -2203,7 +2374,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">difference (between|of) %object% and %object%</span></li>
+          <li><span class="skript-code-inline">difference (between|of) %<a href='classes.html#object'>object</a>% and %<a href='classes.html#object'>object</a>%</span></li>
 
         </ul>
       </td>
@@ -2234,7 +2405,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
-<div id="Regions At" class="item-title">Regions At</div>
+<div id="ExprRegionsAt" class="item-title">Regions At</div>
 <div class="item-content">
   <table>
 
@@ -2242,7 +2413,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] region(1¦s|) %direction% %locations%</span></li>
+          <li><span class="skript-code-inline">[the] region[s] %<a href='classes.html#direction'>direction</a>% %<a href='classes.html#location'>locations</a>%</span></li>
 
         </ul>
       </td>
@@ -2278,7 +2449,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Region Members & Owners" class="item-title">Region Members & Owners</div>
+<div id="ExprMembersOfRegion" class="item-title">Region Members & Owners</div>
 <div class="item-content">
   <table>
 
@@ -2286,8 +2457,8 @@ This expression requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(all|the|) (0¦members|1¦owner[s]) of [[the] region[s]] %regions%</span></li>
-<li><span class="skript-code-inline">[[the] region[s]] %regions%'[s] (0¦members|1¦owner[s])</span></li>
+          <li><span class="skript-code-inline">[(all|the)] (members|owner[s]) of [[the] region[s]] %<a href='classes.html#region'>regions</a>%</span></li>
+<li><span class="skript-code-inline">[[the] region[s]] %<a href='classes.html#region'>regions</a>%'[s] (members|owner[s])</span></li>
 
         </ul>
       </td>
@@ -2318,7 +2489,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Length" class="item-title">Length</div>
+<div id="ExprLength" class="item-title">Length</div>
 <div class="item-content">
   <table>
 
@@ -2326,8 +2497,8 @@ This expression requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] length of %strings%</span></li>
-<li><span class="skript-code-inline">%strings%'[s] length</span></li>
+          <li><span class="skript-code-inline">[the] length of %<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#string'>texts</a>%'[s] length</span></li>
 
         </ul>
       </td>
@@ -2356,7 +2527,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="Type of" class="item-title">Type of</div>
+<div id="ExprTypeOf" class="item-title">Type of</div>
 <div class="item-content">
   <table>
 
@@ -2364,8 +2535,8 @@ This expression requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] type of %entitydatas/itemstacks%</span></li>
-<li><span class="skript-code-inline">%entitydatas/itemstacks%'[s] type</span></li>
+          <li><span class="skript-code-inline">[the] type of %<a href='classes.html#entitydata'>entity types</a>/<a href='classes.html#itemstack'>item stacks</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entitydata'>entity types</a>/<a href='classes.html#itemstack'>item stacks</a>%'[s] type</span></li>
 
         </ul>
       </td>
@@ -2395,7 +2566,7 @@ This expression requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="UUID" class="item-title">UUID</div>
+<div id="ExprUUID" class="item-title">UUID</div>
 <div class="item-content">
   <table>
 
@@ -2403,8 +2574,8 @@ This expression requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] UUID of %entities/offlineplayers/worlds%</span></li>
-<li><span class="skript-code-inline">%entities/offlineplayers/worlds%'[s] UUID</span></li>
+          <li><span class="skript-code-inline">[the] UUID of %<a href='classes.html#offlineplayer'>offline players</a>/<a href='classes.html#world'>worlds</a>/<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>/<a href='classes.html#world'>worlds</a>/<a href='classes.html#entity'>entities</a>%'[s] UUID</span></li>
 
         </ul>
       </td>
@@ -2412,7 +2583,7 @@ This expression requires a supported regions plugin to be installed.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.1.2, 2.2 (offline players' UUIDs), 2.2-dev23b (entitiy's UUIDs)</td>
+      <td>2.1.2, 2.2 (offline players' UUIDs), 2.2-dev24 (other entities' UUIDs)</td>
     </tr>
 
   </table>
@@ -2442,7 +2613,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Inventory" class="item-title">Inventory</div>
+<div id="ExprInventory" class="item-title">Inventory</div>
 <div class="item-content">
   <table>
 
@@ -2482,7 +2653,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Gravity" class="item-title">Gravity</div>
+<div id="ExprGravity" class="item-title">Gravity</div>
 <div class="item-content">
   <table>
 
@@ -2490,8 +2661,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] gravity of %entities%</span></li>
-<li><span class="skript-code-inline">%entities%'[s] gravity</span></li>
+          <li><span class="skript-code-inline">[the] gravity of %<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>%'[s] gravity</span></li>
 
         </ul>
       </td>
@@ -2520,7 +2691,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Bed" class="item-title">Bed</div>
+<div id="ExprBed" class="item-title">Bed</div>
 <div class="item-content">
   <table>
 
@@ -2528,8 +2699,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] bed[s] [location[s]] of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] bed[s] [location[s]]</span></li>
+          <li><span class="skript-code-inline">[the] bed[s] [location[s]] of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] bed[s] [location[s]]</span></li>
 
         </ul>
       </td>
@@ -2561,7 +2732,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Level" class="item-title">Level</div>
+<div id="ExprLevel" class="item-title">Level</div>
 <div class="item-content">
   <table>
 
@@ -2569,8 +2740,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] level of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] level</span></li>
+          <li><span class="skript-code-inline">[the] level of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] level</span></li>
 
         </ul>
       </td>
@@ -2600,7 +2771,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Enchantment Level" class="item-title">Enchantment Level</div>
+<div id="ExprEnchantmentLevel" class="item-title">Enchantment Level</div>
 <div class="item-content">
   <table>
 
@@ -2608,8 +2779,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (%-enchantment% level|level of [[the] enchant[ment]] %-enchantment%) o(f|n) %itemtypes%</span></li>
-<li><span class="skript-code-inline">%itemtypes%'[s] (%-enchantment% level|level of [[the] enchant[ment]] %-enchantment%)</span></li>
+          <li><span class="skript-code-inline">[the] (%<a href='classes.html#enchantment'>enchantment</a>% level|level of [[the] enchant[ment]] %<a href='classes.html#enchantment'>enchantment</a>%) o(f|n) %<a href='classes.html#itemtype'>item types</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item types</a>%'[s] (%<a href='classes.html#enchantment'>enchantment</a>% level|level of [[the] enchant[ment]] %<a href='classes.html#enchantment'>enchantment</a>%)</span></li>
 
         </ul>
       </td>
@@ -2623,7 +2794,7 @@ In the future there will be an option to use a player's UUID instead of the name
   </table>
 
   <div class="item-description">
-    The level of a particular <a href='../classes/#enchantment'>enchantment</a> on an item
+    The level of a particular <a href='classes.html#enchantment'>enchantment</a> on an item
   </div>
 
   <div class="item-examples">
@@ -2639,7 +2810,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Time" class="item-title">Time</div>
+<div id="ExprTime" class="item-title">Time</div>
 <div class="item-content">
   <table>
 
@@ -2647,8 +2818,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] time [(in|of) %worlds%]</span></li>
-<li><span class="skript-code-inline">%worlds%'[s] time</span></li>
+          <li><span class="skript-code-inline">[the] time [(in|of) %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#world'>worlds</a>%'[s] time</span></li>
 
         </ul>
       </td>
@@ -2678,7 +2849,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Biome" class="item-title">Biome</div>
+<div id="ExprBiome" class="item-title">Biome</div>
 <div class="item-content">
   <table>
 
@@ -2686,8 +2857,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] biome (of|%direction%) %location%</span></li>
-<li><span class="skript-code-inline">%location%'[s] biome</span></li>
+          <li><span class="skript-code-inline">[the] biome (of|%<a href='classes.html#direction'>direction</a>%) %<a href='classes.html#location'>location</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>location</a>%'[s] biome</span></li>
 
         </ul>
       </td>
@@ -2720,7 +2891,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Target" class="item-title">Target</div>
+<div id="ExprTarget" class="item-title">Target</div>
 <div class="item-content">
   <table>
 
@@ -2728,8 +2899,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] target[[ed] %-*entitydata%] [of %livingentities%]</span></li>
-<li><span class="skript-code-inline">%livingentities%'[s] target[[ed] %-*entitydata%]</span></li>
+          <li><span class="skript-code-inline">[the] target[[ed] %*<a href='classes.html#entitydata'>entity type</a>%] [of %<a href='classes.html#livingentity'>living entities</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] target[[ed] %*<a href='classes.html#entitydata'>entity type</a>%]</span></li>
 
         </ul>
       </td>
@@ -2760,7 +2931,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Yaw / Pitch" class="item-title">Yaw / Pitch</div>
+<div id="ExprYawPitch" class="item-title">Yaw / Pitch</div>
 <div class="item-content">
   <table>
 
@@ -2768,8 +2939,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (0¦yaw|1¦pitch) of %locations%</span></li>
-<li><span class="skript-code-inline">%locations%'[s] (0¦yaw|1¦pitch)</span></li>
+          <li><span class="skript-code-inline">[the] (yaw|pitch) of %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>locations</a>%'[s] (yaw|pitch)</span></li>
 
         </ul>
       </td>
@@ -2798,7 +2969,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Item Amount" class="item-title">Item Amount</div>
+<div id="ExprItemAmount" class="item-title">Item Amount</div>
 <div class="item-content">
   <table>
 
@@ -2806,7 +2977,7 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">item[[ ]stack] (amount|size|number) of %itemstack%</span></li>
+          <li><span class="skript-code-inline">item[[ ]stack] (amount|size|number) of %<a href='classes.html#itemstack'>item stack</a>%</span></li>
 
         </ul>
       </td>
@@ -2814,13 +2985,13 @@ In the future there will be an option to use a player's UUID instead of the name
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-dev23b</td>
+      <td>2.2-dev24</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Gets the amount of an <a href='../classes/#itemstack'>item stack</a>.
+    Gets the amount of an <a href='classes.html#itemstack'>item stack</a>.
   </div>
 
   <div class="item-examples">
@@ -2835,7 +3006,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Health" class="item-title">Health</div>
+<div id="ExprHealth" class="item-title">Health</div>
 <div class="item-content">
   <table>
 
@@ -2843,8 +3014,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] health of %livingentities%</span></li>
-<li><span class="skript-code-inline">%livingentities%'[s] health</span></li>
+          <li><span class="skript-code-inline">[the] health of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] health</span></li>
 
         </ul>
       </td>
@@ -2873,7 +3044,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Game Mode" class="item-title">Game Mode</div>
+<div id="ExprGameMode" class="item-title">Game Mode</div>
 <div class="item-content">
   <table>
 
@@ -2881,8 +3052,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] game[ ]mode of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] game[ ]mode</span></li>
+          <li><span class="skript-code-inline">[the] game[ ]mode of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] game[ ]mode</span></li>
 
         </ul>
       </td>
@@ -2912,7 +3083,7 @@ In the future there will be an option to use a player's UUID instead of the name
 </div>
 
 
-<div id="Data Value" class="item-title">Data Value</div>
+<div id="ExprDurability" class="item-title">Data Value</div>
 <div class="item-content">
   <table>
 
@@ -2920,8 +3091,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] ((data|damage)[s] [value[s]]|durabilit(y|ies)) of %itemstacks/slots%</span></li>
-<li><span class="skript-code-inline">%itemstacks/slots%'[s] ((data|damage)[s] [value[s]]|durabilit(y|ies))</span></li>
+          <li><span class="skript-code-inline">[the] ((data|damage)[s] [value[s]]|durabilit(y|ies)) of %<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#slot'>slots</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#slot'>slots</a>%'[s] ((data|damage)[s] [value[s]]|durabilit(y|ies))</span></li>
 
         </ul>
       </td>
@@ -2951,7 +3122,7 @@ You usually don't need this expression as you can check and set items with alias
 </div>
 
 
-<div id="Altitude" class="item-title">Altitude</div>
+<div id="ExprAltitude" class="item-title">Altitude</div>
 <div class="item-content">
   <table>
 
@@ -2959,8 +3130,8 @@ You usually don't need this expression as you can check and set items with alias
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] altitude[s] of %locations%</span></li>
-<li><span class="skript-code-inline">%locations%'[s] altitude[s]</span></li>
+          <li><span class="skript-code-inline">[the] altitude[s] of %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>locations</a>%'[s] altitude[s]</span></li>
 
         </ul>
       </td>
@@ -2991,7 +3162,7 @@ You usually don't need this expression as you can check and set items with alias
 </div>
 
 
-<div id="World" class="item-title">World</div>
+<div id="ExprWorld" class="item-title">World</div>
 <div class="item-content">
   <table>
 
@@ -2999,8 +3170,8 @@ You usually don't need this expression as you can check and set items with alias
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] world [of %location/entity%]</span></li>
-<li><span class="skript-code-inline">%location/entity%['s] world</span></li>
+          <li><span class="skript-code-inline">[the] world [of %<a href='classes.html#location'>location</a>/<a href='classes.html#entity'>entity</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>location</a>/<a href='classes.html#entity'>entity</a>%['s] world</span></li>
 
         </ul>
       </td>
@@ -3031,7 +3202,7 @@ You usually don't need this expression as you can check and set items with alias
 </div>
 
 
-<div id="Element of" class="item-title">Element of</div>
+<div id="ExprElement" class="item-title">Element of</div>
 <div class="item-content">
   <table>
 
@@ -3039,7 +3210,7 @@ You usually don't need this expression as you can check and set items with alias
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(-1¦[the] first|1¦[the] last|0¦[a] random) element [out] of %objects%</span></li>
+          <li><span class="skript-code-inline">([the] first|[the] last|[a] random) element [out] of %<a href='classes.html#object'>objects</a>%</span></li>
 
         </ul>
       </td>
@@ -3069,7 +3240,7 @@ See also: <a href='#ExprRandom'>random</a>
 </div>
 
 
-<div id="Level Progress" class="item-title">Level Progress</div>
+<div id="ExprLevelProgress" class="item-title">Level Progress</div>
 <div class="item-content">
   <table>
 
@@ -3077,8 +3248,8 @@ See also: <a href='#ExprRandom'>random</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] level progress of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] level progress</span></li>
+          <li><span class="skript-code-inline">[the] level progress of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] level progress</span></li>
 
         </ul>
       </td>
@@ -3120,7 +3291,7 @@ Changing this value can cause a player's level to change if the resulting level 
 </div>
 
 
-<div id="Passenger" class="item-title">Passenger</div>
+<div id="ExprPassenger" class="item-title">Passenger</div>
 <div class="item-content">
   <table>
 
@@ -3128,8 +3299,8 @@ Changing this value can cause a player's level to change if the resulting level 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] passenger[s] of %entities%</span></li>
-<li><span class="skript-code-inline">%entities%'[s] passenger[s]</span></li>
+          <li><span class="skript-code-inline">[the] passenger[s] of %<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>%'[s] passenger[s]</span></li>
 
         </ul>
       </td>
@@ -3137,7 +3308,7 @@ Changing this value can cause a player's level to change if the resulting level 
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0</td>
+      <td>2.0, 2.2-dev26 (Multiple passengers for 1.11.2+)</td>
     </tr>
 
   </table>
@@ -3145,6 +3316,7 @@ Changing this value can cause a player's level to change if the resulting level 
   <div class="item-description">
     The passenger of a vehicle, or the rider of a mob.
 See also: <a href='#ExprVehicle'>vehicle</a>
+For 1.11.2 and above, it returns a list of passengers and you can use all changers in it.
   </div>
 
   <div class="item-examples">
@@ -3152,15 +3324,23 @@ See also: <a href='#ExprVehicle'>vehicle</a>
     Examples:
 
     <div class="skript-code-block">
-      passenger of the minecart is a creeper or a cow
+      #for 1.11 and lower
+<br>passenger of the minecart is a creeper or a cow
 <br>the saddled pig's passenger is a player
+<br>#for 1.11.2+
+<br>passengers of the minecart contains a creeper or a cow
+<br>the boat's passenger contains a pig
+<br>add a cow and a zombie to passengers of last spawned boat
+<br>set passengers of player's vehicle to a pig and a horse
+<br>remove all pigs from player's vehicle
+<br>clear passengers of boat
     </div>
 
   </div>
 </div>
 
 
-<div id="Colour of" class="item-title">Colour of</div>
+<div id="ExprColorOf" class="item-title">Colour of</div>
 <div class="item-content">
   <table>
 
@@ -3168,8 +3348,8 @@ See also: <a href='#ExprVehicle'>vehicle</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] colo[u]r[s] of %itemstacks/entities%</span></li>
-<li><span class="skript-code-inline">%itemstacks/entities%'[s] colo[u]r[s]</span></li>
+          <li><span class="skript-code-inline">[the] colo[u]r[s] of %<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#entity'>entities</a>%'[s] colo[u]r[s]</span></li>
 
         </ul>
       </td>
@@ -3200,7 +3380,7 @@ See also: <a href='#ExprVehicle'>vehicle</a>
 </div>
 
 
-<div id="Speed" class="item-title">Speed</div>
+<div id="ExprSpeed" class="item-title">Speed</div>
 <div class="item-content">
   <table>
 
@@ -3208,8 +3388,8 @@ See also: <a href='#ExprVehicle'>vehicle</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (0¦walk[ing]|1¦fl(y[ing]|ight))[( |-])speed of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] (0¦walk[ing]|1¦fl(y[ing]|ight))[( |-])speed</span></li>
+          <li><span class="skript-code-inline">[the] (walk[ing]|fl(y[ing]|ight))[( |-])speed of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] (walk[ing]|fl(y[ing]|ight))[( |-])speed</span></li>
 
         </ul>
       </td>
@@ -3240,7 +3420,7 @@ Please note that changing a player's speed will change his FOV just like potions
 </div>
 
 
-<div id="Facing" class="item-title">Facing</div>
+<div id="ExprFacing" class="item-title">Facing</div>
 <div class="item-content">
   <table>
 
@@ -3248,8 +3428,8 @@ Please note that changing a player's speed will change his FOV just like potions
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (1¦horizontal|) facing of %livingentities/blocks%</span></li>
-<li><span class="skript-code-inline">%livingentities/blocks%'[s] (1¦horizontal|) facing</span></li>
+          <li><span class="skript-code-inline">[the] [horizontal] facing of %<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#block'>blocks</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#block'>blocks</a>%'[s] [horizontal] facing</span></li>
 
         </ul>
       </td>
@@ -3280,7 +3460,7 @@ Please note that changing a player's speed will change his FOV just like potions
 </div>
 
 
-<div id="Compass Target" class="item-title">Compass Target</div>
+<div id="ExprCompassTarget" class="item-title">Compass Target</div>
 <div class="item-content">
   <table>
 
@@ -3288,8 +3468,8 @@ Please note that changing a player's speed will change his FOV just like potions
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] compass target of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] compass target</span></li>
+          <li><span class="skript-code-inline">[the] compass target of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] compass target</span></li>
 
         </ul>
       </td>
@@ -3321,7 +3501,7 @@ Please note that changing a player's speed will change his FOV just like potions
 </div>
 
 
-<div id="Open Inventory" class="item-title">Open Inventory</div>
+<div id="ExprOpenInventory" class="item-title">Open Inventory</div>
 <div class="item-content">
   <table>
 
@@ -3329,8 +3509,8 @@ Please note that changing a player's speed will change his FOV just like potions
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (current|open|top) inventory of %player%</span></li>
-<li><span class="skript-code-inline">%player%'[s] (current|open|top) inventory</span></li>
+          <li><span class="skript-code-inline">[the] (current|open|top) inventory of %<a href='classes.html#player'>player</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>player</a>%'[s] (current|open|top) inventory</span></li>
 
         </ul>
       </td>
@@ -3338,7 +3518,7 @@ Please note that changing a player's speed will change his FOV just like potions
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-dev23b</td>
+      <td>2.2-dev24</td>
     </tr>
 
   </table>
@@ -3360,7 +3540,7 @@ If no inventory is open, it returns the own player's crafting inventory.
 </div>
 
 
-<div id="IP" class="item-title">IP</div>
+<div id="ExprIP" class="item-title">IP</div>
 <div class="item-content">
   <table>
 
@@ -3368,8 +3548,8 @@ If no inventory is open, it returns the own player's crafting inventory.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">IP[s][( |-)address[es]] of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] IP[s][( |-)address[es]]</span></li>
+          <li><span class="skript-code-inline">IP[s][( |-)address[es]] of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] IP[s][( |-)address[es]]</span></li>
 
         </ul>
       </td>
@@ -3377,7 +3557,7 @@ If no inventory is open, it returns the own player's crafting inventory.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.4</td>
+      <td>1.4, 2.2-dev26 (when used in connect event)</td>
     </tr>
 
   </table>
@@ -3400,7 +3580,7 @@ If no inventory is open, it returns the own player's crafting inventory.
 </div>
 
 
-<div id="Hash" class="item-title">Hash</div>
+<div id="ExprHash" class="item-title">Hash</div>
 <div class="item-content">
   <table>
 
@@ -3408,7 +3588,7 @@ If no inventory is open, it returns the own player's crafting inventory.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[md5]( |-)hash(ed|[( |-|)code] of) %strings%</span></li>
+          <li><span class="skript-code-inline">[md5][( |-)hash(ed|[( |-)]code] of) %<a href='classes.html#string'>texts</a>%</span></li>
 
         </ul>
       </td>
@@ -3446,7 +3626,7 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
 </div>
 
 
-<div id="Food Level" class="item-title">Food Level</div>
+<div id="ExprFoodLevel" class="item-title">Food Level</div>
 <div class="item-content">
   <table>
 
@@ -3454,9 +3634,9 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (food|hunger)[[ ](level|met(er|re)|bar)] [of %player%]</span></li>
-<li><span class="skript-code-inline">%player%'[s] (food|hunger)[[ ](level|met(er|re)|bar)]</span></li>
-<li><span class="skript-code-inline">feed [the] %player%</span></li>
+          <li><span class="skript-code-inline">[the] (food|hunger)[[ ](level|met(er|re)|bar)] [of %<a href='classes.html#player'>player</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>player</a>%'[s] (food|hunger)[[ ](level|met(er|re)|bar)]</span></li>
+<li><span class="skript-code-inline">feed [the] %<a href='classes.html#player'>player</a>%</span></li>
 
         </ul>
       </td>
@@ -3485,7 +3665,7 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
 </div>
 
 
-<div id="Max Health" class="item-title">Max Health</div>
+<div id="ExprMaxHealth" class="item-title">Max Health</div>
 <div class="item-content">
   <table>
 
@@ -3493,8 +3673,8 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] max[imum] health of %livingentities%</span></li>
-<li><span class="skript-code-inline">%livingentities%'[s] max[imum] health</span></li>
+          <li><span class="skript-code-inline">[the] max[imum] health of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] max[imum] health</span></li>
 
         </ul>
       </td>
@@ -3526,7 +3706,7 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
 </div>
 
 
-<div id="Remaining Air" class="item-title">Remaining Air</div>
+<div id="ExprRemainingAir" class="item-title">Remaining Air</div>
 <div class="item-content">
   <table>
 
@@ -3534,8 +3714,8 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] remaining air of %livingentities%</span></li>
-<li><span class="skript-code-inline">%livingentities%'[s] remaining air</span></li>
+          <li><span class="skript-code-inline">[the] remaining air of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] remaining air</span></li>
 
         </ul>
       </td>
@@ -3565,7 +3745,7 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
 </div>
 
 
-<div id="Armour Slot" class="item-title">Armour Slot</div>
+<div id="ExprArmorSlot" class="item-title">Armour Slot</div>
 <div class="item-content">
   <table>
 
@@ -3573,8 +3753,8 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (0¦boot[s]|0¦shoe[s]|1¦leg[ging][s]|2¦chestplate[s]|3¦helm[et][s]) [slot] of %livingentities%</span></li>
-<li><span class="skript-code-inline">%livingentities%'[s] (0¦boot[s]|0¦shoe[s]|1¦leg[ging][s]|2¦chestplate[s]|3¦helm[et][s]) [slot]</span></li>
+          <li><span class="skript-code-inline">[the] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [slot] of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [slot]</span></li>
 
         </ul>
       </td>
@@ -3604,7 +3784,7 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
 </div>
 
 
-<div id="Head location" class="item-title">Head location</div>
+<div id="ExprEyeLocation" class="item-title">Head location</div>
 <div class="item-content">
   <table>
 
@@ -3612,8 +3792,8 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (head|eye[s]) [location[s]] of %livingentities%</span></li>
-<li><span class="skript-code-inline">%livingentities%'[s] (head|eye[s]) [location[s]]</span></li>
+          <li><span class="skript-code-inline">[the] (head|eye[s]) [location[s]] of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] (head|eye[s]) [location[s]]</span></li>
 
         </ul>
       </td>
@@ -3645,7 +3825,7 @@ Please note that this location is only accurate for entities whose head is exact
 </div>
 
 
-<div id="Last Damage Cause" class="item-title">Last Damage Cause</div>
+<div id="ExprLastDamageCause" class="item-title">Last Damage Cause</div>
 <div class="item-content">
   <table>
 
@@ -3653,8 +3833,8 @@ Please note that this location is only accurate for entities whose head is exact
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] last damage cause of %livingentities%</span></li>
-<li><span class="skript-code-inline">%livingentities%'[s] last damage cause</span></li>
+          <li><span class="skript-code-inline">[the] last damage cause of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] last damage cause</span></li>
 
         </ul>
       </td>
@@ -3683,7 +3863,7 @@ Please note that this location is only accurate for entities whose head is exact
 </div>
 
 
-<div id="Former/Future State" class="item-title">Former/Future State</div>
+<div id="ExprTimeState" class="item-title">Former/Future State</div>
 <div class="item-content">
   <table>
 
@@ -3691,10 +3871,10 @@ Please note that this location is only accurate for entities whose head is exact
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (former|past|old) [state] [of] %~object%</span></li>
-<li><span class="skript-code-inline">%~object% before [the event]</span></li>
-<li><span class="skript-code-inline">[the] (future|to-be|new) [state] [of] %~object%</span></li>
-<li><span class="skript-code-inline">%~object%(-to-be| after[(wards| the event)])</span></li>
+          <li><span class="skript-code-inline">[the] (former|past|old) [state] [of] %~<a href='classes.html#object'>object</a>%</span></li>
+<li><span class="skript-code-inline">%~<a href='classes.html#object'>object</a>% before [the event]</span></li>
+<li><span class="skript-code-inline">[the] (future|to-be|new) [state] [of] %~<a href='classes.html#object'>object</a>%</span></li>
+<li><span class="skript-code-inline">%~<a href='classes.html#object'>object</a>%(-to-be| after[(wards| the event)])</span></li>
 
         </ul>
       </td>
@@ -3733,7 +3913,7 @@ Note 2: If you don't specify whether to use the past or future state of an expre
 </div>
 
 
-<div id="Weather" class="item-title">Weather</div>
+<div id="ExprWeather" class="item-title">Weather</div>
 <div class="item-content">
   <table>
 
@@ -3741,8 +3921,8 @@ Note 2: If you don't specify whether to use the past or future state of an expre
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] weather [(in|of) %worlds%]</span></li>
-<li><span class="skript-code-inline">%worlds%'[s] weather</span></li>
+          <li><span class="skript-code-inline">[the] weather [(in|of) %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#world'>worlds</a>%'[s] weather</span></li>
 
         </ul>
       </td>
@@ -3772,7 +3952,7 @@ Note 2: If you don't specify whether to use the past or future state of an expre
 </div>
 
 
-<div id="Glowing" class="item-title">Glowing</div>
+<div id="ExprGlowing" class="item-title">Glowing</div>
 <div class="item-content">
   <table>
 
@@ -3780,8 +3960,8 @@ Note 2: If you don't specify whether to use the past or future state of an expre
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] glowing of %entities%</span></li>
-<li><span class="skript-code-inline">%entities%'[s] glowing</span></li>
+          <li><span class="skript-code-inline">[the] glowing of %<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>%'[s] glowing</span></li>
 
         </ul>
       </td>
@@ -3810,7 +3990,7 @@ Note 2: If you don't specify whether to use the past or future state of an expre
 </div>
 
 
-<div id="Unix Timestamp" class="item-title">Unix Timestamp</div>
+<div id="ExprUnixTime" class="item-title">Unix Timestamp</div>
 <div class="item-content">
   <table>
 
@@ -3818,8 +3998,8 @@ Note 2: If you don't specify whether to use the past or future state of an expre
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] [unix] time[stamp] of %dates%</span></li>
-<li><span class="skript-code-inline">%dates%'[s] [unix] time[stamp]</span></li>
+          <li><span class="skript-code-inline">[the] [unix] time[stamp] of %<a href='classes.html#date'>dates</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#date'>dates</a>%'[s] [unix] time[stamp]</span></li>
 
         </ul>
       </td>
@@ -3848,7 +4028,7 @@ Note 2: If you don't specify whether to use the past or future state of an expre
 </div>
 
 
-<div id="Furnace Slot" class="item-title">Furnace Slot</div>
+<div id="ExprFurnaceSlot" class="item-title">Furnace Slot</div>
 <div class="item-content">
   <table>
 
@@ -3856,8 +4036,8 @@ Note 2: If you don't specify whether to use the past or future state of an expre
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (0¦ore|1¦fuel|2¦result)[s] [slot[s]] of %blocks%</span></li>
-<li><span class="skript-code-inline">%blocks%'[s] (0¦ore|1¦fuel|2¦result)[s] [slot[s]]</span></li>
+          <li><span class="skript-code-inline">[the] (ore|fuel|result)[s] [slot[s]] of %<a href='classes.html#block'>blocks</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#block'>blocks</a>%'[s] (ore|fuel|result)[s] [slot[s]]</span></li>
 
         </ul>
       </td>
@@ -3890,7 +4070,7 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
 </div>
 
 
-<div id="Id" class="item-title">Id</div>
+<div id="ExprIdOf" class="item-title">Id</div>
 <div class="item-content">
   <table>
 
@@ -3898,8 +4078,8 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] id(1¦s|) of %itemtype%</span></li>
-<li><span class="skript-code-inline">%itemtype%'[s] id(1¦s|)</span></li>
+          <li><span class="skript-code-inline">[the] id[s] of %<a href='classes.html#itemtype'>item type</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item type</a>%'[s] id[s]</span></li>
 
         </ul>
       </td>
@@ -3928,7 +4108,7 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
 </div>
 
 
-<div id="Amount of Items" class="item-title">Amount of Items</div>
+<div id="ExprAmountOfItems" class="item-title">Amount of Items</div>
 <div class="item-content">
   <table>
 
@@ -3936,7 +4116,7 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (amount|number) of %itemtypes% (in|of) %inventories%</span></li>
+          <li><span class="skript-code-inline">[the] (amount|number) of %<a href='classes.html#itemtype'>item types</a>% (in|of) %<a href='classes.html#inventory'>inventories</a>%</span></li>
 
         </ul>
       </td>
@@ -3965,7 +4145,7 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
 </div>
 
 
-<div id="Maximum Stack Size" class="item-title">Maximum Stack Size</div>
+<div id="ExprMaxStack" class="item-title">Maximum Stack Size</div>
 <div class="item-content">
   <table>
 
@@ -3973,8 +4153,8 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] max[imum] stack[[ ]size] of %itemstack%</span></li>
-<li><span class="skript-code-inline">%itemstack%'[s] max[imum] stack[[ ]size]</span></li>
+          <li><span class="skript-code-inline">[the] max[imum] stack[[ ]size] of %<a href='classes.html#itemstack'>item stack</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stack</a>%'[s] max[imum] stack[[ ]size]</span></li>
 
         </ul>
       </td>
@@ -4003,7 +4183,7 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
 </div>
 
 
-<div id="Amount" class="item-title">Amount</div>
+<div id="ExprAmount" class="item-title">Amount</div>
 <div class="item-content">
   <table>
 
@@ -4011,7 +4191,7 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(amount|number|size) of %objects%</span></li>
+          <li><span class="skript-code-inline">(amount|number|size) of %<a href='classes.html#object'>objects</a>%</span></li>
 
         </ul>
       </td>
@@ -4041,7 +4221,7 @@ Please note that <code>amount of &lt;items&gt;</code> will not return the number
 </div>
 
 
-<div id="Unbreakable Items" class="item-title">Unbreakable Items</div>
+<div id="ExprUnbreakable" class="item-title">Unbreakable Items</div>
 <div class="item-content">
   <table>
 
@@ -4049,7 +4229,7 @@ Please note that <code>amount of &lt;items&gt;</code> will not return the number
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">unbreakable %itemtypes%</span></li>
+          <li><span class="skript-code-inline">unbreakable %<a href='classes.html#itemtype'>item types</a>%</span></li>
 
         </ul>
       </td>
@@ -4078,7 +4258,7 @@ Please note that <code>amount of &lt;items&gt;</code> will not return the number
 </div>
 
 
-<div id="Coordinate" class="item-title">Coordinate</div>
+<div id="ExprCoordinate" class="item-title">Coordinate</div>
 <div class="item-content">
   <table>
 
@@ -4086,8 +4266,8 @@ Please note that <code>amount of &lt;items&gt;</code> will not return the number
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (0¦x|1¦y|2¦z)(-| )(coord[inate]|pos[ition]|loc[ation])[s] of %locations%</span></li>
-<li><span class="skript-code-inline">%locations%'[s] (0¦x|1¦y|2¦z)(-| )(coord[inate]|pos[ition]|loc[ation])[s]</span></li>
+          <li><span class="skript-code-inline">[the] (x|y|z)(-| )(coord[inate]|pos[ition]|loc[ation])[s] of %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>locations</a>%'[s] (x|y|z)(-| )(coord[inate]|pos[ition]|loc[ation])[s]</span></li>
 
         </ul>
       </td>
@@ -4117,7 +4297,7 @@ Please note that <code>amount of &lt;items&gt;</code> will not return the number
 </div>
 
 
-<div id="Items In" class="item-title">Items In</div>
+<div id="ExprItemsIn" class="item-title">Items In</div>
 <div class="item-content">
   <table>
 
@@ -4125,7 +4305,7 @@ Please note that <code>amount of &lt;items&gt;</code> will not return the number
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[all] items (in|of|contained in|out of) (|1¦inventor(y|ies)) %inventories%</span></li>
+          <li><span class="skript-code-inline">[all] items (in|of|contained in|out of) [(inventor(y|ies)]) %<a href='classes.html#inventory'>inventories</a>%</span></li>
 
         </ul>
       </td>
@@ -4158,7 +4338,7 @@ Please note that the positions of the items in the inventory are not saved, only
 </div>
 
 
-<div id="Light Level" class="item-title">Light Level</div>
+<div id="ExprLightLevel" class="item-title">Light Level</div>
 <div class="item-content">
   <table>
 
@@ -4166,7 +4346,7 @@ Please note that the positions of the items in the inventory are not saved, only
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(1¦sky|1¦sun|2¦block)[ ]]light[ ]level [(of|%direction%) %location%]</span></li>
+          <li><span class="skript-code-inline">[(sky|sun|block)[ ]]light[ ]level [(of|%<a href='classes.html#direction'>direction</a>%) %<a href='classes.html#location'>location</a>%]</span></li>
 
         </ul>
       </td>
@@ -4201,7 +4381,7 @@ It can be separated into sunlight (15 = direct sunlight, 1-14 = indirect) and bl
 </div>
 
 
-<div id="Vehicle" class="item-title">Vehicle</div>
+<div id="ExprVehicle" class="item-title">Vehicle</div>
 <div class="item-content">
   <table>
 
@@ -4209,8 +4389,8 @@ It can be separated into sunlight (15 = direct sunlight, 1-14 = indirect) and bl
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] vehicle[s] of %entities%</span></li>
-<li><span class="skript-code-inline">%entities%'[s] vehicle[s]</span></li>
+          <li><span class="skript-code-inline">[the] vehicle[s] of %<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>%'[s] vehicle[s]</span></li>
 
         </ul>
       </td>
@@ -4240,7 +4420,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Lore" class="item-title">Lore</div>
+<div id="ExprLore" class="item-title">Lore</div>
 <div class="item-content">
   <table>
 
@@ -4248,12 +4428,12 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] lore of %itemstack/itemtype%</span></li>
-<li><span class="skript-code-inline">%itemstack/itemtype%'[s] lore</span></li>
-<li><span class="skript-code-inline">[the] line %number% of [the] lore of %itemstack/itemtype%</span></li>
-<li><span class="skript-code-inline">[the] line %number% of %itemstack/itemtype%'[s] lore</span></li>
-<li><span class="skript-code-inline">[the] %number%(st|nd|rd|th) line of [the] lore of %itemstack/itemtype%</span></li>
-<li><span class="skript-code-inline">[the] %number%(st|nd|rd|th) line of %itemstack/itemtype%'[s] lore</span></li>
+          <li><span class="skript-code-inline">[the] lore of %<a href='classes.html#itemstack'>item stack</a>/<a href='classes.html#itemtype'>item type</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stack</a>/<a href='classes.html#itemtype'>item type</a>%'[s] lore</span></li>
+<li><span class="skript-code-inline">[the] line %<a href='classes.html#number'>number</a>% of [the] lore of %<a href='classes.html#itemstack'>item stack</a>/<a href='classes.html#itemtype'>item type</a>%</span></li>
+<li><span class="skript-code-inline">[the] line %<a href='classes.html#number'>number</a>% of %<a href='classes.html#itemstack'>item stack</a>/<a href='classes.html#itemtype'>item type</a>%'[s] lore</span></li>
+<li><span class="skript-code-inline">[the] %<a href='classes.html#number'>number</a>%(st|nd|rd|th) line of [the] lore of %<a href='classes.html#itemstack'>item stack</a>/<a href='classes.html#itemtype'>item type</a>%</span></li>
+<li><span class="skript-code-inline">[the] %<a href='classes.html#number'>number</a>%(st|nd|rd|th) line of %<a href='classes.html#itemstack'>item stack</a>/<a href='classes.html#itemtype'>item type</a>%'[s] lore</span></li>
 
         </ul>
       </td>
@@ -4282,7 +4462,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Chunk" class="item-title">Chunk</div>
+<div id="ExprChunk" class="item-title">Chunk</div>
 <div class="item-content">
   <table>
 
@@ -4290,8 +4470,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] chunk[s] (of|%-directions%) %locations%</span></li>
-<li><span class="skript-code-inline">%locations%'[s] chunk[s]</span></li>
+          <li><span class="skript-code-inline">[the] chunk[s] (of|%<a href='classes.html#direction'>directions</a>%) %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>locations</a>%'[s] chunk[s]</span></li>
 
         </ul>
       </td>
@@ -4320,7 +4500,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Named Item" class="item-title">Named Item</div>
+<div id="ExprNamed" class="item-title">Named Item</div>
 <div class="item-content">
   <table>
 
@@ -4328,7 +4508,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%itemtypes% (named|with name[s]) %string%</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item types</a>% (named|with name[s]) %<a href='classes.html#string'>text</a>%</span></li>
 
         </ul>
       </td>
@@ -4359,7 +4539,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Tool" class="item-title">Tool</div>
+<div id="ExprTool" class="item-title">Tool</div>
 <div class="item-content">
   <table>
 
@@ -4367,8 +4547,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (tool|held item|weapon) [of %livingentities%]</span></li>
-<li><span class="skript-code-inline">%livingentities%'[s] (tool|held item|weapon)</span></li>
+          <li><span class="skript-code-inline">[the] (tool|held item|weapon) [of %<a href='classes.html#livingentity'>living entities</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] (tool|held item|weapon)</span></li>
 
         </ul>
       </td>
@@ -4400,7 +4580,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Ender Chest" class="item-title">Ender Chest</div>
+<div id="ExprEnderChest" class="item-title">Ender Chest</div>
 <div class="item-content">
   <table>
 
@@ -4408,8 +4588,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] ender[ ]chest[s] of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] ender[ ]chest[s]</span></li>
+          <li><span class="skript-code-inline">[the] ender[ ]chest[s] of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] ender[ ]chest[s]</span></li>
 
         </ul>
       </td>
@@ -4438,7 +4618,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Sign Text" class="item-title">Sign Text</div>
+<div id="ExprSignText" class="item-title">Sign Text</div>
 <div class="item-content">
   <table>
 
@@ -4446,8 +4626,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] line %number% [of %block%]</span></li>
-<li><span class="skript-code-inline">[the] (1¦1st|1¦first|2¦2nd|2¦second|3¦3rd|3¦third|4¦4th|4¦fourth) line [of %block%]</span></li>
+          <li><span class="skript-code-inline">[the] line %<a href='classes.html#number'>number</a>% [of %<a href='classes.html#block'>block</a>%]</span></li>
+<li><span class="skript-code-inline">[the] (1st|first|2nd|second|3rd|third|4th|fourth) line [of %<a href='classes.html#block'>block</a>%]</span></li>
 
         </ul>
       </td>
@@ -4479,7 +4659,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Spawn" class="item-title">Spawn</div>
+<div id="ExprSpawn" class="item-title">Spawn</div>
 <div class="item-content">
   <table>
 
@@ -4487,8 +4667,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] spawn[s] [(point|location)[s]] [of %worlds%]</span></li>
-<li><span class="skript-code-inline">%worlds%'[s] spawn[s] [(point|location)[s]]</span></li>
+          <li><span class="skript-code-inline">[the] spawn[s] [(point|location)[s]] [of %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#world'>worlds</a>%'[s] spawn[s] [(point|location)[s]]</span></li>
 
         </ul>
       </td>
@@ -4518,7 +4698,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Rounding" class="item-title">Rounding</div>
+<div id="ExprRound" class="item-title">Rounding</div>
 <div class="item-content">
   <table>
 
@@ -4526,9 +4706,9 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(a|the|) round[ed] down %number%</span></li>
-<li><span class="skript-code-inline">(a|the|) round[ed] %number%</span></li>
-<li><span class="skript-code-inline">(a|the|) round[ed] up %number%</span></li>
+          <li><span class="skript-code-inline">[(a|the)] round[ed] down %<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">[(a|the)] round[ed] %<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">[(a|the)] round[ed] up %<a href='classes.html#number'>number</a>%</span></li>
 
         </ul>
       </td>
@@ -4560,7 +4740,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Skull" class="item-title">Skull</div>
+<div id="ExprSkull" class="item-title">Skull</div>
 <div class="item-content">
   <table>
 
@@ -4568,8 +4748,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] skull of %offlineplayers/entities/entitydatas%</span></li>
-<li><span class="skript-code-inline">%offlineplayers/entities/entitydatas%'[s] skull</span></li>
+          <li><span class="skript-code-inline">[the] skull of %<a href='classes.html#offlineplayer'>offline players</a>/<a href='classes.html#entity'>entities</a>/<a href='classes.html#entitydata'>entity types</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>/<a href='classes.html#entity'>entities</a>/<a href='classes.html#entitydata'>entity types</a>%'[s] skull</span></li>
 
         </ul>
       </td>
@@ -4599,7 +4779,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Cursor Slot" class="item-title">Cursor Slot</div>
+<div id="ExprCursorSlot" class="item-title">Cursor Slot</div>
 <div class="item-content">
   <table>
 
@@ -4607,8 +4787,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] cursor slot of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] cursor slot</span></li>
+          <li><span class="skript-code-inline">[the] cursor slot of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] cursor slot</span></li>
 
         </ul>
       </td>
@@ -4638,7 +4818,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Gliding State" class="item-title">Gliding State</div>
+<div id="ExprGlidingState" class="item-title">Gliding State</div>
 <div class="item-content">
   <table>
 
@@ -4646,8 +4826,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (gliding|glider) [state] of %entities%</span></li>
-<li><span class="skript-code-inline">%entities%'[s] (gliding|glider) [state]</span></li>
+          <li><span class="skript-code-inline">[the] (gliding|glider) [state] of %<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>%'[s] (gliding|glider) [state]</span></li>
 
         </ul>
       </td>
@@ -4676,7 +4856,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
-<div id="Location" class="item-title">Location</div>
+<div id="ExprLocationOf" class="item-title">Location</div>
 <div class="item-content">
   <table>
 
@@ -4684,8 +4864,8 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(location|position) of %location%</span></li>
-<li><span class="skript-code-inline">%location%'[s] (location|position)</span></li>
+          <li><span class="skript-code-inline">(location|position) of %<a href='classes.html#location'>location</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>location</a>%'[s] (location|position)</span></li>
 
         </ul>
       </td>
@@ -4716,7 +4896,7 @@ Please note that the location of an entity is at it's feet, use <a href='#ExprEy
 </div>
 
 
-<div id="Name / Display Name" class="item-title">Name / Display Name</div>
+<div id="ExprName" class="item-title">Name / Display Name</div>
 <div class="item-content">
   <table>
 
@@ -4724,8 +4904,8 @@ Please note that the location of an entity is at it's feet, use <a href='#ExprEy
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (2¦)(player|tab)[ ]list name[s] of %players%</span></li>
-<li><span class="skript-code-inline">%players%'[s] (2¦)(player|tab)[ ]list name[s]</span></li>
+          <li><span class="skript-code-inline">[the] (player|tab)[ ]list name[s] of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] (player|tab)[ ]list name[s]</span></li>
 
         </ul>
       </td>
@@ -4764,7 +4944,7 @@ The differences between the different names are:
 </div>
 
 
-<div id="Name / Display Name" class="item-title">Name / Display Name</div>
+<div id="ExprName" class="item-title">Name / Display Name</div>
 <div class="item-content">
   <table>
 
@@ -4772,8 +4952,8 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (1¦)(display|nick|chat)[ ]name[s] of %itemstacks/slots/livingentities/players/inventories%</span></li>
-<li><span class="skript-code-inline">%itemstacks/slots/livingentities/players/inventories%'[s] (1¦)(display|nick|chat)[ ]name[s]</span></li>
+          <li><span class="skript-code-inline">[the] (display|nick|chat)[ ]name[s] of %<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#slot'>slots</a>/<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#player'>players</a>/<a href='classes.html#inventory'>inventories</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#slot'>slots</a>/<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#player'>players</a>/<a href='classes.html#inventory'>inventories</a>%'[s] (display|nick|chat)[ ]name[s]</span></li>
 
         </ul>
       </td>
@@ -4812,7 +4992,7 @@ The differences between the different names are:
 </div>
 
 
-<div id="Name / Display Name" class="item-title">Name / Display Name</div>
+<div id="ExprName" class="item-title">Name / Display Name</div>
 <div class="item-content">
   <table>
 
@@ -4820,8 +5000,8 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (0¦)name[s] of %itemstacks/slots/livingentities/players/inventories%</span></li>
-<li><span class="skript-code-inline">%itemstacks/slots/livingentities/players/inventories%'[s] (0¦)name[s]</span></li>
+          <li><span class="skript-code-inline">[the] name[s] of %<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#slot'>slots</a>/<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#player'>players</a>/<a href='classes.html#inventory'>inventories</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#slot'>slots</a>/<a href='classes.html#livingentity'>living entities</a>/<a href='classes.html#player'>players</a>/<a href='classes.html#inventory'>inventories</a>%'[s] name[s]</span></li>
 
         </ul>
       </td>
@@ -4860,7 +5040,7 @@ The differences between the different names are:
 </div>
 
 
-<div id="Entities" class="item-title">Entities</div>
+<div id="ExprEntities" class="item-title">Entities</div>
 <div class="item-content">
   <table>
 
@@ -4868,10 +5048,10 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[all] %*entitydatas% [(in|of) [world[s]] %-worlds%]</span></li>
-<li><span class="skript-code-inline">[all] entities of type[s] %entitydatas% [(in|of) [world[s]] %-worlds%]</span></li>
-<li><span class="skript-code-inline">[all] %*entitydatas% (within|[with]in radius) %number% [(block[s]|met(er|re)[s])] (of|around) %location%</span></li>
-<li><span class="skript-code-inline">[all] entities of type[s] %entitydatas% in radius %number% (of|around) %location%</span></li>
+          <li><span class="skript-code-inline">[all] %*<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">[all] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">[all] %*<a href='classes.html#entitydata'>entity types</a>% (within|[with]in radius) %<a href='classes.html#number'>number</a>% [(block[s]|met(er|re)[s])] (of|around) %<a href='classes.html#location'>location</a>%</span></li>
+<li><span class="skript-code-inline">[all] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% in radius %<a href='classes.html#number'>number</a>% (of|around) %<a href='classes.html#location'>location</a>%</span></li>
 
         </ul>
       </td>
@@ -4903,7 +5083,7 @@ The differences between the different names are:
 </div>
 
 
-<div id="Arithmetic" class="item-title">Arithmetic</div>
+<div id="ExprArithmetic" class="item-title">Arithmetic</div>
 <div class="item-content">
   <table>
 
@@ -4911,11 +5091,11 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%number%[ ]+[ ]%number%</span></li>
-<li><span class="skript-code-inline">%number%[ ]-[ ]%number%</span></li>
-<li><span class="skript-code-inline">%number%[ ]*[ ]%number%</span></li>
-<li><span class="skript-code-inline">%number%[ ]/[ ]%number%</span></li>
-<li><span class="skript-code-inline">%number%[ ]^[ ]%number%</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#number'>number</a>%[ ]+[ ]%<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#number'>number</a>%[ ]-[ ]%<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#number'>number</a>%[ ]*[ ]%<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#number'>number</a>%[ ]/[ ]%<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#number'>number</a>%[ ]^[ ]%<a href='classes.html#number'>number</a>%</span></li>
 
         </ul>
       </td>
@@ -4947,7 +5127,7 @@ The differences between the different names are:
 </div>
 
 
-<div id="Creature/Entity/Player/Projectile/Villager/Powered Creeper/etc." class="item-title">Creature/Entity/Player/Projectile/Villager/Powered Creeper/etc.</div>
+<div id="ExprEntity" class="item-title">Creature/Entity/Player/Projectile/Villager/Powered Creeper/etc.</div>
 <div class="item-content">
   <table>
 
@@ -4955,7 +5135,7 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] [event-]<.+></span></li>
+          <li><span class="skript-code-inline">[the] [event-]&lt;.+&gt;</span></li>
 
         </ul>
       </td>
@@ -4988,7 +5168,7 @@ You can use the specific type of the entity that's involved in the event, e.g. i
 </div>
 
 
-<div id="X of Item" class="item-title">X of Item</div>
+<div id="ExprXOf" class="item-title">X of Item</div>
 <div class="item-content">
   <table>
 
@@ -4996,7 +5176,7 @@ You can use the specific type of the entity that's involved in the event, e.g. i
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%number% of %itemstacks/entitytype%</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#number'>number</a>% of %<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#entitytype'>entity type</a>%</span></li>
 
         </ul>
       </td>
@@ -5025,7 +5205,7 @@ You can use the specific type of the entity that's involved in the event, e.g. i
 </div>
 
 
-    </div>
-    <!-- other things are inserted here -->
+  </div>
+  <!-- other things are inserted here -->
 </body>
 </html>
