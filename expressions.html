@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Skript Documentation - 2.2-dev26</title>
+  <title>Skript Documentation - 2.2-dev27</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -34,6 +34,7 @@
 <p><a href="#ExprCommand">Command</a></p>
 <p><a href="#ExprPotionItem">Potion (item)</a></p>
 <p><a href="#ExprExperience">Experience</a></p>
+<p><a href="#ExprPushedBlocks">Moved blocks</a></p>
 <p><a href="#ExprLoopValue">Loop value</a></p>
 <p><a href="#ExprChatRecipients">Chat Recipients</a></p>
 <p><a href="#ExprAttacked">Attacked</a></p>
@@ -739,6 +740,43 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
     <div class="skript-code-block">
       on experience spawn:
 <br>	add 5 to the spawned experience
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprPushedBlocks" class="item-title">Moved blocks</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] moved blocks</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev27</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Blocks which are moved in piston event. Cannot be used outside of piston events.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      the moved blocks
     </div>
 
   </div>
