@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Skript Documentation - 2.2-dev27</title>
+  <title>Skript Documentation - 2.2-dev28</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -102,6 +102,8 @@
 <p><a href="#inventory_open">On Inventory Open</a></p>
 <p><a href="#inventory_close">On Inventory Close</a></p>
 <p><a href="#slime_split">On Slime Split</a></p>
+<p><a href="#resurrect_attempt">On Resurrect Attempt</a></p>
+<p><a href="#player_world_change">On Player World Change</a></p>
 <p><a href="#pressure_plate_trip">On Pressure Plate / Trip</a></p>
 <p><a href="#move_on">On Move On</a></p>
 <p><a href="#dispense">On Dispense</a></p>
@@ -3245,7 +3247,84 @@ World management plugins might change the behaviour of this event though.
   </table>
 
   <div class="item-description">
-    Called when slime splits.
+    Called when a slime splits. Usually this happens when a big slime dies.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="resurrect_attempt" class="item-title">On Resurrect Attempt</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[entity] resurrect attempt</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev28</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity dies, always. If they are not holding a totem, this is calcelled - you can, however, uncancel it.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on resurrect attempt:
+<br>	entity is player
+<br>	entity has permission "admin.undying"
+<br>	uncancel the event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="player_world_change" class="item-title">On Player World Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">player world change[d]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev28</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player enters a world. Does not work with other entities!
   </div>
 
   <div class="item-examples">

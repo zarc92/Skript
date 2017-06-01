@@ -1,5 +1,5 @@
 {
-  "skriptVersion" : "2.2-dev27",
+  "skriptVersion" : "2.2-dev28",
 
   "classes" : [
     {
@@ -18,10 +18,10 @@
   "id" : "string",
   "name" : "Text",
   "patterns" : [
-    "simple: &lt;code&gt;&quot;...&quot;&lt;/code&gt;",
-"quotes: &lt;code&gt;&quot;...&quot;&quot;...&quot;&lt;/code&gt;",
-"expressions: &lt;code&gt;&quot;...%expression%...&quot;&lt;/code&gt;",
-"percent signs: &lt;code&gt;&quot;...%%...&quot;&lt;/code&gt;",
+    "simple: &quot;...&quot;",
+"quotes: &quot;...&quot;&quot;...&quot;",
+"expressions: &quot;...%expression%...&quot;",
+"percent signs: &quot;...%%...&quot;",
 
     "pattern_end"
   ],
@@ -324,7 +324,7 @@
   "id" : "visualeffect",
   "name" : "Visual Effect",
   "patterns" : [
-    "ender signal, mobspawner flames, potion break, smoke, hurt, sheep eating, wolf hearts, wolf shaking, wolf smoke, firework's spark, critical hit, magical critical hit, potion swirl, transparent potion swirl, spell, spell, witch spell, note, portal, flying glyph, flame, lava pop, footstep, water splash, smoke particle, huge explosion, large explosion, explosion, void fog, small smoke, cloud, coloured dust, snowball break, water drip, lava drip, snow shovel, slime, heart, angry villager, happy villager, large smoke, item crack, block break, block dust",
+    "ender signal, mobspawner flames, potion break, smoke, hurt, sheep eating, wolf hearts, wolf shaking, wolf smoke, firework's spark, critical hit, magical critical hit, potion swirl, transparent potion swirl, spell, spell, witch spell, note, portal, flying glyph, flame, lava pop, footstep, water splash, smoke particle, huge explosion, large explosion, explosion, void fog, small smoke, cloud, coloured dust, snowball break, water drip, lava drip, snow shovel, slime, heart, angry villager, happy villager, large smoke, item crack, block break, block dust, totem, spit",
 
     "pattern_end"
   ],
@@ -373,7 +373,7 @@
   "id" : "number",
   "name" : "Number",
   "patterns" : [
-    "&lt;code&gt;[-]###[.###]&lt;/code&gt; (any amount of digits; very large numbers will be truncated though)",
+    "[-]###[.###]&lt;/code&gt; (any amount of digits; very large numbers will be truncated though)",
 
     "pattern_end"
   ],
@@ -966,7 +966,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Rotates a vector around another vector",
   "examples" : "rotate {_v} around vector 1, 0, 0 by 90"
 },
@@ -1185,7 +1185,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Rotates a vector around x, y, or z axis by some degrees",
   "examples" : "rotate {_v} around x-axis by 90\\nrotate {_v} around y-axis by 90\\nrotate {_v} around z-axis by 90"
 },
@@ -1227,6 +1227,18 @@
   "since" : "1.0",
   "description" : "Kills an entity.\\nNote: This effect does not set the entitie's health to 0 (which causes issues), but damages the entity by 100 times its maximum health.",
   "examples" : "kill the player\\nkill all creepers in the player's world\\nkill all endermen, witches and bats"
+},
+{
+  "id" : "EffPlaySound",
+  "name" : "Play Sound",
+  "patterns" : [
+    "play sound %<a href='classes.html#string'>text</a>% [with volume %<a href='classes.html#number'>number</a>%] [(and|with) pitch %<a href='classes.html#number'>number</a>%] at %<a href='classes.html#location'>location</a>% [for %<a href='classes.html#player'>players</a>%]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev28",
+  "description" : "Plays a sound at given location for everyone or just for given players. Playing sounds from resource packs is supported.",
+  "examples" : ""
 },
 {
   "id" : "EffColorArmor",
@@ -2492,7 +2504,31 @@
     "pattern_end"
   ],
   "since" : "2.2-dev26",
-  "description" : "Called when slime splits.",
+  "description" : "Called when a slime splits. Usually this happens when a big slime dies.",
+  "examples" : ""
+},
+{
+  "id" : "resurrect_attempt",
+  "name" : "On Resurrect Attempt",
+  "patterns" : [
+    "[entity] resurrect attempt",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev28",
+  "description" : "Called when an entity dies, always. If they are not holding a totem, this is calcelled - you can, however, uncancel it.",
+  "examples" : "on resurrect attempt:\\n    entity is player\\n    entity has permission \"admin.undying\"\\n    uncancel the event"
+},
+{
+  "id" : "player_world_change",
+  "name" : "On Player World Change",
+  "patterns" : [
+    "player world change[d]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev28",
+  "description" : "Called when a player enters a world. Does not work with other entities!",
   "examples" : ""
 },
 {
@@ -2778,7 +2814,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Forms a 'spherical shaped' vector using yaw and pitch to manipulate the current point",
   "examples" : "loop 360 times:\\n    set {_v} to spherical vector radius 1, yaw loop-value, pitch loop-value\\nset {_v} to spherical vector radius 1, yaw 45, pitch 90"
 },
@@ -2790,7 +2826,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Gets the cross product between two vectors",
   "examples" : "send \"%vector 1, 0, 0 cross vector 0, 1, 0%\""
 },
@@ -2802,7 +2838,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Gets the dot product between two vectors",
   "examples" : "set {_v} to {_v2} dot {_v3}"
 },
@@ -2912,7 +2948,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Normalizes a vector",
   "examples" : "set {_v} to {_v} normalized"
 },
@@ -2989,7 +3025,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Creates a vector from a yaw and pitch value",
   "examples" : "set {_v} to vector from yaw 45 and pitch 45"
 },
@@ -3013,7 +3049,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Gets the angle between two vectors",
   "examples" : "send \"%angle between vector 1, 0, 0 and vector 0, 1, 1%\""
 },
@@ -3065,7 +3101,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Creates a location from a vector in a world",
   "examples" : "set {_loc} to {_v} to location in world \"world\"\\nset {_loc} to {_v} to location in world \"world\" with yaw 45 and pitch 90\\nset {_loc} to location of {_v} in \"world\" with yaw 45 and pitch 90"
 },
@@ -3092,7 +3128,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Creates a vector between two locations",
   "examples" : "set {_v} to vector between {_loc1} and {_loc2}"
 },
@@ -3104,7 +3140,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Creates a vector from an x, y and z value",
   "examples" : "set {_v} to vector 0, 1, 0"
 },
@@ -3202,7 +3238,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Gets the squared length of a vector",
   "examples" : "send \"%squared length of vector 1, 2, 3%\""
 },
@@ -3214,7 +3250,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Forms a 'cylindrical shaped' vector using yaw to manipulate the current point",
   "examples" : "loop 360 times:\\n    set {_v} to cylindrical vector radius 1, yaw loop-value, height 2\\nset {_v} to cylindrical vector radius 1, yaw 90, height 2"
 },
@@ -3227,7 +3263,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Creates a vector from a location",
   "examples" : "set {_v} to vector of {_loc}"
 },
@@ -3251,7 +3287,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Offset a location by a vector",
   "examples" : "set {_loc} to {_loc} ~ {_v}"
 },
@@ -3280,7 +3316,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Creates a random vector",
   "examples" : "set {_v} to random vector"
 },
@@ -3319,7 +3355,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Arithmetic expressions for vectors",
   "examples" : "set {_v} to vector 1, 2, 3 // 5\\nset {_v} to {_v} ++ {_v}\\nset {_v} to {_v} ++ 5\\nset {_v} to {_v} -- {_v}\\nset {_v} to {_v} -- 5\\nset {_v} to {_v} ** {_v}\\nset {_v} to {_v} ** 5\\nset {_v} to {_v} // {_v}\\nset {_v} to {_v} // 5"
 },
@@ -4147,7 +4183,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Gets or sets the length of a vector",
   "examples" : "send \"%standard length of vector 1, 2, 3%\"\\nset {_v} to vector 1, 2, 3\\nset standard length of {_v} to 2\\nsend \"%standard length of {_v}%\""
 },
@@ -4444,7 +4480,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Gets or sets the yaw or pitch value of a vector",
   "examples" : "set {_v} to vector -1, 1, 1\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\"\\nadd 45 to vector yaw of {_v}\\nsubtract 45 from vector pitch of {_v}\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\"\\nset vector yaw of {_v} to -45\\nset vector pitch of {_v} to 45\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\""
 },
@@ -4456,7 +4492,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev28",
   "description" : "Gets or sets the x, y or z coordinate of a vector",
   "examples" : "set {_v} to vector 1, 2, 3\\nsend \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"\\nadd 1 to x of {_v}\\nadd 2 to y of {_v}\\nadd 3 to z of {_v}\\nsend \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"\\nset x of {_v} to 1\\nset y of {_v} to 2\\nset z of {_v} to 3\\nsend \"%x of {_v}%, %y of {_v}%, %z of {_v}%\""
 },

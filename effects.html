@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Skript Documentation - 2.2-dev27</title>
+  <title>Skript Documentation - 2.2-dev28</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -40,6 +40,7 @@
 <p><a href="#EffTree">Tree</a></p>
 <p><a href="#EffHealth">Damage/Heal/Repair</a></p>
 <p><a href="#EffKill">Kill</a></p>
+<p><a href="#EffPlaySound">Play Sound</a></p>
 <p><a href="#EffColorArmor">Colour Items</a></p>
 <p><a href="#EffBan">Ban</a></p>
 <p><a href="#EffShoot">Shoot</a></p>
@@ -82,7 +83,7 @@
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev28</td>
     </tr>
 
   </table>
@@ -760,7 +761,7 @@ Starting with 2.2-dev24, you can replace items in a inventory too.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev28</td>
     </tr>
 
   </table>
@@ -897,6 +898,43 @@ Note: This effect does not set the entitie's health to 0 (which causes issues), 
       kill the player
 <br>kill all creepers in the player's world
 <br>kill all endermen, witches and bats
+    </div>
+
+  </div>
+</div>
+
+
+<div id="EffPlaySound" class="item-title">Play Sound</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">play sound %<a href='classes.html#string'>text</a>% [with volume %<a href='classes.html#number'>number</a>%] [(and|with) pitch %<a href='classes.html#number'>number</a>%] at %<a href='classes.html#location'>location</a>% [for %<a href='classes.html#player'>players</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev28</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Plays a sound at given location for everyone or just for given players. Playing sounds from resource packs is supported.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
     </div>
 
   </div>
