@@ -19,7 +19,8 @@
   <nav>
     <p id="nav-title">Table of Contents</p>
     <div>
-      <p><a href="#EffPotion">Potion Effects</a></p>
+      <p><a href="#EffVectorRotateAroundAnother">Vectors - Rotate around vector</a></p>
+<p><a href="#EffPotion">Potion Effects</a></p>
 <p><a href="#Delay">Delay</a></p>
 <p><a href="#EffTeleport">Teleport</a></p>
 <p><a href="#EffRespawn">Force Respawn</a></p>
@@ -35,6 +36,7 @@
 <p><a href="#EffReplace">Replace</a></p>
 <p><a href="#EffBroadcast">Broadcast</a></p>
 <p><a href="#EffIgnite">Ignite/Extinguish</a></p>
+<p><a href="#EffVectorRotateXYZ">Vectors - Rotate around XYZ</a></p>
 <p><a href="#EffTree">Tree</a></p>
 <p><a href="#EffHealth">Damage/Heal/Repair</a></p>
 <p><a href="#EffKill">Kill</a></p>
@@ -62,6 +64,43 @@
   <div id="content">
     <h1>Effects</h1>
 
+
+
+<div id="EffVectorRotateAroundAnother" class="item-title">Vectors - Rotate around vector</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">rotate %<a href='classes.html#vector'>types.vector</a>% around %<a href='classes.html#vector'>types.vector</a>% by %<a href='classes.html#number'>number</a>% [degrees]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Rotates a vector around another vector
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      rotate {_v} around vector 1, 0, 0 by 90
+    </div>
+
+  </div>
+</div>
 
 
 <div id="EffPotion" class="item-title">Potion Effects</div>
@@ -699,6 +738,45 @@ Starting with 2.2-dev24, you can replace items in a inventory too.
     <div class="skript-code-block">
       ignite the player
 <br>extinguish the player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="EffVectorRotateXYZ" class="item-title">Vectors - Rotate around XYZ</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">rotate %<a href='classes.html#vector'>types.vector</a>% around (x|y|z)(-| )axis by %<a href='classes.html#number'>number</a>% [degrees]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Rotates a vector around x, y, or z axis by some degrees
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      rotate {_v} around x-axis by 90
+<br>rotate {_v} around y-axis by 90
+<br>rotate {_v} around z-axis by 90
     </div>
 
   </div>

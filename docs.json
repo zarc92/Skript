@@ -959,6 +959,18 @@
 
   "effects" : [
     {
+  "id" : "EffVectorRotateAroundAnother",
+  "name" : "Vectors - Rotate around vector",
+  "patterns" : [
+    "rotate %<a href='classes.html#vector'>types.vector</a>% around %<a href='classes.html#vector'>types.vector</a>% by %<a href='classes.html#number'>number</a>% [degrees]",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Rotates a vector around another vector",
+  "examples" : "rotate {_v} around vector 1, 0, 0 by 90"
+},
+{
   "id" : "EffPotion",
   "name" : "Potion Effects",
   "patterns" : [
@@ -1164,6 +1176,18 @@
   "since" : "1.4",
   "description" : "Lights entities on fire or extinguishes them.",
   "examples" : "ignite the player\\nextinguish the player"
+},
+{
+  "id" : "EffVectorRotateXYZ",
+  "name" : "Vectors - Rotate around XYZ",
+  "patterns" : [
+    "rotate %<a href='classes.html#vector'>types.vector</a>% around (x|y|z)(-| )axis by %<a href='classes.html#number'>number</a>% [degrees]",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Rotates a vector around x, y, or z axis by some degrees",
+  "examples" : "rotate {_v} around x-axis by 90\\nrotate {_v} around y-axis by 90\\nrotate {_v} around z-axis by 90"
 },
 {
   "id" : "EffTree",
@@ -2747,6 +2771,42 @@
   "examples" : "message \"This server is running Minecraft %minecraft version% on Bukkit %bukkit version%\"\\nmessage \"This server is powered by Skript %skript version%\""
 },
 {
+  "id" : "ExprVectorSpherical",
+  "name" : "Vectors - Spherical shape",
+  "patterns" : [
+    "[new] spherical vector [(from|with)] [radius] %<a href='classes.html#number'>number</a>%, [yaw] %<a href='classes.html#number'>number</a>%(,| and) [pitch] %<a href='classes.html#number'>number</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Forms a 'spherical shaped' vector using yaw and pitch to manipulate the current point",
+  "examples" : "loop 360 times:\\n    set {_v} to spherical vector radius 1, yaw loop-value, pitch loop-value\\nset {_v} to spherical vector radius 1, yaw 45, pitch 90"
+},
+{
+  "id" : "ExprVectorCrossProduct",
+  "name" : "Vectors - Cross product",
+  "patterns" : [
+    "%<a href='classes.html#vector'>types.vector</a>% cross %<a href='classes.html#vector'>types.vector</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Gets the cross product between two vectors",
+  "examples" : "send \"%vector 1, 0, 0 cross vector 0, 1, 0%\""
+},
+{
+  "id" : "ExprVectorDotProduct",
+  "name" : "Vectors - Dot product",
+  "patterns" : [
+    "%<a href='classes.html#vector'>types.vector</a>% dot %<a href='classes.html#vector'>types.vector</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Gets the dot product between two vectors",
+  "examples" : "set {_v} to {_v2} dot {_v3}"
+},
+{
   "id" : "ExprBlock",
   "name" : "Block",
   "patterns" : [
@@ -2844,6 +2904,19 @@
   "examples" : "loop all worlds:\\n    broadcast \"You're in %loop-world%\" to loop-world"
 },
 {
+  "id" : "ExprVectorNormalize",
+  "name" : "Vectors - Normalize",
+  "patterns" : [
+    "normalize %<a href='classes.html#vector'>types.vector</a>%",
+"%<a href='classes.html#vector'>types.vector</a>% normalized",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Normalizes a vector",
+  "examples" : "set {_v} to {_v} normalized"
+},
+{
   "id" : "ExprCommand",
   "name" : "Command",
   "patterns" : [
@@ -2909,6 +2982,18 @@
   "examples" : "# countdown:\\nloop 10 times:\\n    message \"%11 - loop-number%\"\\n    wait a second\\n# generate a 10x10 floor made of randomly coloured wool below the player:\\nloop blocks from the block below the player to the block 10 east of the block below the player:\\n    loop blocks from the loop-block to the block 10 north of the loop-block:\\n        set loop-block-2 to any wool"
 },
 {
+  "id" : "ExprVectorFromYawAndPitch",
+  "name" : "Vectors - Create from pitch and yaw",
+  "patterns" : [
+    "[new] vector from yaw %<a href='classes.html#number'>number</a>% and pitch %<a href='classes.html#number'>number</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Creates a vector from a yaw and pitch value",
+  "examples" : "set {_v} to vector from yaw 45 and pitch 45"
+},
+{
   "id" : "ExprChatRecipients",
   "name" : "Chat Recipients",
   "patterns" : [
@@ -2919,6 +3004,18 @@
   "since" : "2.2 (unknown)",
   "description" : "Recipients of chat events where this is called.",
   "examples" : "chat recipients"
+},
+{
+  "id" : "ExprVectorAngleBetween",
+  "name" : "Vectors - Angle between",
+  "patterns" : [
+    "angle between %<a href='classes.html#vector'>types.vector</a>% and %<a href='classes.html#vector'>types.vector</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Gets the angle between two vectors",
+  "examples" : "send \"%angle between vector 1, 0, 0 and vector 0, 1, 1%\""
 },
 {
   "id" : "ExprAttacked",
@@ -2958,6 +3055,21 @@
   "examples" : "!heal me\\n!kick myself\\n!give a diamond axe to me"
 },
 {
+  "id" : "ExprLocationFromVector",
+  "name" : "Vectors - Create location from vector",
+  "patterns" : [
+    "%<a href='classes.html#vector'>types.vector</a>% [to location] [in] %<a href='classes.html#world'>world</a>%",
+"location (from|of) %<a href='classes.html#vector'>types.vector</a>% [(from|in)] %<a href='classes.html#world'>world</a>%",
+"%<a href='classes.html#vector'>types.vector</a>% [to location] [in] %<a href='classes.html#world'>world</a>% with yaw %<a href='classes.html#number'>number</a>% and pitch %<a href='classes.html#number'>number</a>%",
+"location (from|of) %<a href='classes.html#vector'>types.vector</a>% [(in|from)] %<a href='classes.html#world'>world</a>% with yaw %<a href='classes.html#number'>number</a>% and pitch %<a href='classes.html#number'>number</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Creates a location from a vector in a world",
+  "examples" : "set {_loc} to {_v} to location in world \"world\"\\nset {_loc} to {_v} to location in world \"world\" with yaw 45 and pitch 90\\nset {_loc} to location of {_v} in \"world\" with yaw 45 and pitch 90"
+},
+{
   "id" : "ExprMessage",
   "name" : "Message",
   "patterns" : [
@@ -2971,6 +3083,30 @@
   "since" : "1.4.6 (chat message), 1.4.9 (join & quit messages), 2.0 (death message)",
   "description" : "The (chat) message of a chat event, the join message of a join event, the quit message of a quit event, or the death message on a death event. This expression is mostly useful for being changed.",
   "examples" : "on chat:\\n    player has permission \"admin\"\\n    set message to \"<red>%message%\"\\n\\non first join:\\n    set join message to \"Welcome %player% to our awesome server!\"\\non join:\\n    player has played before\\n    set join message to \"Welcome back, %player%!\"\\n\\non quit:\\n    set quit message to \"%player% left this awesome server!\"\\n\\non death:\\n    set the death message to \"%player% died!\""
+},
+{
+  "id" : "ExprVectorBetweenLocations",
+  "name" : "Vectors - Between locations",
+  "patterns" : [
+    "vector (from|between) %<a href='classes.html#location'>location</a>% (to|and) %<a href='classes.html#location'>location</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Creates a vector between two locations",
+  "examples" : "set {_v} to vector between {_loc1} and {_loc2}"
+},
+{
+  "id" : "ExprVectorFromXYZ",
+  "name" : "Vectors - Create from XYZ",
+  "patterns" : [
+    "[new] vector [(from|at|to)] %<a href='classes.html#number'>number</a>%,[ ]%<a href='classes.html#number'>number</a>%(,[ ]| and )%<a href='classes.html#number'>number</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Creates a vector from an x, y and z value",
+  "examples" : "set {_v} to vector 0, 1, 0"
 },
 {
   "id" : "ExprSaturation",
@@ -3058,6 +3194,44 @@
   "examples" : "execute console command \"/stop\"\\nsend \"message to console\" to the console"
 },
 {
+  "id" : "ExprVectorSquaredLength",
+  "name" : "Vectors - Squared length",
+  "patterns" : [
+    "squared length of %<a href='classes.html#vector'>types.vector</a>%",
+"%<a href='classes.html#vector'>types.vector</a>%['s] squared length",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Gets the squared length of a vector",
+  "examples" : "send \"%squared length of vector 1, 2, 3%\""
+},
+{
+  "id" : "ExprVectorCylindrical",
+  "name" : "Vectors - Cylindrical shape",
+  "patterns" : [
+    "[new] cylindrical vector [(from|with)] [radius] %<a href='classes.html#number'>number</a>%, [yaw] %<a href='classes.html#number'>number</a>%(,| and) [height] %<a href='classes.html#number'>number</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Forms a 'cylindrical shaped' vector using yaw to manipulate the current point",
+  "examples" : "loop 360 times:\\n    set {_v} to cylindrical vector radius 1, yaw loop-value, height 2\\nset {_v} to cylindrical vector radius 1, yaw 90, height 2"
+},
+{
+  "id" : "ExprVectorOfLocation",
+  "name" : "Vectors - Create from location",
+  "patterns" : [
+    "vector (of|from|to) %<a href='classes.html#location'>location</a>%",
+"%<a href='classes.html#location'>location</a>%['s] vector",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Creates a vector from a location",
+  "examples" : "set {_v} to vector of {_loc}"
+},
+{
   "id" : "ExprClickAction",
   "name" : "Click Action",
   "patterns" : [
@@ -3068,6 +3242,18 @@
   "since" : "2.2-dev20",
   "description" : "The <a href='../classes/#inventoryaction'>click action</a> of an inventory event. Please click on the link for more information.",
   "examples" : "click action is left mouse button"
+},
+{
+  "id" : "ExprLocationVectorOffset",
+  "name" : "Vectors - Location vector offset",
+  "patterns" : [
+    "%<a href='classes.html#location'>location</a>%[ ]~[~][ ]%<a href='classes.html#vector'>types.vector</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Offset a location by a vector",
+  "examples" : "set {_loc} to {_loc} ~ {_v}"
 },
 {
   "id" : "ExprArgument",
@@ -3085,6 +3271,18 @@
   "since" : "1.0",
   "description" : "Only usable in command events. Holds the value of the nth argument given to the command, e.g. if the command \"/tell &lt;player&gt; &lt;text&gt;\" is used like \"/tell Njol Hello Njol!\" argument 1 is the player named \"Njol\" and argument 2 is \"Hello Njol!\".\\nOne can also use the type of the argument instead of its index to address the argument, e.g. in the above example 'player-argument' is the same as 'argument 1'.",
   "examples" : "give the item-argument to the player-argument\\ndamage the player-argument by the number-argument\\ngive a diamond pickaxe to the argument\\nadd argument 1 to argument 2\\nheal the last argument"
+},
+{
+  "id" : "ExprVectorRandom",
+  "name" : "Vectors - Random",
+  "patterns" : [
+    "random vector",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Creates a random vector",
+  "examples" : "set {_v} to random vector"
 },
 {
   "id" : "ExprItem",
@@ -3109,6 +3307,21 @@
   "since" : "2.2-dev25",
   "description" : "The tamer of an entity. Can only be used in entity tame events. You can use 'event-entity' to refer tamed entity itself.",
   "examples" : ""
+},
+{
+  "id" : "ExprVectorArithmetic",
+  "name" : "Vectors - Arithmetic",
+  "patterns" : [
+    "%<a href='classes.html#vector'>types.vector</a>%[ ]++[ ]%<a href='classes.html#vector'>types.vector</a>%",
+"%<a href='classes.html#vector'>types.vector</a>%[ ]--[ ]%<a href='classes.html#vector'>types.vector</a>%",
+"%<a href='classes.html#vector'>types.vector</a>%[ ]**[ ]%<a href='classes.html#vector'>types.vector</a>%",
+"%<a href='classes.html#vector'>types.vector</a>%[ ]//[ ]%<a href='classes.html#vector'>types.vector</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Arithmetic expressions for vectors",
+  "examples" : "set {_v} to vector 1, 2, 3 // 5\\nset {_v} to {_v} ++ {_v}\\nset {_v} to {_v} ++ 5\\nset {_v} to {_v} -- {_v}\\nset {_v} to {_v} -- 5\\nset {_v} to {_v} ** {_v}\\nset {_v} to {_v} ** 5\\nset {_v} to {_v} // {_v}\\nset {_v} to {_v} // 5"
 },
 {
   "id" : "ExprDamage",
@@ -3926,6 +4139,19 @@
   "examples" : "set glowing of player on"
 },
 {
+  "id" : "ExprVectorLength",
+  "name" : "Vectors - Length",
+  "patterns" : [
+    "(vector|standard|normal) length of %<a href='classes.html#vector'>types.vector</a>%",
+"%<a href='classes.html#vector'>types.vector</a>%['s] (vector|standard|normal) length",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Gets or sets the length of a vector",
+  "examples" : "send \"%standard length of vector 1, 2, 3%\"\\nset {_v} to vector 1, 2, 3\\nset standard length of {_v} to 2\\nsend \"%standard length of {_v}%\""
+},
+{
   "id" : "ExprUnixTime",
   "name" : "Unix Timestamp",
   "patterns" : [
@@ -4209,6 +4435,30 @@
   "since" : "2.2-dev21",
   "description" : "Sets of gets gliding state of player. It allows you to set gliding state of entity even if they do not have <a href=\"http://minecraft.gamepedia.com/Elytra\">Elytra</a> equipped.",
   "examples" : "set gliding of player to off"
+},
+{
+  "id" : "ExprVectorYawPitch",
+  "name" : "Vectors - Yaw and pitch",
+  "patterns" : [
+    "vector (yaw|pitch) of %<a href='classes.html#vector'>types.vector</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Gets or sets the yaw or pitch value of a vector",
+  "examples" : "set {_v} to vector -1, 1, 1\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\"\\nadd 45 to vector yaw of {_v}\\nsubtract 45 from vector pitch of {_v}\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\"\\nset vector yaw of {_v} to -45\\nset vector pitch of {_v} to 45\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\""
+},
+{
+  "id" : "ExprVectorXYZ",
+  "name" : "Vectors - Coordinate",
+  "patterns" : [
+    "(x|y|z) of %<a href='classes.html#vector'>types.vector</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Gets or sets the x, y or z coordinate of a vector",
+  "examples" : "set {_v} to vector 1, 2, 3\\nsend \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"\\nadd 1 to x of {_v}\\nadd 2 to y of {_v}\\nadd 3 to z of {_v}\\nsend \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"\\nset x of {_v} to 1\\nset y of {_v} to 2\\nset z of {_v} to 3\\nsend \"%x of {_v}%, %y of {_v}%, %z of {_v}%\""
 },
 {
   "id" : "ExprLocationOf",

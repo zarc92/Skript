@@ -23,6 +23,9 @@
 <p><a href="#ExprCommandSender">Command Sender</a></p>
 <p><a href="#ExprParseError">Parse Error</a></p>
 <p><a href="#ExprVersion">Version</a></p>
+<p><a href="#ExprVectorSpherical">Vectors - Spherical shape</a></p>
+<p><a href="#ExprVectorCrossProduct">Vectors - Cross product</a></p>
+<p><a href="#ExprVectorDotProduct">Vectors - Dot product</a></p>
 <p><a href="#ExprBlock">Block</a></p>
 <p><a href="#ExprScript">Script Name</a></p>
 <p><a href="#ExprStringCase">Upper/lower Case Text</a></p>
@@ -31,16 +34,22 @@
 <p><a href="#ExprLocation">Location</a></p>
 <p><a href="#ExprClicked">Clicked Block/Entity</a></p>
 <p><a href="#ExprWorlds">Worlds</a></p>
+<p><a href="#ExprVectorNormalize">Vectors - Normalize</a></p>
 <p><a href="#ExprCommand">Command</a></p>
 <p><a href="#ExprPotionItem">Potion (item)</a></p>
 <p><a href="#ExprExperience">Experience</a></p>
 <p><a href="#ExprPushedBlocks">Moved blocks</a></p>
 <p><a href="#ExprLoopValue">Loop value</a></p>
+<p><a href="#ExprVectorFromYawAndPitch">Vectors - Create from pitch and yaw</a></p>
 <p><a href="#ExprChatRecipients">Chat Recipients</a></p>
+<p><a href="#ExprVectorAngleBetween">Vectors - Angle between</a></p>
 <p><a href="#ExprAttacked">Attacked</a></p>
 <p><a href="#ExprFinalDamage">Final Damage</a></p>
 <p><a href="#ExprMe">Me</a></p>
+<p><a href="#ExprLocationFromVector">Vectors - Create location from vector</a></p>
 <p><a href="#ExprMessage">Message</a></p>
+<p><a href="#ExprVectorBetweenLocations">Vectors - Between locations</a></p>
+<p><a href="#ExprVectorFromXYZ">Vectors - Create from XYZ</a></p>
 <p><a href="#ExprSaturation">Saturation</a></p>
 <p><a href="#ExprLastSpawnedEntity">Last Spawned Entity</a></p>
 <p><a href="#ExprDrops">Drops</a></p>
@@ -48,10 +57,16 @@
 <p><a href="#ExprInventoryAction">Inventory Action</a></p>
 <p><a href="#ExprShooter">Shooter</a></p>
 <p><a href="#LitConsole">Console</a></p>
+<p><a href="#ExprVectorSquaredLength">Vectors - Squared length</a></p>
+<p><a href="#ExprVectorCylindrical">Vectors - Cylindrical shape</a></p>
+<p><a href="#ExprVectorOfLocation">Vectors - Create from location</a></p>
 <p><a href="#ExprClickAction">Click Action</a></p>
+<p><a href="#ExprLocationVectorOffset">Vectors - Location vector offset</a></p>
 <p><a href="#ExprArgument">Argument</a></p>
+<p><a href="#ExprVectorRandom">Vectors - Random</a></p>
 <p><a href="#ExprItem">Item</a></p>
 <p><a href="#ExprTamer">Tamer</a></p>
+<p><a href="#ExprVectorArithmetic">Vectors - Arithmetic</a></p>
 <p><a href="#ExprDamage">Damage</a></p>
 <p><a href="#ExprDamageCause">Damage Cause</a></p>
 <p><a href="#ExprBlocksInRegion">Blocks in Region</a></p>
@@ -115,6 +130,7 @@
 <p><a href="#ExprTimeState">Former/Future State</a></p>
 <p><a href="#ExprWeather">Weather</a></p>
 <p><a href="#ExprGlowing">Glowing</a></p>
+<p><a href="#ExprVectorLength">Vectors - Length</a></p>
 <p><a href="#ExprUnixTime">Unix Timestamp</a></p>
 <p><a href="#ExprFurnaceSlot">Furnace Slot</a></p>
 <p><a href="#ExprIdOf">Id</a></p>
@@ -137,6 +153,8 @@
 <p><a href="#ExprSkull">Skull</a></p>
 <p><a href="#ExprCursorSlot">Cursor Slot</a></p>
 <p><a href="#ExprGlidingState">Gliding State</a></p>
+<p><a href="#ExprVectorYawPitch">Vectors - Yaw and pitch</a></p>
+<p><a href="#ExprVectorXYZ">Vectors - Coordinate</a></p>
 <p><a href="#ExprLocationOf">Location</a></p>
 <p><a href="#ExprName">Name / Display Name</a></p>
 <p><a href="#ExprName">Name / Display Name</a></p>
@@ -306,6 +324,119 @@ This expression requires a supported regions plugin to be installed.
     <div class="skript-code-block">
       message "This server is running Minecraft %minecraft version% on Bukkit %bukkit version%"
 <br>message "This server is powered by Skript %skript version%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorSpherical" class="item-title">Vectors - Spherical shape</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[new] spherical vector [(from|with)] [radius] %<a href='classes.html#number'>number</a>%, [yaw] %<a href='classes.html#number'>number</a>%(,| and) [pitch] %<a href='classes.html#number'>number</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Forms a 'spherical shaped' vector using yaw and pitch to manipulate the current point
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop 360 times:
+<br>	set {_v} to spherical vector radius 1, yaw loop-value, pitch loop-value
+<br>set {_v} to spherical vector radius 1, yaw 45, pitch 90
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorCrossProduct" class="item-title">Vectors - Cross product</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>% cross %<a href='classes.html#vector'>types.vector</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets the cross product between two vectors
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "%vector 1, 0, 0 cross vector 0, 1, 0%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorDotProduct" class="item-title">Vectors - Dot product</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>% dot %<a href='classes.html#vector'>types.vector</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets the dot product between two vectors
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to {_v2} dot {_v3}
     </div>
 
   </div>
@@ -624,6 +755,44 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
+<div id="ExprVectorNormalize" class="item-title">Vectors - Normalize</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">normalize %<a href='classes.html#vector'>types.vector</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>% normalized</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Normalizes a vector
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to {_v} normalized
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprCommand" class="item-title">Command</div>
 <div class="item-content">
   <table>
@@ -827,6 +996,43 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
+<div id="ExprVectorFromYawAndPitch" class="item-title">Vectors - Create from pitch and yaw</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[new] vector from yaw %<a href='classes.html#number'>number</a>% and pitch %<a href='classes.html#number'>number</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Creates a vector from a yaw and pitch value
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to vector from yaw 45 and pitch 45
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprChatRecipients" class="item-title">Chat Recipients</div>
 <div class="item-content">
   <table>
@@ -858,6 +1064,43 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 
     <div class="skript-code-block">
       chat recipients
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorAngleBetween" class="item-title">Vectors - Angle between</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">angle between %<a href='classes.html#vector'>types.vector</a>% and %<a href='classes.html#vector'>types.vector</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets the angle between two vectors
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "%angle between vector 1, 0, 0 and vector 0, 1, 1%"
     </div>
 
   </div>
@@ -980,6 +1223,48 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
+<div id="ExprLocationFromVector" class="item-title">Vectors - Create location from vector</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>% [to location] [in] %<a href='classes.html#world'>world</a>%</span></li>
+<li><span class="skript-code-inline">location (from|of) %<a href='classes.html#vector'>types.vector</a>% [(from|in)] %<a href='classes.html#world'>world</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>% [to location] [in] %<a href='classes.html#world'>world</a>% with yaw %<a href='classes.html#number'>number</a>% and pitch %<a href='classes.html#number'>number</a>%</span></li>
+<li><span class="skript-code-inline">location (from|of) %<a href='classes.html#vector'>types.vector</a>% [(in|from)] %<a href='classes.html#world'>world</a>% with yaw %<a href='classes.html#number'>number</a>% and pitch %<a href='classes.html#number'>number</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Creates a location from a vector in a world
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_loc} to {_v} to location in world "world"
+<br>set {_loc} to {_v} to location in world "world" with yaw 45 and pitch 90
+<br>set {_loc} to location of {_v} in "world" with yaw 45 and pitch 90
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprMessage" class="item-title">Message</div>
 <div class="item-content">
   <table>
@@ -1028,6 +1313,80 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 <br>
 <br>on death:
 <br>	set the death message to "%player% died!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorBetweenLocations" class="item-title">Vectors - Between locations</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">vector (from|between) %<a href='classes.html#location'>location</a>% (to|and) %<a href='classes.html#location'>location</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Creates a vector between two locations
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to vector between {_loc1} and {_loc2}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorFromXYZ" class="item-title">Vectors - Create from XYZ</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[new] vector [(from|at|to)] %<a href='classes.html#number'>number</a>%,[ ]%<a href='classes.html#number'>number</a>%(,[ ]| and )%<a href='classes.html#number'>number</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Creates a vector from an x, y and z value
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to vector 0, 1, 0
     </div>
 
   </div>
@@ -1305,6 +1664,121 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
 </div>
 
 
+<div id="ExprVectorSquaredLength" class="item-title">Vectors - Squared length</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">squared length of %<a href='classes.html#vector'>types.vector</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>%['s] squared length</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets the squared length of a vector
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "%squared length of vector 1, 2, 3%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorCylindrical" class="item-title">Vectors - Cylindrical shape</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[new] cylindrical vector [(from|with)] [radius] %<a href='classes.html#number'>number</a>%, [yaw] %<a href='classes.html#number'>number</a>%(,| and) [height] %<a href='classes.html#number'>number</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Forms a 'cylindrical shaped' vector using yaw to manipulate the current point
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop 360 times:
+<br>	set {_v} to cylindrical vector radius 1, yaw loop-value, height 2
+<br>set {_v} to cylindrical vector radius 1, yaw 90, height 2
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorOfLocation" class="item-title">Vectors - Create from location</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">vector (of|from|to) %<a href='classes.html#location'>location</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>location</a>%['s] vector</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Creates a vector from a location
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to vector of {_loc}
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprClickAction" class="item-title">Click Action</div>
 <div class="item-content">
   <table>
@@ -1336,6 +1810,43 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
 
     <div class="skript-code-block">
       click action is left mouse button
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprLocationVectorOffset" class="item-title">Vectors - Location vector offset</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#location'>location</a>%[ ]~[~][ ]%<a href='classes.html#vector'>types.vector</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Offset a location by a vector
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_loc} to {_loc} ~ {_v}
     </div>
 
   </div>
@@ -1383,6 +1894,43 @@ One can also use the type of the argument instead of its index to address the ar
 <br>give a diamond pickaxe to the argument
 <br>add argument 1 to argument 2
 <br>heal the last argument
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorRandom" class="item-title">Vectors - Random</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">random vector</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Creates a random vector
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to random vector
     </div>
 
   </div>
@@ -1459,6 +2007,54 @@ One can also use the type of the argument instead of its index to address the ar
 
     <div class="skript-code-block">
       
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorArithmetic" class="item-title">Vectors - Arithmetic</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>%[ ]++[ ]%<a href='classes.html#vector'>types.vector</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>%[ ]--[ ]%<a href='classes.html#vector'>types.vector</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>%[ ]**[ ]%<a href='classes.html#vector'>types.vector</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>%[ ]//[ ]%<a href='classes.html#vector'>types.vector</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Arithmetic expressions for vectors
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to vector 1, 2, 3 // 5
+<br>set {_v} to {_v} ++ {_v}
+<br>set {_v} to {_v} ++ 5
+<br>set {_v} to {_v} -- {_v}
+<br>set {_v} to {_v} -- 5
+<br>set {_v} to {_v} ** {_v}
+<br>set {_v} to {_v} ** 5
+<br>set {_v} to {_v} // {_v}
+<br>set {_v} to {_v} // 5
     </div>
 
   </div>
@@ -4028,6 +4624,47 @@ Note 2: If you don't specify whether to use the past or future state of an expre
 </div>
 
 
+<div id="ExprVectorLength" class="item-title">Vectors - Length</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(vector|standard|normal) length of %<a href='classes.html#vector'>types.vector</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#vector'>types.vector</a>%['s] (vector|standard|normal) length</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets or sets the length of a vector
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "%standard length of vector 1, 2, 3%"
+<br>set {_v} to vector 1, 2, 3
+<br>set standard length of {_v} to 2
+<br>send "%standard length of {_v}%"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprUnixTime" class="item-title">Unix Timestamp</div>
 <div class="item-content">
   <table>
@@ -4888,6 +5525,96 @@ See also: <a href='#ExprPassenger'>passenger</a>
 
     <div class="skript-code-block">
       set gliding of player to off
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorYawPitch" class="item-title">Vectors - Yaw and pitch</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">vector (yaw|pitch) of %<a href='classes.html#vector'>types.vector</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets or sets the yaw or pitch value of a vector
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to vector -1, 1, 1
+<br>send "%vector yaw of {_v}%, %vector pitch of {_v}%"
+<br>add 45 to vector yaw of {_v}
+<br>subtract 45 from vector pitch of {_v}
+<br>send "%vector yaw of {_v}%, %vector pitch of {_v}%"
+<br>set vector yaw of {_v} to -45
+<br>set vector pitch of {_v} to 45
+<br>send "%vector yaw of {_v}%, %vector pitch of {_v}%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprVectorXYZ" class="item-title">Vectors - Coordinate</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(x|y|z) of %<a href='classes.html#vector'>types.vector</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets or sets the x, y or z coordinate of a vector
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {_v} to vector 1, 2, 3
+<br>send "%x of {_v}%, %y of {_v}%, %z of {_v}%"
+<br>add 1 to x of {_v}
+<br>add 2 to y of {_v}
+<br>add 3 to z of {_v}
+<br>send "%x of {_v}%, %y of {_v}%, %z of {_v}%"
+<br>set x of {_v} to 1
+<br>set y of {_v} to 2
+<br>set z of {_v} to 3
+<br>send "%x of {_v}%, %y of {_v}%, %z of {_v}%"
     </div>
 
   </div>
