@@ -1,5 +1,5 @@
 {
-  "skriptVersion" : "2.2-dev30",
+  "skriptVersion" : "2.2-dev30b",
 
   "classes" : [
     {
@@ -331,6 +331,30 @@
   "since" : "2.1",
   "description" : "A visible effect, e.g. particles.",
   "examples" : "show wolf hearts on the clicked wolf\\nplay mob spawner flames at the targeted block to the player"
+},
+{
+  "id" : "money",
+  "name" : "Money",
+  "patterns" : [
+    "&lt;code&gt;&amp;lt;number&amp;gt; $&lt;/code&gt; or &lt;code&gt;$ &amp;lt;number&amp;gt;&lt;/code&gt;, where '$' is your server's currency, e.g. '10 rupees' or '£5.00'",
+
+    "pattern_end"
+  ],
+  "since" : "2.0",
+  "description" : "A certain amount of money. Please note that this differs from <a href='#number'>numbers</a> as it includes a currency symbol or name, but usually the two are interchangeable, e.g. you can both <code>add 100$ to the player's balance</code> and <code>add 100 to the player's balance</code>.",
+  "examples" : "add 10£ to the player's account\\nremove Fr. 9.95 from the player's money\\nset the victim's money to 0\\nincrease the attacker's balance by the level of the victim * 100"
+},
+{
+  "id" : "region",
+  "name" : "Region",
+  "patterns" : [
+    "&quot;region name&quot;",
+
+    "pattern_end"
+  ],
+  "since" : "2.1",
+  "description" : "A region of a regions plugin. Skript currently supports WorldGuard, Factions, GriefPrevention and PreciousStones.\\nPlease note that some regions plugins do not have named regions, some use numerical ids to identify regions, and some may have regions with the same name in different worlds, thus using regions like \"region name\" in scripts may or may not work.",
+  "examples" : ""
 },
 {
   "id" : "livingentity",
@@ -899,6 +923,47 @@
   "since" : "1.0",
   "description" : "Checks whether the weather in a world is of a specific type.\\n<i>I welcome any ideas how to write this condition differently.</i>",
   "examples" : "is thundering\\nis raining in \"world\" or \"world2\""
+},
+{
+  "id" : "CondIsMember",
+  "name" : "Is Member/Owner of Region",
+  "patterns" : [
+    "%<a href='classes.html#offlineplayer'>offline players</a>% (is|are) ([a] member|[(the|an)] owner) of [[the] region] %<a href='classes.html#region'>regions</a>%",
+"%<a href='classes.html#offlineplayer'>offline players</a>% (is|are)(n't| not) ([a] member|[(the|an)] owner) of [[the] region] %<a href='classes.html#region'>regions</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.1",
+  "description" : "Checks whether a player is a member or owner of a particular region.\\nThis condition requires a supported regions plugin to be installed.",
+  "examples" : "on region enter:\\n    player is the owner of the region\\n    message \"Welcome back to %region%!\"\\n    send \"%player% just entered %region%!\" to all members of the region"
+},
+{
+  "id" : "CondCanBuild",
+  "name" : "Can Build",
+  "patterns" : [
+    "%<a href='classes.html#player'>players</a>% (can|(is|are) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%",
+"%<a href='classes.html#player'>players</a>% (can('t|not)|(is|are)(n't| not) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.0",
+  "description" : "Tests whether a player is allowed to build at a certain location.\\nThis condition requires a supported <a href='../classes/#region'>regions</a> plugin to be installed.",
+  "examples" : "command /setblock <material>:\\n    description: set the block at your crosshair to a different type\\n    trigger:\\n        player cannot build at the targeted block:\\n            message \"You do not have permission to change blocks there!\"\\n            stop\\n        set the targeted block to argument"
+},
+{
+  "id" : "CondRegionContains",
+  "name" : "Region Contains",
+  "patterns" : [
+    "[[the] region] %<a href='classes.html#region'>regions</a>% contain[s] %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%",
+"%<a href='classes.html#location'>locations</a>% (is|are) ([contained] in|part of) [[the] region] %<a href='classes.html#region'>regions</a>%",
+"[[the] region] %<a href='classes.html#region'>regions</a>% (do|does)(n't| not) contain %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%",
+"%<a href='classes.html#location'>locations</a>% (is|are)(n't| not) (contained in|part of) [[the] region] %<a href='classes.html#region'>regions</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.1",
+  "description" : "Checks whether a location is contained in a particular <a href='../classes/#region'>region</a>.\\nThis condition requires a supported regions plugin to be installed.",
+  "examples" : "player is in the region {regions::3}\\non region enter:\\n    region contains {flags.%world%.red}\\n    message \"The red flag is near!\""
 },
 
     {"end" : true}
@@ -2689,12 +2754,37 @@
   "description" : "Called when a player joins the server for the first time.",
   "examples" : ""
 },
+{
+  "id" : "region_enterleave",
+  "name" : "On Region Enter/Leave",
+  "patterns" : [
+    "(enter[ing]|leav(e|ing)|exit[ing]) [of] ([a] region|[[the] region] %<a href='classes.html#region'>regions</a>%)",
+"region (enter[ing]|leav(e|ing)|exit[ing])",
+
+    "pattern_end"
+  ],
+  "since" : "2.1",
+  "description" : "Called when a player enters or leaves a <a href='../classes/#region'>region</a>.\\nThis event requires a supported regions plugin to be installed.",
+  "examples" : "on region exit:\\n    message \"Leaving %region%.\""
+},
 
     {"end" : true}
   ],
 
   "expressions" : [
     {
+  "id" : "ExprRegion",
+  "name" : "Region",
+  "patterns" : [
+    "[the] [event-]region",
+
+    "pattern_end"
+  ],
+  "since" : "2.1",
+  "description" : "The <a href='classes.html#region'>region</a> involved in an event.\\nThis expression requires a supported regions plugin to be installed.",
+  "examples" : "on region enter:\\n    region is {forbidden region}\\n    cancel the event"
+},
+{
   "id" : "ExprCommandSender",
   "name" : "Command Sender",
   "patterns" : [
@@ -3308,6 +3398,18 @@
   "examples" : "damage cause is lava, fire or burning"
 },
 {
+  "id" : "ExprBlocksInRegion",
+  "name" : "Blocks in Region",
+  "patterns" : [
+    "[(all|the)] blocks (in|of) [[the] region[s]] %<a href='classes.html#region'>regions</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.1",
+  "description" : "All blocks in a <a href='../classes/#region'>region</a>.\\nThis expression requires a supported regions plugin to be installed.",
+  "examples" : "loop all blocks in the region {arena.%{faction.%player%}%}:\\n    clear the loop-block"
+},
+{
   "id" : "ExprInventorySlot",
   "name" : "Inventory Slot",
   "patterns" : [
@@ -3579,6 +3681,44 @@
   "since" : "1.4",
   "description" : "The difference between two values, e.g. <a href='../classes/#number'>numbers</a>, <a href='../classes/#date'>dates</a> or <a href='../classes/#time'>times</a>.",
   "examples" : "difference between {command.%player%.lastuse} and now is smaller than a minute:\\n  message \"You have to wait a minute before using this command again!\"\\n  stop"
+},
+{
+  "id" : "ExprRegionsAt",
+  "name" : "Regions At",
+  "patterns" : [
+    "[the] region[s] %<a href='classes.html#direction'>direction</a>% %<a href='classes.html#location'>locations</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.1",
+  "description" : "All <a href='../classes/#region'>regions</a> at a particular <a href='../classes/#location'>location</a>.\\nThis expression requires a supported regions plugin to be installed.",
+  "examples" : "On click on a sign:\\n    line 1 of the clicked block is \"[region info]\"\\n    set {_regions::*} to regions at the clicked block\\n    if {_regions::*} is empty:\\n        message \"No regions exist at this sign.\"\\n    else:\\n        message \"Regions containing this sign: <gold>%{_regions::*}%<r>.\""
+},
+{
+  "id" : "ExprMembersOfRegion",
+  "name" : "Region Members & Owners",
+  "patterns" : [
+    "[(all|the)] (members|owner[s]) of [[the] region[s]] %<a href='classes.html#region'>regions</a>%",
+"[[the] region[s]] %<a href='classes.html#region'>regions</a>%'[s] (members|owner[s])",
+
+    "pattern_end"
+  ],
+  "since" : "2.1",
+  "description" : "A list of members or owners of a <a href='../classes/#region'>region</a>.\\nThis expression requires a supported regions plugin to be installed.",
+  "examples" : "on entering of a region:\\n    message \"You're entering %region% whose owners are %owners of region%\"."
+},
+{
+  "id" : "ExprBalance",
+  "name" : "Money",
+  "patterns" : [
+    "[the] (money|balance|[bank] account) of %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>%'[s] (money|balance|[bank] account)",
+
+    "pattern_end"
+  ],
+  "since" : "2.0",
+  "description" : "How much virtual money a player has (can be changed). This expression requires Vault and a compatible economy plugin to be installed.",
+  "examples" : "message \"You have %player's money%\" # the currency name will be added automatically\\nremove 20$ from the player's balance # replace '$' by whatever currency you use\\nadd 200 to the player's account # or omit the currency alltogether"
 },
 {
   "id" : "ExprLength",

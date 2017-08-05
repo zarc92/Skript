@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev30</title>
+  <title>Skript Documentation - 2.2-dev30b</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -123,6 +123,7 @@
 <p><a href="#weather_change">On Weather Change</a></p>
 <p><a href="#at_time">At Time</a></p>
 <p><a href="#first_join">On First Join</a></p>
+<p><a href="#region_enterleave">On Region Enter/Leave</a></p>
 
     </div>
   </nav>
@@ -3983,6 +3984,46 @@ Please note that rightclick events with an empty hand while not looking at a blo
 
     <div class="skript-code-block">
       
+    </div>
+
+  </div>
+</div>
+
+
+<div id="region_enterleave" class="item-title">On Region Enter/Leave</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(enter[ing]|leav(e|ing)|exit[ing]) [of] ([a] region|[[the] region] %<a href='classes.html#region'>regions</a>%)</span></li>
+<li><span class="skript-code-inline">region (enter[ing]|leav(e|ing)|exit[ing])</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player enters or leaves a <a href='../classes/#region'>region</a>.
+This event requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on region exit:
+<br>	message "Leaving %region%."
     </div>
 
   </div>
