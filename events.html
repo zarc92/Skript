@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Skript Documentation - 2.2-dev28</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
+  <title>Skript Documentation - 2.2-dev30</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -13,12 +14,13 @@
   <a href="effects.html">Effects</a>
   <a href="expressions.html">Expressions</a>
   <a href="classes.html">Types</a>
+  <a href="text.html">Text</a>
   <a href="functions.html">Functions</a>
 </div>
 
   <nav>
     <p id="nav-title">Table of Contents</p>
-    <div>
+    <div id="nav-contents">
       <p><a href="#server_startstop">On Server Start/Stop</a></p>
 <p><a href="#break_mine">On Break / Mine</a></p>
 <p><a href="#burn">On Burn</a></p>
@@ -114,14 +116,13 @@
 <p><a href="#pick_up">On Pick Up</a></p>
 <p><a href="#consume">On Consume</a></p>
 <p><a href="#inventory_click">On Inventory Click</a></p>
-<p><a href="#endermansheep">On Enderman/Sheep</a></p>
+<p><a href="#endermansheepsilverfish">On Enderman/Sheep/Silverfish</a></p>
 <p><a href="#script_loadunload">On Script Load/Unload</a></p>
 <p><a href="#command">On Command</a></p>
 <p><a href="#click">On Click</a></p>
 <p><a href="#weather_change">On Weather Change</a></p>
 <p><a href="#at_time">At Time</a></p>
 <p><a href="#first_join">On First Join</a></p>
-<p><a href="#region_enterleave">On Region Enter/Leave</a></p>
 
     </div>
   </nav>
@@ -3711,7 +3712,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="endermansheep" class="item-title">On Enderman/Sheep</div>
+<div id="endermansheepsilverfish" class="item-title">On Enderman/Sheep/Silverfish</div>
 <div class="item-content">
   <table>
 
@@ -3722,6 +3723,8 @@ World management plugins might change the behaviour of this event though.
           <li><span class="skript-code-inline">enderman place</span></li>
 <li><span class="skript-code-inline">enderman pickup</span></li>
 <li><span class="skript-code-inline">sheep eat</span></li>
+<li><span class="skript-code-inline">silverfish enter</span></li>
+<li><span class="skript-code-inline">silverfish exit</span></li>
 
         </ul>
       </td>
@@ -3735,7 +3738,7 @@ World management plugins might change the behaviour of this event though.
   </table>
 
   <div class="item-description">
-    Called when an enderman places or picks up a block, or a sheep eats grass respectively.
+    Called when an enderman places or picks up a block, a sheep eats grass or a silverfish boops into/out of a block respectively.
   </div>
 
   <div class="item-examples">
@@ -3980,46 +3983,6 @@ Please note that rightclick events with an empty hand while not looking at a blo
 
     <div class="skript-code-block">
       
-    </div>
-
-  </div>
-</div>
-
-
-<div id="region_enterleave" class="item-title">On Region Enter/Leave</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(enter[ing]|leav(e|ing)|exit[ing]) [of] ([a] region|[[the] region] %<a href='classes.html#region'>regions</a>%)</span></li>
-<li><span class="skript-code-inline">region (enter[ing]|leav(e|ing)|exit[ing])</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.1</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player enters or leaves a <a href='../classes/#region'>region</a>.
-This event requires a supported regions plugin to be installed.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on region exit:
-<br>	message "Leaving %region%."
     </div>
 
   </div>

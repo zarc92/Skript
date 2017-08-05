@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Skript Documentation - 2.2-dev28</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
+  <title>Skript Documentation - 2.2-dev30</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -13,12 +14,13 @@
   <a href="effects.html">Effects</a>
   <a href="expressions.html">Expressions</a>
   <a href="classes.html">Types</a>
+  <a href="text.html">Text</a>
   <a href="functions.html">Functions</a>
 </div>
 
   <nav>
     <p id="nav-title">Table of Contents</p>
-    <div>
+    <div id="nav-contents">
       <p><a href="#boolean">Boolean</a></p>
 <p><a href="#string">Text</a></p>
 <p><a href="#projectile">Projectile</a></p>
@@ -46,7 +48,6 @@
 <p><a href="#enchantmenttype">Enchantment Type</a></p>
 <p><a href="#experience">Experience</a></p>
 <p><a href="#visualeffect">Visual Effect</a></p>
-<p><a href="#region">Region</a></p>
 <p><a href="#livingentity">Living Entity</a></p>
 <p><a href="#timespan">Timespan</a></p>
 <p><a href="#number">Number</a></p>
@@ -644,7 +645,7 @@ You have two possibilities to use players as command arguments: &lt;player&gt; a
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">Protection, Fire Protection, Feather Falling, Blast Protection, Projectile Protection, Respiration, Aqua Affinity, Mending, Thorns, Curse of Vanishing, Depth Strider, Frost Walker, Curse of Binding, Sharpness, Smite, Bane of Arthropods, Knockback, Fire Aspect, Looting, Sweeping Edge, Efficiency, Silk Touch, Unbreaking, Fortune, Power, Punch, Flame, Infinity, Luck of the Sea, Lure</span></li>
+          <li><span class="skript-code-inline">Protection, Fire Protection, Feather Falling, Blast Protection, Projectile Protection, Respiration, Aqua Affinity, Mending, Thorns, Curse of Vanishing, Depth Strider, Frost Walker, Curse of Binding, Sharpness, Smite, Bane of Arthropods, Knockback, Fire Aspect, Looting, enchantments.names.sweeping_edge, Efficiency, Silk Touch, Unbreaking, Fortune, Power, Punch, Flame, Infinity, Luck of the Sea, Lure</span></li>
 
         </ul>
       </td>
@@ -1100,44 +1101,6 @@ Please note that <a href='../expressions/#ExprTool'>tool</a> can be regarded a s
     <div class="skript-code-block">
       show wolf hearts on the clicked wolf
 <br>play mob spawner flames at the targeted block to the player
-    </div>
-
-  </div>
-</div>
-
-
-<div id="region" class="item-title">Region</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">&quot;region name&quot;</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.1</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    A region of a regions plugin. Skript currently supports WorldGuard, Factions, GriefPrevention and PreciousStones.
-Please note that some regions plugins do not have named regions, some use numerical ids to identify regions, and some may have regions with the same name in different worlds, thus using regions like "region name" in scripts may or may not work.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
     </div>
 
   </div>
