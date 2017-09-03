@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev30b</title>
+  <title>Skript Documentation - 2.2-dev31</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -58,6 +58,7 @@
 <p><a href="#ExprAttacker">Attacker</a></p>
 <p><a href="#ExprInventoryAction">Inventory Action</a></p>
 <p><a href="#ExprShooter">Shooter</a></p>
+<p><a href="#ExprChatFormat">Chat Format</a></p>
 <p><a href="#LitConsole">Console</a></p>
 <p><a href="#ExprVectorSquaredLength">Vectors - Squared length</a></p>
 <p><a href="#ExprVectorCylindrical">Vectors - Cylindrical shape</a></p>
@@ -105,6 +106,7 @@
 <p><a href="#ExprBed">Bed</a></p>
 <p><a href="#ExprLevel">Level</a></p>
 <p><a href="#ExprEnchantmentLevel">Enchantment Level</a></p>
+<p><a href="#ExprFormatTime">Formatted time</a></p>
 <p><a href="#ExprTime">Time</a></p>
 <p><a href="#ExprBiome">Biome</a></p>
 <p><a href="#ExprTarget">Target</a></p>
@@ -112,6 +114,7 @@
 <p><a href="#ExprItemAmount">Item Amount</a></p>
 <p><a href="#ExprHealth">Health</a></p>
 <p><a href="#ExprGameMode">Game Mode</a></p>
+<p><a href="#ExprBookPages">Book Pages</a></p>
 <p><a href="#ExprDurability">Data Value</a></p>
 <p><a href="#ExprAltitude">Altitude</a></p>
 <p><a href="#ExprWorld">World</a></p>
@@ -129,13 +132,13 @@
 <p><a href="#ExprMaxHealth">Max Health</a></p>
 <p><a href="#ExprRemainingAir">Remaining Air</a></p>
 <p><a href="#ExprArmorSlot">Armour Slot</a></p>
+<p><a href="#ExprBookTitle">Book Title</a></p>
 <p><a href="#ExprEyeLocation">Head location</a></p>
 <p><a href="#ExprLastDamageCause">Last Damage Cause</a></p>
 <p><a href="#ExprTimeState">Former/Future State</a></p>
 <p><a href="#ExprWeather">Weather</a></p>
 <p><a href="#ExprGlowing">Glowing</a></p>
 <p><a href="#ExprVectorLength">Vectors - Length</a></p>
-<p><a href="#ExprUnixTime">Unix Timestamp</a></p>
 <p><a href="#ExprFurnaceSlot">Furnace Slot</a></p>
 <p><a href="#ExprIdOf">Id</a></p>
 <p><a href="#ExprAmountOfItems">Amount of Items</a></p>
@@ -143,12 +146,12 @@
 <p><a href="#ExprAmount">Amount</a></p>
 <p><a href="#ExprUnbreakable">Unbreakable Items</a></p>
 <p><a href="#ExprCoordinate">Coordinate</a></p>
-<p><a href="#ExprItemsIn">Items In</a></p>
 <p><a href="#ExprLightLevel">Light Level</a></p>
 <p><a href="#ExprVehicle">Vehicle</a></p>
 <p><a href="#ExprLore">Lore</a></p>
 <p><a href="#ExprChunk">Chunk</a></p>
 <p><a href="#ExprNamed">Named Item</a></p>
+<p><a href="#ExprBookAuthor">Book Author</a></p>
 <p><a href="#ExprTool">Tool</a></p>
 <p><a href="#ExprEnderChest">Ender Chest</a></p>
 <p><a href="#ExprSignText">Sign Text</a></p>
@@ -158,6 +161,7 @@
 <p><a href="#ExprCursorSlot">Cursor Slot</a></p>
 <p><a href="#ExprGlidingState">Gliding State</a></p>
 <p><a href="#ExprVectorYawPitch">Vectors - Yaw and pitch</a></p>
+<p><a href="#ExprUnixTicks">Unix Timestamp</a></p>
 <p><a href="#ExprVectorXYZ">Vectors - Coordinate</a></p>
 <p><a href="#ExprLocationOf">Location</a></p>
 <p><a href="#ExprName">Name / Display Name</a></p>
@@ -1624,6 +1628,43 @@ Please note that the attacker can also be a block, e.g. a cactus or lava, but th
 
     <div class="skript-code-block">
       shooter is a skeleton
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprChatFormat" class="item-title">Chat Format</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (message|chat) format[ting]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Can be used to get/retrieve the chat format. The sender of a message is represented by [player] or [sender], and the message by [message] or [msg].
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set the chat format to "<yellow>[%s] <green>%s"
     </div>
 
   </div>
@@ -3377,7 +3418,8 @@ In the future there will be an option to use a player's UUID instead of the name
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(velocity|acceleration)</span></li>
+          <li><span class="skript-code-inline">[the] velocity of %<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>%'[s] velocity</span></li>
 
         </ul>
       </td>
@@ -3385,7 +3427,7 @@ In the future there will be an option to use a player's UUID instead of the name
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev31</td>
     </tr>
 
   </table>
@@ -3519,6 +3561,43 @@ In the future there will be an option to use a player's UUID instead of the name
     <div class="skript-code-block">
       player' tool is a sword of sharpness:
 <br>	message "You have a sword of sharpness %level of sharpness of the player's tool% equipped"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprFormatTime" class="item-title">Formatted time</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#date'>date</a>% formatted human-readable [with %<a href='classes.html#string'>text</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Converts date to human-readable text format. By default, yyyy-MM-dd HH:mm:ss z will be used. For reference, see this <a href="https://en.wikipedia.org/wiki/ISO_8601">Wikipedia article</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      now formatted human-readable
     </div>
 
   </div>
@@ -3792,6 +3871,48 @@ In the future there will be an option to use a player's UUID instead of the name
     <div class="skript-code-block">
       player's gamemode is survival
 <br>set the player's gamemode to creative
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprBookPages" class="item-title">Book Pages</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[all] [the] [book] (pages|content) of %<a href='classes.html#itemstack'>item stack</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stack</a>%'s [book] (pages|content)</span></li>
+<li><span class="skript-code-inline">[book] page %<a href='classes.html#number'>number</a>% of %<a href='classes.html#itemstack'>item stack</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stack</a>%'s [book] page %<a href='classes.html#number'>number</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The pages of a book
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on book sign:
+<br>	message "Book Pages: %pages of event-item%"
+<br>   message "Book Page 1: %page 1 of event-item%"
     </div>
 
   </div>
@@ -4499,6 +4620,45 @@ Please note that an MD5 hash is irreversible, i.e. you won't be able to get the 
 </div>
 
 
+<div id="ExprBookTitle" class="item-title">Book Title</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (book name|title) of %<a href='classes.html#itemstack'>item stack</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stack</a>%'[s] (book name|title)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The title of a book
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on book sign:
+<br>	message "Book Title: %title of event-item%"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprEyeLocation" class="item-title">Head location</div>
 <div class="item-content">
   <table>
@@ -4740,44 +4900,6 @@ Note 2: If you don't specify whether to use the past or future state of an expre
 <br>set {_v} to vector 1, 2, 3
 <br>set standard length of {_v} to 2
 <br>send "%standard length of {_v}%"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="ExprUnixTime" class="item-title">Unix Timestamp</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[the] [unix] time[stamp] of %<a href='classes.html#date'>dates</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#date'>dates</a>%'[s] [unix] time[stamp]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev20</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Converts real world date to Unix timestamp (yyyy-MM-dd HH:mm:ss z).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      unix time of now
     </div>
 
   </div>
@@ -5053,47 +5175,6 @@ Please note that <code>amount of &lt;items&gt;</code> will not return the number
 </div>
 
 
-<div id="ExprItemsIn" class="item-title">Items In</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[all] items (in|of|contained in|out of) [(inventor(y|ies)]) %<a href='classes.html#inventory'>inventories</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    All items in an inventory. Useful for looping or storing in a list variable.
-Please note that the positions of the items in the inventory are not saved, only their order is preserved.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      loop all items in the player's inventory:
-<br>	loop-item is enchanted
-<br>	remove loop-item from the player
-<br>set {inventory.%player%} to items in the player's inventory
-    </div>
-
-  </div>
-</div>
-
-
 <div id="ExprLightLevel" class="item-title">Light Level</div>
 <div class="item-content">
   <table>
@@ -5289,6 +5370,45 @@ See also: <a href='#ExprPassenger'>passenger</a>
       give a diamond sword of sharpness 100 named "<gold>Excalibur" to the player
 <br>set tool of player to the player's tool named "<gold>Wand"
 <br>set the name of the player's tool to "<gold>Wand"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprBookAuthor" class="item-title">Book Author</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [book] (author|writer|publisher) of %<a href='classes.html#itemstack'>item stack</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stack</a>%'[s] [book] (author|writer|publisher)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The author of a book
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on book sign:
+<br>	message "Book Title: %author of event-item%"
     </div>
 
   </div>
@@ -5650,6 +5770,44 @@ See also: <a href='#ExprPassenger'>passenger</a>
 <br>set vector yaw of {_v} to -45
 <br>set vector pitch of {_v} to 45
 <br>send "%vector yaw of {_v}%, %vector pitch of {_v}%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprUnixTicks" class="item-title">Unix Timestamp</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] unix timestamp of %<a href='classes.html#date'>dates</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#date'>dates</a>%'[s] unix timestamp</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Converts given date to Unix timestamp. This is roughly how many seconds have elapsed since 1 January 1970.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      unix timestamp of now
     </div>
 
   </div>

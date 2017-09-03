@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev30b</title>
+  <title>Skript Documentation - 2.2-dev31</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -106,6 +106,7 @@
 <p><a href="#slime_split">On Slime Split</a></p>
 <p><a href="#resurrect_attempt">On Resurrect Attempt</a></p>
 <p><a href="#player_world_change">On Player World Change</a></p>
+<p><a href="#book_edit">On Book Edit</a></p>
 <p><a href="#pressure_plate_trip">On Pressure Plate / Trip</a></p>
 <p><a href="#move_on">On Move On</a></p>
 <p><a href="#dispense">On Dispense</a></p>
@@ -120,6 +121,7 @@
 <p><a href="#script_loadunload">On Script Load/Unload</a></p>
 <p><a href="#command">On Command</a></p>
 <p><a href="#click">On Click</a></p>
+<p><a href="#book_sign">On Book Sign</a></p>
 <p><a href="#weather_change">On Weather Change</a></p>
 <p><a href="#at_time">At Time</a></p>
 <p><a href="#first_join">On First Join</a></p>
@@ -3341,6 +3343,43 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
+<div id="book_edit" class="item-title">On Book Edit</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">book (edit|change|write)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player edits a book
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
 <div id="pressure_plate_trip" class="item-title">On Pressure Plate / Trip</div>
 <div class="item-content">
   <table>
@@ -3871,6 +3910,43 @@ Please note that rightclick events with an empty hand while not looking at a blo
 <br>on leftclick on a stone or obsidian
 <br>on rightclick on a creeper
 <br>on click with a sword
+    </div>
+
+  </div>
+</div>
+
+
+<div id="book_sign" class="item-title">On Book Sign</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">book sign[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player signs a book
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
     </div>
 
   </div>

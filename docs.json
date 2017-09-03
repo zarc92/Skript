@@ -1,5 +1,5 @@
 {
-  "skriptVersion" : "2.2-dev30b",
+  "skriptVersion" : "2.2-dev31",
 
   "classes" : [
     {
@@ -773,6 +773,19 @@
   "since" : "2.0",
   "description" : "Tests whether a given <a href='../classes/#date'>real time</a> was more or less than some <a href='../classes/#timespan'>time span</a> ago.",
   "examples" : "command /command_with_cooldown:\\n    trigger:\\n        {command.%player%.lastused} was less than a minute ago:\\n            message \"Please wait a minute between uses of this command.\"\\n            stop\\n        set {command.%player%.lastused} to now\\n        # ... actual command trigger here ..."
+},
+{
+  "id" : "CondScriptLoaded",
+  "name" : "Is Script Loaded",
+  "patterns" : [
+    "script[s] [%<a href='classes.html#string'>texts</a>%] (is|are) loaded",
+"script[s] [%<a href='classes.html#string'>texts</a>%] (isn't|is not|aren't|are not) loaded",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev31",
+  "description" : "Check if the current script or another script, is current loaded",
+  "examples" : "script is loaded\\nscript \"example.sk\" is loaded"
 },
 {
   "id" : "CondIsEnchanted",
@@ -2544,6 +2557,18 @@
   "examples" : ""
 },
 {
+  "id" : "book_edit",
+  "name" : "On Book Edit",
+  "patterns" : [
+    "book (edit|change|write)",
+
+    "pattern_end"
+  ],
+  "since" : "",
+  "description" : "Called when a player edits a book",
+  "examples" : ""
+},
+{
   "id" : "pressure_plate_trip",
   "name" : "On Pressure Plate / Trip",
   "patterns" : [
@@ -2717,6 +2742,18 @@
   "since" : "1.0",
   "description" : "Called when a user clicks on a block, an entity or air with or without an item in their hand.\\nPlease note that rightclick events with an empty hand while not looking at a block are not sent to the server, so there's no way to detect them.",
   "examples" : "on click\\non rightclick holding a fishing rod\\non leftclick on a stone or obsidian\\non rightclick on a creeper\\non click with a sword"
+},
+{
+  "id" : "book_sign",
+  "name" : "On Book Sign",
+  "patterns" : [
+    "book sign[ing]",
+
+    "pattern_end"
+  ],
+  "since" : "",
+  "description" : "Called when a player signs a book",
+  "examples" : ""
 },
 {
   "id" : "weather_change",
@@ -3230,6 +3267,18 @@
   "since" : "1.3.7",
   "description" : "The shooter of a projectile.",
   "examples" : "shooter is a skeleton"
+},
+{
+  "id" : "ExprChatFormat",
+  "name" : "Chat Format",
+  "patterns" : [
+    "[the] (message|chat) format[ting]",
+
+    "pattern_end"
+  ],
+  "since" : "INSERT VERSION",
+  "description" : "Can be used to get/retrieve the chat format. The sender of a message is represented by [player] or [sender], and the message by [message] or [msg].",
+  "examples" : "set the chat format to \"<yellow>[%s] <green>%s\""
 },
 {
   "id" : "LitConsole",
@@ -3789,11 +3838,12 @@
   "id" : "ExprVelocity",
   "name" : "Vectors - Velocity",
   "patterns" : [
-    "(velocity|acceleration)",
+    "[the] velocity of %<a href='classes.html#entity'>entities</a>%",
+"%<a href='classes.html#entity'>entities</a>%'[s] velocity",
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev31",
   "description" : "Gets, sets, adds or removes velocity to/from/of an entity",
   "examples" : "set player's velocity to {_v}"
 },
@@ -3835,6 +3885,18 @@
   "since" : "2.0",
   "description" : "The level of a particular <a href='classes.html#enchantment'>enchantment</a> on an item",
   "examples" : "player' tool is a sword of sharpness:\\n    message \"You have a sword of sharpness %level of sharpness of the player's tool% equipped\""
+},
+{
+  "id" : "ExprFormatTime",
+  "name" : "Formatted time",
+  "patterns" : [
+    "%<a href='classes.html#date'>date</a>% formatted human-readable [with %<a href='classes.html#string'>text</a>%]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev31",
+  "description" : "Converts date to human-readable text format. By default, yyyy-MM-dd HH:mm:ss z will be used. For reference, see this <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">Wikipedia article</a>.",
+  "examples" : "now formatted human-readable"
 },
 {
   "id" : "ExprTime",
@@ -3925,6 +3987,21 @@
   "since" : "1.0",
   "description" : "The gamemode of a player.",
   "examples" : "player's gamemode is survival\\nset the player's gamemode to creative"
+},
+{
+  "id" : "ExprBookPages",
+  "name" : "Book Pages",
+  "patterns" : [
+    "[all] [the] [book] (pages|content) of %<a href='classes.html#itemstack'>item stack</a>%",
+"%<a href='classes.html#itemstack'>item stack</a>%'s [book] (pages|content)",
+"[book] page %<a href='classes.html#number'>number</a>% of %<a href='classes.html#itemstack'>item stack</a>%",
+"%<a href='classes.html#itemstack'>item stack</a>%'s [book] page %<a href='classes.html#number'>number</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev31",
+  "description" : "The pages of a book",
+  "examples" : "on book sign:\\n    message \"Book Pages: %pages of event-item%\"\\n   message \"Book Page 1: %page 1 of event-item%\""
 },
 {
   "id" : "ExprDurability",
@@ -4147,6 +4224,19 @@
   "examples" : "set chestplate of the player to a diamond chestplate\\nhelmet of player is neither a helmet nor air # player is wearing a block, e.g. from another plugin"
 },
 {
+  "id" : "ExprBookTitle",
+  "name" : "Book Title",
+  "patterns" : [
+    "[the] (book name|title) of %<a href='classes.html#itemstack'>item stack</a>%",
+"%<a href='classes.html#itemstack'>item stack</a>%'[s] (book name|title)",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev31",
+  "description" : "The title of a book",
+  "examples" : "on book sign:\\n    message \"Book Title: %title of event-item%\""
+},
+{
   "id" : "ExprEyeLocation",
   "name" : "Head location",
   "patterns" : [
@@ -4225,19 +4315,6 @@
   "since" : "2.2-dev28",
   "description" : "Gets or sets the length of a vector",
   "examples" : "send \"%standard length of vector 1, 2, 3%\"\\nset {_v} to vector 1, 2, 3\\nset standard length of {_v} to 2\\nsend \"%standard length of {_v}%\""
-},
-{
-  "id" : "ExprUnixTime",
-  "name" : "Unix Timestamp",
-  "patterns" : [
-    "[the] [unix] time[stamp] of %<a href='classes.html#date'>dates</a>%",
-"%<a href='classes.html#date'>dates</a>%'[s] [unix] time[stamp]",
-
-    "pattern_end"
-  ],
-  "since" : "2.2-dev20",
-  "description" : "Converts real world date to Unix timestamp (yyyy-MM-dd HH:mm:ss z).",
-  "examples" : "unix time of now"
 },
 {
   "id" : "ExprFurnaceSlot",
@@ -4328,18 +4405,6 @@
   "examples" : "player's y-coordinate is smaller than 40:\\n    message \"Watch out for lava!\""
 },
 {
-  "id" : "ExprItemsIn",
-  "name" : "Items In",
-  "patterns" : [
-    "[all] items (in|of|contained in|out of) [(inventor(y|ies)]) %<a href='classes.html#inventory'>inventories</a>%",
-
-    "pattern_end"
-  ],
-  "since" : "2.0",
-  "description" : "All items in an inventory. Useful for looping or storing in a list variable.\\nPlease note that the positions of the items in the inventory are not saved, only their order is preserved.",
-  "examples" : "loop all items in the player's inventory:\\n    loop-item is enchanted\\n    remove loop-item from the player\\nset {inventory.%player%} to items in the player's inventory"
-},
-{
   "id" : "ExprLightLevel",
   "name" : "Light Level",
   "patterns" : [
@@ -4405,6 +4470,19 @@
   "since" : "2.0",
   "description" : "Directly names an item, useful for defining a named item in a script. If you want to (re)name existing items you can either use this expression or use <code>set <a href='#ExprName'>name of &lt;item&gt;</a> to &lt;text&gt;</code>.",
   "examples" : "give a diamond sword of sharpness 100 named \"<gold>Excalibur\" to the player\\nset tool of player to the player's tool named \"<gold>Wand\"\\nset the name of the player's tool to \"<gold>Wand\""
+},
+{
+  "id" : "ExprBookAuthor",
+  "name" : "Book Author",
+  "patterns" : [
+    "[the] [book] (author|writer|publisher) of %<a href='classes.html#itemstack'>item stack</a>%",
+"%<a href='classes.html#itemstack'>item stack</a>%'[s] [book] (author|writer|publisher)",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev31",
+  "description" : "The author of a book",
+  "examples" : "on book sign:\\n    message \"Book Title: %author of event-item%\""
 },
 {
   "id" : "ExprTool",
@@ -4522,6 +4600,19 @@
   "since" : "2.2-dev28",
   "description" : "Gets or sets the yaw or pitch value of a vector",
   "examples" : "set {_v} to vector -1, 1, 1\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\"\\nadd 45 to vector yaw of {_v}\\nsubtract 45 from vector pitch of {_v}\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\"\\nset vector yaw of {_v} to -45\\nset vector pitch of {_v} to 45\\nsend \"%vector yaw of {_v}%, %vector pitch of {_v}%\""
+},
+{
+  "id" : "ExprUnixTicks",
+  "name" : "Unix Timestamp",
+  "patterns" : [
+    "[the] unix timestamp of %<a href='classes.html#date'>dates</a>%",
+"%<a href='classes.html#date'>dates</a>%'[s] unix timestamp",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev31",
+  "description" : "Converts given date to Unix timestamp. This is roughly how many seconds have elapsed since 1 January 1970.",
+  "examples" : "unix timestamp of now"
 },
 {
   "id" : "ExprVectorXYZ",

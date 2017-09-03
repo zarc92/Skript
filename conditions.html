@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev30b</title>
+  <title>Skript Documentation - 2.2-dev31</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -40,6 +40,7 @@
 <p><a href="#CondIsInWorld">Is in World</a></p>
 <p><a href="#CondIsPoisoned">Is Poisoned</a></p>
 <p><a href="#CondDate">Time</a></p>
+<p><a href="#CondScriptLoaded">Is Script Loaded</a></p>
 <p><a href="#CondIsEnchanted">Is Enchanted</a></p>
 <p><a href="#CondPermission">Has Permission</a></p>
 <p><a href="#CondIsSprinting">Is Sprinting</a></p>
@@ -820,6 +821,45 @@
 <br>			stop
 <br>		set {command.%player%.lastused} to now
 <br>		# ... actual command trigger here ...
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondScriptLoaded" class="item-title">Is Script Loaded</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">script[s] [%<a href='classes.html#string'>texts</a>%] (is|are) loaded</span></li>
+<li><span class="skript-code-inline">script[s] [%<a href='classes.html#string'>texts</a>%] (isn't|is not|aren't|are not) loaded</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Check if the current script or another script, is current loaded
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      script is loaded
+<br>script "example.sk" is loaded
     </div>
 
   </div>
