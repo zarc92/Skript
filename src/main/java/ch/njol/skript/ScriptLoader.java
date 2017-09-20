@@ -95,6 +95,7 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.NonNullPair;
 import ch.njol.util.StringUtils;
 import ch.njol.util.coll.CollectionUtils;
+import me.nallar.whocalled.WhoCalled;
 
 /**
  * @author Peter Güttinger
@@ -203,12 +204,26 @@ final public class ScriptLoader {
 		}
 	}
 	
-//	private final static class SerializedScript {
-//		public SerializedScript() {}
-//
-//		public final List<Trigger> triggers = new ArrayList<Trigger>();
-//		public final List<ScriptCommand> commands = new ArrayList<ScriptCommand>();
-//	}
+	/**
+	 * Represents what type a script has.
+	 */
+	public static enum ScriptType {
+		
+		/**
+		 * Used by Skript internally.
+		 */
+		TRUSTED,
+		
+		/**
+		 * Loaded by Skript from user script directory.
+		 */
+		USER,
+		
+		/**
+		 * Loaded by unknown code.
+		 */
+		UNKNOWN
+	}
 	
 	private static String indentation = "";
 	
@@ -238,6 +253,9 @@ final public class ScriptLoader {
 	 */
 	@SuppressWarnings("null")
 	static final Set<File> loadedFiles = Collections.synchronizedSet(new HashSet<>());
+	
+	@SuppressWarnings("null")
+	static final Map<File, ScriptType> scriptTypes = Collections.synchronizedMap(new HashMap<>());
 	
 	@SuppressWarnings("null") // Collections methods don't return nulls, ever
 	public static Collection<File> getLoadedFiles() {
@@ -420,6 +438,13 @@ final public class ScriptLoader {
 		public final List<TriggerItem> items;
 	}
 	
+	private static ScriptType getScriptType(Class<?> caller) {
+		if (caller.equals(ScriptLoader.class) || caller.equals(SkriptCommand.class))
+			return ScriptType.USER;
+		
+		return ScriptType.UNKNOWN;
+	}
+	
 	/**
 	 * Loads one script. Only for internal use, as this doesn't register/update
 	 * event handlers.
@@ -431,6 +456,8 @@ final public class ScriptLoader {
 		if (config == null) { // Something bad happened, hopefully got logged to console
 			return new ScriptInfo();
 		}
+		
+		ScriptType scriptType = getScriptType(WhoCalled.$.getCallingClass());
 		
 		// When something is parsed, it goes there to be loaded later
 		List<ScriptCommand> commands = new ArrayList<>();
@@ -680,6 +707,7 @@ final public class ScriptLoader {
 				
 				// Add to loaded files to use for future reloads
 				loadedFiles.add(file);
+				scriptTypes.put(file, scriptType); // And script type too
 				
 				return null;
 			}
