@@ -35,6 +35,7 @@ import ch.njol.skript.localization.Language;
 import ch.njol.skript.util.Utils;
 import ch.njol.skript.util.Version;
 import ch.njol.util.coll.iterator.EnumerationIterable;
+import me.nallar.whocalled.WhoCalled;
 
 /**
  * Utility class for Skript addons. Use {@link Skript#registerAddon(JavaPlugin)} to create a SkriptAddon instance for your plugin.
@@ -53,6 +54,10 @@ public final class SkriptAddon {
 	 * @param p
 	 */
 	SkriptAddon(final JavaPlugin p) {
+		if (WhoCalled.$.getCallingClass() != Skript.class) {
+			throw new SkriptAPIException("use Skript#registerAddon(JavaPlugin), not the constructor");
+		}
+		
 		plugin = p;
 		name = "" + p.getName();
 		Version v;

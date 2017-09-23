@@ -351,6 +351,22 @@ final public class ScriptLoader {
 	 * @return Info on the loaded scripts.
 	 */
 	public final static ScriptInfo loadScripts(final List<Config> configs) {
+		return loadScripts(configs, getScriptType(WhoCalled.$.getCallingClass()));
+	}
+	
+	/**
+	 * Loads the specified scripts. Only for internal usage.
+	 * 
+	 * @param configs Configs for scripts, loaded by {@link #loadStructures(File[])}
+	 * @param type Script type.
+	 * @return Info on the loaded scripts.
+	 */
+	private final static ScriptInfo loadScripts(final List<Config> configs, ScriptType type) {
+		// Internal function, seriously don't call this from outside
+		if (WhoCalled.$.getCallingClass() != ScriptLoader.class) {
+			throw new SkriptAPIException("disallowed method call");
+		}
+		
 		ScriptInfo i = new ScriptInfo();
 		
 		Runnable task = () -> {
@@ -359,7 +375,7 @@ final public class ScriptLoader {
 			try {
 				for (final Config cfg : configs) {
 					assert cfg != null : configs.toString();
-					i.add(loadScript(cfg));
+					i.add(loadScript(cfg, type));
 				}
 			} finally {
 				if (wasLocal)
@@ -388,7 +404,7 @@ final public class ScriptLoader {
 	public final static ScriptInfo loadScripts(final List<Config> configs, final List<LogEntry> logOut) {
 		final RetainingLogHandler logHandler = SkriptLogger.startRetainingLog();
 		try {
-			return loadScripts(configs);
+			return loadScripts(configs, getScriptType(WhoCalled.$.getCallingClass()));
 		} finally {
 			logOut.addAll(logHandler.getLog());
 			logHandler.clear(); // Remove everything from the log handler
@@ -404,7 +420,7 @@ final public class ScriptLoader {
 	 */
 	@SuppressWarnings("null")
 	public final static ScriptInfo loadScripts(final Config... configs) {
-		return loadScripts(Arrays.asList(configs));
+		return loadScripts(Arrays.asList(configs), getScriptType(WhoCalled.$.getCallingClass()));
 	}
 	
 	/**
@@ -417,7 +433,7 @@ final public class ScriptLoader {
 	@Deprecated
 	public final static ScriptInfo loadScripts(final File... files) {
 		List<Config> configs = loadStructures(files);
-		return loadScripts(configs);
+		return loadScripts(configs, getScriptType(WhoCalled.$.getCallingClass()));
 	}
 	
 	/**
@@ -438,8 +454,8 @@ final public class ScriptLoader {
 		public final List<TriggerItem> items;
 	}
 	
-	private static ScriptType getScriptType(Class<?> caller) {
-		if (caller.equals(ScriptLoader.class) || caller.equals(SkriptCommand.class))
+	private static ScriptType getScriptType(@Nullable Class<?> caller) {
+		if (caller == ScriptLoader.class || caller == ScriptCommand.class)
 			return ScriptType.USER;
 		
 		return ScriptType.UNKNOWN;
@@ -449,15 +465,19 @@ final public class ScriptLoader {
 	 * Loads one script. Only for internal use, as this doesn't register/update
 	 * event handlers.
 	 * @param config Config for script to be loaded.
+	 * @param type Script type.
 	 * @return Info about script that is loaded
 	 */
 	@SuppressWarnings("unchecked")
-	private final static ScriptInfo loadScript(final @Nullable Config config) {
+	private final static ScriptInfo loadScript(final @Nullable Config config, ScriptType type) {
 		if (config == null) { // Something bad happened, hopefully got logged to console
 			return new ScriptInfo();
 		}
 		
-		ScriptType scriptType = getScriptType(WhoCalled.$.getCallingClass());
+		// Internal function, seriously don't call this from outside
+		if (WhoCalled.$.getCallingClass() != ScriptLoader.class) {
+			throw new SkriptAPIException("disallowed method call");
+		}
 		
 		// When something is parsed, it goes there to be loaded later
 		List<ScriptCommand> commands = new ArrayList<>();
@@ -707,7 +727,7 @@ final public class ScriptLoader {
 				
 				// Add to loaded files to use for future reloads
 				loadedFiles.add(file);
-				scriptTypes.put(file, scriptType); // And script type too
+				scriptTypes.put(file, type); // And script type too
 				
 				return null;
 			}
