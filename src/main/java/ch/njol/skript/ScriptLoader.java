@@ -439,7 +439,7 @@ final public class ScriptLoader {
 	/**
 	 * Represents data for event which is waiting to be loaded.
 	 */
-	private static class ParsedEventData {
+	public static class ParsedEventData {
 		
 		public ParsedEventData(NonNullPair<SkriptEventInfo<?>, SkriptEvent> info, String event, SectionNode node, List<TriggerItem> items) {
 			this.info = info;

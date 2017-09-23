@@ -22,6 +22,7 @@ package ch.njol.skript.command;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -369,5 +370,4 @@ public class ScriptCommand implements CommandExecutor {
 	public File getScript() {
 		return trigger.getScript();
 	}
-	
 }
