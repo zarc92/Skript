@@ -21,6 +21,7 @@
 
 package ch.njol.skript.cache;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -30,7 +31,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.zip.GZIPOutputStream;
 
 import com.google.gson.Gson;
 
@@ -48,17 +52,24 @@ public final class ScriptCache {
 	private Path cacheDir;
 	private FileChannel metaFile;
 	
+	private byte secret;
+	
 	/**
 	 * Metadata about Skript's cache.
 	 */
 	private static class CacheMeta {
 		
 		/**
-		 * Secret for this Skript instance.
+		 * When scripts were last cached.
 		 */
-		private long secret;
+		Map<String, Long> lastCached = new HashMap<>();
 		
+		Map<String, Byte> xorKeys = new HashMap<>();
+		
+		Map<String, Long> xorHashes = new HashMap<>();
 	}
+	
+	private CacheMeta meta;
 	
 	private Gson gson;
 	
@@ -82,11 +93,9 @@ public final class ScriptCache {
 		
 		Random rng = new Random();
 		byte xorKey = (byte) (rng.nextInt(256) - 128);
-		long originHash = 1;
 		long xorHash = 1;
 		
 		for (int i = 0; i < bytes.length; i++) {
-			originHash = 31 * originHash + bytes[i];
 			bytes[i] = (byte) (bytes[i] ^ xorKey);
 			xorHash = 31 * xorHash + bytes[i];
 		}
@@ -94,17 +103,14 @@ public final class ScriptCache {
 		// Delete old file if exists
 		Files.deleteIfExists(cacheDir.resolve(name));
 		
-		// Write data to cache file
-		try (FileChannel ch = FileChannel.open(cacheDir.resolve(name), StandardOpenOption.CREATE, StandardOpenOption.READ, StandardOpenOption.WRITE)) {
-			ByteBuffer buf = ByteBuffer.allocateDirect(bytes.length + META_LENGTH);
-			buf.put(bytes, META_LENGTH, bytes.length); // Actual JSON data
-			
-			// Metadata
-			buf.putInt(0, xorKey); // Xor "encryption" key
-			buf.putLong(4, originHash); // Hash of original data
-			buf.putLong(12, xorHash); // Hash of encrypted data
-			buf.putInt(20, version); // Skript version, or something like that
+		try (GZIPOutputStream fos = new GZIPOutputStream(new FileOutputStream(cacheDir.resolve(name).toFile()))) {
+			fos.write(bytes);
 		}
+		
+		// Save some metadata
+		meta.lastCached.put(name, System.currentTimeMillis());
+		meta.xorKeys.put(name, xorKey);
+		meta.xorHashes.put(name, xorHash);
 	}
 	
 }
