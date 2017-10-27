@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev31</title>
+  <title>Skript Documentation - 2.2-dev31c</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -21,39 +21,39 @@
   <nav>
     <p id="nav-title">Table of Contents</p>
     <div id="nav-contents">
-      <p><a href="#CondItemInHand">Is Holding</a></p>
-<p><a href="#CondIsOnGround">Is on Ground</a></p>
-<p><a href="#CondIsSet">Exists/Is Set</a></p>
-<p><a href="#CondIsBlocking">Is Blocking</a></p>
-<p><a href="#CondDamageCause">Damage Cause</a></p>
-<p><a href="#CondPlayedBefore">Has Played Before</a></p>
-<p><a href="#CondIsRiding">Is Riding</a></p>
-<p><a href="#CondIsOnline">Is Online</a></p>
-<p><a href="#CondPvP">PvP</a></p>
-<p><a href="#CondIsBanned">Is Banned</a></p>
+      <p><a href="#CondCanBuild">Can Build</a></p>
 <p><a href="#CondCanHold">Can Hold</a></p>
-<p><a href="#CondIsBurning">Is Burning</a></p>
-<p><a href="#CondIsAlive">Is Alive</a></p>
-<p><a href="#CondIsEmpty">Is Empty</a></p>
-<p><a href="#CondContains">Contains</a></p>
-<p><a href="#CondIsFlying">Is Flying</a></p>
-<p><a href="#CondIsInWorld">Is in World</a></p>
-<p><a href="#CondIsPoisoned">Is Poisoned</a></p>
-<p><a href="#CondDate">Time</a></p>
-<p><a href="#CondScriptLoaded">Is Script Loaded</a></p>
-<p><a href="#CondIsEnchanted">Is Enchanted</a></p>
-<p><a href="#CondPermission">Has Permission</a></p>
-<p><a href="#CondIsSprinting">Is Sprinting</a></p>
-<p><a href="#CondIsSneaking">Is Sneaking</a></p>
 <p><a href="#CondChance">Chance</a></p>
-<p><a href="#CondIsWearing">Is Wearing</a></p>
 <p><a href="#CondCompare">Comparison</a></p>
-<p><a href="#CondIsSleeping">Is Sleeping</a></p>
-<p><a href="#CondIsOfType">Is of Type</a></p>
-<p><a href="#CondWeather">Weather</a></p>
+<p><a href="#CondContains">Contains</a></p>
+<p><a href="#CondDamageCause">Damage Cause</a></p>
+<p><a href="#CondIsSet">Exists/Is Set</a></p>
+<p><a href="#CondPermission">Has Permission</a></p>
+<p><a href="#CondPlayedBefore">Has Played Before</a></p>
+<p><a href="#CondIsAlive">Is Alive</a></p>
+<p><a href="#CondIsBanned">Is Banned</a></p>
+<p><a href="#CondIsBlocking">Is Blocking</a></p>
+<p><a href="#CondIsBurning">Is Burning</a></p>
+<p><a href="#CondIsEmpty">Is Empty</a></p>
+<p><a href="#CondIsEnchanted">Is Enchanted</a></p>
+<p><a href="#CondIsFlying">Is Flying</a></p>
+<p><a href="#CondItemInHand">Is Holding</a></p>
 <p><a href="#CondIsMember">Is Member/Owner of Region</a></p>
-<p><a href="#CondCanBuild">Can Build</a></p>
+<p><a href="#CondIsOnline">Is Online</a></p>
+<p><a href="#CondIsPoisoned">Is Poisoned</a></p>
+<p><a href="#CondIsRiding">Is Riding</a></p>
+<p><a href="#CondScriptLoaded">Is Script Loaded</a></p>
+<p><a href="#CondIsSleeping">Is Sleeping</a></p>
+<p><a href="#CondIsSneaking">Is Sneaking</a></p>
+<p><a href="#CondIsSprinting">Is Sprinting</a></p>
+<p><a href="#CondIsWearing">Is Wearing</a></p>
+<p><a href="#CondIsInWorld">Is in World</a></p>
+<p><a href="#CondIsOfType">Is of Type</a></p>
+<p><a href="#CondIsOnGround">Is on Ground</a></p>
+<p><a href="#CondPvP">PvP</a></p>
 <p><a href="#CondRegionContains">Region Contains</a></p>
+<p><a href="#CondDate">Time</a></p>
+<p><a href="#CondWeather">Weather</a></p>
 
     </div>
   </nav>
@@ -62,7 +62,7 @@
 
 
 
-<div id="CondItemInHand" class="item-title">Is Holding</div>
+<div id="CondCanBuild" class="item-title">Can Build</div>
 <div class="item-content">
   <table>
 
@@ -70,168 +70,8 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] ha(s|ve) %<a href='classes.html#itemtype'>item types</a>% in [main] hand</span></li>
-<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (is|are) holding %<a href='classes.html#itemtype'>item types</a>% [in main hand]</span></li>
-<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] ha(s|ve) %<a href='classes.html#itemtype'>item types</a>% in off[(-| )]hand</span></li>
-<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (is|are) holding %<a href='classes.html#itemtype'>item types</a>% in off[(-| )]hand</span></li>
-<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (ha(s|ve) not|do[es]n't have) %<a href='classes.html#itemtype'>item types</a>% in [main] hand</span></li>
-<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (is not|isn't) holding %<a href='classes.html#itemtype'>item types</a>% [in main hand]</span></li>
-<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (ha(s|ve) not|do[es]n't have) %<a href='classes.html#itemtype'>item types</a>% in off[(-| )]hand</span></li>
-<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (is not|isn't) holding %<a href='classes.html#itemtype'>item types</a>% in off[(-| )]hand</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player is holdign a specific item. Cannot be used with endermen, use 'entity is [not] an enderman holding &lt;item type&gt;' instead.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is holding a stick
-<br>victim isn't holding a sword of sharpness
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsOnGround" class="item-title">Is on Ground</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is|are) on ground</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev26</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks if entities are on ground or not.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is not on ground
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsSet" class="item-title">Exists/Is Set</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%~<a href='classes.html#object'>objects</a>% (exist[s]|(is|are) set)</span></li>
-<li><span class="skript-code-inline">%~<a href='classes.html#object'>objects</a>% (do[es](n't| not) exist|(is|are)(n't| not) set)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.2</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a given expression or variable is set.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      {teamscript.%player%.preferred team} is not set
-<br>on damage:
-<br>	projectile exists
-<br>	broadcast "%attacker% used a %projectile% to attack %victim%!"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsBlocking" class="item-title">Is Blocking</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) (blocking|defending)</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) (blocking|defending)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player is blocking with his sword.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      victim is blocking
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondDamageCause" class="item-title">Damage Cause</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[the] damage (was|is|has)[(n('|o)]t) [been] (caused|done|made) by %<a href='classes.html#damagecause'>damage cause</a>%</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (can|(is|are) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (can('t|not)|(is|are)(n't| not) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
 
         </ul>
       </td>
@@ -245,7 +85,8 @@
   </table>
 
   <div class="item-description">
-    Tests what kind of damage caused a <a href='../events/#damage'>damage event</a>. Refer to the <a href='../classes/#damagecause'>Damage Cause</a> type for a list of all possible causes.
+    Tests whether a player is allowed to build at a certain location.
+This condition requires a supported <a href='../classes/#region'>regions</a> plugin to be installed.
   </div>
 
   <div class="item-examples">
@@ -253,216 +94,13 @@
     Examples:
 
     <div class="skript-code-block">
-      # make players use their potions of fire resistance whenever they take any kind of fire damage
-<br>on damage:
-<br>	damage was caused by lava, fire or burning
-<br>	victim is a player
-<br>	victim has a potion of fire resistance
-<br>	cancel event
-<br>	apply fire resistance to the victim for 30 seconds
-<br>	remove 1 potion of fire resistance from the victim
-<br># prevent mobs from dropping items under certain circumstances
-<br>on death;
-<br>	entity is not a player
-<br>	damage wasn't caused by a block explosion, an attack, a projectile, a potion, fire, burning, thorns or poison
-<br>	clear drops
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondPlayedBefore" class="item-title">Has Played Before</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline player</a>% [(has|did)] [already] play[ed] [on (this|the) server] (before|already)</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline player</a>% (has not|hasn't|did not|didn't) [(already|yet)] play[ed] [on (this|the) server] (before|already|yet)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player has played on this server before. You can also use <a href='../events/#first_join'>on first join</a> if you want to make triggers for new players.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player has played on this server before
-<br>player hasn't played before
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsRiding" class="item-title">Is Riding</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is|are) riding [%<a href='classes.html#entitydata'>entity types</a>%]</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (isn't|is not|aren't|are not) riding [%<a href='classes.html#entitydata'>entity types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Tests whether an entity is riding another or is in a vehicle.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is riding a saddled pig
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsOnline" class="item-title">Is Online</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>% ((is|are) online|(is not|isn't|are not|aren't) offline)</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>% ((is|are) offline|(is not|isn't|are not|aren't) online)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player is online.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is online
-<br>player-argument is offline
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondPvP" class="item-title">PvP</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(is PvP|PvP is) enabled [in %<a href='classes.html#world'>worlds</a>%]</span></li>
-<li><span class="skript-code-inline">(is PvP|PvP is) disabled [in %<a href='classes.html#world'>worlds</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.3.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks the PvP state of a world.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      PvP is enabled
-<br>PvP is disabled in "world"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsBanned" class="item-title">Is Banned</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>/<a href='classes.html#string'>texts</a>% (is|are) banned</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>/<a href='classes.html#string'>texts</a>% [(is|are) IP(-| )]banned</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>/<a href='classes.html#string'>texts</a>% (isn't|is not|aren't|are not) banned</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>/<a href='classes.html#string'>texts</a>% [(isn't|is not|aren't|are not) IP(-| )]banned</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player or IP is banned.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is banned
-<br>victim is not IP-banned
-<br>"127.0.0.1" is banned
+      command /setblock <material>:
+<br>	description: set the block at your crosshair to a different type
+<br>	trigger:
+<br>		player cannot build at the targeted block:
+<br>			message "You do not have permission to change blocks there!"
+<br>			stop
+<br>		set the targeted block to argument
     </div>
 
   </div>
@@ -508,523 +146,6 @@
 </div>
 
 
-<div id="CondIsBurning" class="item-title">Is Burning</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is|are) (burning|ignited|on fire)</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (isn't|is not|aren't|are not) (burning|ignited|on fire)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether an entity is on fire, e.g. a zombie due to being in sunlight, or any entity after falling into lava.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      # increased attack against buring targets
-<br>victim is burning:
-<br>	increase damage by 2
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsAlive" class="item-title">Is Alive</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (is|are) (alive|dead)</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (isn't|is not|aren't|are not) (alive|dead)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whetehr an entity is alive. This is mostly useful to check whether an entity stored in a variable does still exist
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      {villagerbuddy.%player%} is dead
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsEmpty" class="item-title">Is Empty</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>/<a href='classes.html#slot'>slots</a>/<a href='classes.html#string'>texts</a>% (is|are) empty</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>/<a href='classes.html#slot'>slots</a>/<a href='classes.html#string'>texts</a>% (isn't|is not|aren't|are not) empty</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether an inventory, an inventory slot, or a text is empty.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player's inventory is empty
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondContains" class="item-title">Contains</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>% ha(s|ve) %<a href='classes.html#itemtype'>item types</a>% [in [(the[ir]|his|her|its)] inventory]</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>/<a href='classes.html#string'>texts</a>/<a href='classes.html#object'>objects</a>% contain[s] %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#string'>texts</a>/<a href='classes.html#object'>objects</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>% do[es](n't| not) have %<a href='classes.html#itemtype'>item types</a>% [in [(the[ir]|his|her|its)] inventory]</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>/<a href='classes.html#string'>texts</a>/<a href='classes.html#object'>objects</a>% do[es](n't| not) contain %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#string'>texts</a>/<a href='classes.html#object'>objects</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether an inventory contains the given item, a text contains another piece of text, or a list of objects (e.g. a {list variable::*}) contains another object.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      block contains 20 cobblestone
-<br>player has 4 flint and 2 iron ingots
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsFlying" class="item-title">Is Flying</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) flying</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) flying</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player is flying
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is not flying
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsInWorld" class="item-title">Is in World</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is|are) in [[the] world[s]] %<a href='classes.html#world'>worlds</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is not|isn't|are not|aren't) in [[the] world[s]] %<a href='classes.html#world'>worlds</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether an entity is in a specific world
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is in "world"
-<br>argument isn't in world "world_nether"
-<br>the player is in the world of the victim
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsPoisoned" class="item-title">Is Poisoned</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (is|are) poisoned</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (isn't|is not|aren't|are not) poisoned</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether an entity is poisoned.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is poisoned:
-<br>	cure the player from posion
-<br>	message "You have been cured!"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondDate" class="item-title">Time</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#date'>date</a>% (was|were)( more|(n't| not) less) than %<a href='classes.html#timespan'>time span</a>% [ago]</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#date'>date</a>% (was|were)((n't| not) more| less) than %<a href='classes.html#timespan'>time span</a>% [ago]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Tests whether a given <a href='../classes/#date'>real time</a> was more or less than some <a href='../classes/#timespan'>time span</a> ago.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      command /command_with_cooldown:
-<br>	trigger:
-<br>		{command.%player%.lastused} was less than a minute ago:
-<br>			message "Please wait a minute between uses of this command."
-<br>			stop
-<br>		set {command.%player%.lastused} to now
-<br>		# ... actual command trigger here ...
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondScriptLoaded" class="item-title">Is Script Loaded</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">script[s] [%<a href='classes.html#string'>texts</a>%] (is|are) loaded</span></li>
-<li><span class="skript-code-inline">script[s] [%<a href='classes.html#string'>texts</a>%] (isn't|is not|aren't|are not) loaded</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev31</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Check if the current script or another script, is current loaded
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      script is loaded
-<br>script "example.sk" is loaded
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsEnchanted" class="item-title">Is Enchanted</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item types</a>% (is|are) enchanted [with %<a href='classes.html#enchantmenttype'>enchantment type</a>%]</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item types</a>% (isn't|is not|aren't|are not) enchanted [with %<a href='classes.html#enchantmenttype'>enchantment type</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.6</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether an item is enchanted.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      tool of the player is enchanted with efficiency 2
-<br>helm, chestplate, leggings or boots are enchanted
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondPermission" class="item-title">Has Permission</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[%<a href='classes.html#commandsender'>players/console</a>%] (do[es]n't|don't|do[es] not) have [the] permission[s] %<a href='classes.html#string'>texts</a>%</span></li>
-<li><span class="skript-code-inline">[%<a href='classes.html#commandsender'>players/console</a>%] ha(s|ve) [the] permission[s] %<a href='classes.html#string'>texts</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Test whether a player has a certain permission.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player has permission "skript.tree"
-<br>victim has the permission "admin":
-<br>	send "You're attacking an admin!" to attacker
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsSprinting" class="item-title">Is Sprinting</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) sprinting</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) sprinting</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player is sprinting
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is not sprinting
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsSneaking" class="item-title">Is Sneaking</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) sneaking</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) sneaking</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player is sneaking
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      # prevent mobs from seeing sneaking players if they are at least 4 meters apart
-<br>on target:
-<br>	target is sneaking
-<br>	distance of target and the entity is bigger than 4
-<br>	cancel the event
-    </div>
-
-  </div>
-</div>
-
-
 <div id="CondChance" class="item-title">Chance</div>
 <div class="item-content">
   <table>
@@ -1060,45 +181,6 @@ Valid values are between 0% and 100%, or if the percent sign is omitted between 
 <br>	drop a diamond
 <br>chance of {var}% # {var} between 0 and 100
 <br>chance of {var} # {var} between 0 and 1
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsWearing" class="item-title">Is Wearing</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (is|are) wearing %<a href='classes.html#itemtype'>item types</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (isn't|is not|aren't|are not) wearing %<a href='classes.html#itemtype'>item types</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player is wearing some armour.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      player is wearing an iron chestplate and iron leggings
-<br>player is wearing all diamond armour
     </div>
 
   </div>
@@ -1168,7 +250,7 @@ Note: This is the only element where not all patterns are shown. It has actually
 </div>
 
 
-<div id="CondIsSleeping" class="item-title">Is Sleeping</div>
+<div id="CondContains" class="item-title">Contains</div>
 <div class="item-content">
   <table>
 
@@ -1176,88 +258,10 @@ Note: This is the only element where not all patterns are shown. It has actually
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) sleeping</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) sleeping</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether a player is sleeping.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      # cut your enemies' throats in their sleep >=)
-<br>on attack:
-<br>	attacker is holding a sword
-<br>	victim is sleeping
-<br>	increase the damage by 1000
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondIsOfType" class="item-title">Is of Type</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#entity'>entities</a>% (is|are) of type[s] %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#entitydata'>entity types</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#entity'>entities</a>% (isn't|is not|aren't|are not) of type[s] %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#entitydata'>entity types</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Checks whether an item of entity is of the given type. This is mostly useful for variables, as you can use the general 'is' condition otherwise (e.g. 'victim is a creeper').
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      tool is of type {*selected type}
-<br>victim is of type {villager type}
-    </div>
-
-  </div>
-</div>
-
-
-<div id="CondWeather" class="item-title">Weather</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">is %<a href='classes.html#weathertype'>weather types</a>% [in %<a href='classes.html#world'>worlds</a>%]</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>% ha(s|ve) %<a href='classes.html#itemtype'>item types</a>% [in [(the[ir]|his|her|its)] inventory]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>/<a href='classes.html#string'>texts</a>/<a href='classes.html#object'>objects</a>% contain[s] %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#string'>texts</a>/<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>% do[es](n't| not) have %<a href='classes.html#itemtype'>item types</a>% [in [(the[ir]|his|her|its)] inventory]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>/<a href='classes.html#string'>texts</a>/<a href='classes.html#object'>objects</a>% do[es](n't| not) contain %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#string'>texts</a>/<a href='classes.html#object'>objects</a>%</span></li>
 
         </ul>
       </td>
@@ -1271,8 +275,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks whether the weather in a world is of a specific type.
-<i>I welcome any ideas how to write this condition differently.</i>
+    Checks whether an inventory contains the given item, a text contains another piece of text, or a list of objects (e.g. a {list variable::*}) contains another object.
   </div>
 
   <div class="item-examples">
@@ -1280,8 +283,497 @@ Note: This is the only element where not all patterns are shown. It has actually
     Examples:
 
     <div class="skript-code-block">
-      is thundering
-<br>is raining in "world" or "world2"
+      block contains 20 cobblestone
+<br>player has 4 flint and 2 iron ingots
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondDamageCause" class="item-title">Damage Cause</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] damage (was|is|has)[(n('|o)]t) [been] (caused|done|made) by %<a href='classes.html#damagecause'>damage cause</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Tests what kind of damage caused a <a href='../events/#damage'>damage event</a>. Refer to the <a href='../classes/#damagecause'>Damage Cause</a> type for a list of all possible causes.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # make players use their potions of fire resistance whenever they take any kind of fire damage
+<br>on damage:
+<br>	damage was caused by lava, fire or burning
+<br>	victim is a player
+<br>	victim has a potion of fire resistance
+<br>	cancel event
+<br>	apply fire resistance to the victim for 30 seconds
+<br>	remove 1 potion of fire resistance from the victim
+<br># prevent mobs from dropping items under certain circumstances
+<br>on death;
+<br>	entity is not a player
+<br>	damage wasn't caused by a block explosion, an attack, a projectile, a potion, fire, burning, thorns or poison
+<br>	clear drops
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsSet" class="item-title">Exists/Is Set</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%~<a href='classes.html#object'>objects</a>% (exist[s]|(is|are) set)</span></li>
+<li><span class="skript-code-inline">%~<a href='classes.html#object'>objects</a>% (do[es](n't| not) exist|(is|are)(n't| not) set)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.2</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a given expression or variable is set.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      {teamscript.%player%.preferred team} is not set
+<br>on damage:
+<br>	projectile exists
+<br>	broadcast "%attacker% used a %projectile% to attack %victim%!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondPermission" class="item-title">Has Permission</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[%<a href='classes.html#commandsender'>players/console</a>%] (do[es]n't|don't|do[es] not) have [the] permission[s] %<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#commandsender'>players/console</a>%] ha(s|ve) [the] permission[s] %<a href='classes.html#string'>texts</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Test whether a player has a certain permission.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player has permission "skript.tree"
+<br>victim has the permission "admin":
+<br>	send "You're attacking an admin!" to attacker
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondPlayedBefore" class="item-title">Has Played Before</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline player</a>% [(has|did)] [already] play[ed] [on (this|the) server] (before|already)</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline player</a>% (has not|hasn't|did not|didn't) [(already|yet)] play[ed] [on (this|the) server] (before|already|yet)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player has played on this server before. You can also use <a href='../events/#first_join'>on first join</a> if you want to make triggers for new players.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player has played on this server before
+<br>player hasn't played before
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsAlive" class="item-title">Is Alive</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (is|are) (alive|dead)</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (isn't|is not|aren't|are not) (alive|dead)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whetehr an entity is alive. This is mostly useful to check whether an entity stored in a variable does still exist
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      {villagerbuddy.%player%} is dead
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsBanned" class="item-title">Is Banned</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>/<a href='classes.html#string'>texts</a>% (is|are) banned</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>/<a href='classes.html#string'>texts</a>% [(is|are) IP(-| )]banned</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>/<a href='classes.html#string'>texts</a>% (isn't|is not|aren't|are not) banned</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>/<a href='classes.html#string'>texts</a>% [(isn't|is not|aren't|are not) IP(-| )]banned</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player or IP is banned.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is banned
+<br>victim is not IP-banned
+<br>"127.0.0.1" is banned
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsBlocking" class="item-title">Is Blocking</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) (blocking|defending)</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) (blocking|defending)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td><i>unknown</i> (before 2.1)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is blocking with his shield.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on damage of player:
+<br>	victim is blocking
+<br>	damage attacker by 0.5 hearts
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsBurning" class="item-title">Is Burning</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is|are) (burning|ignited|on fire)</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (isn't|is not|aren't|are not) (burning|ignited|on fire)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an entity is on fire, e.g. a zombie due to being in sunlight, or any entity after falling into lava.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # increased attack against buring targets
+<br>victim is burning:
+<br>	increase damage by 2
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsEmpty" class="item-title">Is Empty</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>/<a href='classes.html#slot'>slots</a>/<a href='classes.html#string'>texts</a>% (is|are) empty</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#inventory'>inventories</a>/<a href='classes.html#slot'>slots</a>/<a href='classes.html#string'>texts</a>% (isn't|is not|aren't|are not) empty</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td><i>unknown</i> (before 2.1)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an inventory, an inventory slot, or a text is empty.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player's inventory is empty
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsEnchanted" class="item-title">Is Enchanted</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item types</a>% (is|are) enchanted [with %<a href='classes.html#enchantmenttype'>enchantment type</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item types</a>% (isn't|is not|aren't|are not) enchanted [with %<a href='classes.html#enchantmenttype'>enchantment type</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.6</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an item is enchanted.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      tool of the player is enchanted with efficiency 2
+<br>helm, chestplate, leggings or boots are enchanted
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsFlying" class="item-title">Is Flying</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) flying</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) flying</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is flying
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is not flying
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondItemInHand" class="item-title">Is Holding</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] ha(s|ve) %<a href='classes.html#itemtype'>item types</a>% in [main] hand</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (is|are) holding %<a href='classes.html#itemtype'>item types</a>% [in main hand]</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] ha(s|ve) %<a href='classes.html#itemtype'>item types</a>% in off[(-| )]hand</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (is|are) holding %<a href='classes.html#itemtype'>item types</a>% in off[(-| )]hand</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (ha(s|ve) not|do[es]n't have) %<a href='classes.html#itemtype'>item types</a>% in [main] hand</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (is not|isn't) holding %<a href='classes.html#itemtype'>item types</a>% [in main hand]</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (ha(s|ve) not|do[es]n't have) %<a href='classes.html#itemtype'>item types</a>% in off[(-| )]hand</span></li>
+<li><span class="skript-code-inline">[%<a href='classes.html#livingentity'>living entities</a>%] (is not|isn't) holding %<a href='classes.html#itemtype'>item types</a>% in off[(-| )]hand</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is holdign a specific item. Cannot be used with endermen, use 'entity is [not] an enderman holding &lt;item type&gt;' instead.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is holding a stick
+<br>victim isn't holding a sword of sharpness
     </div>
 
   </div>
@@ -1330,7 +822,7 @@ This condition requires a supported regions plugin to be installed.
 </div>
 
 
-<div id="CondCanBuild" class="item-title">Can Build</div>
+<div id="CondIsOnline" class="item-title">Is Online</div>
 <div class="item-content">
   <table>
 
@@ -1338,8 +830,87 @@ This condition requires a supported regions plugin to be installed.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (can|(is|are) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (can('t|not)|(is|are)(n't| not) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>% ((is|are) online|(is not|isn't|are not|aren't) offline)</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>% ((is|are) offline|(is not|isn't|are not|aren't) online)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is online.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is online
+<br>player-argument is offline
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsPoisoned" class="item-title">Is Poisoned</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (is|are) poisoned</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (isn't|is not|aren't|are not) poisoned</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an entity is poisoned.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is poisoned:
+<br>	cure the player from posion
+<br>	message "You have been cured!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsRiding" class="item-title">Is Riding</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is|are) riding [%<a href='classes.html#entitydata'>entity types</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (isn't|is not|aren't|are not) riding [%<a href='classes.html#entitydata'>entity types</a>%]</span></li>
 
         </ul>
       </td>
@@ -1353,8 +924,7 @@ This condition requires a supported regions plugin to be installed.
   </table>
 
   <div class="item-description">
-    Tests whether a player is allowed to build at a certain location.
-This condition requires a supported <a href='../classes/#region'>regions</a> plugin to be installed.
+    Tests whether an entity is riding another or is in a vehicle.
   </div>
 
   <div class="item-examples">
@@ -1362,13 +932,362 @@ This condition requires a supported <a href='../classes/#region'>regions</a> plu
     Examples:
 
     <div class="skript-code-block">
-      command /setblock <material>:
-<br>	description: set the block at your crosshair to a different type
-<br>	trigger:
-<br>		player cannot build at the targeted block:
-<br>			message "You do not have permission to change blocks there!"
-<br>			stop
-<br>		set the targeted block to argument
+      player is riding a saddled pig
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondScriptLoaded" class="item-title">Is Script Loaded</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">script[s] [%<a href='classes.html#string'>texts</a>%] (is|are) loaded</span></li>
+<li><span class="skript-code-inline">script[s] [%<a href='classes.html#string'>texts</a>%] (isn't|is not|aren't|are not) loaded</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Check if the current script or another script, is current loaded
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      script is loaded
+<br>script "example.sk" is loaded
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsSleeping" class="item-title">Is Sleeping</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) sleeping</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) sleeping</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is sleeping.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # cut your enemies' throats in their sleep >=)
+<br>on attack:
+<br>	attacker is holding a sword
+<br>	victim is sleeping
+<br>	increase the damage by 1000
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsSneaking" class="item-title">Is Sneaking</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) sneaking</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) sneaking</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is sneaking
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # prevent mobs from seeing sneaking players if they are at least 4 meters apart
+<br>on target:
+<br>	target is sneaking
+<br>	distance of target and the entity is bigger than 4
+<br>	cancel the event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsSprinting" class="item-title">Is Sprinting</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) sprinting</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (isn't|is not|aren't|are not) sprinting</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is sprinting
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is not sprinting
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsWearing" class="item-title">Is Wearing</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (is|are) wearing %<a href='classes.html#itemtype'>item types</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>% (isn't|is not|aren't|are not) wearing %<a href='classes.html#itemtype'>item types</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is wearing some armour.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is wearing an iron chestplate and iron leggings
+<br>player is wearing all diamond armour
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsInWorld" class="item-title">Is in World</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is|are) in [[the] world[s]] %<a href='classes.html#world'>worlds</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is not|isn't|are not|aren't) in [[the] world[s]] %<a href='classes.html#world'>worlds</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an entity is in a specific world
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is in "world"
+<br>argument isn't in world "world_nether"
+<br>the player is in the world of the victim
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsOfType" class="item-title">Is of Type</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#entity'>entities</a>% (is|are) of type[s] %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#entitydata'>entity types</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>/<a href='classes.html#entity'>entities</a>% (isn't|is not|aren't|are not) of type[s] %<a href='classes.html#itemtype'>item types</a>/<a href='classes.html#entitydata'>entity types</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an item of entity is of the given type. This is mostly useful for variables, as you can use the general 'is' condition otherwise (e.g. 'victim is a creeper').
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      tool is of type {*selected type}
+<br>victim is of type {villager type}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsOnGround" class="item-title">Is on Ground</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>% (is|are) on ground</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev26</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks if entities are on ground or not.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is not on ground
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondPvP" class="item-title">PvP</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(is PvP|PvP is) enabled [in %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">(is PvP|PvP is) disabled [in %<a href='classes.html#world'>worlds</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks the PvP state of a world.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      PvP is enabled
+<br>PvP is disabled in "world"
     </div>
 
   </div>
@@ -1413,6 +1332,89 @@ This condition requires a supported regions plugin to be installed.
 <br>on region enter:
 <br>	region contains {flags.%world%.red}
 <br>	message "The red flag is near!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondDate" class="item-title">Time</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#date'>date</a>% (was|were)( more|(n't| not) less) than %<a href='classes.html#timespan'>time span</a>% [ago]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#date'>date</a>% (was|were)((n't| not) more| less) than %<a href='classes.html#timespan'>time span</a>% [ago]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Tests whether a given <a href='../classes/#date'>real time</a> was more or less than some <a href='../classes/#timespan'>time span</a> ago.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      command /command_with_cooldown:
+<br>	trigger:
+<br>		{command.%player%.lastused} was less than a minute ago:
+<br>			message "Please wait a minute between uses of this command."
+<br>			stop
+<br>		set {command.%player%.lastused} to now
+<br>		# ... actual command trigger here ...
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondWeather" class="item-title">Weather</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">is %<a href='classes.html#weathertype'>weather types</a>% [in %<a href='classes.html#world'>worlds</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether the weather in a world is of a specific type.
+<i>I welcome any ideas how to write this condition differently.</i>
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      is thundering
+<br>is raining in "world" or "world2"
     </div>
 
   </div>

@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev31</title>
+  <title>Skript Documentation - 2.2-dev31c</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -21,111 +21,111 @@
   <nav>
     <p id="nav-title">Table of Contents</p>
     <div id="nav-contents">
-      <p><a href="#server_startstop">On Server Start/Stop</a></p>
-<p><a href="#break_mine">On Break / Mine</a></p>
-<p><a href="#burn">On Burn</a></p>
-<p><a href="#place">On Place</a></p>
-<p><a href="#fade">On Fade</a></p>
-<p><a href="#form">On Form</a></p>
-<p><a href="#death">On Death</a></p>
-<p><a href="#spawn">On Spawn</a></p>
-<p><a href="#block_growth">On Block Growth</a></p>
-<p><a href="#damage">On Damage</a></p>
-<p><a href="#chat">On Chat</a></p>
-<p><a href="#grow">On Grow</a></p>
-<p><a href="#target">On Target</a></p>
-<p><a href="#gamemode_change">On Gamemode Change</a></p>
-<p><a href="#periodical">Periodical</a></p>
-<p><a href="#periodical">Periodical</a></p>
-<p><a href="#experience_spawn">On Experience Spawn</a></p>
-<p><a href="#can_build_check">On Can Build Check</a></p>
-<p><a href="#block_damage">On Block Damage</a></p>
-<p><a href="#flow">On Flow</a></p>
-<p><a href="#ignition">On Ignition</a></p>
-<p><a href="#physics">On Physics</a></p>
-<p><a href="#piston_extend">On Piston Extend</a></p>
-<p><a href="#piston_retract">On Piston Retract</a></p>
-<p><a href="#redstone">On Redstone</a></p>
-<p><a href="#spread">On Spread</a></p>
-<p><a href="#chunk_load">On Chunk Load</a></p>
-<p><a href="#chunk_generate">On Chunk Generate</a></p>
-<p><a href="#chunk_unload">On Chunk Unload</a></p>
-<p><a href="#creeper_power">On Creeper Power</a></p>
-<p><a href="#zombie_break_door">On Zombie Break Door</a></p>
-<p><a href="#combust">On Combust</a></p>
-<p><a href="#explode">On Explode</a></p>
-<p><a href="#portal_enter">On Portal Enter</a></p>
-<p><a href="#heal">On Heal</a></p>
-<p><a href="#tame">On Tame</a></p>
-<p><a href="#explosion_prime">On Explosion Prime</a></p>
-<p><a href="#hunger_meter_change">On Hunger Meter Change</a></p>
-<p><a href="#fuel_burn">On Fuel Burn</a></p>
-<p><a href="#smelt">On Smelt</a></p>
-<p><a href="#leaves_decay">On Leaves Decay</a></p>
-<p><a href="#lightning_strike">On Lightning Strike</a></p>
-<p><a href="#pig_zap">On Pig Zap</a></p>
+      <p><a href="#at_time">At Time</a></p>
+<p><a href="#aoe_cloud_effect">On AoE Cloud Effect</a></p>
 <p><a href="#bed_enter">On Bed Enter</a></p>
 <p><a href="#bed_leave">On Bed Leave</a></p>
+<p><a href="#block_damage">On Block Damage</a></p>
+<p><a href="#block_growth">On Block Growth</a></p>
+<p><a href="#book_edit">On Book Edit</a></p>
+<p><a href="#book_sign">On Book Sign</a></p>
+<p><a href="#break_mine">On Break / Mine</a></p>
 <p><a href="#bucket_empty">On Bucket Empty</a></p>
 <p><a href="#bucket_fill">On Bucket fill</a></p>
-<p><a href="#throwing_of_an_egg">On Throwing of an Egg</a></p>
-<p><a href="#fishing">On Fishing</a></p>
-<p><a href="#item_break">On Item Break</a></p>
-<p><a href="#tool_change">On Tool Change</a></p>
-<p><a href="#join">On Join</a></p>
+<p><a href="#burn">On Burn</a></p>
+<p><a href="#can_build_check">On Can Build Check</a></p>
+<p><a href="#chat">On Chat</a></p>
+<p><a href="#chunk_generate">On Chunk Generate</a></p>
+<p><a href="#chunk_load">On Chunk Load</a></p>
+<p><a href="#chunk_unload">On Chunk Unload</a></p>
+<p><a href="#click">On Click</a></p>
+<p><a href="#combust">On Combust</a></p>
+<p><a href="#command">On Command</a></p>
 <p><a href="#connect">On Connect</a></p>
+<p><a href="#consume">On Consume</a></p>
+<p><a href="#craft">On Craft</a></p>
+<p><a href="#creeper_power">On Creeper Power</a></p>
+<p><a href="#damage">On Damage</a></p>
+<p><a href="#death">On Death</a></p>
+<p><a href="#dispense">On Dispense</a></p>
+<p><a href="#drop">On Drop</a></p>
+<p><a href="#endermansheepsilverfish">On Enderman/Sheep/Silverfish</a></p>
+<p><a href="#entity_dismount">On Entity Dismount</a></p>
+<p><a href="#entity_mount">On Entity Mount</a></p>
+<p><a href="#experience_spawn">On Experience Spawn</a></p>
+<p><a href="#explode">On Explode</a></p>
+<p><a href="#explosion_prime">On Explosion Prime</a></p>
+<p><a href="#fade">On Fade</a></p>
+<p><a href="#first_join">On First Join</a></p>
+<p><a href="#fishing">On Fishing</a></p>
+<p><a href="#flow">On Flow</a></p>
+<p><a href="#form">On Form</a></p>
+<p><a href="#fuel_burn">On Fuel Burn</a></p>
+<p><a href="#gamemode_change">On Gamemode Change</a></p>
+<p><a href="#gliding_state_change">On Gliding State Change</a></p>
+<p><a href="#grow">On Grow</a></p>
+<p><a href="#heal">On Heal</a></p>
+<p><a href="#hunger_meter_change">On Hunger Meter Change</a></p>
+<p><a href="#ignition">On Ignition</a></p>
+<p><a href="#inventory_click">On Inventory Click</a></p>
+<p><a href="#inventory_close">On Inventory Close</a></p>
+<p><a href="#inventory_open">On Inventory Open</a></p>
+<p><a href="#item_break">On Item Break</a></p>
+<p><a href="#item_spawn">On Item Spawn</a></p>
+<p><a href="#join">On Join</a></p>
 <p><a href="#kick">On Kick</a></p>
+<p><a href="#leaves_decay">On Leaves Decay</a></p>
 <p><a href="#level_change">On Level Change</a></p>
+<p><a href="#lightning_strike">On Lightning Strike</a></p>
+<p><a href="#move_on">On Move On</a></p>
+<p><a href="#physics">On Physics</a></p>
+<p><a href="#pick_up">On Pick Up</a></p>
+<p><a href="#pig_zap">On Pig Zap</a></p>
+<p><a href="#piston_extend">On Piston Extend</a></p>
+<p><a href="#piston_retract">On Piston Retract</a></p>
+<p><a href="#place">On Place</a></p>
+<p><a href="#player_world_change">On Player World Change</a></p>
 <p><a href="#portal">On Portal</a></p>
-<p><a href="#quit">On Quit</a></p>
-<p><a href="#respawn">On Respawn</a></p>
-<p><a href="#teleport">On Teleport</a></p>
-<p><a href="#sneak_toggle">On Sneak Toggle</a></p>
-<p><a href="#sprint_toggle">On Sprint Toggle</a></p>
 <p><a href="#portal_create">On Portal Create</a></p>
+<p><a href="#portal_enter">On Portal Enter</a></p>
+<p><a href="#prepare_craft">On Prepare Craft</a></p>
+<p><a href="#pressure_plate_trip">On Pressure Plate / Trip</a></p>
 <p><a href="#projectile_hit">On Projectile Hit</a></p>
+<p><a href="#quit">On Quit</a></p>
+<p><a href="#redstone">On Redstone</a></p>
+<p><a href="#region_enterleave">On Region Enter/Leave</a></p>
+<p><a href="#respawn">On Respawn</a></p>
+<p><a href="#resurrect_attempt">On Resurrect Attempt</a></p>
+<p><a href="#script_loadunload">On Script Load/Unload</a></p>
+<p><a href="#server_startstop">On Server Start/Stop</a></p>
+<p><a href="#sheep_regrow_wool">On Sheep Regrow Wool</a></p>
 <p><a href="#shoot">On Shoot</a></p>
 <p><a href="#sign_change">On Sign Change</a></p>
+<p><a href="#slime_split">On Slime Split</a></p>
+<p><a href="#smelt">On Smelt</a></p>
+<p><a href="#sneak_toggle">On Sneak Toggle</a></p>
+<p><a href="#spawn">On Spawn</a></p>
 <p><a href="#spawn_change">On Spawn Change</a></p>
+<p><a href="#spread">On Spread</a></p>
+<p><a href="#sprint_toggle">On Sprint Toggle</a></p>
+<p><a href="#tame">On Tame</a></p>
+<p><a href="#target">On Target</a></p>
+<p><a href="#teleport">On Teleport</a></p>
+<p><a href="#throwing_of_an_egg">On Throwing of an Egg</a></p>
+<p><a href="#tool_change">On Tool Change</a></p>
 <p><a href="#vehicle_create">On Vehicle Create</a></p>
 <p><a href="#vehicle_damage">On Vehicle Damage</a></p>
 <p><a href="#vehicle_destroy">On Vehicle Destroy</a></p>
 <p><a href="#vehicle_enter">On Vehicle Enter</a></p>
 <p><a href="#vehicle_exit">On Vehicle Exit</a></p>
-<p><a href="#entity_mount">On Entity Mount</a></p>
-<p><a href="#entity_dismount">On Entity Dismount</a></p>
+<p><a href="#weather_change">On Weather Change</a></p>
 <p><a href="#world_init">On World Init</a></p>
 <p><a href="#world_load">On World Load</a></p>
 <p><a href="#world_save">On World Save</a></p>
 <p><a href="#world_unload">On World Unload</a></p>
-<p><a href="#gliding_state_change">On Gliding State Change</a></p>
-<p><a href="#aoe_cloud_effect">On AoE Cloud Effect</a></p>
-<p><a href="#sheep_regrow_wool">On Sheep Regrow Wool</a></p>
-<p><a href="#inventory_open">On Inventory Open</a></p>
-<p><a href="#inventory_close">On Inventory Close</a></p>
-<p><a href="#slime_split">On Slime Split</a></p>
-<p><a href="#resurrect_attempt">On Resurrect Attempt</a></p>
-<p><a href="#player_world_change">On Player World Change</a></p>
-<p><a href="#book_edit">On Book Edit</a></p>
-<p><a href="#pressure_plate_trip">On Pressure Plate / Trip</a></p>
-<p><a href="#move_on">On Move On</a></p>
-<p><a href="#dispense">On Dispense</a></p>
-<p><a href="#item_spawn">On Item Spawn</a></p>
-<p><a href="#drop">On Drop</a></p>
-<p><a href="#craft">On Craft</a></p>
-<p><a href="#prepare_craft">On Prepare Craft</a></p>
-<p><a href="#pick_up">On Pick Up</a></p>
-<p><a href="#consume">On Consume</a></p>
-<p><a href="#inventory_click">On Inventory Click</a></p>
-<p><a href="#endermansheepsilverfish">On Enderman/Sheep/Silverfish</a></p>
-<p><a href="#script_loadunload">On Script Load/Unload</a></p>
-<p><a href="#command">On Command</a></p>
-<p><a href="#click">On Click</a></p>
-<p><a href="#book_sign">On Book Sign</a></p>
-<p><a href="#weather_change">On Weather Change</a></p>
-<p><a href="#at_time">At Time</a></p>
-<p><a href="#first_join">On First Join</a></p>
-<p><a href="#region_enterleave">On Region Enter/Leave</a></p>
+<p><a href="#zombie_break_door">On Zombie Break Door</a></p>
+<p><a href="#periodical">Periodical</a></p>
+<p><a href="#periodical">Periodical</a></p>
 
     </div>
   </nav>
@@ -134,7 +134,7 @@
 
 
 
-<div id="server_startstop" class="item-title">On Server Start/Stop</div>
+<div id="at_time" class="item-title">At Time</div>
 <div class="item-content">
   <table>
 
@@ -142,8 +142,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(server|skript) (start|load|enable)</span></li>
-<li><span class="skript-code-inline">(server|skript) (stop|unload|disable)</span></li>
+          <li><span class="skript-code-inline">at %<a href='classes.html#time'>time</a>% [in %<a href='classes.html#world'>worlds</a>%]</span></li>
 
         </ul>
       </td>
@@ -151,13 +150,13 @@
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0</td>
+      <td>1.3.4</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when the server starts or stops (actually, when Skript starts or stops, so a /reload will trigger these events as well).
+    An event that occurs at a given <a href='../classes/#time'>minecraft time</a> in every world or only in specific worlds.
   </div>
 
   <div class="item-examples">
@@ -165,15 +164,15 @@
     Examples:
 
     <div class="skript-code-block">
-      on Skript start
-<br>on server stop
+      at 18:00
+<br>at 7am in "world"
     </div>
 
   </div>
 </div>
 
 
-<div id="break_mine" class="item-title">On Break / Mine</div>
+<div id="aoe_cloud_effect" class="item-title">On AoE Cloud Effect</div>
 <div class="item-content">
   <table>
 
@@ -181,7 +180,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[block] (break[ing]|min(e|ing)) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+          <li><span class="skript-code-inline">(area effect|AoE cloud) effect</span></li>
 
         </ul>
       </td>
@@ -189,1560 +188,13 @@
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.0 (break), <i>unknown</i> (mine)</td>
+      <td>2.2-dev21</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when a block is broken by a player. If you use 'on mine', only events where the broken block dropped something will call the trigger.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on mine
-<br>on break of stone
-<br>on mine of any ore
-    </div>
-
-  </div>
-</div>
-
-
-<div id="burn" class="item-title">On Burn</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[block] burn[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a block is destroyed by fire.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on burn
-<br>on burn of wood, fences, or chests
-    </div>
-
-  </div>
-</div>
-
-
-<div id="place" class="item-title">On Place</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[block] (plac(e|ing)|build[ing]) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player places a block.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on place
-<br>on place of a furnace, workbench or chest
-    </div>
-
-  </div>
-</div>
-
-
-<div id="fade" class="item-title">On Fade</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[block] fad(e|ing) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a block 'fades away', e.g. ice or snow melts.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on fade of snow or ice
-    </div>
-
-  </div>
-</div>
-
-
-<div id="form" class="item-title">On Form</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[block] form[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a block is created, but not by a player, e.g. snow forms due to snowfall, water freezes in cold biomes. This isn't called when block spreads (mushroom growth, water physics etc.), as it has its own event (see <a href='#spread'>spread event</a>).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on form of snow
-<br>on form of a mushroom
-    </div>
-
-  </div>
-</div>
-
-
-<div id="death" class="item-title">On Death</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">death [of %<a href='classes.html#entitydata'>entity types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a living entity (including players) dies.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on death
-<br>on death of player
-<br>on death of a wither or ender dragon:
-<br>	broadcast "A %entity% has been slain in %world%!"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="spawn" class="item-title">On Spawn</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">spawn[ing] [of %<a href='classes.html#entitydata'>entity types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an creature spawns.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on spawn of a zombie
-<br>on spawn of an ender dragon:
-<br>	broadcast "A dragon has been sighted in %world%!"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="block_growth" class="item-title">On Block Growth</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(plant|crop|block) grow[(th|ing)] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-Fixes-V10</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a crop grows. Alternative to new form of generic grow event.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on crop growth
-    </div>
-
-  </div>
-</div>
-
-
-<div id="damage" class="item-title">On Damage</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">damag(e|ing) [of %<a href='classes.html#entitydata'>entity type</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an entity receives damage, e.g. by an attack from another entity, lava, fire, drowning, fall, suffocation, etc.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on damage
-<br>on damage of a player
-    </div>
-
-  </div>
-</div>
-
-
-<div id="chat" class="item-title">On Chat</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">chat</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.1</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called whenever a player chats.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="grow" class="item-title">On Grow</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">grow [of (%<a href='classes.html#structuretype'>tree type</a>%|%<a href='classes.html#itemtype'>item type</a>%)]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0 (2.2-dev20 for plants)</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a tree, giant mushroom or plant grows to next stage.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on grow
-<br>on grow of a tree
-<br>on grow of a huge jungle tree
-    </div>
-
-  </div>
-</div>
-
-
-<div id="target" class="item-title">On Target</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[entity] target</span></li>
-<li><span class="skript-code-inline">[entity] un[-]target</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a mob starts/stops following/attacking another entity, usually a player.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="gamemode_change" class="item-title">On Gamemode Change</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">game[ ]mode change [to %<a href='classes.html#gamemode'>gamemode</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player's <a href='../classes/#gamemode'>gamemode</a> changes.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on gamemode change
-<br>on gamemode change to adventure
-    </div>
-
-  </div>
-</div>
-
-
-<div id="periodical" class="item-title">Periodical</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">every %<a href='classes.html#timespan'>time span</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>unknown</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="periodical" class="item-title">Periodical</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">every %<a href='classes.html#timespan'>time span</a>% in [world[s]] %<a href='classes.html#world'>worlds</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    An event that is called periodically. The event is used like 'every &lt;<a href='../classes/#timespan'>timespan</a>&gt;', e.g. 'every second' or 'every 5 minutes'.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      every second
-<br>every minecraft hour
-<br>every tick # warning: lag!
-<br>every minecraft day in "world"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="experience_spawn" class="item-title">On Experience Spawn</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[e]xp[erience] [orb] spawn</span></li>
-<li><span class="skript-code-inline">spawn of [a[n]] [e]xp[erience] [orb]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called whenever experience is about to spawn. This is a helper event for easily being able to stop xp from spawning, as all you can currently do is cancel the event.
-Please note that it's impossible to detect xp orbs spawned by plugins (including Skript) with Bukkit, thus make sure that you have no such plugins if you don't want any xp orbs to spawn. (Many plugins that only <i>change</i> the experience dropped by blocks or entities will be detected without problems though)
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on xp spawn:
-<br>	world is "minigame_world"
-<br>	cancel event
-    </div>
-
-  </div>
-</div>
-
-
-<div id="can_build_check" class="item-title">On Can Build Check</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[block] can build check</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0 (basic), 2.0 ([un]cancellable)</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player rightclicks on a block while holding a block or a placeable item. You can either cancel the event to prevent the block from being built, or uncancel it to allow it.
-Please note that the <a href='../expressions/#ExprDurability'>data value</a> of the block to be placed is not available in this event, only its <a href='../expressions/#ExprIdOf'>ID</a>.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="block_damage" class="item-title">On Block Damage</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">block damage</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player starts to break a block. You can usually just use the leftclick event for this.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="flow" class="item-title">On Flow</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[block] flow[ing]</span></li>
-<li><span class="skript-code-inline">block mov(e|ing)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a blocks flows or teleports to another block. This not only applies to water and lava, but teleporting dragon eggs as well.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="ignition" class="item-title">On Ignition</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[block] ignit(e|ion)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a block starts burning, i.e. a fire block is placed next to it and this block is flammable.
-The <a href='#burn'>burn event</a> will be called when the block is about do be destroyed by the fire.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="physics" class="item-title">On Physics</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[block] physics</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.6</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a physics check is done on a block. By cancelling this event you can prevent some things from happening, e.g. sand falling, dirt turning into grass, torches dropping if their supporting block is destroyed, etc.Please note that using this event might cause quite some lag since it gets called extremely often.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      # prevents sand from falling
-<br>on block physics:
-<br>	block is sand
-<br>	cancel event
-    </div>
-
-  </div>
-</div>
-
-
-<div id="piston_extend" class="item-title">On Piston Extend</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">piston extend[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a piston is about to extend.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="piston_retract" class="item-title">On Piston Retract</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">piston retract[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a piston is about to retract.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="redstone" class="item-title">On Redstone</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">redstone [current] [chang(e|ing)]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when the redstone current of a block changes. This event is of not much use yet.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="spread" class="item-title">On Spread</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">spread[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a new block <a href='#form'>forms</a> as a result of a block that can spread, e.g. water or mushrooms.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="chunk_load" class="item-title">On Chunk Load</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">chunk load[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a chunk loads. The chunk might or might not contain mobs when it's loaded.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="chunk_generate" class="item-title">On Chunk Generate</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">chunk (generat|populat)(e|ing)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called after a new chunk was generated.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="chunk_unload" class="item-title">On Chunk Unload</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">chunk unload[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a chunk is unloaded due to not being near any player. Cancel the event to force the server to keep the chunk loaded and thus keep simulating the chunk (e.g. physics, plant growth, minecarts, etc. will keep working and won't freeze).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="creeper_power" class="item-title">On Creeper Power</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">creeper power</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a creeper is struck by lighting and gets powered. Cancel the event to prevent the creeper from being powered.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="zombie_break_door" class="item-title">On Zombie Break Door</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">zombie break[ing] [a] [wood[en]] door</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a zombie is done breaking a wooden door. Can be cancelled to prevent the zombie from breaking the door.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="combust" class="item-title">On Combust</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">combust[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an entity is set on fire, e.g. by fire or lava, a fireball, or by standing in direct sunlight (zombies, skeletons).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="explode" class="item-title">On Explode</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">explo(d(e|ing)|sion)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an entity (a primed TNT or a creeper) explodes.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="portal_enter" class="item-title">On Portal Enter</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">portal enter</span></li>
-<li><span class="skript-code-inline">entering [a] portal</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player enters a nether portal and the swirly animation starts to play.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="heal" class="item-title">On Heal</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">heal[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an entity is healed, e.g. by eating (players), being fed (pets), or by the effect of a potion of healing (overworld mobs) or harm (nether mobs).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="tame" class="item-title">On Tame</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[entity] tam(e|ing)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player tames a wolf or ocelot. Can be cancelled to prevent the entity from being tamed.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="explosion_prime" class="item-title">On Explosion Prime</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">explosion prime</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an explosive is primed, i.e. an entity will explode shortly. Creepers can abort the explosion if the player gets too far away, while TNT will explode for sure after a short time.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="hunger_meter_change" class="item-title">On Hunger Meter Change</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(food|hunger) (level|met(er|re)|bar) chang(e|ing)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.4.4</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when the hunger bar of a player changes, i.e. either increases by eating or decreases over time.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="fuel_burn" class="item-title">On Fuel Burn</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">fuel burn[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a furnace burns an item from its <a href='../expressions/#ExprFurnaceSlot'>fuel slot</a>.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="smelt" class="item-title">On Smelt</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[ore] smelt[ing]</span></li>
-<li><span class="skript-code-inline">smelt[ing] of ore</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a furnace smelts an item in its <a href='../expressions/#ExprFurnaceSlot'>ore slot</a>.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="leaves_decay" class="item-title">On Leaves Decay</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">leaves decay[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a leaf block decays due to not being connected to a tree.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="lightning_strike" class="item-title">On Lightning Strike</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">lightning [strike]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when lightning strikes.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="pig_zap" class="item-title">On Pig Zap</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">pig[ ]zap</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a pig is stroke by lightning and transformed into a zombie pigman. Cancel the event to prevent the transformation.
+    Called when area effect cloud applies it's potion effect. This happens every 5 ticks by default.
   </div>
 
   <div class="item-examples">
@@ -1833,6 +285,193 @@ The <a href='#burn'>burn event</a> will be called when the block is about do be 
 </div>
 
 
+<div id="block_damage" class="item-title">On Block Damage</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">block damage</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player starts to break a block. You can usually just use the leftclick event for this.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="block_growth" class="item-title">On Block Growth</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(plant|crop|block) grow[(th|ing)] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-Fixes-V10</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a crop grows. Alternative to new form of generic grow event.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on crop growth
+    </div>
+
+  </div>
+</div>
+
+
+<div id="book_edit" class="item-title">On Book Edit</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">book (edit|change|write)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player edits a book
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="book_sign" class="item-title">On Book Sign</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">book sign[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev31</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player signs a book
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="break_mine" class="item-title">On Break / Mine</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[block] (break[ing]|min(e|ing)) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0 (break), <i>unknown</i> (mine)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a block is broken by a player. If you use 'on mine', only events where the broken block dropped something will call the trigger.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on mine
+<br>on break of stone
+<br>on mine of any ore
+    </div>
+
+  </div>
+</div>
+
+
 <div id="bucket_empty" class="item-title">On Bucket Empty</div>
 <div class="item-content">
   <table>
@@ -1909,7 +548,7 @@ The <a href='#burn'>burn event</a> will be called when the block is about do be 
 </div>
 
 
-<div id="throwing_of_an_egg" class="item-title">On Throwing of an Egg</div>
+<div id="burn" class="item-title">On Burn</div>
 <div class="item-content">
   <table>
 
@@ -1917,8 +556,7 @@ The <a href='#burn'>burn event</a> will be called when the block is about do be 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">throw[ing] [of] [an] egg</span></li>
-<li><span class="skript-code-inline">[player] egg throw</span></li>
+          <li><span class="skript-code-inline">[block] burn[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
 
         </ul>
       </td>
@@ -1932,7 +570,925 @@ The <a href='#burn'>burn event</a> will be called when the block is about do be 
   </table>
 
   <div class="item-description">
-    Called when a player throws an egg. You can just use the <a href='#shoot'>shoot event</a> in most cases, as this event is intended to support changing the hatched mob and its chance to hatch, but Skript does not yet support that.
+    Called when a block is destroyed by fire.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on burn
+<br>on burn of wood, fences, or chests
+    </div>
+
+  </div>
+</div>
+
+
+<div id="can_build_check" class="item-title">On Can Build Check</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[block] can build check</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0 (basic), 2.0 ([un]cancellable)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player rightclicks on a block while holding a block or a placeable item. You can either cancel the event to prevent the block from being built, or uncancel it to allow it.
+Please note that the <a href='../expressions/#ExprDurability'>data value</a> of the block to be placed is not available in this event, only its <a href='../expressions/#ExprIdOf'>ID</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="chat" class="item-title">On Chat</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">chat</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called whenever a player chats. Use <a href='../expressions.html#ExprChatFormat'>chat format</a> to change message format, use <a href='../expressions.html#ExprChatRecipients'>chat recipients</a> to edit chat recipients.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on chat:
+<br>	if player has permission "owner":
+<br>		set chat format to "<red>[player]<light gray>: <light red>[message]"
+<br>	else if player has permission "admin":
+<br>		set chat format to "<light red>[player]<light gray>: <orange>[message]"
+<br>	else: #default message format
+<br>		set chat format to "<orange>[player]<light gray>: <white>[message]"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="chunk_generate" class="item-title">On Chunk Generate</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">chunk (generat|populat)(e|ing)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called after a new chunk was generated.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="chunk_load" class="item-title">On Chunk Load</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">chunk load[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a chunk loads. The chunk might or might not contain mobs when it's loaded.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="chunk_unload" class="item-title">On Chunk Unload</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">chunk unload[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a chunk is unloaded due to not being near any player. Cancel the event to force the server to keep the chunk loaded and thus keep simulating the chunk (e.g. physics, plant growth, minecarts, etc. will keep working and won't freeze).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="click" class="item-title">On Click</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(right|left)[( |-)]][mouse[( |-)]]click[ing] [on %<a href='classes.html#entitydata'>entity type</a>/<a href='classes.html#itemtype'>item type</a>%] [(with|using|holding) %<a href='classes.html#itemtype'>item type</a>%]</span></li>
+<li><span class="skript-code-inline">[(right|left)[( |-)]][mouse[( |-)]]click[ing] (with|using|holding) %<a href='classes.html#itemtype'>item type</a>% on %<a href='classes.html#entitydata'>entity type</a>/<a href='classes.html#itemtype'>item type</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a user clicks on a block, an entity or air with or without an item in their hand.
+Please note that rightclick events with an empty hand while not looking at a block are not sent to the server, so there's no way to detect them.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on click
+<br>on rightclick holding a fishing rod
+<br>on leftclick on a stone or obsidian
+<br>on rightclick on a creeper
+<br>on click with a sword
+    </div>
+
+  </div>
+</div>
+
+
+<div id="combust" class="item-title">On Combust</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">combust[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity is set on fire, e.g. by fire or lava, a fireball, or by standing in direct sunlight (zombies, skeletons).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="command" class="item-title">On Command</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">command [%<a href='classes.html#string'>text</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player enters a command (not neccessarily a Skript command).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on command
+<br>on command "/stop"
+<br>on command "pm Njol "
+    </div>
+
+  </div>
+</div>
+
+
+<div id="connect" class="item-title">On Connect</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] connect[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when the player connects to the server. This event is called before the player actually joins the server, so if you want to prevent players from joining you should prefer this event over <a href='#join'>on join</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on connect:
+<br>	player doesn't have permission "VIP"
+<br>	number of players is larger than 20,	kick the player due to "The last 5 slots are reserved for VIP players."
+    </div>
+
+  </div>
+</div>
+
+
+<div id="consume" class="item-title">On Consume</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] ((eat|drink)[ing]|consum(e|ing)) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player is done eating/drinking something, e.g. an apple, bread, meat, milk or a potion.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="craft" class="item-title">On Craft</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] craft[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td><i>unknown</i> (before 2.1)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player crafts an item.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="creeper_power" class="item-title">On Creeper Power</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">creeper power</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a creeper is struck by lighting and gets powered. Cancel the event to prevent the creeper from being powered.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="damage" class="item-title">On Damage</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">damag(e|ing) [of %<a href='classes.html#entitydata'>entity type</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity receives damage, e.g. by an attack from another entity, lava, fire, drowning, fall, suffocation, etc.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on damage
+<br>on damage of a player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="death" class="item-title">On Death</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">death [of %<a href='classes.html#entitydata'>entity types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a living entity (including players) dies.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on death
+<br>on death of player
+<br>on death of a wither or ender dragon:
+<br>	broadcast "A %entity% has been slain in %world%!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="dispense" class="item-title">On Dispense</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">dispens(e|ing) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td><i>unknown</i> (before 2.1)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a dispenser dispenses an item.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="drop" class="item-title">On Drop</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] drop[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td><i>unknown</i> (before 2.1)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player drops an item from his inventory.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="endermansheepsilverfish" class="item-title">On Enderman/Sheep/Silverfish</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">enderman place</span></li>
+<li><span class="skript-code-inline">enderman pickup</span></li>
+<li><span class="skript-code-inline">sheep eat</span></li>
+<li><span class="skript-code-inline">silverfish enter</span></li>
+<li><span class="skript-code-inline">silverfish exit</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an enderman places or picks up a block, a sheep eats grass or a silverfish boops into/out of a block respectively.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="entity_dismount" class="item-title">On Entity Dismount</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">dismount[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev13b</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity dismounts.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="entity_mount" class="item-title">On Entity Mount</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">mount[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev13b</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when entity starts riding another.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="experience_spawn" class="item-title">On Experience Spawn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[e]xp[erience] [orb] spawn</span></li>
+<li><span class="skript-code-inline">spawn of [a[n]] [e]xp[erience] [orb]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called whenever experience is about to spawn. This is a helper event for easily being able to stop xp from spawning, as all you can currently do is cancel the event.
+Please note that it's impossible to detect xp orbs spawned by plugins (including Skript) with Bukkit, thus make sure that you have no such plugins if you don't want any xp orbs to spawn. (Many plugins that only <i>change</i> the experience dropped by blocks or entities will be detected without problems though)
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on xp spawn:
+<br>	world is "minigame_world"
+<br>	cancel event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="explode" class="item-title">On Explode</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">explo(d(e|ing)|sion)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity (a primed TNT or a creeper) explodes.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="explosion_prime" class="item-title">On Explosion Prime</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">explosion prime</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an explosive is primed, i.e. an entity will explode shortly. Creepers can abort the explosion if the player gets too far away, while TNT will explode for sure after a short time.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="fade" class="item-title">On Fade</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[block] fad(e|ing) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a block 'fades away', e.g. ice or snow melts.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on fade of snow or ice
+    </div>
+
+  </div>
+</div>
+
+
+<div id="first_join" class="item-title">On First Join</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">first (join|login)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.3.7</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player joins the server for the first time.
   </div>
 
   <div class="item-examples">
@@ -1970,6 +1526,457 @@ The <a href='#burn'>burn event</a> will be called when the block is about do be 
 
   <div class="item-description">
     Called when a player fishes something. This is not of much use yet.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="flow" class="item-title">On Flow</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[block] flow[ing]</span></li>
+<li><span class="skript-code-inline">block mov(e|ing)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a blocks flows or teleports to another block. This not only applies to water and lava, but teleporting dragon eggs as well.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="form" class="item-title">On Form</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[block] form[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a block is created, but not by a player, e.g. snow forms due to snowfall, water freezes in cold biomes. This isn't called when block spreads (mushroom growth, water physics etc.), as it has its own event (see <a href='#spread'>spread event</a>).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on form of snow
+<br>on form of a mushroom
+    </div>
+
+  </div>
+</div>
+
+
+<div id="fuel_burn" class="item-title">On Fuel Burn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">fuel burn[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a furnace burns an item from its <a href='../expressions/#ExprFurnaceSlot'>fuel slot</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="gamemode_change" class="item-title">On Gamemode Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">game[ ]mode change [to %<a href='classes.html#gamemode'>gamemode</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player's <a href='../classes/#gamemode'>gamemode</a> changes.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on gamemode change
+<br>on gamemode change to adventure
+    </div>
+
+  </div>
+</div>
+
+
+<div id="gliding_state_change" class="item-title">On Gliding State Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(gliding state change|toggling gliding)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity toggles glider on or off, or when server toggles gliding state of an entity forcibly.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on toggling gliding:
+<br>	cancel the event # bad idea, but you CAN do it!
+    </div>
+
+  </div>
+</div>
+
+
+<div id="grow" class="item-title">On Grow</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">grow [of (%<a href='classes.html#structuretype'>tree type</a>%|%<a href='classes.html#itemtype'>item type</a>%)]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0 (2.2-dev20 for plants)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a tree, giant mushroom or plant grows to next stage.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on grow
+<br>on grow of a tree
+<br>on grow of a huge jungle tree
+    </div>
+
+  </div>
+</div>
+
+
+<div id="heal" class="item-title">On Heal</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">heal[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity is healed, e.g. by eating (players), being fed (pets), or by the effect of a potion of healing (overworld mobs) or harm (nether mobs).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="hunger_meter_change" class="item-title">On Hunger Meter Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(food|hunger) (level|met(er|re)|bar) chang(e|ing)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.4</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when the hunger bar of a player changes, i.e. either increases by eating or decreases over time.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ignition" class="item-title">On Ignition</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[block] ignit(e|ion)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a block starts burning, i.e. a fire block is placed next to it and this block is flammable.
+The <a href='#burn'>burn event</a> will be called when the block is about do be destroyed by the fire.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="inventory_click" class="item-title">On Inventory Click</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] inventory(-| )click[ing] [[at] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-Fixes-V10</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when clicking on inventory slot.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="inventory_close" class="item-title">On Inventory Close</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">inventory close[d]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when player's currently viewed inventory is closed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="inventory_open" class="item-title">On Inventory Open</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">inventory open[ed]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an inventory is opened for player.
   </div>
 
   <div class="item-examples">
@@ -2023,7 +2030,7 @@ This event cannot be cancelled.
 </div>
 
 
-<div id="tool_change" class="item-title">On Tool Change</div>
+<div id="item_spawn" class="item-title">On Item Spawn</div>
 <div class="item-content">
   <table>
 
@@ -2031,7 +2038,7 @@ This event cannot be cancelled.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[player['s]] (tool|item held|held item) chang(e|ing)</span></li>
+          <li><span class="skript-code-inline">item spawn[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
 
         </ul>
       </td>
@@ -2039,13 +2046,13 @@ This event cannot be cancelled.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.0</td>
+      <td><i>unknown</i> (before 2.1)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called whenever a player changes his held item by selecting a different slot (e.g. the keys 1-9 or the mouse wheel), <i>not</i> by dropping or replacing the item in the current slot.
+    Called whenever an item stack is spawned in a world, e.g. as drop of a block or mob, a player throwing items out of his inventory, or a dispenser dispensing an item (not shooting it).
   </div>
 
   <div class="item-examples">
@@ -2099,45 +2106,6 @@ This event cannot be cancelled.
 </div>
 
 
-<div id="connect" class="item-title">On Connect</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] connect[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when the player connects to the server. This event is called before the player actually joins the server, so if you want to prevent players from joining you should prefer this event over <a href='#join'>on join</a>.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on connect:
-<br>	player doesn't have permission "VIP"
-<br>	number of players is larger than 20,	kick the player due to "The last 5 slots are reserved for VIP players."
-    </div>
-
-  </div>
-</div>
-
-
 <div id="kick" class="item-title">On Kick</div>
 <div class="item-content">
   <table>
@@ -2175,6 +2143,43 @@ This event cannot be cancelled.
 </div>
 
 
+<div id="leaves_decay" class="item-title">On Leaves Decay</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">leaves decay[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a leaf block decays due to not being connected to a tree.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
 <div id="level_change" class="item-title">On Level Change</div>
 <div class="item-content">
   <table>
@@ -2191,7 +2196,7 @@ This event cannot be cancelled.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td></td>
+      <td>1.0</td>
     </tr>
 
   </table>
@@ -2206,6 +2211,346 @@ This event cannot be cancelled.
 
     <div class="skript-code-block">
       
+    </div>
+
+  </div>
+</div>
+
+
+<div id="lightning_strike" class="item-title">On Lightning Strike</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">lightning [strike]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when lightning strikes.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="move_on" class="item-title">On Move On</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(step|walk)[ing] (on|over) %*<a href='classes.html#itemtype'>item types</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player moves onto a certain type of block. Please note that using this event can cause lag if there are many players online.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on walking on dirt or grass
+<br>on stepping on stone
+    </div>
+
+  </div>
+</div>
+
+
+<div id="physics" class="item-title">On Physics</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[block] physics</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.4.6</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a physics check is done on a block. By cancelling this event you can prevent some things from happening, e.g. sand falling, dirt turning into grass, torches dropping if their supporting block is destroyed, etc.Please note that using this event might cause quite some lag since it gets called extremely often.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # prevents sand from falling
+<br>on block physics:
+<br>	block is sand
+<br>	cancel event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="pick_up" class="item-title">On Pick Up</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] (pick[ ]up|picking up) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td><i>unknown</i> (before 2.1)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player picks up an item. Please note that the item is still on the ground when this event is called.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="pig_zap" class="item-title">On Pig Zap</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">pig[ ]zap</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a pig is stroke by lightning and transformed into a zombie pigman. Cancel the event to prevent the transformation.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="piston_extend" class="item-title">On Piston Extend</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">piston extend[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a piston is about to extend.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="piston_retract" class="item-title">On Piston Retract</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">piston retract[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a piston is about to retract.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="place" class="item-title">On Place</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[block] (plac(e|ing)|build[ing]) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player places a block.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on place
+<br>on place of a furnace, workbench or chest
+    </div>
+
+  </div>
+</div>
+
+
+<div id="player_world_change" class="item-title">On Player World Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">player world change[d]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev28</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player enters a world. Does not work with other entities!
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on player world change:
+<br>	world is "city"
+<br>	send "Welcome to the City!"
     </div>
 
   </div>
@@ -2235,196 +2580,6 @@ This event cannot be cancelled.
 
   <div class="item-description">
     Called when a player uses a nether or end portal. <a href='../effects/#EffCancelEvent'>Cancel the event</a> to prevent the player from teleporting.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="quit" class="item-title">On Quit</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(quit[ting]|disconnect[ing]|log[ ]out|logging out)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player leaves the server. Starting with Skript 2.0 this also includes kicked players.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="respawn" class="item-title">On Respawn</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] respawn[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player respawns. You should prefer this event over the <a href='#death'>death event</a> as the player is technically alive when this event is called.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="teleport" class="item-title">On Teleport</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] teleport[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called whenever a player is teleported, either by a nether/end portal or other means (e.g. by plugins).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="sneak_toggle" class="item-title">On Sneak Toggle</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] toggl(e|ing) sneak</span></li>
-<li><span class="skript-code-inline">[player] sneak toggl(e|ing)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player starts or stops sneaking. Use <a href='../conditions/#CondIsSneaking'>is sneaking</a> to get whether the player was sneaking before the event was called.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      # make players that stop sneaking jump
-<br>on sneak toggle:
-<br>	player was sneaking
-<br>	push the player upwards at speed 0.5
-    </div>
-
-  </div>
-</div>
-
-
-<div id="sprint_toggle" class="item-title">On Sprint Toggle</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] toggl(e|ing) sprint</span></li>
-<li><span class="skript-code-inline">[player] sprint toggl(e|ing)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player starts or stops sprinting. Use <a href='../conditions/#CondIsSprinting'>is sprinting</a> to get whether the player was sprinting before the event was called.
   </div>
 
   <div class="item-examples">
@@ -2477,6 +2632,119 @@ Please note that it's not possible to use <a href='../expressions/#ExprEntity'>t
 </div>
 
 
+<div id="portal_enter" class="item-title">On Portal Enter</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">portal enter</span></li>
+<li><span class="skript-code-inline">entering [a] portal</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player enters a nether portal and the swirly animation starts to play.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="prepare_craft" class="item-title">On Prepare Craft</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] (preparing|beginning) craft[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-Fixes-V10</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called just before displaying crafting result to player. Note that setting the result item might or might not work due to Bukkit bugs.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="pressure_plate_trip" class="item-title">On Pressure Plate / Trip</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[step[ping] on] [a] [pressure] plate</span></li>
+<li><span class="skript-code-inline">(trip|[step[ping] on] [a] tripwire)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0 (pressure plate), 1.4.4 (tripwire)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a <i>player</i> steps on a pressure plate or tripwire respectively.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
 <div id="projectile_hit" class="item-title">On Projectile Hit</div>
 <div class="item-content">
   <table>
@@ -2502,6 +2770,314 @@ Please note that it's not possible to use <a href='../expressions/#ExprEntity'>t
     Called when a projectile hits an entity or a block.
 Use the <a href='#damage'>damage event</a> with a <a href='../conditions/#CondIsSet'>check</a> for a <a href='../expressions/#ExprEntity'>projectile</a> to be able to use the <a href='../expressions/#ExprAttacked'>entity that got hit</a> in the case when the projectile hit a living entity.
 A damage event will even be fired if the damage is 0, e.g. when throwing snowballs at non-nether mobs.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="quit" class="item-title">On Quit</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(quit[ting]|disconnect[ing]|log[ ]out|logging out)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player leaves the server. Starting with Skript 2.0 this also includes kicked players.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="redstone" class="item-title">On Redstone</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">redstone [current] [chang(e|ing)]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when the redstone current of a block changes. This event is of not much use yet.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="region_enterleave" class="item-title">On Region Enter/Leave</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(enter[ing]|leav(e|ing)|exit[ing]) [of] ([a] region|[[the] region] %<a href='classes.html#region'>regions</a>%)</span></li>
+<li><span class="skript-code-inline">region (enter[ing]|leav(e|ing)|exit[ing])</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player enters or leaves a <a href='../classes/#region'>region</a>.
+This event requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on region exit:
+<br>	message "Leaving %region%."
+    </div>
+
+  </div>
+</div>
+
+
+<div id="respawn" class="item-title">On Respawn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] respawn[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player respawns. You should prefer this event over the <a href='#death'>death event</a> as the player is technically alive when this event is called.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="resurrect_attempt" class="item-title">On Resurrect Attempt</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[entity] resurrect attempt</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev28</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an entity dies, always. If they are not holding a totem, this is calcelled - you can, however, uncancel it.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on resurrect attempt:
+<br>	entity is player
+<br>	entity has permission "admin.undying"
+<br>	uncancel the event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="script_loadunload" class="item-title">On Script Load/Unload</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[script] (load|init|enable)</span></li>
+<li><span class="skript-code-inline">[script] (unload|stop|disable)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called directly after the trigger is loaded, or directly before the whole script is unloaded.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on load:
+<br>	set {running.%script%} to true
+<br>on unload:
+<br>	set {running.%script%} to false
+    </div>
+
+  </div>
+</div>
+
+
+<div id="server_startstop" class="item-title">On Server Start/Stop</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(server|skript) (start|load|enable)</span></li>
+<li><span class="skript-code-inline">(server|skript) (stop|unload|disable)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when the server starts or stops (actually, when Skript starts or stops, so a /reload will trigger these events as well).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on Skript start
+<br>on server stop
+    </div>
+
+  </div>
+</div>
+
+
+<div id="sheep_regrow_wool" class="item-title">On Sheep Regrow Wool</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">sheep [re]grow[ing] wool</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev21</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when sheep regrows it's sheared wool back.
   </div>
 
   <div class="item-examples">
@@ -2593,6 +3169,161 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
 </div>
 
 
+<div id="slime_split" class="item-title">On Slime Split</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">slime split</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev26</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a slime splits. Usually this happens when a big slime dies.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="smelt" class="item-title">On Smelt</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[ore] smelt[ing]</span></li>
+<li><span class="skript-code-inline">smelt[ing] of ore</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a furnace smelts an item in its <a href='../expressions/#ExprFurnaceSlot'>ore slot</a>.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="sneak_toggle" class="item-title">On Sneak Toggle</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] toggl(e|ing) sneak</span></li>
+<li><span class="skript-code-inline">[player] sneak toggl(e|ing)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player starts or stops sneaking. Use <a href='../conditions/#CondIsSneaking'>is sneaking</a> to get whether the player was sneaking before the event was called.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      # make players that stop sneaking jump
+<br>on sneak toggle:
+<br>	player was sneaking
+<br>	push the player upwards at speed 0.5
+    </div>
+
+  </div>
+</div>
+
+
+<div id="spawn" class="item-title">On Spawn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">spawn[ing] [of %<a href='classes.html#entitydata'>entity types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an creature spawns.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on spawn of a zombie
+<br>on spawn of an ender dragon:
+<br>	broadcast "A dragon has been sighted in %world%!"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="spawn_change" class="item-title">On Spawn Change</div>
 <div class="item-content">
   <table>
@@ -2616,6 +3347,270 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
 
   <div class="item-description">
     Called when the spawn point of a world changes.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="spread" class="item-title">On Spread</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">spread[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a new block <a href='#form'>forms</a> as a result of a block that can spread, e.g. water or mushrooms.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="sprint_toggle" class="item-title">On Sprint Toggle</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] toggl(e|ing) sprint</span></li>
+<li><span class="skript-code-inline">[player] sprint toggl(e|ing)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player starts or stops sprinting. Use <a href='../conditions/#CondIsSprinting'>is sprinting</a> to get whether the player was sprinting before the event was called.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on sprint toggle:
+<br>	player is not sprinting
+<br>	send "Run!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="tame" class="item-title">On Tame</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[entity] tam(e|ing)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player tames a wolf or ocelot. Can be cancelled to prevent the entity from being tamed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="target" class="item-title">On Target</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[entity] target</span></li>
+<li><span class="skript-code-inline">[entity] un[-]target</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a mob starts/stops following/attacking another entity, usually a player.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="teleport" class="item-title">On Teleport</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] teleport[ing]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called whenever a player is teleported, either by a nether/end portal or other means (e.g. by plugins).
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="throwing_of_an_egg" class="item-title">On Throwing of an Egg</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">throw[ing] [of] [an] egg</span></li>
+<li><span class="skript-code-inline">[player] egg throw</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player throws an egg. You can just use the <a href='#shoot'>shoot event</a> in most cases, as this event is intended to support changing the hatched mob and its chance to hatch, but Skript does not yet support that.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
+<div id="tool_change" class="item-title">On Tool Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player['s]] (tool|item held|held item) chang(e|ing)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>1.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called whenever a player changes his held item by selecting a different slot (e.g. the keys 1-9 or the mouse wheel), <i>not</i> by dropping or replacing the item in the current slot.
   </div>
 
   <div class="item-examples">
@@ -2820,7 +3815,7 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
 </div>
 
 
-<div id="entity_mount" class="item-title">On Entity Mount</div>
+<div id="weather_change" class="item-title">On Weather Change</div>
 <div class="item-content">
   <table>
 
@@ -2828,7 +3823,7 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">mount[ing]</span></li>
+          <li><span class="skript-code-inline">weather change [to %<a href='classes.html#weathertype'>weather types</a>%]</span></li>
 
         </ul>
       </td>
@@ -2836,13 +3831,13 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-dev13b</td>
+      <td>1.0</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Called when entity starts riding another.
+    Called when a world's weather changes.
   </div>
 
   <div class="item-examples">
@@ -2850,44 +3845,8 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
     Examples:
 
     <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="entity_dismount" class="item-title">On Entity Dismount</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">dismount[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev13b</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an entity dismounts.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
+      on weather change
+<br>on weather change to sunny
     </div>
 
   </div>
@@ -3043,7 +4002,7 @@ World management plugins might change the behaviour of this event though.
 </div>
 
 
-<div id="gliding_state_change" class="item-title">On Gliding State Change</div>
+<div id="zombie_break_door" class="item-title">On Zombie Break Door</div>
 <div class="item-content">
   <table>
 
@@ -3051,838 +4010,7 @@ World management plugins might change the behaviour of this event though.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(gliding state change|toggling gliding)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev21</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an entity toggles glider on or off, or when server toggles gliding state of an entity forcibly.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on toggling gliding:
-<br>	cancel the event # bad idea, but you CAN do it!
-    </div>
-
-  </div>
-</div>
-
-
-<div id="aoe_cloud_effect" class="item-title">On AoE Cloud Effect</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(area effect|AoE cloud) effect</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev21</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when area effect cloud applies it's potion effect. This happens every 5 ticks by default.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="sheep_regrow_wool" class="item-title">On Sheep Regrow Wool</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">sheep [re]grow[ing] wool</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev21</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when sheep regrows it's sheared wool back.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="inventory_open" class="item-title">On Inventory Open</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">inventory open[ed]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev21</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an inventory is opened for player.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="inventory_close" class="item-title">On Inventory Close</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">inventory close[d]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev21</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when player's currently viewed inventory is closed.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="slime_split" class="item-title">On Slime Split</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">slime split</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev26</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a slime splits. Usually this happens when a big slime dies.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="resurrect_attempt" class="item-title">On Resurrect Attempt</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[entity] resurrect attempt</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev28</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an entity dies, always. If they are not holding a totem, this is calcelled - you can, however, uncancel it.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on resurrect attempt:
-<br>	entity is player
-<br>	entity has permission "admin.undying"
-<br>	uncancel the event
-    </div>
-
-  </div>
-</div>
-
-
-<div id="player_world_change" class="item-title">On Player World Change</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">player world change[d]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-dev28</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player enters a world. Does not work with other entities!
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="book_edit" class="item-title">On Book Edit</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">book (edit|change|write)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player edits a book
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="pressure_plate_trip" class="item-title">On Pressure Plate / Trip</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[step[ping] on] [a] [pressure] plate</span></li>
-<li><span class="skript-code-inline">(trip|[step[ping] on] [a] tripwire)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0 (pressure plate), 1.4.4 (tripwire)</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a <i>player</i> steps on a pressure plate or tripwire respectively.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="move_on" class="item-title">On Move On</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(step|walk)[ing] (on|over) %*<a href='classes.html#itemtype'>item types</a>%</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player moves onto a certain type of block. Please note that using this event can cause lag if there are many players online.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on walking on dirt or grass
-<br>on stepping on stone
-    </div>
-
-  </div>
-</div>
-
-
-<div id="dispense" class="item-title">On Dispense</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">dispens(e|ing) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a dispenser dispenses an item.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="item_spawn" class="item-title">On Item Spawn</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">item spawn[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called whenever an item stack is spawned in a world, e.g. as drop of a block or mob, a player throwing items out of his inventory, or a dispenser dispensing an item (not shooting it).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="drop" class="item-title">On Drop</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] drop[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player drops an item from his inventory.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="craft" class="item-title">On Craft</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] craft[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player crafts an item.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="prepare_craft" class="item-title">On Prepare Craft</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] (preparing|beginning) craft[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-Fixes-V10</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called just before displaying crafting result to player. Note that setting the result item might or might not work due to Bukkit bugs.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="pick_up" class="item-title">On Pick Up</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] (pick[ ]up|picking up) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player picks up an item. Please note that the item is still on the ground when this event is called.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="consume" class="item-title">On Consume</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] ((eat|drink)[ing]|consum(e|ing)) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player is done eating/drinking something, e.g. an apple, bread, meat, milk or a potion.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="inventory_click" class="item-title">On Inventory Click</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[player] inventory(-| )click[ing] [[at] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.2-Fixes-V10</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when clicking on inventory slot.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="endermansheepsilverfish" class="item-title">On Enderman/Sheep/Silverfish</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">enderman place</span></li>
-<li><span class="skript-code-inline">enderman pickup</span></li>
-<li><span class="skript-code-inline">sheep eat</span></li>
-<li><span class="skript-code-inline">silverfish enter</span></li>
-<li><span class="skript-code-inline">silverfish exit</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when an enderman places or picks up a block, a sheep eats grass or a silverfish boops into/out of a block respectively.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="script_loadunload" class="item-title">On Script Load/Unload</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[script] (load|init|enable)</span></li>
-<li><span class="skript-code-inline">[script] (unload|stop|disable)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called directly after the trigger is loaded, or directly before the whole script is unloaded.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on load:
-<br>	set {running.%script%} to true
-<br>on unload:
-<br>	set {running.%script%} to false
-    </div>
-
-  </div>
-</div>
-
-
-<div id="command" class="item-title">On Command</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">command [%<a href='classes.html#string'>text</a>%]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player enters a command (not neccessarily a Skript command).
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on command
-<br>on command "/stop"
-<br>on command "pm Njol "
-    </div>
-
-  </div>
-</div>
-
-
-<div id="click" class="item-title">On Click</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[(right|left)[( |-)]][mouse[( |-)]]click[ing] [on %<a href='classes.html#entitydata'>entity type</a>/<a href='classes.html#itemtype'>item type</a>%] [(with|using|holding) %<a href='classes.html#itemtype'>item type</a>%]</span></li>
-<li><span class="skript-code-inline">[(right|left)[( |-)]][mouse[( |-)]]click[ing] (with|using|holding) %<a href='classes.html#itemtype'>item type</a>% on %<a href='classes.html#entitydata'>entity type</a>/<a href='classes.html#itemtype'>item type</a>%</span></li>
+          <li><span class="skript-code-inline">zombie break[ing] [a] [wood[en]] door</span></li>
 
         </ul>
       </td>
@@ -3896,49 +4024,7 @@ World management plugins might change the behaviour of this event though.
   </table>
 
   <div class="item-description">
-    Called when a user clicks on a block, an entity or air with or without an item in their hand.
-Please note that rightclick events with an empty hand while not looking at a block are not sent to the server, so there's no way to detect them.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on click
-<br>on rightclick holding a fishing rod
-<br>on leftclick on a stone or obsidian
-<br>on rightclick on a creeper
-<br>on click with a sword
-    </div>
-
-  </div>
-</div>
-
-
-<div id="book_sign" class="item-title">On Book Sign</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">book sign[ing]</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td></td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player signs a book
+    Called when a zombie is done breaking a wooden door. Can be cancelled to prevent the zombie from breaking the door.
   </div>
 
   <div class="item-examples">
@@ -3953,7 +4039,7 @@ Please note that rightclick events with an empty hand while not looking at a blo
 </div>
 
 
-<div id="weather_change" class="item-title">On Weather Change</div>
+<div id="periodical" class="item-title">Periodical</div>
 <div class="item-content">
   <table>
 
@@ -3961,7 +4047,7 @@ Please note that rightclick events with an empty hand while not looking at a blo
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">weather change [to %<a href='classes.html#weathertype'>weather types</a>%]</span></li>
+          <li><span class="skript-code-inline">every %<a href='classes.html#timespan'>time span</a>%</span></li>
 
         </ul>
       </td>
@@ -3975,7 +4061,7 @@ Please note that rightclick events with an empty hand while not looking at a blo
   </table>
 
   <div class="item-description">
-    Called when a world's weather changes.
+    An event that is called periodically.
   </div>
 
   <div class="item-examples">
@@ -3983,15 +4069,17 @@ Please note that rightclick events with an empty hand while not looking at a blo
     Examples:
 
     <div class="skript-code-block">
-      on weather change
-<br>on weather change to sunny
+      every 2 seconds
+<br>every minecraft hour
+<br>every ticks #can cause lag (depends on the code in this trigger)
+<br>every minecraft days
     </div>
 
   </div>
 </div>
 
 
-<div id="at_time" class="item-title">At Time</div>
+<div id="periodical" class="item-title">Periodical</div>
 <div class="item-content">
   <table>
 
@@ -3999,7 +4087,7 @@ Please note that rightclick events with an empty hand while not looking at a blo
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">at %<a href='classes.html#time'>time</a>% [in %<a href='classes.html#world'>worlds</a>%]</span></li>
+          <li><span class="skript-code-inline">every %<a href='classes.html#timespan'>time span</a>% in [world[s]] %<a href='classes.html#world'>worlds</a>%</span></li>
 
         </ul>
       </td>
@@ -4007,13 +4095,13 @@ Please note that rightclick events with an empty hand while not looking at a blo
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>1.3.4</td>
+      <td>1.0</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    An event that occurs at a given <a href='../classes/#time'>minecraft time</a> in every world or only in specific worlds.
+    An event that is called periodically.
   </div>
 
   <div class="item-examples">
@@ -4021,85 +4109,10 @@ Please note that rightclick events with an empty hand while not looking at a blo
     Examples:
 
     <div class="skript-code-block">
-      at 18:00
-<br>at 7am in "world"
-    </div>
-
-  </div>
-</div>
-
-
-<div id="first_join" class="item-title">On First Join</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">first (join|login)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.3.7</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player joins the server for the first time.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      
-    </div>
-
-  </div>
-</div>
-
-
-<div id="region_enterleave" class="item-title">On Region Enter/Leave</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">(enter[ing]|leav(e|ing)|exit[ing]) [of] ([a] region|[[the] region] %<a href='classes.html#region'>regions</a>%)</span></li>
-<li><span class="skript-code-inline">region (enter[ing]|leav(e|ing)|exit[ing])</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>2.1</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    Called when a player enters or leaves a <a href='../classes/#region'>region</a>.
-This event requires a supported regions plugin to be installed.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      on region exit:
-<br>	message "Leaving %region%."
+      every 2 seconds in "world"
+<br>every minecraft hour in "flatworld"
+<br>every ticks in "world" #can cause lag (depends on the code in this trigger)
+<br>every minecraft days in "plots"
     </div>
 
   </div>
