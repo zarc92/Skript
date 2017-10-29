@@ -50,6 +50,7 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.aliases.Aliases;
 import ch.njol.skript.aliases.ItemType;
+import ch.njol.skript.cache.ScriptCache;
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.command.CommandEvent;
 import ch.njol.skript.command.Commands;
@@ -259,6 +260,16 @@ final public class ScriptLoader {
 	
 	@SuppressWarnings("null")
 	static final Map<File, ScriptType> scriptTypes = Collections.synchronizedMap(new HashMap<>());
+	
+	static final ScriptCache cache;
+	
+	static {
+		try {
+			cache = new ScriptCache(Skript.getInstance().getDataFolder().toPath().resolve("cache"), Skript.getInstance().getDataFolder().toPath().resolve(Skript.SCRIPTSFOLDER));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	@SuppressWarnings("null") // Collections methods don't return nulls, ever
 	public static Collection<File> getLoadedFiles() {

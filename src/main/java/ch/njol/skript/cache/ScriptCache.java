@@ -26,6 +26,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.io.StreamCorruptedException;
+import java.net.NetworkInterface;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -40,10 +46,12 @@ import java.util.Random;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import org.bukkit.Bukkit;
 import org.eclipse.jdt.annotation.Nullable;
 
 import com.google.gson.Gson;
 
+import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
 import ch.njol.skript.SkriptAPIException;
 import me.nallar.whocalled.WhoCalled;
@@ -57,15 +65,16 @@ public final class ScriptCache {
 	
 	private Path cacheDir;
 	private Path scriptDir;
-	private FileChannel metaFile;
 	
-	private byte secret;
+	private byte[] secrets;
 	
 	/**
 	 * Metadata about Skript's cache.
 	 */
-	private static class CacheMeta {
+	private static class CacheMeta implements Serializable {
 		
+		public CacheMeta() {}
+
 		/**
 		 * When scripts were last cached.
 		 */
@@ -86,14 +95,65 @@ public final class ScriptCache {
 	 * Initializes a new script cache. Only for internal usage.
 	 * @throws IOException If something went wrong.
 	 */
-	@SuppressWarnings("null")
-	public ScriptCache(Path cacheDir, int pageSize) throws IOException {
-		if (WhoCalled.$.getCallingClass() != Skript.class) {
+	public ScriptCache(Path cacheDir, Path scriptDir) throws IOException {
+		if (WhoCalled.$.getCallingClass() != ScriptLoader.class) {
 			throw new SkriptAPIException("script cache is only meant for internal usage, for now");
 		}
-		
-		metaFile = FileChannel.open(cacheDir.resolve("meta.bin"), StandardOpenOption.CREATE, StandardOpenOption.READ, StandardOpenOption.WRITE);
 		gson = new Gson();
+		
+		this.scriptDir = scriptDir;
+		this.cacheDir = cacheDir;
+		
+		String secretStr = Skript.getVersion().toString() + Skript.getMinecraftVersion().toString()
+				+ NetworkInterface.getByIndex(0).getHardwareAddress();
+		this.secrets = secretStr.getBytes(StandardCharsets.UTF_8);
+		
+		Path metaFile = cacheDir.resolve("meta.bin");
+		if (Files.exists(metaFile)) {
+			byte[] bytes = Files.readAllBytes(metaFile);
+			int secret = 0;
+			
+			for (int i = 0; i < bytes.length; i++) {
+				bytes[i] = (byte) (bytes[i] ^ secrets[secret]);
+				secret++;
+				if (secret == secrets.length)
+					secret = 0;
+			}
+			
+			try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes))) {
+				meta = (CacheMeta) ois.readObject();
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException(e);
+			} catch (StreamCorruptedException | InvalidClassException e) {
+				// Secret didn't match or file was just plain corrupted
+				meta = new CacheMeta();
+				Files.delete(metaFile);
+			}
+		} else {
+			meta = new CacheMeta();
+		}
+	}
+	
+	public void saveMeta() throws IOException {
+		Path metaFile = cacheDir.resolve("meta.bin");
+		Files.createFile(metaFile);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		try (ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+			oos.writeObject(meta);
+		}
+		
+		byte[] bytes = bos.toByteArray();
+		int secret = 0;
+		for (int i = 0; i < bytes.length; i++) {
+			bytes[i] = (byte) (bytes[i] ^ secrets[secret]);
+			secret++;
+			if (secret == secrets.length)
+				secret = 0;
+		}
+		
+		try (FileOutputStream fos = new FileOutputStream(metaFile.toFile())) {
+			fos.write(bytes);
+		}
 	}
 	
 	public void save(CachedScript script, String name, int version) throws IOException {
@@ -171,7 +231,8 @@ public final class ScriptCache {
 			gzip.read(ready);
 		}
 		
-		// TODO WIP
+		CachedScript script = gson.fromJson(new String(ready, StandardCharsets.UTF_8), CachedScript.class);
+		return script;
 	}
 	
 }
