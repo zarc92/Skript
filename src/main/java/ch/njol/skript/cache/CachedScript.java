@@ -21,6 +21,7 @@
 
 package ch.njol.skript.cache;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.ByteChannel;
 import java.util.ArrayList;

@@ -20,8 +20,10 @@
 package ch.njol.skript.command;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,6 +50,17 @@ import org.bukkit.help.HelpTopicComparator;
 import org.bukkit.help.IndexHelpTopic;
 import org.bukkit.plugin.Plugin;
 import org.eclipse.jdt.annotation.Nullable;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.command.Commands.CommandAliasHelpTopic;
@@ -91,7 +104,7 @@ public class ScriptCommand implements CommandExecutor {
 	public final static int PLAYERS = 0x1, CONSOLE = 0x2, BOTH = PLAYERS | CONSOLE;
 	final int executableBy;
 	
-	private transient PluginCommand bukkitCommand;
+	private PluginCommand bukkitCommand;
 	
 	/**
 	 * Creates a new SkriptCommand.
@@ -119,7 +132,7 @@ public class ScriptCommand implements CommandExecutor {
 				as.remove();
 		}
 		this.aliases = aliases;
-		activeAliases = new ArrayList<String>(aliases);
+		activeAliases = new ArrayList<>(aliases);
 		
 		this.description = Utils.replaceEnglishChatStyles(description);
 		this.usage = Utils.replaceEnglishChatStyles(usage);
@@ -247,7 +260,7 @@ public class ScriptCommand implements CommandExecutor {
 	
 	@Nullable
 	private transient Command overridden = null;
-	private transient Map<String, Command> overriddenAliases = new HashMap<String, Command>();
+	private transient Map<String, Command> overriddenAliases = new HashMap<>();
 	
 	public void register(final SimpleCommandMap commandMap, final Map<String, Command> knownCommands, final @Nullable Set<String> aliases) {
 		synchronized (commandMap) {
@@ -281,7 +294,7 @@ public class ScriptCommand implements CommandExecutor {
 				knownCommands.remove(alias);
 				knownCommands.remove("skript:" + alias);
 			}
-			activeAliases = new ArrayList<String>(this.aliases);
+			activeAliases = new ArrayList<>(this.aliases);
 			bukkitCommand.unregister(commandMap);
 			bukkitCommand.setAliases(this.aliases);
 			if (overridden != null) {
@@ -299,7 +312,7 @@ public class ScriptCommand implements CommandExecutor {
 		}
 	}
 	
-	private transient Collection<HelpTopic> helps = new ArrayList<HelpTopic>();
+	private transient Collection<HelpTopic> helps = new ArrayList<>();
 	
 	public void registerHelp() {
 		helps.clear();
@@ -314,7 +327,7 @@ public class ScriptCommand implements CommandExecutor {
 				final Field topics = IndexHelpTopic.class.getDeclaredField("allTopics");
 				topics.setAccessible(true);
 				@SuppressWarnings("unchecked")
-				final ArrayList<HelpTopic> as = new ArrayList<HelpTopic>((Collection<HelpTopic>) topics.get(aliases));
+				final ArrayList<HelpTopic> as = new ArrayList<>((Collection<HelpTopic>) topics.get(aliases));
 				for (final String alias : activeAliases) {
 					final HelpTopic at = new CommandAliasHelpTopic("/" + alias, "/" + getLabel(), help);
 					as.add(at);
@@ -336,7 +349,7 @@ public class ScriptCommand implements CommandExecutor {
 				final Field topics = IndexHelpTopic.class.getDeclaredField("allTopics");
 				topics.setAccessible(true);
 				@SuppressWarnings("unchecked")
-				final ArrayList<HelpTopic> as = new ArrayList<HelpTopic>((Collection<HelpTopic>) topics.get(aliases));
+				final ArrayList<HelpTopic> as = new ArrayList<>((Collection<HelpTopic>) topics.get(aliases));
 				as.removeAll(helps);
 				topics.set(aliases, as);
 			} catch (final Exception e) {
