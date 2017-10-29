@@ -342,8 +342,7 @@ public final class Skript extends JavaPlugin implements Listener {
 					}
 				} catch (final Exception e) {
 					error("Error while loading plugin hooks" + (e.getLocalizedMessage() == null ? "" : ": " + e.getLocalizedMessage()));
-					if (testing())
-						e.printStackTrace();
+					Skript.exception(e);
 				}
 				
 				Language.setUseLocal(false);
@@ -1248,7 +1247,7 @@ public final class Skript extends JavaPlugin implements Listener {
 		logEx(info);
 		logEx();
 		logEx("Something went horribly wrong with Skript.");
-		logEx("This issue is NOT your fault! You can't probably fix it yourself, either.");
+		logEx("This issue is NOT your fault! You probably can't fix it yourself, either.");
 		
 		// Parse something useful out of the stack trace
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();

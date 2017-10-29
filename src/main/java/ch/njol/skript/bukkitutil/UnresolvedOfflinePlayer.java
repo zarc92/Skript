@@ -46,22 +46,19 @@ import ch.njol.util.Closeable;
 @SuppressWarnings("null")
 public class UnresolvedOfflinePlayer implements OfflinePlayer {
 	
-	final static LinkedBlockingQueue<UnresolvedOfflinePlayer> toResolve;
+	static LinkedBlockingQueue<UnresolvedOfflinePlayer> toResolve;
 	final static Thread resolverThread;
 	
 	static {
-		toResolve = new LinkedBlockingQueue<>();
 		resolverThread = Skript.newThread(new Runnable() {
 			@SuppressWarnings({"deprecation", "unused"})
 			@Override
-			public void run() {
-				if (toResolve == null) {
-					Skript.exception(new NullPointerException("null offline player resolve queue"), "An error happened when trying to enably resolving offline players, so"
-							+ " the feature has been turned off. Please report this at https://github.com/bensku/Skript/issues/237");
-					return;
-				}
-				
+			public void run() {				
 				while (true) {
+					if (toResolve == null) {
+						toResolve = new LinkedBlockingQueue<>();
+					}
+					
 					try {
 						final UnresolvedOfflinePlayer p = toResolve.take();
 						p.bukkitOfflinePlayer = Bukkit.getOfflinePlayer(p.name);

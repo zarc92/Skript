@@ -26,6 +26,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -795,7 +798,7 @@ final public class ScriptLoader {
 		}
 		
 		try {
-			String name = f.getName();
+			String name = Skript.getInstance().getDataFolder().toPath().resolve(Skript.SCRIPTSFOLDER).relativize(f.toPath()).toString();
 			assert name != null;
 			return loadStructure(new FileInputStream(f), name);
 		} catch (final IOException e) {
@@ -813,7 +816,8 @@ final public class ScriptLoader {
 	 */
 	public final static @Nullable Config loadStructure(final InputStream source, final String name) {
 		try {
-			final Config config = new Config(source, name, true, false, ":");
+			final Config config = new Config(source, name,
+					Skript.getInstance().getDataFolder().toPath().resolve(Skript.SCRIPTSFOLDER).resolve(name).toFile(), true, false, ":");
 			return loadStructure(config);
 		} catch (final IOException e) {
 			Skript.error("Could not load " + name + ": " + ExceptionUtils.toString(e));
