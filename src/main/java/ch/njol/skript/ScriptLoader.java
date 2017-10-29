@@ -50,6 +50,7 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.aliases.Aliases;
 import ch.njol.skript.aliases.ItemType;
+import ch.njol.skript.cache.CachedScript;
 import ch.njol.skript.cache.ScriptCache;
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.command.CommandEvent;
@@ -482,7 +483,6 @@ final public class ScriptLoader {
 	 * @param type Script type.
 	 * @return Info about script that is loaded
 	 */
-	@SuppressWarnings("unchecked")
 	private final static ScriptInfo loadScript(final @Nullable Config config, ScriptType type) {
 		if (config == null) { // Something bad happened, hopefully got logged to console
 			return new ScriptInfo();
@@ -493,10 +493,109 @@ final public class ScriptLoader {
 			throw new SkriptAPIException("disallowed method call");
 		}
 		
+		// Attempt to load from cache
+		CachedScript cached = null;
+		try {
+			cached = cache.load(config.getFileName());
+			if (cached == null) {
+				cached = parseToCached(config);
+				cache.save(cached, config.getFileName());
+			} else {
+				if (Skript.logHigh())
+					Skript.info("loaded " + cached.numTriggers + " trigger" + (cached.numTriggers == 1 ? "" : "s")
+							+ " and " + cached.numCommands + " command" + (cached.numCommands == 1 ? "" : "s")
+							+ " from '" + config.getFileName() + "'");
+			}
+		} catch (IOException e) {
+			Skript.exception(e, "Something went wrong with script caching.");
+		}
+		
+		assert cached != null;
+		
 		// When something is parsed, it goes there to be loaded later
-		List<ScriptCommand> commands = new ArrayList<>();
-		List<Function<?>> functions = new ArrayList<>();
-		List<ParsedEventData> events = new ArrayList<>();
+		List<ScriptCommand> commands = cached.commands;
+		List<Function<?>> functions = cached.functions;
+		List<ParsedEventData> events = cached.events;
+		
+		// Track what is loaded
+		int numTriggers = cached.numTriggers;
+		int numCommands = cached.numCommands;
+		int numFunctions = cached.numFunctions;
+		
+		// In always sync task, enable stuff
+		Callable<Void> callable = new Callable<Void>() {
+
+			@SuppressWarnings("synthetic-access")
+			@Override
+			public @Nullable Void call() throws Exception {				
+				// Unload script IF we're doing async stuff
+				// (else it happened already)
+				File file = config.getFile();
+				if (loadAsync) {
+					if (file != null)
+						unloadScript_(file);
+				}
+				
+				// Now, enable everything!
+				for (ScriptCommand command : commands) {
+					assert command != null;
+					Commands.registerCommand(command);
+				}
+				
+				for (Function<?> func : functions) {
+					assert func != null;
+					Functions.putFunction(func);
+				}
+				
+				for (ParsedEventData event : events) {
+					setCurrentEvent("" + event.info.getFirst().getName().toLowerCase(Locale.ENGLISH), event.info.getFirst().events);
+					
+					final Trigger trigger;
+					try {
+						trigger = new Trigger(config.getFile(), event.event, event.info.getSecond(), event.items);
+						trigger.setLineNumber(event.node.getLine()); // Set line number for debugging
+						trigger.setDebugLabel(config.getFileName() + ": line " + event.node.getLine());
+					} finally {
+						deleteCurrentEvent();
+					}
+					
+					if (event.info.getSecond() instanceof SelfRegisteringSkriptEvent) {
+						((SelfRegisteringSkriptEvent) event.info.getSecond()).register(trigger);
+						SkriptEventHandler.addSelfRegisteringTrigger(trigger);
+					} else {
+						SkriptEventHandler.addTrigger(event.info.getFirst().events, trigger);
+					}
+					
+					deleteCurrentEvent();
+				}
+				
+				// Add to loaded files to use for future reloads
+				loadedFiles.add(file);
+				scriptTypes.put(file, type); // And script type too
+				
+				return null;
+			}
+		};
+		if (loadAsync) { // Need to delegate to main thread
+			Task.callSync(callable);
+		} else { // We are in main thread, execute immediately
+			try {
+				callable.call();
+			} catch (Exception e) {
+				Skript.exception(e);
+			}
+		}
+		
+		return new ScriptInfo(1, numTriggers, numCommands, numFunctions);
+	}
+	
+	private static final CachedScript parseToCached(Config config) {
+		CachedScript cached = new CachedScript();
+		
+		// When something is parsed, it goes there to be loaded later
+		List<ScriptCommand> commands = cached.commands;
+		List<Function<?>> functions = cached.functions;
+		List<ParsedEventData> events = cached.events;
 		
 		// Track what is loaded
 		int numTriggers = 0;
@@ -692,71 +791,12 @@ final public class ScriptLoader {
 			SkriptLogger.setNode(null);
 		}
 		
-		// In always sync task, enable stuff
-		Callable<Void> callable = new Callable<Void>() {
-
-			@SuppressWarnings("synthetic-access")
-			@Override
-			public @Nullable Void call() throws Exception {				
-				// Unload script IF we're doing async stuff
-				// (else it happened already)
-				File file = config.getFile();
-				if (loadAsync) {
-					if (file != null)
-						unloadScript_(file);
-				}
-				
-				// Now, enable everything!
-				for (ScriptCommand command : commands) {
-					assert command != null;
-					Commands.registerCommand(command);
-				}
-				
-				for (Function<?> func : functions) {
-					assert func != null;
-					Functions.putFunction(func);
-				}
-				
-				for (ParsedEventData event : events) {
-					setCurrentEvent("" + event.info.getFirst().getName().toLowerCase(Locale.ENGLISH), event.info.getFirst().events);
-					
-					final Trigger trigger;
-					try {
-						trigger = new Trigger(config.getFile(), event.event, event.info.getSecond(), event.items);
-						trigger.setLineNumber(event.node.getLine()); // Set line number for debugging
-						trigger.setDebugLabel(config.getFileName() + ": line " + event.node.getLine());
-					} finally {
-						deleteCurrentEvent();
-					}
-					
-					if (event.info.getSecond() instanceof SelfRegisteringSkriptEvent) {
-						((SelfRegisteringSkriptEvent) event.info.getSecond()).register(trigger);
-						SkriptEventHandler.addSelfRegisteringTrigger(trigger);
-					} else {
-						SkriptEventHandler.addTrigger(event.info.getFirst().events, trigger);
-					}
-					
-					deleteCurrentEvent();
-				}
-				
-				// Add to loaded files to use for future reloads
-				loadedFiles.add(file);
-				scriptTypes.put(file, type); // And script type too
-				
-				return null;
-			}
-		};
-		if (loadAsync) { // Need to delegate to main thread
-			Task.callSync(callable);
-		} else { // We are in main thread, execute immediately
-			try {
-				callable.call();
-			} catch (Exception e) {
-				Skript.exception(e);
-			}
-		}
+		// Update counters of stuff to cached script
+		cached.numTriggers = numTriggers;
+		cached.numCommands = numCommands;
+		cached.numFunctions = numFunctions;
 		
-		return new ScriptInfo(1, numTriggers, numCommands, numFunctions);
+		return cached;
 	}
 	
 	/**

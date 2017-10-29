@@ -15,7 +15,7 @@
  *  along with Skript.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * 
- * Copyright 2011-2016 Peter Güttinger and contributors
+ * Copyright 2011-2017 Peter Güttinger and contributors
  * 
  */
 
@@ -42,6 +42,12 @@ public class CachedScript {
 	public List<Function<?>> functions;
 	
 	public List<ParsedEventData> events;
+	
+	public int numTriggers;
+	
+	public int numCommands;
+	
+	public int numFunctions;
 	
 	public CachedScript() {
 		commands = new ArrayList<>();

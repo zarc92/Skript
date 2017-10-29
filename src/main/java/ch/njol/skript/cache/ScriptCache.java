@@ -15,7 +15,7 @@
  *  along with Skript.  If not, see <http://www.gnu.org/licenses/>.
  * 
  * 
- * Copyright 2011-2016 Peter Güttinger and contributors
+ * Copyright 2011-2017 Peter Güttinger and contributors
  * 
  */
 
@@ -61,8 +61,6 @@ import me.nallar.whocalled.WhoCalled;
  */
 public final class ScriptCache {
 	
-	private static final int META_LENGTH = 24;
-	
 	private Path cacheDir;
 	private Path scriptDir;
 	
@@ -105,7 +103,7 @@ public final class ScriptCache {
 		this.cacheDir = cacheDir;
 		
 		String secretStr = Skript.getVersion().toString() + Skript.getMinecraftVersion().toString()
-				+ NetworkInterface.getByIndex(0).getHardwareAddress();
+				+ Bukkit.getBukkitVersion();
 		this.secrets = secretStr.getBytes(StandardCharsets.UTF_8);
 		
 		Path metaFile = cacheDir.resolve("meta.bin");
@@ -135,6 +133,10 @@ public final class ScriptCache {
 	}
 	
 	public void saveMeta() throws IOException {
+		if (WhoCalled.$.getCallingClass() != ScriptLoader.class) {
+			throw new SkriptAPIException("script cache is only meant for internal usage, for now");
+		}
+		
 		Path metaFile = cacheDir.resolve("meta.bin");
 		Files.createFile(metaFile);
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -156,7 +158,11 @@ public final class ScriptCache {
 		}
 	}
 	
-	public void save(CachedScript script, String name, int version) throws IOException {
+	public void save(CachedScript script, String name) throws IOException {
+		if (WhoCalled.$.getCallingClass() != ScriptLoader.class) {
+			throw new SkriptAPIException("script cache is only meant for internal usage, for now");
+		}
+		
 		String json = script.serialize(gson);
 		byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
 		
@@ -191,11 +197,16 @@ public final class ScriptCache {
 	
 	@Nullable
 	public CachedScript load(String name) throws IOException {
-		long lastCached = meta.lastCached.get(name);
+		if (WhoCalled.$.getCallingClass() != ScriptLoader.class) {
+			throw new SkriptAPIException("script cache is only meant for internal usage, for now");
+		}
+		
+		Skript.info("" + meta.lastCached);
+		Long lastCached = meta.lastCached.get(name);
 		long lastModified = Files.getLastModifiedTime(scriptDir.resolve(name)).toMillis();
 		
 		// Check if cache is still valid
-		if (lastCached < lastModified) {
+		if (lastCached == null || lastCached < lastModified) {
 			return null;
 		}
 		
