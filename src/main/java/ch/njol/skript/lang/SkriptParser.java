@@ -224,12 +224,16 @@ public class SkriptParser {
 						if (res != null) {
 							int x = -1;
 							for (int j = 0; (x = nextUnescaped(pattern, '%', x + 1)) != -1; j++) {
+								// Resolve places where to use default expressions
 								final int x2 = nextUnescaped(pattern, '%', x + 1);
 								if (res.exprs[j] == null) {
 									final String name = pattern.substring(x + 1, x2);
 									if (!name.startsWith("-")) {
+										// This expression slot doesn't take null, try to get default expression for type
 										final ExprInfo vi = getExprInfo(name);
 										final DefaultExpression<?> expr = vi.classes[0].getDefaultExpression();
+										
+										// Throw exception if something goes wrong
 										if (expr == null)
 											throw new SkriptAPIException("The class '" + vi.classes[0].getCodeName() + "' does not provide a default expression. Either allow null (with %-" + vi.classes[0].getCodeName() + "%) or make it mandatory [pattern: " + info.patterns[i] + "]");
 										if (!(expr instanceof Literal) && (vi.flagMask & PARSE_EXPRESSIONS) == 0)
@@ -240,15 +244,22 @@ public class SkriptParser {
 											throw new SkriptAPIException("The default expression of '" + vi.classes[0].getCodeName() + "' is not a single-element expression. Change your pattern to allow multiple elements or make the expression mandatory [pattern: " + info.patterns[i] + "]");
 										if (vi.time != 0 && !expr.setTime(vi.time))
 											throw new SkriptAPIException("The default expression of '" + vi.classes[0].getCodeName() + "' does not have distinct time states. [pattern: " + info.patterns[i] + "]");
-										if (!expr.init())
+										if (!expr.init()) // If default expression cannot be initialized, move along
 											continue patternsLoop;
-										res.exprs[j] = expr;
+										
+										res.exprs[j] = expr; // Assign default expression if we're still here
 									}
 								}
 								x = x2;
 							}
-							final T t = info.c.newInstance();
+							
+							// Now, try to use this syntax element
+							final T t = info.c.newInstance(); // It must have zero-argument constructor!
 							if (t.init(res.exprs, i, ScriptLoader.hasDelayBefore, res)) {
+								// Attempt to initialize it with our expressions and other data
+								// Initialization CAN fail, in which case user gets an error from init() method
+								// NOTE: init should usually NOT be used to implement advanced syntax, as false
+								// returned from that method is considered as an error
 								log.printLog();
 								return t;
 							}
