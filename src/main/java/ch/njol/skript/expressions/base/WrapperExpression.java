@@ -59,7 +59,6 @@ public abstract class WrapperExpression<T> extends SimpleExpression<T> {
 	 * @param expr Wrapped expression.
 	 */
 	protected void setExpr(final Expression<? extends T> expr) {
-		expr.setParserInstance(pi);
 		this.expr = expr;
 	}
 	
