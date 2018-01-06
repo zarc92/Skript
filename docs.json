@@ -1,5 +1,5 @@
 {
-  "skriptVersion" : "2.2-dev32",
+  "skriptVersion" : "2.2-dev32d",
 
   "classes" : [
     {
@@ -2822,6 +2822,19 @@
 
   "expressions" : [
     {
+  "id" : "ExprPermissions",
+  "name" : "All Permissions",
+  "patterns" : [
+    "[(all [of]|[the])] permissions of %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>%'[s] permissions",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev33",
+  "description" : "Gets all permissions of players. Note that the modifications to resulting list do not actually change permissions.",
+  "examples" : ""
+},
+{
   "id" : "ExprAlphabetList",
   "name" : "Alphabetical Sort",
   "patterns" : [
@@ -4284,6 +4297,19 @@
   "since" : "1.4.2",
   "description" : "The spawnpoint of a world.",
   "examples" : "teleport all players to spawn\\nset the spawn point of \"world\" to the player's location"
+},
+{
+  "id" : "ExprSpecialNumber",
+  "name" : "Special Number",
+  "patterns" : [
+    "(NaN|[(-|minus)](infinity|∞)) value",
+"value of (NaN|[(-|minus)](infinity|∞))",
+
+    "pattern_end"
+  ],
+  "since" : "@VERSION@",
+  "description" : "Special number values, namely NaN, Infinity and -Infinity",
+  "examples" : "if {_number} is NaN value:"
 },
 {
   "id" : "ExprSpeed",

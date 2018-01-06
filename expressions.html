@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev32</title>
+  <title>Skript Documentation - 2.2-dev32d</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -21,7 +21,8 @@
   <nav>
     <p id="nav-title">Table of Contents</p>
     <div id="nav-contents">
-      <p><a href="#ExprAlphabetList">Alphabetical Sort</a></p>
+      <p><a href="#ExprPermissions">All Permissions</a></p>
+<p><a href="#ExprAlphabetList">Alphabetical Sort</a></p>
 <p><a href="#ExprAltitude">Altitude</a></p>
 <p><a href="#ExprAmount">Amount</a></p>
 <p><a href="#ExprAmountOfItems">Amount of Items</a></p>
@@ -135,6 +136,7 @@
 <p><a href="#ExprSortedList">Sorted List</a></p>
 <p><a href="#ExprSortedList">Sorted List</a></p>
 <p><a href="#ExprSpawn">Spawn</a></p>
+<p><a href="#ExprSpecialNumber">Special Number</a></p>
 <p><a href="#ExprSpeed">Speed</a></p>
 <p><a href="#ExprSubstring">Subtext</a></p>
 <p><a href="#ExprTamer">Tamer</a></p>
@@ -178,6 +180,44 @@
   <div id="content">
     <h1>Expressions</h1>
 
+
+
+<div id="ExprPermissions" class="item-title">All Permissions</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(all [of]|[the])] permissions of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] permissions</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev33</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Gets all permissions of players. Note that the modifications to resulting list do not actually change permissions.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
 
 
 <div id="ExprAlphabetList" class="item-title">Alphabetical Sort</div>
@@ -4791,6 +4831,44 @@ This expression requires a supported regions plugin to be installed.
     <div class="skript-code-block">
       teleport all players to spawn
 <br>set the spawn point of "world" to the player's location
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprSpecialNumber" class="item-title">Special Number</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(NaN|[(-|minus)](infinity|∞)) value</span></li>
+<li><span class="skript-code-inline">value of (NaN|[(-|minus)](infinity|∞))</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>@VERSION@</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Special number values, namely NaN, Infinity and -Infinity
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      if {_number} is NaN value:
     </div>
 
   </div>
