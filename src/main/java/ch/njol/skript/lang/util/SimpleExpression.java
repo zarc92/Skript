@@ -35,7 +35,6 @@ import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Converter;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.parser.ParserInstance;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.util.Utils;
 import ch.njol.util.Checker;
@@ -326,10 +325,5 @@ public abstract class SimpleExpression<T> implements Expression<T> {
 	public boolean getAnd() {
 		return true;
 	}
-
-	/**
-	 * Parser instance which is being used or was used to parse this element.
-	 */
-	protected ParserInstance pi;
 	
 }
