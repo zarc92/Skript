@@ -980,7 +980,7 @@
 
     "pattern_end"
   ],
-  "since" : "",
+  "since" : "2.2-dev34",
   "description" : "Only usable in command events. Makes it so the current command usage isn't counted towards the cooldown.",
   "examples" : "command /nick <text>:\\n    executable by: players\\n    cooldown: 10 seconds\\n    trigger:\\n        if length of arg-1 is more than 16:\\n            # Makes it so that invalid arguments don't make you wait for the cooldown again\\n            cancel the cooldown\\n            send \"Your nickname may be at most 16 characters.\"\\n            stop\\n        set the player's display name to arg-1"
 },
