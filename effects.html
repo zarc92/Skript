@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev33</title>
+  <title>Skript Documentation - 2.2-dev34</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -23,6 +23,7 @@
     <div id="nav-contents">
       <p><a href="#EffBan">Ban</a></p>
 <p><a href="#EffBroadcast">Broadcast</a></p>
+<p><a href="#EffCancelCooldown">Cancel Command Cooldown</a></p>
 <p><a href="#EffCancelEvent">Cancel Event</a></p>
 <p><a href="#EffChange">Change: Set/Add/Remove/Delete/Reset</a></p>
 <p><a href="#EffColorArmor">Colour Items</a></p>
@@ -34,6 +35,7 @@
 <p><a href="#EffEquip">Equip</a></p>
 <p><a href="#EffExit">Exit</a></p>
 <p><a href="#EffExplosion">Explosion</a></p>
+<p><a href="#EffFeed">Feed</a></p>
 <p><a href="#EffRespawn">Force Respawn</a></p>
 <p><a href="#EffIgnite">Ignite/Extinguish</a></p>
 <p><a href="#EffKick">Kick</a></p>
@@ -41,6 +43,7 @@
 <p><a href="#EffLightning">Lightning</a></p>
 <p><a href="#EffLog">Log</a></p>
 <p><a href="#EffScriptOptionLoops">Loop Version</a></p>
+<p><a href="#EffMakeFly">Make Fly</a></p>
 <p><a href="#EffMessage">Message</a></p>
 <p><a href="#EffOpenInventory">Open/Close Inventory</a></p>
 <p><a href="#EffVisualEffect">Play Effect</a></p>
@@ -146,6 +149,53 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
     <div class="skript-code-block">
       broadcast "Welcome %player% to the server!"
 <br>broadcast "Woah! It's a message!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="EffCancelCooldown" class="item-title">Cancel Command Cooldown</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(cancel|ignore) [the] [current] [command] cooldown</span></li>
+<li><span class="skript-code-inline">un(cancel|ignore) [the] [current] [command] cooldown</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td></td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Only usable in command events. Makes it so the current command usage isn't counted towards the cooldown.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      command /nick <text>:
+<br>	executable by: players
+<br>	cooldown: 10 seconds
+<br>	trigger:
+<br>		if length of arg-1 is more than 16:
+<br>			# Makes it so that invalid arguments don't make you wait for the cooldown again
+<br>			cancel the cooldown
+<br>			send "Your nickname may be at most 16 characters."
+<br>			stop
+<br>		set the player's display name to arg-1
     </div>
 
   </div>
@@ -623,6 +673,44 @@ Starting with Bukkit 1.4.5 and Skript 2.0 you can use safe explosions which will
 </div>
 
 
+<div id="EffFeed" class="item-title">Feed</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">feed [the] %<a href='classes.html#player'>players</a>% [by %<a href='classes.html#number'>number</a>% [beef[s]]]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev34</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Feeds the specified players.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      feed all players
+<br>feed the player by 5 beefs
+    </div>
+
+  </div>
+</div>
+
+
 <div id="EffRespawn" class="item-title">Force Respawn</div>
 <div class="item-content">
   <table>
@@ -889,6 +977,46 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
     <div class="skript-code-block">
       use old loops
 <br>use new loops
+    </div>
+
+  </div>
+</div>
+
+
+<div id="EffMakeFly" class="item-title">Make Fly</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">force %<a href='classes.html#player'>players</a>% to [(stop|start)] fly[ing]</span></li>
+<li><span class="skript-code-inline">make %<a href='classes.html#player'>players</a>% (stop|start) flying</span></li>
+<li><span class="skript-code-inline">make %<a href='classes.html#player'>players</a>% fly</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev34</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Forces a player to start/stop flying.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      make player fly
+<br>force all players to stop flying
     </div>
 
   </div>

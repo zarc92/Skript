@@ -1,5 +1,5 @@
 {
-  "skriptVersion" : "2.2-dev33",
+  "skriptVersion" : "2.2-dev34",
 
   "classes" : [
     {
@@ -388,18 +388,6 @@
   "examples" : "projectile is a snowball\\nshoot an arrow at speed 5 from the player"
 },
 {
-  "id" : "region",
-  "name" : "Region",
-  "patterns" : [
-    "&quot;region name&quot;",
-
-    "pattern_end"
-  ],
-  "since" : "2.1",
-  "description" : "A region of a regions plugin. Skript currently supports WorldGuard, Factions, GriefPrevention and PreciousStones.\\nPlease note that some regions plugins do not have named regions, some use numerical ids to identify regions, and some may have regions with the same name in different worlds, thus using regions like \"region name\" in scripts may or may not work.",
-  "examples" : ""
-},
-{
   "id" : "string",
   "name" : "Text",
   "patterns" : [
@@ -532,19 +520,6 @@
 
   "conditions" : [
     {
-  "id" : "CondCanBuild",
-  "name" : "Can Build",
-  "patterns" : [
-    "%<a href='classes.html#player'>players</a>% (can|(is|are) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%",
-"%<a href='classes.html#player'>players</a>% (can('t|not)|(is|are)(n't| not) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%",
-
-    "pattern_end"
-  ],
-  "since" : "2.0",
-  "description" : "Tests whether a player is allowed to build at a certain location.\\nThis condition requires a supported <a href='../classes/#region'>regions</a> plugin to be installed.",
-  "examples" : "command /setblock <material>:\\n    description: set the block at your crosshair to a different type\\n    trigger:\\n        player cannot build at the targeted block:\\n            message \"You do not have permission to change blocks there!\"\\n            stop\\n        set the targeted block to argument"
-},
-{
   "id" : "CondCanHold",
   "name" : "Can Hold",
   "patterns" : [
@@ -783,19 +758,6 @@
   "examples" : "player is holding a stick\\nvictim isn't holding a sword of sharpness"
 },
 {
-  "id" : "CondIsMember",
-  "name" : "Is Member/Owner of Region",
-  "patterns" : [
-    "%<a href='classes.html#offlineplayer'>offline players</a>% (is|are) ([a] member|[(the|an)] owner) of [[the] region] %<a href='classes.html#region'>regions</a>%",
-"%<a href='classes.html#offlineplayer'>offline players</a>% (is|are)(n't| not) ([a] member|[(the|an)] owner) of [[the] region] %<a href='classes.html#region'>regions</a>%",
-
-    "pattern_end"
-  ],
-  "since" : "2.1",
-  "description" : "Checks whether a player is a member or owner of a particular region.\\nThis condition requires a supported regions plugin to be installed.",
-  "examples" : "on region enter:\\n    player is the owner of the region\\n    message \"Welcome back to %region%!\"\\n    send \"%player% just entered %region%!\" to all members of the region"
-},
-{
   "id" : "CondIsOnline",
   "name" : "Is Online",
   "patterns" : [
@@ -951,21 +913,6 @@
   "examples" : "PvP is enabled\\nPvP is disabled in \"world\""
 },
 {
-  "id" : "CondRegionContains",
-  "name" : "Region Contains",
-  "patterns" : [
-    "[[the] region] %<a href='classes.html#region'>regions</a>% contain[s] %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%",
-"%<a href='classes.html#location'>locations</a>% (is|are) ([contained] in|part of) [[the] region] %<a href='classes.html#region'>regions</a>%",
-"[[the] region] %<a href='classes.html#region'>regions</a>% (do|does)(n't| not) contain %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%",
-"%<a href='classes.html#location'>locations</a>% (is|are)(n't| not) (contained in|part of) [[the] region] %<a href='classes.html#region'>regions</a>%",
-
-    "pattern_end"
-  ],
-  "since" : "2.1",
-  "description" : "Checks whether a location is contained in a particular <a href='../classes/#region'>region</a>.\\nThis condition requires a supported regions plugin to be installed.",
-  "examples" : "player is in the region {regions::3}\\non region enter:\\n    region contains {flags.%world%.red}\\n    message \"The red flag is near!\""
-},
-{
   "id" : "CondDate",
   "name" : "Time",
   "patterns" : [
@@ -1023,6 +970,19 @@
   "since" : "1.0",
   "description" : "Broadcasts a message to the server.",
   "examples" : "broadcast \"Welcome %player% to the server!\"\\nbroadcast \"Woah! It's a message!\""
+},
+{
+  "id" : "EffCancelCooldown",
+  "name" : "Cancel Command Cooldown",
+  "patterns" : [
+    "(cancel|ignore) [the] [current] [command] cooldown",
+"un(cancel|ignore) [the] [current] [command] cooldown",
+
+    "pattern_end"
+  ],
+  "since" : "",
+  "description" : "Only usable in command events. Makes it so the current command usage isn't counted towards the cooldown.",
+  "examples" : "command /nick <text>:\\n    executable by: players\\n    cooldown: 10 seconds\\n    trigger:\\n        if length of arg-1 is more than 16:\\n            # Makes it so that invalid arguments don't make you wait for the cooldown again\\n            cancel the cooldown\\n            send \"Your nickname may be at most 16 characters.\"\\n            stop\\n        set the player's display name to arg-1"
 },
 {
   "id" : "EffCancelEvent",
@@ -1180,6 +1140,18 @@
   "examples" : "create an explosion of force 10 at the player\\ncreate an explosion of force 0 at the victim"
 },
 {
+  "id" : "EffFeed",
+  "name" : "Feed",
+  "patterns" : [
+    "feed [the] %<a href='classes.html#player'>players</a>% [by %<a href='classes.html#number'>number</a>% [beef[s]]]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev34",
+  "description" : "Feeds the specified players.",
+  "examples" : "feed all players\\nfeed the player by 5 beefs"
+},
+{
   "id" : "EffRespawn",
   "name" : "Force Respawn",
   "patterns" : [
@@ -1264,6 +1236,20 @@
   "since" : "<i>unknown</i> (2.2)",
   "description" : "Changes loops to emulate given Skript version's behaviour.",
   "examples" : "use old loops\\nuse new loops"
+},
+{
+  "id" : "EffMakeFly",
+  "name" : "Make Fly",
+  "patterns" : [
+    "force %<a href='classes.html#player'>players</a>% to [(stop|start)] fly[ing]",
+"make %<a href='classes.html#player'>players</a>% (stop|start) flying",
+"make %<a href='classes.html#player'>players</a>% fly",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev34",
+  "description" : "Forces a player to start/stop flying.",
+  "examples" : "make player fly\\nforce all players to stop flying"
 },
 {
   "id" : "EffMessage",
@@ -2407,19 +2393,6 @@
   "examples" : ""
 },
 {
-  "id" : "region_enterleave",
-  "name" : "On Region Enter/Leave",
-  "patterns" : [
-    "(enter[ing]|leav(e|ing)|exit[ing]) [of] ([a] region|[[the] region] %<a href='classes.html#region'>regions</a>%)",
-"region (enter[ing]|leav(e|ing)|exit[ing])",
-
-    "pattern_end"
-  ],
-  "since" : "2.1",
-  "description" : "Called when a player enters or leaves a <a href='../classes/#region'>region</a>.\\nThis event requires a supported regions plugin to be installed.",
-  "examples" : "on region exit:\\n    message \"Leaving %region%.\""
-},
-{
   "id" : "respawn",
   "name" : "On Respawn",
   "patterns" : [
@@ -3032,18 +3005,6 @@
   "examples" : "loop blocks above the player:\\nloop blocks between the block below the player and the targeted block:\\nset the blocks below the player, the victim and the targeted block to air"
 },
 {
-  "id" : "ExprBlocksInRegion",
-  "name" : "Blocks in Region",
-  "patterns" : [
-    "[(all|the)] blocks (in|of) [[the] region[s]] %<a href='classes.html#region'>regions</a>%",
-
-    "pattern_end"
-  ],
-  "since" : "2.1",
-  "description" : "All blocks in a <a href='../classes/#region'>region</a>.\\nThis expression requires a supported regions plugin to be installed.",
-  "examples" : "loop all blocks in the region {arena.%{faction.%player%}%}:\\n    clear the loop-block"
-},
-{
   "id" : "ExprBookAuthor",
   "name" : "Book Author",
   "patterns" : [
@@ -3223,15 +3184,15 @@
   "examples" : "execute console command \"/stop\"\\nsend \"message to console\" to the console"
 },
 {
-  "id" : "ExprCmdElapsedRemainingTime",
-  "name" : "Cooldown Time/Remaining Time/Elapsed Time/Cooldown Bypass Permission",
+  "id" : "ExprCmdCooldownInfo",
+  "name" : "Cooldown Time/Remaining Time/Elapsed Time/Last Usage Date/Cooldown Bypass Permission",
   "patterns" : [
-    "[the] (remaining|elapsed|cooldown|cooldown bypass perm[ission]) [time][ ][span] [of] [the] [(cooldown|wait)] [((of|for)[the] [current] command)]",
+    "[the] (remaining [time]|elapsed [time]|cooldown [time] [length]|last usage [date]|cooldown bypass perm[ission]) [of] [the] [(cooldown|wait)] [((of|for)[the] [current] command)]",
 
     "pattern_end"
   ],
   "since" : "2.2-dev33",
-  "description" : "Only usable in command events. Represents the cooldown time, the remaining time, or elapsed time (time since last execution), or the cooldown bypass permission.",
+  "description" : "Only usable in command events. Represents the cooldown time, the remaining time, or the elapsed time, or the last usage date, or the cooldown bypass permission.",
   "examples" : "command /home:\\n    cooldown: 10 seconds\\n    cooldown message: You last teleported home %elapsed time% ago, you may teleport home again in %remaining time%\\n    trigger:\\n        teleport player to {home::%player%}"
 },
 {
@@ -3271,6 +3232,19 @@
   "since" : "2.2-dev17",
   "description" : "The item which player has on their cursor. This slot is always empty if player has no inventories open.",
   "examples" : "cursor slot of player is dirt\\nset cursor slot of player to 64 diamonds"
+},
+{
+  "id" : "ExprNewInventory",
+  "name" : "Custom Chest Inventory",
+  "patterns" : [
+    "chest inventory (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]",
+"chest inventory with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev34",
+  "description" : "Returns a chest inventory with the given amount of rows and the name. Use the <a href=effects.html#EffOpenInventory>open inventory</a>effect to open it.",
+  "examples" : "open chest inventory with 1 rows named \"test\"\\nset {_inv} to chest inventory with 1 row"
 },
 {
   "id" : "ExprDamage",
@@ -3465,12 +3439,24 @@
   "examples" : "send \"%final damage%\" to victim"
 },
 {
+  "id" : "ExprFlightMode",
+  "name" : "Flight Mode",
+  "patterns" : [
+    "[the] fl(y[ing]|ight) (mode|state) of %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>%'[s] fl(y[ing]|ight) (mode|state)",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev34",
+  "description" : "Whether the player is allowed to fly. Use <a href=effects.html#EffMakeFly>Make Fly</a> effect to force a player fly.",
+  "examples" : "set flight mode of player to true\\nsend \"%flying state of all players%\""
+},
+{
   "id" : "ExprFoodLevel",
   "name" : "Food Level",
   "patterns" : [
     "[the] (food|hunger)[[ ](level|met(er|re)|bar)] [of %<a href='classes.html#player'>player</a>%]",
 "%<a href='classes.html#player'>player</a>%'[s] (food|hunger)[[ ](level|met(er|re)|bar)]",
-"feed [the] %<a href='classes.html#player'>player</a>%",
 
     "pattern_end"
   ],
@@ -3609,6 +3595,18 @@
   "examples" : "message \"You have %health% HP left.\""
 },
 {
+  "id" : "ExprHighestSolidBlock",
+  "name" : "Highest Solid Block",
+  "patterns" : [
+    "highest [(solid|non-air)] block at %<a href='classes.html#location'>locations</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev34",
+  "description" : "Returns the highest solid block at the x and z coordinates of the world of given location",
+  "examples" : "highest block at location of arg-player"
+},
+{
   "id" : "ExprIP",
   "name" : "IP",
   "patterns" : [
@@ -3670,6 +3668,19 @@
   "since" : "2.2-dev16",
   "description" : "The <a href='../classes/#inventoryaction'>inventory action</a> of an inventory event. Please click on the link for more information.",
   "examples" : "inventory action is pickup all"
+},
+{
+  "id" : "ExprInventoryInfo",
+  "name" : "Inventory Holder/Viewers/Rows",
+  "patterns" : [
+    "[the] (holder[s]|viewers|[amount of] rows) of %<a href='classes.html#inventory'>inventories</a>%",
+"%<a href='classes.html#inventory'>inventories</a>%'[s] (holder[s]|viewers|[amount of] rows)",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev34",
+  "description" : "Gets the rows/size/viewers/holder of an inventory.",
+  "examples" : "event-inventory's amount of rows\\nholder of player's top inventory\\n{_inventory}'s viewers"
 },
 {
   "id" : "ExprInventorySlot",
@@ -4024,15 +4035,15 @@
 },
 {
   "id" : "ExprNamed",
-  "name" : "Named Item",
+  "name" : "Named Item/Inventory",
   "patterns" : [
-    "%<a href='classes.html#itemtype'>item types</a>% (named|with name[s]) %<a href='classes.html#string'>text</a>%",
+    "%<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#inventorytype'>types.inventorytype</a>% (named|with name[s]) %<a href='classes.html#string'>text</a>%",
 
     "pattern_end"
   ],
-  "since" : "2.0",
-  "description" : "Directly names an item, useful for defining a named item in a script. If you want to (re)name existing items you can either use this expression or use <code>set <a href='#ExprName'>name of &lt;item&gt;</a> to &lt;text&gt;</code>.",
-  "examples" : "give a diamond sword of sharpness 100 named \"<gold>Excalibur\" to the player\\nset tool of player to the player's tool named \"<gold>Wand\"\\nset the name of the player's tool to \"<gold>Wand\""
+  "since" : "2.0, 2.2-dev34 (Inventories)",
+  "description" : "Directly names an item/inventory, useful for defining a named item/inventory in a script. If you want to (re)name existing items/inventories you can either use this expression or use <code>set <a href='#ExprName'>name of &lt;item/inventory&gt;</a> to &lt;text&gt;</code>.",
+  "examples" : "give a diamond sword of sharpness 100 named \"<gold>Excalibur\" to the player\\nset tool of player to the player's tool named \"<gold>Wand\"\\nset the name of the player's tool to \"<gold>Wand\"\\nopen hopper inventory named \"Magic Hopper\" to player"
 },
 {
   "id" : "ExprNow",
@@ -4110,6 +4121,19 @@
   "examples" : "#for 1.11 and lower\\npassenger of the minecart is a creeper or a cow\\nthe saddled pig's passenger is a player\\n#for 1.11.2+\\npassengers of the minecart contains a creeper or a cow\\nthe boat's passenger contains a pig\\nadd a cow and a zombie to passengers of last spawned boat\\nset passengers of player's vehicle to a pig and a horse\\nremove all pigs from player's vehicle\\nclear passengers of boat"
 },
 {
+  "id" : "ExprPlayerWeather",
+  "name" : "Player Weather",
+  "patterns" : [
+    "[the] weather of %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>%'[s] weather",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev34",
+  "description" : "The weather for a player.",
+  "examples" : "set weather of arg-player to rainy\\nreset player's weather\\nif arg-player's weather is rainy"
+},
+{
   "id" : "ExprPotionItem",
   "name" : "Potion (item)",
   "patterns" : [
@@ -4159,43 +4183,6 @@
   "since" : "unknown (2.2)",
   "description" : "Raw Minecraft material name for given item. Note that this is not guaranteed to give same results on all servers.",
   "examples" : "raw name of tool of player"
-},
-{
-  "id" : "ExprRegion",
-  "name" : "Region",
-  "patterns" : [
-    "[the] [event-]region",
-
-    "pattern_end"
-  ],
-  "since" : "2.1",
-  "description" : "The <a href='classes.html#region'>region</a> involved in an event.\\nThis expression requires a supported regions plugin to be installed.",
-  "examples" : "on region enter:\\n    region is {forbidden region}\\n    cancel the event"
-},
-{
-  "id" : "ExprMembersOfRegion",
-  "name" : "Region Members & Owners",
-  "patterns" : [
-    "[(all|the)] (members|owner[s]) of [[the] region[s]] %<a href='classes.html#region'>regions</a>%",
-"[[the] region[s]] %<a href='classes.html#region'>regions</a>%'[s] (members|owner[s])",
-
-    "pattern_end"
-  ],
-  "since" : "2.1",
-  "description" : "A list of members or owners of a <a href='../classes/#region'>region</a>.\\nThis expression requires a supported regions plugin to be installed.",
-  "examples" : "on entering of a region:\\n    message \"You're entering %region% whose owners are %owners of region%\"."
-},
-{
-  "id" : "ExprRegionsAt",
-  "name" : "Regions At",
-  "patterns" : [
-    "[the] region[s] %<a href='classes.html#direction'>direction</a>% %<a href='classes.html#location'>locations</a>%",
-
-    "pattern_end"
-  ],
-  "since" : "2.1",
-  "description" : "All <a href='../classes/#region'>regions</a> at a particular <a href='../classes/#location'>location</a>.\\nThis expression requires a supported regions plugin to be installed.",
-  "examples" : "On click on a sign:\\n    line 1 of the clicked block is \"[region info]\"\\n    set {_regions::*} to regions at the clicked block\\n    if {_regions::*} is empty:\\n        message \"No regions exist at this sign.\"\\n    else:\\n        message \"Regions containing this sign: <gold>%{_regions::*}%<r>.\""
 },
 {
   "id" : "ExprRemainingAir",
@@ -4261,6 +4248,18 @@
   "examples" : "shooter is a skeleton"
 },
 {
+  "id" : "ExprShuffledList",
+  "name" : "Shuffled List",
+  "patterns" : [
+    "shuffled %<a href='classes.html#object'>objects</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev32",
+  "description" : "Shuffles given list randomly. This is done by replacing indices by random numbers in resulting list.",
+  "examples" : "set {_list::*} to shuffled {_list::*}"
+},
+{
   "id" : "ExprSignText",
   "name" : "Sign Text",
   "patterns" : [
@@ -4290,25 +4289,13 @@
   "id" : "ExprSortedList",
   "name" : "Sorted List",
   "patterns" : [
-    "shuffled %<a href='classes.html#object'>objects</a>%",
-
-    "pattern_end"
-  ],
-  "since" : "2.2-dev19",
-  "description" : "Sorts given list in natural order. All objects in list must be comparable; usually if you think you can compare it, it can be compared.",
-  "examples" : "set {_list::*} to  sorted {_list::*"
-},
-{
-  "id" : "ExprSortedList",
-  "name" : "Sorted List",
-  "patterns" : [
     "sorted %<a href='classes.html#object'>objects</a>%",
 
     "pattern_end"
   ],
   "since" : "2.2-dev19",
   "description" : "Sorts given list in natural order. All objects in list must be comparable; usually if you think you can compare it, it can be compared.",
-  "examples" : "set {_list::*} to  sorted {_list::*"
+  "examples" : "set {_list::*} to sorted {_list::*}"
 },
 {
   "id" : "ExprSpawn",
