@@ -19,10 +19,42 @@
  */
 package ch.njol.skript.lang.parser;
 
+import ch.njol.skript.SkriptAPIException;
+
 /**
  * Represents a parse operation which parsed elements can mutate when they
  * are matched.
  */
 public class ParseOperation {
-	// TODO
+	
+	/**
+	 * Internal representation of marks as 32-bit unsigned value.
+	 */
+	private int marks;
+	
+	/**
+	 * Toggles a mark with id from given enum entry. If the mark does not
+	 * exist, it is set, and if it does, it is removed.
+	 * @param e Enum instance.
+	 */
+	public void toggleMark(Enum<?> e) {
+		int index = e.ordinal();
+		if (index > 31) { // Data must fit to an int
+			throw new SkriptAPIException("a pattern cannot have more than 32 marks");
+		}
+		marks ^= 1 << index;
+	}
+	
+	/**
+	 * Checks if there is a mark for given enum instance.
+	 * @param e Enum instance.
+	 * @return Whether a mark exists for it.
+	 */
+	public boolean hasMark(Enum<?> e) {
+		int index = e.ordinal();
+		if (index > 31) { // Data must fit to an int
+			throw new SkriptAPIException("a pattern cannot have more than 32 marks");
+		}
+		return (marks >>> index) == 1;
+	}
 }

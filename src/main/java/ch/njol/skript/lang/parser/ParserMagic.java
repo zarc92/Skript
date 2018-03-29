@@ -36,7 +36,7 @@ public interface ParserMagic {
 	public static final int PARSE_LITERALS = 0b10;
 	
 	/**
-	 * Parse variables. Probably would be used 
+	 * Parse variables. Usually this is specified with other options.
 	 */
 	public static final int PARSE_VARIABLES = 0b100;
 	
