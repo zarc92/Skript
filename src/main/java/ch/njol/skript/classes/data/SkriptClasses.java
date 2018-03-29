@@ -46,7 +46,6 @@ import ch.njol.skript.classes.Serializer;
 import ch.njol.skript.classes.YggdrasilSerializer;
 import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
-import ch.njol.skript.lang.parser.ParserInstance;
 import ch.njol.skript.lang.util.SimpleLiteral;
 import ch.njol.skript.localization.Noun;
 import ch.njol.skript.localization.RegexMessage;
@@ -56,7 +55,6 @@ import ch.njol.skript.util.Date;
 import ch.njol.skript.util.Direction;
 import ch.njol.skript.util.EnchantmentType;
 import ch.njol.skript.util.Experience;
-import ch.njol.skript.util.Slot;
 import ch.njol.skript.util.StructureType;
 import ch.njol.skript.util.Time;
 import ch.njol.skript.util.Timeperiod;
@@ -65,6 +63,7 @@ import ch.njol.skript.util.Utils;
 import ch.njol.skript.util.VisualEffect;
 import ch.njol.skript.util.VisualEffectDummy;
 import ch.njol.skript.util.WeatherType;
+import ch.njol.skript.util.slot.Slot;
 import ch.njol.yggdrasil.Fields;
 
 /**
