@@ -48,7 +48,7 @@ public class VariableElement implements PatternElement {
 	}
 	
 	@Override
-	public int matches(String line, int start) {
+	public int matches(String line, int start, ParseOperation op) {
 		
 		
 		return 0;

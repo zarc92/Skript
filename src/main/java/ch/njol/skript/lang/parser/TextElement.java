@@ -28,7 +28,7 @@ public class TextElement implements PatternElement {
 	}
 	
 	@Override
-	public int matches(String line, int start) {
+	public int matches(String line, int start, ParseOperation op) {
 		int found = line.indexOf(text, start);
 		if (found == -1) // Does not match
 			return NO_MATCH;

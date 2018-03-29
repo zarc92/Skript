@@ -32,7 +32,8 @@ public interface PatternElement {
 	 * If it does not, {@link NO_MATCH} should be returned.
 	 * @param line Line of text.
 	 * @param start Start in the line.
+	 * @param op Parse operation for mutation and reading data.
 	 * @return Where match ends or {@link NO_MATCH}.
 	 */
-	int matches(String line, int start);
+	int matches(String line, int start, ParseOperation op);
 }

@@ -33,6 +33,15 @@ public class ParseOperation {
 	private int marks;
 	
 	/**
+	 * Parser responsible for this operation.
+	 */
+	private SkriptParser parser;
+	
+	public ParseOperation(SkriptParser parser) {
+		this.parser = parser;
+	}
+	
+	/**
 	 * Toggles a mark with id from given enum entry. If the mark does not
 	 * exist, it is set, and if it does, it is removed.
 	 * @param e Enum instance.
@@ -56,5 +65,18 @@ public class ParseOperation {
 			throw new SkriptAPIException("a pattern cannot have more than 32 marks");
 		}
 		return (marks >>> index) == 1;
+	}
+	
+	/**
+	 * Gets the parser that is responsible for this operation.
+	 * @return Responsible parser.
+	 */
+	public SkriptParser getResponsibleParser() {
+		return parser;
+	}
+	
+	public void parse(String code, int parseMode) {
+		// TODO return type based on SkriptParser return type when done
+		parser.parse(code, parseMode, this);
 	}
 }

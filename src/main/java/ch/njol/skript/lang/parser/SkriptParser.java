@@ -19,31 +19,13 @@
  */
 package ch.njol.skript.lang.parser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Represents an element which has multiple possibilities, of which only
- * one must be matched for this element to match.
+ * Parses code according to elements that have been registered for it.
  */
-public class ChoiceElement implements PatternElement {
+public class SkriptParser {
 	
-	private List<PatternElement> choices;
-	
-	public ChoiceElement(List<PatternElement> choices) {
-		this.choices = new ArrayList<>(choices);
-	}
-	
-	@Override
-	public int matches(String line, int start, ParseOperation op) {
-		for (PatternElement choice : choices) {
-			int end = choice.matches(line, start, op);
-			if (end != NO_MATCH) { // This choice matched!
-				return end;
-			}
-		}
-		
-		return NO_MATCH; // No of choices matched
+	public void parse(String code, int parseMode, ParseOperation op) {
+		// TODO implement this
 	}
 	
 }

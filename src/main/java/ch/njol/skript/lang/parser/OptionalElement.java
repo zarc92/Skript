@@ -28,8 +28,8 @@ public class OptionalElement implements PatternElement {
 	}
 	
 	@Override
-	public int matches(String line, int start) {
-		int end = element.matches(line, start);
+	public int matches(String line, int start, ParseOperation op) {
+		int end = element.matches(line, start, op);
 		if (end == NO_MATCH)
 			return start; // It was not there
 		

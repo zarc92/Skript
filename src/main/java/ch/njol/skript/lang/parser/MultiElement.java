@@ -34,9 +34,9 @@ public class MultiElement implements PatternElement {
 	}
 	
 	@Override
-	public int matches(String line, int start) {
+	public int matches(String line, int start, ParseOperation op) {
 		for (PatternElement e : elements) {
-			int end = e.matches(line, start);
+			int end = e.matches(line, start, op);
 			if (end == NO_MATCH)
 				return NO_MATCH;
 			start = end;
