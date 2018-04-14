@@ -255,9 +255,9 @@ public class SkriptParser {
 								x = x2;
 							}
 							final T t = info.c.newInstance();
-							compiled.initExpression(info.c);
 							if (t.init(res.exprs, i, ScriptLoader.hasDelayBefore, res)) {
 								log.printLog();
+								compiled.initExpression(info.c);
 								return t;
 							}
 						}
@@ -976,6 +976,7 @@ public class SkriptParser {
 								return null;
 							}
 							log.printLog();
+							compiled.initExpression(info.c);
 							return new NonNullPair<>(info, e);
 						}
 					} catch (final InstantiationException e) {

@@ -42,4 +42,12 @@ public interface ParserListener {
 	void convertedExpression(Class<?> type);
 	
 	void simpleLiteral(Object literal);
+	
+	void commandArgument(Class<?> type, boolean optional);
+	
+	void command();
+	
+	void function(int signatureId);
+	
+	void trigger();
 }
