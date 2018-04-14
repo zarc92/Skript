@@ -17,9 +17,9 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.lang.bytecode;
+package ch.njol.skript.lang.cache;
 
-public interface CompiledStatement {
+public interface ParserListener {
 	
 	void initExpression(Class<?> type);
 	

@@ -50,8 +50,8 @@ import ch.njol.skript.command.ScriptCommand;
 import ch.njol.skript.command.ScriptCommandEvent;
 import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.expressions.ExprParse;
-import ch.njol.skript.lang.bytecode.CompiledStatement;
-import ch.njol.skript.lang.bytecode.DebugCompiledStatement;
+import ch.njol.skript.lang.cache.DebugParserListener;
+import ch.njol.skript.lang.cache.ParserListener;
 import ch.njol.skript.lang.function.ExprFunctionCall;
 import ch.njol.skript.lang.function.Function;
 import ch.njol.skript.lang.function.FunctionReference;
@@ -91,7 +91,7 @@ public class SkriptParser {
 	
 	public final ParseContext context;
 	
-	public static CompiledStatement compiled = new DebugCompiledStatement();
+	public static ParserListener compiled = new DebugParserListener();
 	
 	public SkriptParser(final String expr) {
 		this(expr, ALL_FLAGS);

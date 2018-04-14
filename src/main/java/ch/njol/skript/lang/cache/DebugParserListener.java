@@ -17,11 +17,11 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.lang.bytecode;
+package ch.njol.skript.lang.cache;
 
 import ch.njol.skript.Skript;
 
-public class DebugCompiledStatement implements CompiledStatement {
+public class DebugParserListener implements ParserListener {
 	
 	@Override
 	public void initExpression(Class<?> type) {
