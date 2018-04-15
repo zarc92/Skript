@@ -16,7 +16,7 @@ public interface ParsedCommand {
 	
 	void aliases(List<String> aliases);
 	
-	int executableBy(int executable);
+	void executableBy(int executable);
 	
 	void cooldown(Timespan time);
 	

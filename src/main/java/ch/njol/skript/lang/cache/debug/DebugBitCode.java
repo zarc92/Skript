@@ -17,9 +17,10 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.lang.cache;
+package ch.njol.skript.lang.cache.debug;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.lang.cache.BitCode;
 
 public class DebugBitCode implements BitCode {
 	
