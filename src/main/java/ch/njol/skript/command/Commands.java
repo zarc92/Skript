@@ -37,6 +37,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ch.njol.skript.lang.VariableString;
+import ch.njol.skript.lang.cache.BitCode;
+import ch.njol.skript.lang.cache.ParsedCommand;
+import ch.njol.skript.lang.cache.debug.DebugCommand;
 import ch.njol.skript.util.StringMode;
 import ch.njol.skript.util.Timespan;
 import org.apache.commons.lang.Validate;
@@ -305,11 +308,11 @@ public abstract class Commands {
 	
 	@Nullable
 	public final static ScriptCommand loadCommand(final SectionNode node) {
-		return loadCommand(node, true);
+		return loadCommand(node, true, new DebugCommand()); // TODO fix this
 	}
 	
 	@Nullable
-	public final static ScriptCommand loadCommand(final SectionNode node, final boolean alsoRegister) {
+	public final static ScriptCommand loadCommand(final SectionNode node, final boolean alsoRegister, final ParsedCommand parsed) {
 		final String key = node.getKey();
 		if (key == null)
 			return null;
@@ -343,6 +346,7 @@ public abstract class Commands {
 			Skript.error("A command with the name /" + existingCommand.getName() + " is already defined" + (f == null ? "" : " in " + f.getName()));
 			return null;
 		}
+		parsed.name(command);
 		
 		final String arguments = m.group(3) == null ? "" : m.group(3);
 		final StringBuilder pattern = new StringBuilder();
@@ -373,10 +377,12 @@ public abstract class Commands {
 				return null;
 			}
 			
-			final Argument<?> arg = Argument.newInstance(m.group(1), c, m.group(3), i, !p.getSecond(), optionals > 0);
+			String argName = m.group(1);
+			final Argument<?> arg = Argument.newInstance(argName, c, m.group(3), i, !p.getSecond(), optionals > 0);
 			if (arg == null)
 				return null;
 			currentArguments.add(arg);
+			parsed.argument(argName, c.getC(), arg.isSingle(), arg.isOptional());
 			
 			if (arg.isOptional() && optionals == 0) {
 				pattern.append('[');
@@ -415,17 +421,22 @@ public abstract class Commands {
 			return null;
 		
 		final String usage = ScriptLoader.replaceOptions(node.get("usage", desc));
+		parsed.usage(usage);
 		final String description = ScriptLoader.replaceOptions(node.get("description", ""));
+		parsed.description(description);
 		
-		ArrayList<String> aliases = new ArrayList<>(Arrays.asList(ScriptLoader.replaceOptions(node.get("aliases", "")).split("\\s*,\\s*/?")));
+		List<String> aliases = new ArrayList<>(Arrays.asList(ScriptLoader.replaceOptions(node.get("aliases", "")).split("\\s*,\\s*/?")));
 		if (aliases.get(0).startsWith("/"))
 			aliases.set(0, aliases.get(0).substring(1));
 		// TODO aliases as string list?
 		else if (aliases.get(0).isEmpty())
 			aliases = new ArrayList<>(0);
+		parsed.aliases(aliases);
 		
 		final String permission = ScriptLoader.replaceOptions(node.get("permission", ""));
+		parsed.permission(permission);
 		final String permissionMessage = ScriptLoader.replaceOptions(node.get("permission message", ""));
+		parsed.permissionMessage(permissionMessage);
 		
 		final SectionNode trigger = (SectionNode) node.get("trigger");
 		if (trigger == null)
@@ -451,15 +462,19 @@ public abstract class Commands {
 				Skript.warning("'" + cooldownString + "' is an invalid timespan for the cooldown");
 			}
 		}
+		if (cooldown != null)
+			parsed.cooldown(cooldown);
 
 		final String cooldownMessageString = ScriptLoader.replaceOptions(node.get("cooldown message", ""));
 		boolean usingCooldownMessage = !cooldownMessageString.isEmpty();
 		VariableString cooldownMessage = null;
 		if (usingCooldownMessage) {
+			SkriptParser.compiled = parsed.cooldownMessage();
 			cooldownMessage = VariableString.newInstance(cooldownMessageString);
 		}
 
 		String cooldownBypass = ScriptLoader.replaceOptions(node.get("cooldown bypass", ""));
+		parsed.cooldownBypass(cooldownBypass);
 
 		if (!permissionMessage.isEmpty() && permission.isEmpty()) {
 			Skript.warning("command /" + command + " has a permission message set, but not a permission");
@@ -472,6 +487,7 @@ public abstract class Commands {
 		String cooldownStorageString = ScriptLoader.replaceOptions(node.get("cooldown storage", ""));
 		VariableString cooldownStorage = null;
 		if (!cooldownStorageString.isEmpty()) {
+			SkriptParser.compiled = parsed.cooldownStorage();
 			cooldownStorage = VariableString.newInstance(cooldownStorageString, StringMode.VARIABLE_NAME);
 		}
 
@@ -487,6 +503,7 @@ public abstract class Commands {
 		Commands.currentArguments = currentArguments;
 		final ScriptCommand c;
 		try {
+			SkriptParser.compiled = parsed.trigger();
 			c = new ScriptCommand(config, command, "" + pattern.toString(), currentArguments, description, usage,
 					aliases, permission, permissionMessage, cooldown, cooldownMessage, cooldownBypass, cooldownStorage,
 					executableBy, ScriptLoader.loadItems(trigger));

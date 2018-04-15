@@ -123,7 +123,7 @@ public class ScriptCommand implements CommandExecutor {
 	 * @param items trigger to execute
 	 */
 	public ScriptCommand(final File script, final String name, final String pattern, final List<Argument<?>> arguments,
-						 final String description, final String usage, final ArrayList<String> aliases,
+						 final String description, final String usage, final List<String> aliases,
 						 final String permission, final String permissionMessage, @Nullable final Timespan cooldown,
 						 @Nullable final VariableString cooldownMessage, final String cooldownBypass,
 						 @Nullable VariableString cooldownStorage, final int executableBy, final List<TriggerItem> items) {

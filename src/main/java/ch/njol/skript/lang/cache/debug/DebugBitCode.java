@@ -26,7 +26,7 @@ public class DebugBitCode implements BitCode {
 	
 	@Override
 	public void initElement(Class<?> type) {
-		Skript.info("InitExpression: " + type);
+		Skript.info("InitElement: " + type);
 	}
 	
 	@Override

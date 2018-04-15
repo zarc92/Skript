@@ -17,37 +17,13 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.lang.cache;
+/**
+ * Contains all code related to parsing scripts.
+ * 
+ * @author Peter Güttinger
+ */
+@NonNullByDefault
+package ch.njol.skript.lang.cache.debug;
 
-import java.util.List;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 
-import ch.njol.skript.util.Timespan;
-
-public interface ParsedCommand {
-	
-	void name(String name);
-	
-	void argument(String name, Class<?> type, boolean single, boolean optional);
-	
-	void usage(String usage);
-	
-	void description(String desc);
-	
-	void aliases(List<String> aliases);
-	
-	void permission(String permission);
-	
-	void permissionMessage(String message);
-	
-	void executableBy(int executable);
-	
-	void cooldown(Timespan time);
-	
-	BitCode cooldownMessage();
-	
-	void cooldownBypass(String bypass);
-	
-	BitCode cooldownStorage();
-	
-	BitCode trigger();
-}

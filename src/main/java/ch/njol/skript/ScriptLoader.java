@@ -74,6 +74,10 @@ import ch.njol.skript.lang.Trigger;
 import ch.njol.skript.lang.TriggerItem;
 import ch.njol.skript.lang.TriggerSection;
 import ch.njol.skript.lang.While;
+import ch.njol.skript.lang.cache.BitCode;
+import ch.njol.skript.lang.cache.ParsedScript;
+import ch.njol.skript.lang.cache.ParsedTrigger;
+import ch.njol.skript.lang.cache.debug.DebugScript;
 import ch.njol.skript.lang.function.Function;
 import ch.njol.skript.lang.function.FunctionEvent;
 import ch.njol.skript.lang.function.Functions;
@@ -445,6 +449,8 @@ final public class ScriptLoader {
 		int numCommands = 0;
 		int numFunctions = 0;
 		
+		ParsedScript parsed = new DebugScript();
+		
 		try {
 			if (SkriptConfig.keepConfigsLoaded.value())
 				SkriptConfig.configs.add(config);
@@ -568,7 +574,7 @@ final public class ScriptLoader {
 						
 						setCurrentEvent("command", CommandEvent.class);
 						
-						final ScriptCommand c = Commands.loadCommand(node, false);
+						final ScriptCommand c = Commands.loadCommand(node, false, parsed.command());
 						if (c != null) {
 							commands.add(c);
 						}
@@ -600,6 +606,8 @@ final public class ScriptLoader {
 					
 					event = replaceOptions(event);
 					
+					ParsedTrigger parsedTrigger = parsed.trigger();
+					SkriptParser.compiled = parsedTrigger.event();
 					final NonNullPair<SkriptEventInfo<?>, SkriptEvent> parsedEvent = SkriptParser.parseEvent(event, "can't understand this event: '" + node.getKey() + "'");
 					if (parsedEvent == null)
 						continue;
@@ -609,6 +617,7 @@ final public class ScriptLoader {
 					
 					try {
 						setCurrentEvent("" + parsedEvent.getFirst().getName().toLowerCase(Locale.ENGLISH), parsedEvent.getFirst().events);
+						SkriptParser.compiled = parsedTrigger.trigger();
 						events.add(new ParsedEventData(parsedEvent, event, node, loadItems(node)));
 					} finally {
 						deleteCurrentEvent();
