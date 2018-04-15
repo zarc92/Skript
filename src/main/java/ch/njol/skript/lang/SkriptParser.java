@@ -50,7 +50,7 @@ import ch.njol.skript.command.ScriptCommand;
 import ch.njol.skript.command.ScriptCommandEvent;
 import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.expressions.ExprParse;
-import ch.njol.skript.lang.cache.DebugParserListener;
+import ch.njol.skript.lang.cache.DebugBitCode;
 import ch.njol.skript.lang.cache.BitCode;
 import ch.njol.skript.lang.function.ExprFunctionCall;
 import ch.njol.skript.lang.function.Function;
@@ -91,7 +91,7 @@ public class SkriptParser {
 	
 	public final ParseContext context;
 	
-	public static BitCode compiled = new DebugParserListener();
+	public static BitCode compiled = new DebugBitCode();
 	
 	public SkriptParser(final String expr) {
 		this(expr, ALL_FLAGS);
@@ -709,14 +709,14 @@ public class SkriptParser {
 				assert ls != null;
 				@SuppressWarnings("unchecked")
 				Class<Object> listType = (Class<Object>) Utils.getSuperType(exprRetTypes);
-				compiled.literalList(listType);
+				compiled.literalList(listType, ls.length);
 				return new LiteralList<>(ls, listType, !and.isFalse());
 			} else {
 				final Expression<?>[] es = ts.toArray(new Expression[ts.size()]);
 				assert es != null;
 				@SuppressWarnings("unchecked")
 				Class<Object> listType = (Class<Object>) Utils.getSuperType(exprRetTypes);
-				compiled.expressionList(listType);
+				compiled.expressionList(listType, es.length);
 				return new ExpressionList<>(es, listType, !and.isFalse());
 			}
 		} finally {

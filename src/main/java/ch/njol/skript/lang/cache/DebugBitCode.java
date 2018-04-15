@@ -21,7 +21,7 @@ package ch.njol.skript.lang.cache;
 
 import ch.njol.skript.Skript;
 
-public class DebugParserListener implements BitCode {
+public class DebugBitCode implements BitCode {
 	
 	@Override
 	public void initElement(Class<?> type) {
@@ -34,12 +34,12 @@ public class DebugParserListener implements BitCode {
 	}
 	
 	@Override
-	public void expressionList(Class<?> type) {
+	public void expressionList(Class<?> type, int size) {
 		Skript.info("ExpressionList: " + type);
 	}
 	
 	@Override
-	public void literalList(Class<?> type) {
+	public void literalList(Class<?> type, int size) {
 		Skript.info("LiteralList: " + type);
 	}
 	
@@ -76,5 +76,10 @@ public class DebugParserListener implements BitCode {
 	@Override
 	public void simpleLiteral(Object literal) {
 		Skript.info("SimpleLiteral: " + literal);
+	}
+
+	@Override
+	public void statement() {
+		Skript.info("Statement");
 	}
 }
