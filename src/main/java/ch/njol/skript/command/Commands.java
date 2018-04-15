@@ -377,7 +377,6 @@ public abstract class Commands {
 			if (arg == null)
 				return null;
 			currentArguments.add(arg);
-			SkriptParser.compiled.commandArgument(c.getC(), arg.isOptional());
 			
 			if (arg.isOptional() && optionals == 0) {
 				pattern.append('[');
@@ -416,9 +415,7 @@ public abstract class Commands {
 			return null;
 		
 		final String usage = ScriptLoader.replaceOptions(node.get("usage", desc));
-		SkriptParser.compiled.stringLiteral(usage);
 		final String description = ScriptLoader.replaceOptions(node.get("description", ""));
-		SkriptParser.compiled.stringLiteral(description);
 		
 		ArrayList<String> aliases = new ArrayList<>(Arrays.asList(ScriptLoader.replaceOptions(node.get("aliases", "")).split("\\s*,\\s*/?")));
 		if (aliases.get(0).startsWith("/"))
@@ -428,9 +425,7 @@ public abstract class Commands {
 			aliases = new ArrayList<>(0);
 		
 		final String permission = ScriptLoader.replaceOptions(node.get("permission", ""));
-		SkriptParser.compiled.stringLiteral("permission");
 		final String permissionMessage = ScriptLoader.replaceOptions(node.get("permission message", ""));
-		SkriptParser.compiled.stringLiteral(permissionMessage);
 		
 		final SectionNode trigger = (SectionNode) node.get("trigger");
 		if (trigger == null)

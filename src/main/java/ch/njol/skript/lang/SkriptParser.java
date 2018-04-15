@@ -51,7 +51,7 @@ import ch.njol.skript.command.ScriptCommandEvent;
 import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.expressions.ExprParse;
 import ch.njol.skript.lang.cache.DebugParserListener;
-import ch.njol.skript.lang.cache.ParserListener;
+import ch.njol.skript.lang.cache.BitCode;
 import ch.njol.skript.lang.function.ExprFunctionCall;
 import ch.njol.skript.lang.function.Function;
 import ch.njol.skript.lang.function.FunctionReference;
@@ -91,7 +91,7 @@ public class SkriptParser {
 	
 	public final ParseContext context;
 	
-	public static ParserListener compiled = new DebugParserListener();
+	public static BitCode compiled = new DebugParserListener();
 	
 	public SkriptParser(final String expr) {
 		this(expr, ALL_FLAGS);
@@ -257,7 +257,7 @@ public class SkriptParser {
 							final T t = info.c.newInstance();
 							if (t.init(res.exprs, i, ScriptLoader.hasDelayBefore, res)) {
 								log.printLog();
-								compiled.initExpression(info.c);
+								compiled.initElement(info.c);
 								return t;
 							}
 						}
@@ -976,7 +976,7 @@ public class SkriptParser {
 								return null;
 							}
 							log.printLog();
-							compiled.initExpression(info.c);
+							compiled.initElement(info.c);
 							return new NonNullPair<>(info, e);
 						}
 					} catch (final InstantiationException e) {

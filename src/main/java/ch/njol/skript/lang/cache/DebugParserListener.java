@@ -21,10 +21,10 @@ package ch.njol.skript.lang.cache;
 
 import ch.njol.skript.Skript;
 
-public class DebugParserListener implements ParserListener {
+public class DebugParserListener implements BitCode {
 	
 	@Override
-	public void initExpression(Class<?> type) {
+	public void initElement(Class<?> type) {
 		Skript.info("InitExpression: " + type);
 	}
 	

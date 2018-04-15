@@ -19,15 +19,17 @@
  */
 package ch.njol.skript.lang.cache;
 
-public interface ParserListener {
+public interface BitCode {
 	
-	void initExpression(Class<?> type);
+	void initElement(Class<?> type);
+	
+	void statement();
 	
 	void defaultExpr(Class<?> type);
 	
-	void expressionList(Class<?> type);
+	void expressionList(Class<?> type, int size);
 	
-	void literalList(Class<?> type);
+	void literalList(Class<?> type, int size);
 	
 	void variable();
 	
@@ -42,12 +44,4 @@ public interface ParserListener {
 	void convertedExpression(Class<?> type);
 	
 	void simpleLiteral(Object literal);
-	
-	void commandArgument(Class<?> type, boolean optional);
-	
-	void command();
-	
-	void function(int signatureId);
-	
-	void trigger();
 }
