@@ -382,6 +382,7 @@ public abstract class Commands {
 			if (arg == null)
 				return null;
 			currentArguments.add(arg);
+			assert argName != null;
 			parsed.argument(argName, c.getC(), arg.isSingle(), arg.isOptional());
 			
 			if (arg.isOptional() && optionals == 0) {
