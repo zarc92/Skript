@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev34</title>
+  <title>Skript Documentation - 2.2-dev35</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -43,8 +43,7 @@
 <p><a href="#ExprChatFormat">Chat Format</a></p>
 <p><a href="#ExprChatRecipients">Chat Recipients</a></p>
 <p><a href="#ExprChunk">Chunk</a></p>
-<p><a href="#ExprClickAction">Click Action</a></p>
-<p><a href="#ExprClicked">Clicked Block/Entity</a></p>
+<p><a href="#ExprClicked">Clicked Block/Entity/Inventory/Slot</a></p>
 <p><a href="#ExprColorOf">Colour of</a></p>
 <p><a href="#ExprColoured">Coloured / Uncoloured</a></p>
 <p><a href="#ExprCommand">Command</a></p>
@@ -55,7 +54,7 @@
 <p><a href="#ExprCoordinate">Coordinate</a></p>
 <p><a href="#ExprEntity">Creature/Entity/Player/Projectile/Villager/Powered Creeper/etc.</a></p>
 <p><a href="#ExprCursorSlot">Cursor Slot</a></p>
-<p><a href="#ExprNewInventory">Custom Chest Inventory</a></p>
+<p><a href="#ExprChestInventory">Custom Chest Inventory</a></p>
 <p><a href="#ExprDamage">Damage</a></p>
 <p><a href="#ExprDamageCause">Damage Cause</a></p>
 <p><a href="#ExprDurability">Data Value</a></p>
@@ -68,6 +67,7 @@
 <p><a href="#ExprEnchantmentLevel">Enchantment Level</a></p>
 <p><a href="#ExprEnderChest">Ender Chest</a></p>
 <p><a href="#ExprEntities">Entities</a></p>
+<p><a href="#ExprExhaustion">Exhaustion</a></p>
 <p><a href="#ExprExperience">Experience</a></p>
 <p><a href="#ExprFacing">Facing</a></p>
 <p><a href="#ExprFinalDamage">Final Damage</a></p>
@@ -80,10 +80,12 @@
 <p><a href="#ExprGlidingState">Gliding State</a></p>
 <p><a href="#ExprGlowing">Glowing</a></p>
 <p><a href="#ExprGravity">Gravity</a></p>
+<p><a href="#ExprGroup">Group</a></p>
 <p><a href="#ExprHash">Hash</a></p>
 <p><a href="#ExprEyeLocation">Head location</a></p>
 <p><a href="#ExprHealth">Health</a></p>
 <p><a href="#ExprHighestSolidBlock">Highest Solid Block</a></p>
+<p><a href="#ExprHumidity">Humidity</a></p>
 <p><a href="#ExprIP">IP</a></p>
 <p><a href="#ExprIdOf">Id</a></p>
 <p><a href="#ExprIndexOf">Index Of</a></p>
@@ -93,6 +95,7 @@
 <p><a href="#ExprInventorySlot">Inventory Slot</a></p>
 <p><a href="#ExprItem">Item</a></p>
 <p><a href="#ExprItemAmount">Item Amount</a></p>
+<p><a href="#ExprItemFrameSlot">Item in Item Frame</a></p>
 <p><a href="#ExprItems">Items</a></p>
 <p><a href="#ExprItemsIn">Items In</a></p>
 <p><a href="#ExprJoinSplit">Join & Split</a></p>
@@ -120,7 +123,8 @@
 <p><a href="#ExprNamed">Named Item/Inventory</a></p>
 <p><a href="#ExprNow">Now</a></p>
 <p><a href="#ExprNumbers">Numbers</a></p>
-<p><a href="#ExprOpenInventory">Open Inventory</a></p>
+<p><a href="#ExprOfflinePlayers">Offline players</a></p>
+<p><a href="#ExprOpenedInventory">Opened Inventory</a></p>
 <p><a href="#ExprParse">Parse</a></p>
 <p><a href="#ExprParseError">Parse Error</a></p>
 <p><a href="#ExprPassenger">Passenger</a></p>
@@ -130,6 +134,7 @@
 <p><a href="#ExprRandomNumber">Random Number</a></p>
 <p><a href="#ExprRawName">Raw Name</a></p>
 <p><a href="#ExprRemainingAir">Remaining Air</a></p>
+<p><a href="#ExprRespawnLocation">Respawn location</a></p>
 <p><a href="#ExprRound">Rounding</a></p>
 <p><a href="#ExprSaturation">Saturation</a></p>
 <p><a href="#ExprScript">Script Name</a></p>
@@ -137,6 +142,7 @@
 <p><a href="#ExprShuffledList">Shuffled List</a></p>
 <p><a href="#ExprSignText">Sign Text</a></p>
 <p><a href="#ExprSkull">Skull</a></p>
+<p><a href="#ExprSlotIndex">Slot Index</a></p>
 <p><a href="#ExprSortedList">Sorted List</a></p>
 <p><a href="#ExprSpawn">Spawn</a></p>
 <p><a href="#ExprSpecialNumber">Special Number</a></p>
@@ -145,6 +151,8 @@
 <p><a href="#ExprTamer">Tamer</a></p>
 <p><a href="#ExprTarget">Target</a></p>
 <p><a href="#ExprTargetedBlock">Targeted Block</a></p>
+<p><a href="#ExprTeleportCause">Teleport Cause</a></p>
+<p><a href="#ExprTemperature">Temperature</a></p>
 <p><a href="#ExprTime">Time</a></p>
 <p><a href="#ExprTool">Tool</a></p>
 <p><a href="#ExprTypeOf">Type of</a></p>
@@ -174,6 +182,7 @@
 <p><a href="#ExprVersion">Version</a></p>
 <p><a href="#ExprWeather">Weather</a></p>
 <p><a href="#ExprWorld">World</a></p>
+<p><a href="#ExprSeed">World Seed</a></p>
 <p><a href="#ExprWorlds">Worlds</a></p>
 <p><a href="#ExprXOf">X of Item</a></p>
 <p><a href="#ExprYawPitch">Yaw / Pitch</a></p>
@@ -193,7 +202,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(all [of]|[the])] permissions of %<a href='classes.html#player'>players</a>%</span></li>
+          <li><span class="skript-code-inline">[the] permissions of %<a href='classes.html#player'>players</a>%</span></li>
 <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] permissions</span></li>
 
         </ul>
@@ -208,7 +217,7 @@
   </table>
 
   <div class="item-description">
-    Gets all permissions of players. Note that the modifications to resulting list do not actually change permissions.
+    Returns all permissions of the defined player(s). Note that the modifications to resulting list do not actually change permissions.
   </div>
 
   <div class="item-examples">
@@ -216,7 +225,7 @@
     Examples:
 
     <div class="skript-code-block">
-      
+      set {_permissions::*} to all permissions of the player
     </div>
 
   </div>
@@ -766,8 +775,8 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(all|the)] blocks in radius %<a href='classes.html#number'>number</a>% [(of|around) %<a href='classes.html#location'>location</a>%]</span></li>
-<li><span class="skript-code-inline">[(all|the)] blocks around %<a href='classes.html#location'>location</a>% in radius %<a href='classes.html#number'>number</a>%</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] blocks in radius %<a href='classes.html#number'>number</a>% [(of|around) %<a href='classes.html#location'>location</a>%]</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] blocks around %<a href='classes.html#location'>location</a>% in radius %<a href='classes.html#number'>number</a>%</span></li>
 
         </ul>
       </td>
@@ -804,10 +813,10 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] blocks %<a href='classes.html#direction'>direction</a>% [%<a href='classes.html#location'>locations</a>%]</span></li>
-<li><span class="skript-code-inline">[the] blocks from %<a href='classes.html#location'>location</a>% [on] %<a href='classes.html#direction'>direction</a>%</span></li>
-<li><span class="skript-code-inline">[the] blocks from %<a href='classes.html#block'>block</a>% to %<a href='classes.html#block'>block</a>%</span></li>
-<li><span class="skript-code-inline">[the] blocks between %<a href='classes.html#block'>block</a>% and %<a href='classes.html#block'>block</a>%</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] blocks %<a href='classes.html#direction'>direction</a>% [%<a href='classes.html#location'>locations</a>%]</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] blocks from %<a href='classes.html#location'>location</a>% [on] %<a href='classes.html#direction'>direction</a>%</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] blocks from %<a href='classes.html#block'>block</a>% to %<a href='classes.html#block'>block</a>%</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] blocks (within|between) %<a href='classes.html#block'>block</a>% and %<a href='classes.html#block'>block</a>%</span></li>
 
         </ul>
       </td>
@@ -1011,7 +1020,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2 (unknown)</td>
+      <td>2.2-Fixes-v7, 2.2-dev35 (clearing recipients)</td>
     </tr>
 
   </table>
@@ -1070,7 +1079,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 </div>
 
 
-<div id="ExprClickAction" class="item-title">Click Action</div>
+<div id="ExprClicked" class="item-title">Clicked Block/Entity/Inventory/Slot</div>
 <div class="item-content">
   <table>
 
@@ -1078,7 +1087,7 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] click action</span></li>
+          <li><span class="skript-code-inline">[the] ( clicked (block|%*<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#entitydata'>entity type</a>%)|clicked slot|clicked inventory|click (type|action)|inventory action)</span></li>
 
         </ul>
       </td>
@@ -1086,50 +1095,13 @@ Can optionally include a direction as well, e.g. 'block above' or 'block in fron
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-dev20</td>
+      <td>1.0, 2.2-dev35 (more clickable things)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    The <a href='../classes/#inventoryaction'>click action</a> of an inventory event. Please click on the link for more information.
-  </div>
-
-  <div class="item-examples">
-
-    Examples:
-
-    <div class="skript-code-block">
-      click action is left mouse button
-    </div>
-
-  </div>
-</div>
-
-
-<div id="ExprClicked" class="item-title">Clicked Block/Entity</div>
-<div class="item-content">
-  <table>
-
-    <tr>
-      <td class="item-table-label">Pattern:</td>
-      <td>
-        <ul>
-          <li><span class="skript-code-inline">[the] clicked (block|%*<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#entitydata'>entity type</a>%)</span></li>
-
-        </ul>
-      </td>
-    </tr>
-
-    <tr>
-      <td class="item-table-label">Since:</td>
-      <td>1.0</td>
-    </tr>
-
-  </table>
-
-  <div class="item-description">
-    The clicked block or entity - only useful in click events
+    The clicked block, entity, inventory slot, inventory, type or action.
   </div>
 
   <div class="item-examples">
@@ -1550,7 +1522,7 @@ You can use the specific type of the entity that's involved in the event, e.g. i
 </div>
 
 
-<div id="ExprNewInventory" class="item-title">Custom Chest Inventory</div>
+<div id="ExprChestInventory" class="item-title">Custom Chest Inventory</div>
 <div class="item-content">
   <table>
 
@@ -1558,8 +1530,8 @@ You can use the specific type of the entity that's involved in the event, e.g. i
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">chest inventory (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]</span></li>
-<li><span class="skript-code-inline">chest inventory with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]</span></li>
+          <li><span class="skript-code-inline">[a [new]] chest [inventory] (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]</span></li>
+<li><span class="skript-code-inline">[a [new]] chest [inventory] with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]</span></li>
 
         </ul>
       </td>
@@ -1582,7 +1554,7 @@ You can use the specific type of the entity that's involved in the event, e.g. i
 
     <div class="skript-code-block">
       open chest inventory with 1 rows named "test"
-<br>set {_inv} to chest inventory with 1 row
+<br>set {_inventory} to chest inventory with 1 row
     </div>
 
   </div>
@@ -2032,10 +2004,10 @@ See also: <a href='#ExprRandom'>random</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[all] %*<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]</span></li>
-<li><span class="skript-code-inline">[all] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]</span></li>
-<li><span class="skript-code-inline">[all] %*<a href='classes.html#entitydata'>entity types</a>% (within|[with]in radius) %<a href='classes.html#number'>number</a>% [(block[s]|met(er|re)[s])] (of|around) %<a href='classes.html#location'>location</a>%</span></li>
-<li><span class="skript-code-inline">[all] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% in radius %<a href='classes.html#number'>number</a>% (of|around) %<a href='classes.html#location'>location</a>%</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] %*<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] %*<a href='classes.html#entitydata'>entity types</a>% (within|[with]in radius) %<a href='classes.html#number'>number</a>% [(block[s]|met(er|re)[s])] (of|around) %<a href='classes.html#location'>location</a>%</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% in radius %<a href='classes.html#number'>number</a>% (of|around) %<a href='classes.html#location'>location</a>%</span></li>
 
         </ul>
       </td>
@@ -2061,6 +2033,44 @@ See also: <a href='#ExprRandom'>random</a>
 <br>send "Psst!" to all players witin 100 meters of the player
 <br>give a diamond to all ops
 <br>heal all tamed wolves in radius 2000 around {town center}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprExhaustion" class="item-title">Exhaustion</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] exhaustion of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] exhaustion</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The exhaustion of a player. This is mainly used to determine the rate of hunger depletion.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set exhaustion of all players to 1
     </div>
 
   </div>
@@ -2205,7 +2215,7 @@ See also: <a href='#ExprRandom'>random</a>
   </table>
 
   <div class="item-description">
-    Whether the player is allowed to fly. Use <a href=effects.html#EffMakeFly>Make Fly</a> effect to force a player fly.
+    Whether the player(s) are allowed to fly. Use <a href=effects.html#EffMakeFly>Make Fly</a> effect to force player(s) to fly.
   </div>
 
   <div class="item-examples">
@@ -2541,6 +2551,46 @@ Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace'
 </div>
 
 
+<div id="ExprGroup" class="item-title">Group</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] group[(s)] of %<a href='classes.html#offlineplayer'>offline players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>%'[s] group[(s)]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The primary group or all groups of a player. This expression requires Vault and a compatible permissions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on join:
+<br>broadcast "%group of player%" # this is the player's primary group
+<br>broadcast "%groups of player%" # this is all of the player's groups
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprHash" class="item-title">Hash</div>
 <div class="item-content">
   <table>
@@ -2701,6 +2751,44 @@ Please note that this location is only accurate for entities whose head is exact
 
     <div class="skript-code-block">
       highest block at location of arg-player
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprHumidity" class="item-title">Humidity</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] humidit(y|ies) of %<a href='classes.html#block'>blocks</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#block'>blocks</a>%'[s] humidit(y|ies)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Humidity of given blocks
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
     </div>
 
   </div>
@@ -3030,7 +3118,8 @@ Please note that this location is only accurate for entities whose head is exact
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">item[[ ]stack] (amount|size|number) of %<a href='classes.html#itemstack'>item stack</a>%</span></li>
+          <li><span class="skript-code-inline">[the] item[[ ]stack] (amount|size|number) of %<a href='classes.html#itemstack'>item stacks</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>%'[s] item[[ ]stack] (amount|size|number)</span></li>
 
         </ul>
       </td>
@@ -3044,7 +3133,7 @@ Please note that this location is only accurate for entities whose head is exact
   </table>
 
   <div class="item-description">
-    Gets the amount of an <a href='classes.html#itemstack'>item stack</a>.
+    The amount of an <a href='classes.html#itemstack'>item stack</a>.
   </div>
 
   <div class="item-examples">
@@ -3059,6 +3148,44 @@ Please note that this location is only accurate for entities whose head is exact
 </div>
 
 
+<div id="ExprItemFrameSlot" class="item-title">Item in Item Frame</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] item of %<a href='classes.html#entity'>entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#entity'>entities</a>%'[s] item</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    An item inside an item frame entity.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprItems" class="item-title">Items</div>
 <div class="item-content">
   <table>
@@ -3067,10 +3194,10 @@ Please note that this location is only accurate for entities whose head is exact
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(all|every)] item(s|[ ]types)</span></li>
-<li><span class="skript-code-inline">items of type[s] %<a href='classes.html#itemtype'>item types</a>%</span></li>
-<li><span class="skript-code-inline">[(all|every)] block(s|[ ]types)</span></li>
-<li><span class="skript-code-inline">blocks of type[s] %<a href='classes.html#itemtype'>item types</a>%</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the|every)] item(s|[ ]types)</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] items of type[s] %<a href='classes.html#itemtype'>item types</a>%</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the|every)] block(s|[ ]types)</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] blocks of type[s] %<a href='classes.html#itemtype'>item types</a>%</span></li>
 
         </ul>
       </td>
@@ -3110,7 +3237,7 @@ Please note that this location is only accurate for entities whose head is exact
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[all] items (in|of|contained in|out of) [(inventor(y|ies)]) %<a href='classes.html#inventory'>inventories</a>%</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] items ([with]in|of|contained in|out of) [(inventor(y|ies)]) %<a href='classes.html#inventory'>inventories</a>%</span></li>
 
         </ul>
       </td>
@@ -3191,8 +3318,8 @@ Please note that the positions of the items in the inventory are not saved, only
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] last damage cause of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] last damage cause</span></li>
+          <li><span class="skript-code-inline">[the] last damage (cause|reason|type) of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] last damage (cause|reason|type)</span></li>
 
         </ul>
       </td>
@@ -4085,7 +4212,7 @@ The differences between the different names are:
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.0, 2.2-dev34 (Inventories)</td>
+      <td>2.0, 2.2-dev34 (inventories)</td>
     </tr>
 
   </table>
@@ -4154,7 +4281,7 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(all|the)] (numbers|integers) (between|from) %<a href='classes.html#number'>number</a>% (and|to) %<a href='classes.html#number'>number</a>%</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] (numbers|integers) (between|from) %<a href='classes.html#number'>number</a>% (and|to) %<a href='classes.html#number'>number</a>%</span></li>
 <li><span class="skript-code-inline">%<a href='classes.html#number'>number</a>% times</span></li>
 
         </ul>
@@ -4188,7 +4315,7 @@ An integer loop from 1 to a number x can also be written as 'loop x times'.
 </div>
 
 
-<div id="ExprOpenInventory" class="item-title">Open Inventory</div>
+<div id="ExprOfflinePlayers" class="item-title">Offline players</div>
 <div class="item-content">
   <table>
 
@@ -4196,8 +4323,7 @@ An integer loop from 1 to a number x can also be written as 'loop x times'.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (current|open|top) inventory of %<a href='classes.html#player'>player</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#player'>player</a>%'[s] (current|open|top) inventory</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] offline[ ]players</span></li>
 
         </ul>
       </td>
@@ -4205,13 +4331,51 @@ An integer loop from 1 to a number x can also be written as 'loop x times'.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-dev24</td>
+      <td>2.2-dev35</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Return the open inventory of a player.
+    All player that have ever joined the server. This includes players currently online.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "Size of all players who have joined the server: %size of all offline players%"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprOpenedInventory" class="item-title">Opened Inventory</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (current|open|top) inventory [of %<a href='classes.html#player'>players</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] (current|open|top) inventory</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev24, 2.2-dev35 (Just 'current inventory' works in player events)</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Return the currently opened inventory of a player.
 If no inventory is open, it returns the own player's crafting inventory.
   </div>
 
@@ -4220,7 +4384,7 @@ If no inventory is open, it returns the own player's crafting inventory.
     Examples:
 
     <div class="skript-code-block">
-      set slot 1 of open inventory of player to diamond sword
+      set slot 1 of player's current inventory to diamond sword
     </div>
 
   </div>
@@ -4602,6 +4766,44 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 </div>
 
 
+<div id="ExprRespawnLocation" class="item-title">Respawn location</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] respawn location</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The location that a player should respawn at. This is used within the respawn event.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on respawn:
+<br>	set respawn location to {example::spawn}
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprRound" class="item-title">Rounding</div>
 <div class="item-content">
   <table>
@@ -4653,6 +4855,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
       <td>
         <ul>
           <li><span class="skript-code-inline">[the] saturation [of %<a href='classes.html#player'>players</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] saturation</span></li>
 
         </ul>
       </td>
@@ -4660,13 +4863,13 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-Fixes-V10</td>
+      <td>2.2-Fixes-v10, 2.2-dev35 (fully modifiable)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    The saturation of a player.
+    The saturation of a player. If used in a player event, it can be omitted and will default to event-player.
   </div>
 
   <div class="item-examples">
@@ -4674,7 +4877,7 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
     Examples:
 
     <div class="skript-code-block">
-      saturation of player is 20 #Not hungry!
+      set saturation of player to 20
     </div>
 
   </div>
@@ -4869,6 +5072,44 @@ Please note that the order of the numbers doesn't matter, i.e. <code>random numb
     <div class="skript-code-block">
       give the victim's skull to the attacker
 <br>set the block at the entity to the entity's skull
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprSlotIndex" class="item-title">Slot Index</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] (index|indices) of %<a href='classes.html#slot'>slots</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#slot'>slots</a>%'[s] (index|indices)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Index of an an inventory slot. Other types of slots may or may not have indices. Note that comparing slots with numbers is also possible; if index of slot is same as the number, comparisonsucceeds. This expression is mainly for the cases where you must for some reason save the slot numbers.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
     </div>
 
   </div>
@@ -5189,6 +5430,81 @@ Please note that changing a player's speed will change his FOV just like potions
 </div>
 
 
+<div id="ExprTeleportCause" class="item-title">Teleport Cause</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] teleport (cause|reason|type)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#teleportcause'>teleport cause</a> within a player teleport event.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      teleport cause is nether portal, end portal or end gateway
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprTemperature" class="item-title">Temperature</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] temperature[s] of %<a href='classes.html#block'>blocks</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#block'>blocks</a>%'[s] temperature[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Temperature at given block.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprTime" class="item-title">Time</div>
 <div class="item-content">
   <table>
@@ -5197,8 +5513,8 @@ Please note that changing a player's speed will change his FOV just like potions
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] time [(in|of) %<a href='classes.html#world'>worlds</a>%]</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#world'>worlds</a>%'[s] time</span></li>
+          <li><span class="skript-code-inline">[the] time[s] [([with]in|of) %<a href='classes.html#world'>worlds</a>%]</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#world'>worlds</a>%'[s] time[s]</span></li>
 
         </ul>
       </td>
@@ -5212,7 +5528,7 @@ Please note that changing a player's speed will change his FOV just like potions
   </table>
 
   <div class="item-description">
-    The <a href='../classes/#time'>time</a> of a world.
+    The <a href='classes.html#time'>time</a> of a world.
   </div>
 
   <div class="item-examples">
@@ -6329,6 +6645,44 @@ See also: <a href='#ExprPassenger'>passenger</a>
 </div>
 
 
+<div id="ExprSeed" class="item-title">World Seed</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] seed[s] (from|of) %<a href='classes.html#world'>worlds</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#world'>worlds</a>%'[s] seed[s]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The seed of given world. Note that it will be returned as Minecraft internally treats seeds, not as you specified it in world configuration.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      broadcast "Seed: %seed of player's world%"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprWorlds" class="item-title">Worlds</div>
 <div class="item-content">
   <table>
@@ -6337,7 +6691,7 @@ See also: <a href='#ExprPassenger'>passenger</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(the|all)] worlds</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] worlds</span></li>
 
         </ul>
       </td>

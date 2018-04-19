@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev34</title>
+  <title>Skript Documentation - 2.2-dev35</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -71,6 +71,8 @@
 <p><a href="#inventory_close">On Inventory Close</a></p>
 <p><a href="#inventory_open">On Inventory Open</a></p>
 <p><a href="#item_break">On Item Break</a></p>
+<p><a href="#item_despawn">On Item Despawn</a></p>
+<p><a href="#item_merge">On Item Merge</a></p>
 <p><a href="#item_spawn">On Item Spawn</a></p>
 <p><a href="#join">On Join</a></p>
 <p><a href="#kick">On Kick</a></p>
@@ -179,7 +181,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(area effect|AoE cloud) effect</span></li>
+          <li><span class="skript-code-inline">(area|AoE) [cloud] effect</span></li>
 
         </ul>
       </td>
@@ -292,7 +294,7 @@
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">block damage</span></li>
+          <li><span class="skript-code-inline">block damag(ing|e)</span></li>
 
         </ul>
       </td>
@@ -1698,7 +1700,7 @@ Please note that it's impossible to detect xp orbs spawned by plugins (including
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">(gliding state change|toggling gliding)</span></li>
+          <li><span class="skript-code-inline">(gliding state change|toggl(e|ing) gliding)</span></li>
 
         </ul>
       </td>
@@ -1924,7 +1926,7 @@ The <a href='#burn'>burn event</a> will be called when the block is about do be 
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">inventory close[d]</span></li>
+          <li><span class="skript-code-inline">inventory clos(ing|e[d])</span></li>
 
         </ul>
       </td>
@@ -2023,6 +2025,85 @@ This event cannot be cancelled.
 
     <div class="skript-code-block">
       
+    </div>
+
+  </div>
+</div>
+
+
+<div id="item_despawn" class="item-title">On Item Despawn</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(item[ ][stack]|[item] %<a href='classes.html#itemtype'>item types</a>%) despawn[ing]</span></li>
+<li><span class="skript-code-inline">[item[ ][stack]] despawn[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when an item is about to be despawned from the world, usually 5 minutes after it was dropped.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on item despawn of diamond:
+<br>	send "Not my precious!"
+<br>	cancel event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="item_merge" class="item-title">On Item Merge</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(item[ ][stack]|[item] %<a href='classes.html#itemtype'>item types</a>%) merg(e|ing)</span></li>
+<li><span class="skript-code-inline">item[ ][stack] merg(e|ing) [[of] %<a href='classes.html#itemtype'>item types</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when dropped items merge into a single stack.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on item merge of gold blocks:
+<br>	cancel event
     </div>
 
   </div>
@@ -2525,7 +2606,7 @@ This event cannot be cancelled.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">player world change[d]</span></li>
+          <li><span class="skript-code-inline">[player] world chang(ing|e[d])</span></li>
 
         </ul>
       </td>
@@ -2601,7 +2682,7 @@ This event cannot be cancelled.
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">portal create</span></li>
+          <li><span class="skript-code-inline">portal creat(e|ion)</span></li>
 
         </ul>
       </td>
@@ -2639,7 +2720,7 @@ Please note that it's not possible to use <a href='../expressions/#ExprEntity'>t
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">portal enter</span></li>
+          <li><span class="skript-code-inline">portal enter[ing]</span></li>
 <li><span class="skript-code-inline">entering [a] portal</span></li>
 
         </ul>
@@ -2902,7 +2983,7 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[entity] resurrect attempt</span></li>
+          <li><span class="skript-code-inline">[entity] resurrect[ion] [attempt]</span></li>
 
         </ul>
       </td>
@@ -3136,7 +3217,7 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">slime split</span></li>
+          <li><span class="skript-code-inline">slime split[ting]</span></li>
 
         </ul>
       </td>
@@ -3820,7 +3901,7 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">world init</span></li>
+          <li><span class="skript-code-inline">world init[zation)]</span></li>
 
         </ul>
       </td>

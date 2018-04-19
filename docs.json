@@ -1,5 +1,5 @@
 {
-  "skriptVersion" : "2.2-dev34",
+  "skriptVersion" : "2.2-dev35",
 
   "classes" : [
     {
@@ -51,15 +51,15 @@
   "examples" : ""
 },
 {
-  "id" : "clickaction",
-  "name" : "Click Action",
+  "id" : "clicktype",
+  "name" : "Click Type",
   "patterns" : [
     "left mouse button, left mouse button with shift, right mouse button, right mouse button with shift, window border using right mouse button, window border using left mouse button, middle mouse button, number key, double click using mouse, drop key, drop key with control, creative action, unknown",
 
     "pattern_end"
   ],
-  "since" : "2.2-dev16b",
-  "description" : "Click action, mostly for inventory events. Tells exactly which keys/buttons player pressed, assuming that default keybindings are used in client side.",
+  "since" : "2.2-dev16b, 2.2-dev35 (renamed to click type)",
+  "description" : "Click type, mostly for inventory events. Tells exactly which keys/buttons player pressed, assuming that default keybindings are used in client side.",
   "examples" : ""
 },
 {
@@ -892,6 +892,7 @@
   "name" : "Is on Ground",
   "patterns" : [
     "%<a href='classes.html#entity'>entities</a>% (is|are) on ground",
+"%<a href='classes.html#entity'>entities</a>% (isn't|is not|aren't|are not) on ground",
 
     "pattern_end"
   ],
@@ -1255,7 +1256,7 @@
   "id" : "EffMessage",
   "name" : "Message",
   "patterns" : [
-    "(message|send [message]) %<a href='classes.html#string'>texts</a>% [to %<a href='classes.html#commandsender'>players/console</a>%]",
+    "(message|send [message[s]]) %<a href='classes.html#string'>texts</a>% [to %<a href='classes.html#commandsender'>players/console</a>%]",
 
     "pattern_end"
   ],
@@ -1530,7 +1531,7 @@
   "id" : "aoe_cloud_effect",
   "name" : "On AoE Cloud Effect",
   "patterns" : [
-    "(area effect|AoE cloud) effect",
+    "(area|AoE) [cloud] effect",
 
     "pattern_end"
   ],
@@ -1568,7 +1569,7 @@
   "id" : "block_damage",
   "name" : "On Block Damage",
   "patterns" : [
-    "block damage",
+    "block damag(ing|e)",
 
     "pattern_end"
   ],
@@ -2021,7 +2022,7 @@
   "id" : "gliding_state_change",
   "name" : "On Gliding State Change",
   "patterns" : [
-    "(gliding state change|toggling gliding)",
+    "(gliding state change|toggl(e|ing) gliding)",
 
     "pattern_end"
   ],
@@ -2093,7 +2094,7 @@
   "id" : "inventory_close",
   "name" : "On Inventory Close",
   "patterns" : [
-    "inventory close[d]",
+    "inventory clos(ing|e[d])",
 
     "pattern_end"
   ],
@@ -2125,6 +2126,32 @@
   "since" : "2.1.1",
   "description" : "Called when a player breaks his tool because its damage reached the maximum value.\\nThis event cannot be cancelled.",
   "examples" : ""
+},
+{
+  "id" : "item_despawn",
+  "name" : "On Item Despawn",
+  "patterns" : [
+    "(item[ ][stack]|[item] %<a href='classes.html#itemtype'>item types</a>%) despawn[ing]",
+"[item[ ][stack]] despawn[ing] [[of] %<a href='classes.html#itemtype'>item types</a>%]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "Called when an item is about to be despawned from the world, usually 5 minutes after it was dropped.",
+  "examples" : "on item despawn of diamond:\\n    send \"Not my precious!\"\\n    cancel event"
+},
+{
+  "id" : "item_merge",
+  "name" : "On Item Merge",
+  "patterns" : [
+    "(item[ ][stack]|[item] %<a href='classes.html#itemtype'>item types</a>%) merg(e|ing)",
+"item[ ][stack] merg(e|ing) [[of] %<a href='classes.html#itemtype'>item types</a>%]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "Called when dropped items merge into a single stack.",
+  "examples" : "on item merge of gold blocks:\\n    cancel event"
 },
 {
   "id" : "item_spawn",
@@ -2286,7 +2313,7 @@
   "id" : "player_world_change",
   "name" : "On Player World Change",
   "patterns" : [
-    "player world change[d]",
+    "[player] world chang(ing|e[d])",
 
     "pattern_end"
   ],
@@ -2310,7 +2337,7 @@
   "id" : "portal_create",
   "name" : "On Portal Create",
   "patterns" : [
-    "portal create",
+    "portal creat(e|ion)",
 
     "pattern_end"
   ],
@@ -2322,7 +2349,7 @@
   "id" : "portal_enter",
   "name" : "On Portal Enter",
   "patterns" : [
-    "portal enter",
+    "portal enter[ing]",
 "entering [a] portal",
 
     "pattern_end"
@@ -2408,7 +2435,7 @@
   "id" : "resurrect_attempt",
   "name" : "On Resurrect Attempt",
   "patterns" : [
-    "[entity] resurrect attempt",
+    "[entity] resurrect[ion] [attempt]",
 
     "pattern_end"
   ],
@@ -2483,7 +2510,7 @@
   "id" : "slime_split",
   "name" : "On Slime Split",
   "patterns" : [
-    "slime split",
+    "slime split[ting]",
 
     "pattern_end"
   ],
@@ -2709,7 +2736,7 @@
   "id" : "world_init",
   "name" : "On World Init",
   "patterns" : [
-    "world init",
+    "world init[zation)]",
 
     "pattern_end"
   ],
@@ -2798,14 +2825,14 @@
   "id" : "ExprPermissions",
   "name" : "All Permissions",
   "patterns" : [
-    "[(all [of]|[the])] permissions of %<a href='classes.html#player'>players</a>%",
+    "[the] permissions of %<a href='classes.html#player'>players</a>%",
 "%<a href='classes.html#player'>players</a>%'[s] permissions",
 
     "pattern_end"
   ],
   "since" : "2.2-dev33",
-  "description" : "Gets all permissions of players. Note that the modifications to resulting list do not actually change permissions.",
-  "examples" : ""
+  "description" : "Returns all permissions of the defined player(s). Note that the modifications to resulting list do not actually change permissions.",
+  "examples" : "set {_permissions::*} to all permissions of the player"
 },
 {
   "id" : "ExprAlphabetList",
@@ -2980,8 +3007,8 @@
   "id" : "ExprBlockSphere",
   "name" : "Block Sphere",
   "patterns" : [
-    "[(all|the)] blocks in radius %<a href='classes.html#number'>number</a>% [(of|around) %<a href='classes.html#location'>location</a>%]",
-"[(all|the)] blocks around %<a href='classes.html#location'>location</a>% in radius %<a href='classes.html#number'>number</a>%",
+    "[(all [[of] the]|the)] blocks in radius %<a href='classes.html#number'>number</a>% [(of|around) %<a href='classes.html#location'>location</a>%]",
+"[(all [[of] the]|the)] blocks around %<a href='classes.html#location'>location</a>% in radius %<a href='classes.html#number'>number</a>%",
 
     "pattern_end"
   ],
@@ -2993,10 +3020,10 @@
   "id" : "ExprBlocks",
   "name" : "Blocks",
   "patterns" : [
-    "[the] blocks %<a href='classes.html#direction'>direction</a>% [%<a href='classes.html#location'>locations</a>%]",
-"[the] blocks from %<a href='classes.html#location'>location</a>% [on] %<a href='classes.html#direction'>direction</a>%",
-"[the] blocks from %<a href='classes.html#block'>block</a>% to %<a href='classes.html#block'>block</a>%",
-"[the] blocks between %<a href='classes.html#block'>block</a>% and %<a href='classes.html#block'>block</a>%",
+    "[(all [[of] the]|the)] blocks %<a href='classes.html#direction'>direction</a>% [%<a href='classes.html#location'>locations</a>%]",
+"[(all [[of] the]|the)] blocks from %<a href='classes.html#location'>location</a>% [on] %<a href='classes.html#direction'>direction</a>%",
+"[(all [[of] the]|the)] blocks from %<a href='classes.html#block'>block</a>% to %<a href='classes.html#block'>block</a>%",
+"[(all [[of] the]|the)] blocks (within|between) %<a href='classes.html#block'>block</a>% and %<a href='classes.html#block'>block</a>%",
 
     "pattern_end"
   ],
@@ -3065,7 +3092,7 @@
 
     "pattern_end"
   ],
-  "since" : "2.2 (unknown)",
+  "since" : "2.2-Fixes-v7, 2.2-dev35 (clearing recipients)",
   "description" : "Recipients of chat events where this is called.",
   "examples" : "chat recipients"
 },
@@ -3083,27 +3110,15 @@
   "examples" : "add the chunk at the player to {protected chunks::*}"
 },
 {
-  "id" : "ExprClickAction",
-  "name" : "Click Action",
-  "patterns" : [
-    "[the] click action",
-
-    "pattern_end"
-  ],
-  "since" : "2.2-dev20",
-  "description" : "The <a href='../classes/#inventoryaction'>click action</a> of an inventory event. Please click on the link for more information.",
-  "examples" : "click action is left mouse button"
-},
-{
   "id" : "ExprClicked",
-  "name" : "Clicked Block/Entity",
+  "name" : "Clicked Block/Entity/Inventory/Slot",
   "patterns" : [
-    "[the] clicked (block|%*<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#entitydata'>entity type</a>%)",
+    "[the] ( clicked (block|%*<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#entitydata'>entity type</a>%)|clicked slot|clicked inventory|click (type|action)|inventory action)",
 
     "pattern_end"
   ],
-  "since" : "1.0",
-  "description" : "The clicked block or entity - only useful in click events",
+  "since" : "1.0, 2.2-dev35 (more clickable things)",
+  "description" : "The clicked block, entity, inventory slot, inventory, type or action.",
   "examples" : "message \"You clicked on a %type of clicked entity%!\"\\nclicked block is a chest:\\n    show the inventory of the clicked block to the player"
 },
 {
@@ -3234,17 +3249,17 @@
   "examples" : "cursor slot of player is dirt\\nset cursor slot of player to 64 diamonds"
 },
 {
-  "id" : "ExprNewInventory",
+  "id" : "ExprChestInventory",
   "name" : "Custom Chest Inventory",
   "patterns" : [
-    "chest inventory (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]",
-"chest inventory with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]",
+    "[a [new]] chest [inventory] (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]",
+"[a [new]] chest [inventory] with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]",
 
     "pattern_end"
   ],
   "since" : "2.2-dev34",
   "description" : "Returns a chest inventory with the given amount of rows and the name. Use the <a href=effects.html#EffOpenInventory>open inventory</a>effect to open it.",
-  "examples" : "open chest inventory with 1 rows named \"test\"\\nset {_inv} to chest inventory with 1 row"
+  "examples" : "open chest inventory with 1 rows named \"test\"\\nset {_inventory} to chest inventory with 1 row"
 },
 {
   "id" : "ExprDamage",
@@ -3390,16 +3405,29 @@
   "id" : "ExprEntities",
   "name" : "Entities",
   "patterns" : [
-    "[all] %*<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]",
-"[all] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]",
-"[all] %*<a href='classes.html#entitydata'>entity types</a>% (within|[with]in radius) %<a href='classes.html#number'>number</a>% [(block[s]|met(er|re)[s])] (of|around) %<a href='classes.html#location'>location</a>%",
-"[all] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% in radius %<a href='classes.html#number'>number</a>% (of|around) %<a href='classes.html#location'>location</a>%",
+    "[(all [[of] the]|the)] %*<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]",
+"[(all [[of] the]|the)] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% [(in|of) [world[s]] %<a href='classes.html#world'>worlds</a>%]",
+"[(all [[of] the]|the)] %*<a href='classes.html#entitydata'>entity types</a>% (within|[with]in radius) %<a href='classes.html#number'>number</a>% [(block[s]|met(er|re)[s])] (of|around) %<a href='classes.html#location'>location</a>%",
+"[(all [[of] the]|the)] entities of type[s] %<a href='classes.html#entitydata'>entity types</a>% in radius %<a href='classes.html#number'>number</a>% (of|around) %<a href='classes.html#location'>location</a>%",
 
     "pattern_end"
   ],
   "since" : "1.2.1",
   "description" : "all entities in all world, in a specific world or in a radius around a certain location, e.g. 'all players', 'all creepers in the player's world', or 'players in radius 100 of the player'.",
   "examples" : "kill all creepers in the player's world\\nsend \"Psst!\" to all players witin 100 meters of the player\\ngive a diamond to all ops\\nheal all tamed wolves in radius 2000 around {town center}"
+},
+{
+  "id" : "ExprExhaustion",
+  "name" : "Exhaustion",
+  "patterns" : [
+    "[the] exhaustion of %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>%'[s] exhaustion",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "The exhaustion of a player. This is mainly used to determine the rate of hunger depletion.",
+  "examples" : "set exhaustion of all players to 1"
 },
 {
   "id" : "ExprExperience",
@@ -3448,7 +3476,7 @@
     "pattern_end"
   ],
   "since" : "2.2-dev34",
-  "description" : "Whether the player is allowed to fly. Use <a href=effects.html#EffMakeFly>Make Fly</a> effect to force a player fly.",
+  "description" : "Whether the player(s) are allowed to fly. Use <a href=effects.html#EffMakeFly>Make Fly</a> effect to force player(s) to fly.",
   "examples" : "set flight mode of player to true\\nsend \"%flying state of all players%\""
 },
 {
@@ -3557,6 +3585,19 @@
   "examples" : "set gravity of player off"
 },
 {
+  "id" : "ExprGroup",
+  "name" : "Group",
+  "patterns" : [
+    "[the] group[(s)] of %<a href='classes.html#offlineplayer'>offline players</a>%",
+"%<a href='classes.html#offlineplayer'>offline players</a>%'[s] group[(s)]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "The primary group or all groups of a player. This expression requires Vault and a compatible permissions plugin to be installed.",
+  "examples" : "on join:\\nbroadcast \"%group of player%\" # this is the player's primary group\\nbroadcast \"%groups of player%\" # this is all of the player's groups"
+},
+{
   "id" : "ExprHash",
   "name" : "Hash",
   "patterns" : [
@@ -3605,6 +3646,19 @@
   "since" : "2.2-dev34",
   "description" : "Returns the highest solid block at the x and z coordinates of the world of given location",
   "examples" : "highest block at location of arg-player"
+},
+{
+  "id" : "ExprHumidity",
+  "name" : "Humidity",
+  "patterns" : [
+    "[the] humidit(y|ies) of %<a href='classes.html#block'>blocks</a>%",
+"%<a href='classes.html#block'>blocks</a>%'[s] humidit(y|ies)",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "Humidity of given blocks",
+  "examples" : ""
 },
 {
   "id" : "ExprIP",
@@ -3711,22 +3765,36 @@
   "id" : "ExprItemAmount",
   "name" : "Item Amount",
   "patterns" : [
-    "item[[ ]stack] (amount|size|number) of %<a href='classes.html#itemstack'>item stack</a>%",
+    "[the] item[[ ]stack] (amount|size|number) of %<a href='classes.html#itemstack'>item stacks</a>%",
+"%<a href='classes.html#itemstack'>item stacks</a>%'[s] item[[ ]stack] (amount|size|number)",
 
     "pattern_end"
   ],
   "since" : "2.2-dev24",
-  "description" : "Gets the amount of an <a href='classes.html#itemstack'>item stack</a>.",
+  "description" : "The amount of an <a href='classes.html#itemstack'>item stack</a>.",
   "examples" : "send \"You have got %item amount of player's tool% %player's tool% in your hand !\" to player"
+},
+{
+  "id" : "ExprItemFrameSlot",
+  "name" : "Item in Item Frame",
+  "patterns" : [
+    "[the] item of %<a href='classes.html#entity'>entities</a>%",
+"%<a href='classes.html#entity'>entities</a>%'[s] item",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "An item inside an item frame entity.",
+  "examples" : ""
 },
 {
   "id" : "ExprItems",
   "name" : "Items",
   "patterns" : [
-    "[(all|every)] item(s|[ ]types)",
-"items of type[s] %<a href='classes.html#itemtype'>item types</a>%",
-"[(all|every)] block(s|[ ]types)",
-"blocks of type[s] %<a href='classes.html#itemtype'>item types</a>%",
+    "[(all [[of] the]|the|every)] item(s|[ ]types)",
+"[(all [[of] the]|the)] items of type[s] %<a href='classes.html#itemtype'>item types</a>%",
+"[(all [[of] the]|the|every)] block(s|[ ]types)",
+"[(all [[of] the]|the)] blocks of type[s] %<a href='classes.html#itemtype'>item types</a>%",
 
     "pattern_end"
   ],
@@ -3738,7 +3806,7 @@
   "id" : "ExprItemsIn",
   "name" : "Items In",
   "patterns" : [
-    "[all] items (in|of|contained in|out of) [(inventor(y|ies)]) %<a href='classes.html#inventory'>inventories</a>%",
+    "[(all [[of] the]|the)] items ([with]in|of|contained in|out of) [(inventor(y|ies)]) %<a href='classes.html#inventory'>inventories</a>%",
 
     "pattern_end"
   ],
@@ -3764,8 +3832,8 @@
   "id" : "ExprLastDamageCause",
   "name" : "Last Damage Cause",
   "patterns" : [
-    "[the] last damage cause of %<a href='classes.html#livingentity'>living entities</a>%",
-"%<a href='classes.html#livingentity'>living entities</a>%'[s] last damage cause",
+    "[the] last damage (cause|reason|type) of %<a href='classes.html#livingentity'>living entities</a>%",
+"%<a href='classes.html#livingentity'>living entities</a>%'[s] last damage (cause|reason|type)",
 
     "pattern_end"
   ],
@@ -4041,7 +4109,7 @@
 
     "pattern_end"
   ],
-  "since" : "2.0, 2.2-dev34 (Inventories)",
+  "since" : "2.0, 2.2-dev34 (inventories)",
   "description" : "Directly names an item/inventory, useful for defining a named item/inventory in a script. If you want to (re)name existing items/inventories you can either use this expression or use <code>set <a href='#ExprName'>name of &lt;item/inventory&gt;</a> to &lt;text&gt;</code>.",
   "examples" : "give a diamond sword of sharpness 100 named \"<gold>Excalibur\" to the player\\nset tool of player to the player's tool named \"<gold>Wand\"\\nset the name of the player's tool to \"<gold>Wand\"\\nopen hopper inventory named \"Magic Hopper\" to player"
 },
@@ -4061,7 +4129,7 @@
   "id" : "ExprNumbers",
   "name" : "Numbers",
   "patterns" : [
-    "[(all|the)] (numbers|integers) (between|from) %<a href='classes.html#number'>number</a>% (and|to) %<a href='classes.html#number'>number</a>%",
+    "[(all [[of] the]|the)] (numbers|integers) (between|from) %<a href='classes.html#number'>number</a>% (and|to) %<a href='classes.html#number'>number</a>%",
 "%<a href='classes.html#number'>number</a>% times",
 
     "pattern_end"
@@ -4071,17 +4139,29 @@
   "examples" : "loop 5 times: # loops 1, 2, 3, 4, 5\\nloop numbers from 2.5 to 5.5: # loops 2.5, 3.5, 4.5, 5.5\\nloop integers from 2.9 to 5.1: # same as '3 to 5', i.e. loops 3, 4, 5"
 },
 {
-  "id" : "ExprOpenInventory",
-  "name" : "Open Inventory",
+  "id" : "ExprOfflinePlayers",
+  "name" : "Offline players",
   "patterns" : [
-    "[the] (current|open|top) inventory of %<a href='classes.html#player'>player</a>%",
-"%<a href='classes.html#player'>player</a>%'[s] (current|open|top) inventory",
+    "[(all [[of] the]|the)] offline[ ]players",
 
     "pattern_end"
   ],
-  "since" : "2.2-dev24",
-  "description" : "Return the open inventory of a player.\\nIf no inventory is open, it returns the own player's crafting inventory.",
-  "examples" : "set slot 1 of open inventory of player to diamond sword"
+  "since" : "2.2-dev35",
+  "description" : "All player that have ever joined the server. This includes players currently online.",
+  "examples" : "send \"Size of all players who have joined the server: %size of all offline players%\""
+},
+{
+  "id" : "ExprOpenedInventory",
+  "name" : "Opened Inventory",
+  "patterns" : [
+    "[the] (current|open|top) inventory [of %<a href='classes.html#player'>players</a>%]",
+"%<a href='classes.html#player'>players</a>%'[s] (current|open|top) inventory",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev24, 2.2-dev35 (Just 'current inventory' works in player events)",
+  "description" : "Return the currently opened inventory of a player.\\nIf no inventory is open, it returns the own player's crafting inventory.",
+  "examples" : "set slot 1 of player's current inventory to diamond sword"
 },
 {
   "id" : "ExprParse",
@@ -4198,6 +4278,18 @@
   "examples" : "player's remaining air is less than 3 seconds:\\n    send \"hurry, get to the surface!\" to the player"
 },
 {
+  "id" : "ExprRespawnLocation",
+  "name" : "Respawn location",
+  "patterns" : [
+    "[the] respawn location",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "The location that a player should respawn at. This is used within the respawn event.",
+  "examples" : "on respawn:\\n    set respawn location to {example::spawn}"
+},
+{
   "id" : "ExprRound",
   "name" : "Rounding",
   "patterns" : [
@@ -4216,12 +4308,13 @@
   "name" : "Saturation",
   "patterns" : [
     "[the] saturation [of %<a href='classes.html#player'>players</a>%]",
+"%<a href='classes.html#player'>players</a>%'[s] saturation",
 
     "pattern_end"
   ],
-  "since" : "2.2-Fixes-V10",
-  "description" : "The saturation of a player.",
-  "examples" : "saturation of player is 20 #Not hungry!"
+  "since" : "2.2-Fixes-v10, 2.2-dev35 (fully modifiable)",
+  "description" : "The saturation of a player. If used in a player event, it can be omitted and will default to event-player.",
+  "examples" : "set saturation of player to 20"
 },
 {
   "id" : "ExprScript",
@@ -4284,6 +4377,19 @@
   "since" : "2.0",
   "description" : "Gets a skull item representing a player or an entity.",
   "examples" : "give the victim's skull to the attacker\\nset the block at the entity to the entity's skull"
+},
+{
+  "id" : "ExprSlotIndex",
+  "name" : "Slot Index",
+  "patterns" : [
+    "[the] (index|indices) of %<a href='classes.html#slot'>slots</a>%",
+"%<a href='classes.html#slot'>slots</a>%'[s] (index|indices)",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "Index of an an inventory slot. Other types of slots may or may not have indices. Note that comparing slots with numbers is also possible; if index of slot is same as the number, comparisonsucceeds. This expression is mainly for the cases where you must for some reason save the slot numbers.",
+  "examples" : ""
 },
 {
   "id" : "ExprSortedList",
@@ -4391,16 +4497,41 @@
   "examples" : "# A command to set the block a player looks at to a specific type:\\ncommand /setblock <material>:\\n    trigger:\\n        set targeted block to argument"
 },
 {
+  "id" : "ExprTeleportCause",
+  "name" : "Teleport Cause",
+  "patterns" : [
+    "[the] teleport (cause|reason|type)",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "The <a href='../classes/#teleportcause'>teleport cause</a> within a player teleport event.",
+  "examples" : "teleport cause is nether portal, end portal or end gateway"
+},
+{
+  "id" : "ExprTemperature",
+  "name" : "Temperature",
+  "patterns" : [
+    "[the] temperature[s] of %<a href='classes.html#block'>blocks</a>%",
+"%<a href='classes.html#block'>blocks</a>%'[s] temperature[s]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "Temperature at given block.",
+  "examples" : ""
+},
+{
   "id" : "ExprTime",
   "name" : "Time",
   "patterns" : [
-    "[the] time [(in|of) %<a href='classes.html#world'>worlds</a>%]",
-"%<a href='classes.html#world'>worlds</a>%'[s] time",
+    "[the] time[s] [([with]in|of) %<a href='classes.html#world'>worlds</a>%]",
+"%<a href='classes.html#world'>worlds</a>%'[s] time[s]",
 
     "pattern_end"
   ],
   "since" : "1.0",
-  "description" : "The <a href='../classes/#time'>time</a> of a world.",
+  "description" : "The <a href='classes.html#time'>time</a> of a world.",
   "examples" : "time in world is between 18:00 and 6:00:\\n    broadcast \"It's night-time, watch out for monsters!\""
 },
 {
@@ -4756,10 +4887,23 @@
   "examples" : "world is \"world_nether\"\\nteleport the player to the world's spawn\\nset the weather in the player's world to rain"
 },
 {
+  "id" : "ExprSeed",
+  "name" : "World Seed",
+  "patterns" : [
+    "[the] seed[s] (from|of) %<a href='classes.html#world'>worlds</a>%",
+"%<a href='classes.html#world'>worlds</a>%'[s] seed[s]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "The seed of given world. Note that it will be returned as Minecraft internally treats seeds, not as you specified it in world configuration.",
+  "examples" : "broadcast \"Seed: %seed of player's world%\""
+},
+{
   "id" : "ExprWorlds",
   "name" : "Worlds",
   "patterns" : [
-    "[(the|all)] worlds",
+    "[(all [[of] the]|the)] worlds",
 
     "pattern_end"
   ],
