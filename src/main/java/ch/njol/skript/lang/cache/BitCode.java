@@ -19,23 +19,25 @@
  */
 package ch.njol.skript.lang.cache;
 
+import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.util.Kleenean;
+import ch.njol.skript.lang.SyntaxElement;
+
 public interface BitCode {
 	
-	void initElement(Class<?> type);
-	
-	void statement();
+	<T extends SyntaxElement> void initElement(Class<T> type, ParseResult parseResult, int matchedPattern, Kleenean isDelayed);
 	
 	void defaultExpr(Class<?> type);
 	
-	void expressionList(Class<?> type, int size);
+	<T> void expressionList(Class<T> type, int size, boolean and);
 	
-	void literalList(Class<?> type, int size);
+	<T> void literalList(Class<T> type, int size, boolean and);
 	
-	void variable();
+	void variable(Class<?>[] types, boolean local, boolean list);
 	
 	void functionCall(String function);
 	
-	void variableString();
+	void variableString(int size);
 	
 	void stringLiteral(String str);
 	
@@ -44,4 +46,5 @@ public interface BitCode {
 	void convertedExpression(Class<?> type);
 	
 	void simpleLiteral(Object literal);
+
 }

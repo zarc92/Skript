@@ -151,7 +151,16 @@ public class Variable<T> implements Expression<T> {
 		final VariableString vs = VariableString.newInstance(name.startsWith(LOCAL_VARIABLE_TOKEN) ? "" + name.substring(LOCAL_VARIABLE_TOKEN.length()).trim() : name, StringMode.VARIABLE_NAME);
 		if (vs == null)
 			return null;
-		return new Variable<>(vs, types, name.startsWith(LOCAL_VARIABLE_TOKEN), name.endsWith(SEPARATOR + "*"), null);
+		
+		boolean local = name.startsWith(LOCAL_VARIABLE_TOKEN);
+		boolean list = name.endsWith(SEPARATOR + "*");
+		SkriptParser.compiled.variable(types, local, list);
+		return new Variable<>(vs, types, local, list, null);
+	}
+	
+	@Nullable
+	public static <T> Variable<T> newInstance(VariableString name, Class<? extends T>[] types, boolean local, boolean list) {
+		return new Variable<>(name, types, local, list, null);
 	}
 	
 	@Override

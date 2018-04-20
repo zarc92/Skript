@@ -57,7 +57,6 @@ public abstract class Statement extends TriggerItem implements SyntaxElement {
 			log.stop();
 		}
 		Statement statement = (Statement) SkriptParser.parse(s, (Iterator) Skript.getStatements().iterator(), defaultError);
-		SkriptParser.compiled.statement();
 		return statement;
 	}
 

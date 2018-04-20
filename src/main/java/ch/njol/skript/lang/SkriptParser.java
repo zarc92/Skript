@@ -257,7 +257,7 @@ public class SkriptParser {
 							final T t = info.c.newInstance();
 							if (t.init(res.exprs, i, ScriptLoader.hasDelayBefore, res)) {
 								log.printLog();
-								compiled.initElement(info.c);
+								compiled.initElement(info.c, res, i, ScriptLoader.hasDelayBefore);
 								return t;
 							}
 						}
@@ -354,7 +354,6 @@ public class SkriptParser {
 						}
 						
 						log.printLog();
-						compiled.variable();
 						return var;
 					} else if (log.hasError()) {
 						log.printError();
@@ -381,7 +380,6 @@ public class SkriptParser {
 							}
 							
 							log.printLog();
-							compiled.variable();
 							return var;
 						} else if (log.hasError()) {
 							log.printError();
@@ -710,14 +708,14 @@ public class SkriptParser {
 				assert ls != null;
 				@SuppressWarnings("unchecked")
 				Class<Object> listType = (Class<Object>) Utils.getSuperType(exprRetTypes);
-				compiled.literalList(listType, ls.length);
+				compiled.literalList(listType, ls.length, !and.isFalse());
 				return new LiteralList<>(ls, listType, !and.isFalse());
 			} else {
 				final Expression<?>[] es = ts.toArray(new Expression[ts.size()]);
 				assert es != null;
 				@SuppressWarnings("unchecked")
 				Class<Object> listType = (Class<Object>) Utils.getSuperType(exprRetTypes);
-				compiled.expressionList(listType, es.length);
+				compiled.expressionList(listType, es.length, !and.isFalse());
 				return new ExpressionList<>(es, listType, !and.isFalse());
 			}
 		} finally {
@@ -977,7 +975,6 @@ public class SkriptParser {
 								return null;
 							}
 							log.printLog();
-							compiled.initElement(info.c);
 							return new NonNullPair<>(info, e);
 						}
 					} catch (final InstantiationException e) {
