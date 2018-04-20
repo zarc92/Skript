@@ -3,6 +3,9 @@ package ch.njol.skript.lang.cache.load;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.annotation.Nullable;
+
+import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.command.Argument;
 import ch.njol.skript.lang.cache.BitCode;
 import ch.njol.skript.lang.cache.ParsedCommand;
@@ -13,8 +16,15 @@ public class ParsedCommandLoader implements ParsedCommand {
 	
 	private String name;
 	private List<Argument<?>> arguments;
+	private String usage;
+	private String description;
+	private List<String> aliases;
+	private String permission;
+	private String permissionMessage;
+	
 	
 	public ParsedCommandLoader() {
+		name = "";
 		arguments = new ArrayList<>();
 	}
 	
@@ -24,38 +34,35 @@ public class ParsedCommandLoader implements ParsedCommand {
 	}
 
 	@Override
-	public void argument(String name, Class<?> type, boolean single, boolean optional) {
-		// TODO handle default arguments (expression...) somehow
+	public void argument(@Nullable String name, Class<?> type, @Nullable String def, boolean single, boolean optional) {
+		ClassInfo<?> info = Classes.getExactClassInfo(type);
+		assert info != null;
+		arguments.add(Argument.newInstance(name, info, def, arguments.size(), single, optional));
 	}
 
 	@Override
 	public void usage(String usage) {
-		// TODO Auto-generated method stub
-		
+		this.usage = usage;
 	}
 
 	@Override
 	public void description(String desc) {
-		// TODO Auto-generated method stub
-		
+		this.description = desc;
 	}
 
 	@Override
 	public void aliases(List<String> aliases) {
-		// TODO Auto-generated method stub
-		
+		this.aliases = aliases;
 	}
 
 	@Override
 	public void permission(String permission) {
-		// TODO Auto-generated method stub
-		
+		this.permission = permission;
 	}
 
 	@Override
 	public void permissionMessage(String message) {
-		// TODO Auto-generated method stub
-		
+		this.permissionMessage = message;
 	}
 
 	@Override

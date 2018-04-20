@@ -21,13 +21,15 @@ package ch.njol.skript.lang.cache;
 
 import java.util.List;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 import ch.njol.skript.util.Timespan;
 
 public interface ParsedCommand {
 	
 	void name(String name);
 	
-	void argument(String name, Class<?> type, boolean single, boolean optional);
+	void argument(@Nullable String name, Class<?> type, @Nullable String def, boolean single, boolean optional);
 	
 	void usage(String usage);
 	

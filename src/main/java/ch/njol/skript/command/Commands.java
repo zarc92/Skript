@@ -378,12 +378,13 @@ public abstract class Commands {
 			}
 			
 			String argName = m.group(1);
-			final Argument<?> arg = Argument.newInstance(argName, c, m.group(3), i, !p.getSecond(), optionals > 0);
+			String def = m.group(3);
+			final Argument<?> arg = Argument.newInstance(argName, c, def, i, !p.getSecond(), optionals > 0);
 			if (arg == null)
 				return null;
 			currentArguments.add(arg);
 			assert argName != null;
-			parsed.argument(argName, c.getC(), arg.isSingle(), arg.isOptional());
+			parsed.argument(argName, c.getC(), def, arg.isSingle(), arg.isOptional());
 			
 			if (arg.isOptional() && optionals == 0) {
 				pattern.append('[');
