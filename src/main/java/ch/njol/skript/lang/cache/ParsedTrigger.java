@@ -19,7 +19,7 @@
  */
 package ch.njol.skript.lang.cache;
 
-public interface ParsedTrigger {
+public interface ParsedTrigger extends ParsedElement {
 	
 	BitCode event();
 	

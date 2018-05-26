@@ -7,30 +7,59 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.command.Argument;
+import ch.njol.skript.command.ScriptCommand;
+import ch.njol.skript.lang.TriggerItem;
+import ch.njol.skript.lang.VariableString;
 import ch.njol.skript.lang.cache.BitCode;
 import ch.njol.skript.lang.cache.ParsedCommand;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.util.Timespan;
 
-public class ParsedCommandLoader implements ParsedCommand {
+public class ParsedCommandLoader implements ParsedCommand, LoadableElement<ScriptCommand> {
 	
 	private String name;
+	private String pattern;
+	
 	private List<Argument<?>> arguments;
+	@Nullable
 	private String usage;
+	@Nullable
 	private String description;
 	private List<String> aliases;
-	private String permission;
-	private String permissionMessage;
 	
+	@Nullable
+	private String permission;
+	@Nullable
+	private String permissionMessage;
+	private int executableBy;
+	
+	@Nullable
+	private Timespan cooldown;
+	@Nullable
+	private BitCodeLoader cooldownMessage;
+	@Nullable
+	private String cooldownBypass;
+	@Nullable
+	private BitCodeLoader cooldownStorage;
+	
+	private BitCodeLoader trigger;
 	
 	public ParsedCommandLoader() {
-		name = "";
-		arguments = new ArrayList<>();
+		this.name = "";
+		this.pattern = "";
+		this.arguments = new ArrayList<>();
+		this.aliases = new ArrayList<>();
+		this.trigger = new BitCodeLoader();
 	}
 	
 	@Override
 	public void name(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public void pattern(String pattern) {
+		this.pattern = pattern;
 	}
 
 	@Override
@@ -67,38 +96,50 @@ public class ParsedCommandLoader implements ParsedCommand {
 
 	@Override
 	public void executableBy(int executable) {
-		// TODO Auto-generated method stub
-		
+		this.executableBy = executable;
 	}
 
 	@Override
 	public void cooldown(Timespan time) {
-		// TODO Auto-generated method stub
-		
+		this.cooldown = time;
 	}
 
 	@Override
 	public BitCode cooldownMessage() {
-		// TODO Auto-generated method stub
-		return null;
+		if (cooldownMessage == null)
+			cooldownMessage = new BitCodeLoader();
+		assert cooldownMessage != null;
+		return cooldownMessage;
 	}
 
 	@Override
 	public void cooldownBypass(String bypass) {
-		// TODO Auto-generated method stub
-		
+		this.cooldownBypass = bypass;
 	}
 
 	@Override
 	public BitCode cooldownStorage() {
-		// TODO Auto-generated method stub
-		return null;
+		if (cooldownStorage == null)
+			cooldownStorage = new BitCodeLoader();
+		assert cooldownStorage != null;
+		return cooldownStorage;
 	}
 
 	@Override
 	public BitCode trigger() {
-		// TODO Auto-generated method stub
-		return null;
+		return trigger;
+	}
+
+	@Override
+	public ScriptCommand load() {
+		VariableString cooldownMsg = null;
+		if (cooldownMessage != null)
+			cooldownMsg = (VariableString) cooldownMessage.load().pop();
+		VariableString storageVar = null;
+		if (cooldownStorage != null)
+			storageVar = (VariableString) cooldownStorage.load().pop();
+		
+		List<TriggerItem> items; // TODO ouch, this needs large-scale Skript changes
 	}
 	
 }

@@ -19,7 +19,7 @@
  */
 package ch.njol.skript.lang.cache;
 
-public interface ParsedFunction {
+public interface ParsedFunction extends ParsedElement {
 	
 	void name(String name);
 	

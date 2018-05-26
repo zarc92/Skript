@@ -25,9 +25,11 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.util.Timespan;
 
-public interface ParsedCommand {
+public interface ParsedCommand extends ParsedElement {
 	
 	void name(String name);
+	
+	void pattern(String pattern);
 	
 	void argument(@Nullable String name, Class<?> type, @Nullable String def, boolean single, boolean optional);
 	
