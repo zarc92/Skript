@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev35</title>
+  <title>Skript Documentation - 2.2-dev36</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -21,7 +21,8 @@
   <nav>
     <p id="nav-title">Table of Contents</p>
     <div id="nav-contents">
-      <p><a href="#ExprPermissions">All Permissions</a></p>
+      <p><a href="#ExprAllGroups">All Groups</a></p>
+<p><a href="#ExprPermissions">All Permissions</a></p>
 <p><a href="#ExprAlphabetList">Alphabetical Sort</a></p>
 <p><a href="#ExprAltitude">Altitude</a></p>
 <p><a href="#ExprAmount">Amount</a></p>
@@ -59,6 +60,7 @@
 <p><a href="#ExprDamageCause">Damage Cause</a></p>
 <p><a href="#ExprDurability">Data Value</a></p>
 <p><a href="#ExprDateAgoLater">Date Ago/Later</a></p>
+<p><a href="#ExprDefaultValue">Default Value</a></p>
 <p><a href="#ExprDifference">Difference</a></p>
 <p><a href="#ExprDirection">Direction</a></p>
 <p><a href="#ExprDistance">Distance</a></p>
@@ -70,6 +72,8 @@
 <p><a href="#ExprExhaustion">Exhaustion</a></p>
 <p><a href="#ExprExperience">Experience</a></p>
 <p><a href="#ExprFacing">Facing</a></p>
+<p><a href="#ExprFilter">Filter</a></p>
+<p><a href="#ExprInput">Filter Input</a></p>
 <p><a href="#ExprFinalDamage">Final Damage</a></p>
 <p><a href="#ExprFlightMode">Flight Mode</a></p>
 <p><a href="#ExprFoodLevel">Food Level</a></p>
@@ -85,6 +89,7 @@
 <p><a href="#ExprEyeLocation">Head location</a></p>
 <p><a href="#ExprHealth">Health</a></p>
 <p><a href="#ExprHighestSolidBlock">Highest Solid Block</a></p>
+<p><a href="#ExprHotbarSlot">Hotbar Slot</a></p>
 <p><a href="#ExprHumidity">Humidity</a></p>
 <p><a href="#ExprIP">IP</a></p>
 <p><a href="#ExprIdOf">Id</a></p>
@@ -95,7 +100,8 @@
 <p><a href="#ExprInventorySlot">Inventory Slot</a></p>
 <p><a href="#ExprItem">Item</a></p>
 <p><a href="#ExprItemAmount">Item Amount</a></p>
-<p><a href="#ExprItemFrameSlot">Item in Item Frame</a></p>
+<p><a href="#ExprEnchantments">Item Enchantments</a></p>
+<p><a href="#ExprItemFrameSlot">Item of an Entity</a></p>
 <p><a href="#ExprItems">Items</a></p>
 <p><a href="#ExprItemsIn">Items In</a></p>
 <p><a href="#ExprJoinSplit">Join & Split</a></p>
@@ -115,6 +121,7 @@
 <p><a href="#ExprMaxStack">Maximum Stack Size</a></p>
 <p><a href="#ExprMe">Me</a></p>
 <p><a href="#ExprMessage">Message</a></p>
+<p><a href="#ExprMetadata">Metadata</a></p>
 <p><a href="#ExprBalance">Money</a></p>
 <p><a href="#ExprPushedBlocks">Moved blocks</a></p>
 <p><a href="#ExprName">Name / Display Name</a></p>
@@ -128,6 +135,7 @@
 <p><a href="#ExprParse">Parse</a></p>
 <p><a href="#ExprParseError">Parse Error</a></p>
 <p><a href="#ExprPassenger">Passenger</a></p>
+<p><a href="#ExprPing">Ping</a></p>
 <p><a href="#ExprPlayerWeather">Player Weather</a></p>
 <p><a href="#ExprPotionItem">Potion (item)</a></p>
 <p><a href="#ExprRandom">Random</a></p>
@@ -148,11 +156,13 @@
 <p><a href="#ExprSpecialNumber">Special Number</a></p>
 <p><a href="#ExprSpeed">Speed</a></p>
 <p><a href="#ExprSubstring">Subtext</a></p>
+<p><a href="#ExprTPS">TPS (ticks per second)</a></p>
 <p><a href="#ExprTamer">Tamer</a></p>
 <p><a href="#ExprTarget">Target</a></p>
 <p><a href="#ExprTargetedBlock">Targeted Block</a></p>
 <p><a href="#ExprTeleportCause">Teleport Cause</a></p>
 <p><a href="#ExprTemperature">Temperature</a></p>
+<p><a href="#ExprTernary">Ternary</a></p>
 <p><a href="#ExprTime">Time</a></p>
 <p><a href="#ExprTool">Tool</a></p>
 <p><a href="#ExprTypeOf">Type of</a></p>
@@ -192,6 +202,46 @@
   <div id="content">
     <h1>Expressions</h1>
 
+
+
+<div id="ExprAllGroups" class="item-title">All Groups</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">all groups</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    All the groups a player can have. This expression requires Vault and a compatible permissions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      command /group <text>:
+<br>   trigger:
+<br>       if argument is "list":
+<br>           send "%all groups%"
+    </div>
+
+  </div>
+</div>
 
 
 <div id="ExprPermissions" class="item-title">All Permissions</div>
@@ -483,8 +533,8 @@ One can also use the type of the argument instead of its index to address the ar
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[the] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [slot] of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [slot]</span></li>
+          <li><span class="skript-code-inline">[the] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [(item|slot)] of %<a href='classes.html#livingentity'>living entities</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#livingentity'>living entities</a>%'[s] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [(item|slot)]</span></li>
 
         </ul>
       </td>
@@ -1530,8 +1580,8 @@ You can use the specific type of the entity that's involved in the event, e.g. i
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[a [new]] chest [inventory] (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]</span></li>
-<li><span class="skript-code-inline">[a [new]] chest [inventory] with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]</span></li>
+          <li><span class="skript-code-inline">[a [new]] chest inventory (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]</span></li>
+<li><span class="skript-code-inline">[a [new]] chest inventory with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]</span></li>
 
         </ul>
       </td>
@@ -1706,6 +1756,43 @@ You usually don't need this expression as you can check and set items with alias
 
     <div class="skript-code-block">
       set {_yesterday} to 1 day ago
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprDefaultValue" class="item-title">Default Value</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#object'>objects</a>% (otherwise|?) %<a href='classes.html#object'>objects</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A shorthand expression for giving things a default value. If the first thing isn't set, the second thing will be returned.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      broadcast {score::%player's uuid%} otherwise "%player% has no score!"
     </div>
 
   </div>
@@ -1889,7 +1976,7 @@ You usually don't need this expression as you can check and set items with alias
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">([the] first|[the] last|[a] random) element [out] of %<a href='classes.html#object'>objects</a>%</span></li>
+          <li><span class="skript-code-inline">([the] first|[the] last|[a] random|%<a href='classes.html#number'>number</a>%(st|nd|rd|th)) element [out] of %<a href='classes.html#object'>objects</a>%</span></li>
 
         </ul>
       </td>
@@ -2155,6 +2242,80 @@ See also: <a href='#ExprRandom'>random</a>
 </div>
 
 
+<div id="ExprFilter" class="item-title">Filter</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#object'>objects</a>% (where|that match) \[&lt;.+&gt;\]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Filters a list based on a condition. For example, if you ran 'broadcast "something" and "something else" where [string input is "something"]only "something" would be broadcast as it is the only string that matched the condition.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "congrats on being staff!" to all players where [player input has permission "staff"]
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprInput" class="item-title">Filter Input</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[%<a href='classes.html#classinfo'>type</a>%] input</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Represents the input in a filter expression. For example, if you ran 'broadcast "something" and "something else" where [string input is "something"]the condition would be checked twice, using "something" and "something else" as the inputs.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      send "congrats on being staff!" to all players where [player input has permission "staff"]
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprFinalDamage" class="item-title">Final Damage</div>
 <div class="item-content">
   <table>
@@ -2277,7 +2438,7 @@ See also: <a href='#ExprRandom'>random</a>
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#date'>date</a>% formatted human-readable [with %<a href='classes.html#string'>text</a>%]</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#date'>dates</a>% formatted [human-readable] [(with|as) %<a href='classes.html#string'>text</a>%]</span></li>
 
         </ul>
       </td>
@@ -2757,6 +2918,45 @@ Please note that this location is only accurate for entities whose head is exact
 </div>
 
 
+<div id="ExprHotbarSlot" class="item-title">Hotbar Slot</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] [([currently] selected|current)] hotbar slot of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] [([currently] selected|current)] hotbar slot</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The slot number of the currently selected hotbar slot.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "%player's current hotbar slot%"
+<br>set player's selected hotbar slot to slot 4 of player
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprHumidity" class="item-title">Humidity</div>
 <div class="item-content">
   <table>
@@ -3148,7 +3348,45 @@ Please note that this location is only accurate for entities whose head is exact
 </div>
 
 
-<div id="ExprItemFrameSlot" class="item-title">Item in Item Frame</div>
+<div id="ExprEnchantments" class="item-title">Item Enchantments</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] enchantments of %<a href='classes.html#itemtype'>item types</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item types</a>%'[s] enchantments</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    All the enchantments an <a href='classes.html#itemtype>item type</a> has.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      clear enchantments of event-item
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprItemFrameSlot" class="item-title">Item of an Entity</div>
 <div class="item-content">
   <table>
 
@@ -3165,13 +3403,13 @@ Please note that this location is only accurate for entities whose head is exact
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>2.2-dev35</td>
+      <td>2.2-dev35, 2.2-dev36 (improved)</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    An item inside an item frame entity.
+    An item associated with an entity. For dropped item entities, it gets, obviously, the item that was dropped. For item frames, the item inside the frame is returned. Other entities do not have items associated with them.
   </div>
 
   <div class="item-examples">
@@ -3975,6 +4213,46 @@ Please note that the location of an entity is at it's feet, use <a href='#ExprEy
 </div>
 
 
+<div id="ExprMetadata" class="item-title">Metadata</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>% of %<a href='classes.html#metadataholder'>types.metadataholder</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#metadataholder'>types.metadataholder</a>%'[s] metadata [(value|tag)[s]] %<a href='classes.html#string'>text</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Metadata is a way to store temporary data on entities, blocks and more thatdisappears after a server restart.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set metadata value "healer" of player to true
+<br>broadcast "%metadata value ""healer"" of player%"
+<br>clear metadata value "healer" of player
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprBalance" class="item-title">Money</div>
 <div class="item-content">
   <table>
@@ -4204,7 +4482,7 @@ The differences between the different names are:
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#inventorytype'>types.inventorytype</a>% (named|with name[s]) %<a href='classes.html#string'>text</a>%</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#inventorytype'>types.inventorytype</a>% (named|with name) %<a href='classes.html#string'>text</a>%</span></li>
 
         </ul>
       </td>
@@ -4527,6 +4805,46 @@ For 1.11.2 and above, it returns a list of passengers and you can use all change
 <br>set passengers of player's vehicle to a pig and a horse
 <br>remove all pigs from player's vehicle
 <br>clear passengers of boat
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprPing" class="item-title">Ping</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] ping of %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>%'[s] ping</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Pings of players, as Minecraft server knows them. Note that they will almost certainly be different from the ones you'd get from using ICMP echo requests. This expression is only supported on some server software.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      command /ping <player=%player%>:
+<br>	trigger:
+<br>		send "%arg-1%'s ping is %arg-1's ping%"
     </div>
 
   </div>
@@ -5310,6 +5628,46 @@ Please note that changing a player's speed will change his FOV just like potions
 </div>
 
 
+<div id="ExprTPS" class="item-title">TPS (ticks per second)</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">tps from [the] last ([1] minute|1[ ]m[inute])</span></li>
+<li><span class="skript-code-inline">tps from [the] last 5[ ]m[inutes]</span></li>
+<li><span class="skript-code-inline">tps from [the] last 15[ ]m[inutes]</span></li>
+<li><span class="skript-code-inline">[the] tps</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Returns the 3 most recent TPS readings, like the /tps command. This expression is only supported on some server software.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      broadcast "%tps%"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprTamer" class="item-title">Tamer</div>
 <div class="item-content">
   <table>
@@ -5499,6 +5857,43 @@ Please note that changing a player's speed will change his FOV just like potions
 
     <div class="skript-code-block">
       
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprTernary" class="item-title">Ternary</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#object'>objects</a>% if &lt;.+&gt;[,] (otherwise|else) %<a href='classes.html#object'>objects</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    A shorthand expression for returning something based on a condition.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      set {points} to 500 if {admin::%player's uuid%} is set else 100
     </div>
 
   </div>

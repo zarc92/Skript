@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev35</title>
+  <title>Skript Documentation - 2.2-dev36</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -26,15 +26,19 @@
 <p><a href="#CondCompare">Comparison</a></p>
 <p><a href="#CondContains">Contains</a></p>
 <p><a href="#CondDamageCause">Damage Cause</a></p>
+<p><a href="#CondCancelled">Event Cancelled</a></p>
 <p><a href="#CondIsSet">Exists/Is Set</a></p>
+<p><a href="#CondHasMetadata">Has Metadata</a></p>
 <p><a href="#CondPermission">Has Permission</a></p>
 <p><a href="#CondPlayedBefore">Has Played Before</a></p>
 <p><a href="#CondIsAlive">Is Alive</a></p>
 <p><a href="#CondIsBanned">Is Banned</a></p>
 <p><a href="#CondIsBlocking">Is Blocking</a></p>
 <p><a href="#CondIsBurning">Is Burning</a></p>
+<p><a href="#CondIsEdible">Is Edible</a></p>
 <p><a href="#CondIsEmpty">Is Empty</a></p>
 <p><a href="#CondIsEnchanted">Is Enchanted</a></p>
+<p><a href="#CondIsFlammable">Is Flammable</a></p>
 <p><a href="#CondIsFlying">Is Flying</a></p>
 <p><a href="#CondItemInHand">Is Holding</a></p>
 <p><a href="#CondIsOnline">Is Online</a></p>
@@ -43,12 +47,15 @@
 <p><a href="#CondScriptLoaded">Is Script Loaded</a></p>
 <p><a href="#CondIsSleeping">Is Sleeping</a></p>
 <p><a href="#CondIsSneaking">Is Sneaking</a></p>
+<p><a href="#CondIsSolid">Is Solid</a></p>
 <p><a href="#CondIsSprinting">Is Sprinting</a></p>
+<p><a href="#CondIsTransparent">Is Transparent</a></p>
 <p><a href="#CondIsWearing">Is Wearing</a></p>
 <p><a href="#CondIsInWorld">Is in World</a></p>
 <p><a href="#CondIsOfType">Is of Type</a></p>
 <p><a href="#CondIsOnGround">Is on Ground</a></p>
 <p><a href="#CondPvP">PvP</a></p>
+<p><a href="#CondStartsWith">Starts/Ends With</a></p>
 <p><a href="#CondDate">Time</a></p>
 <p><a href="#CondWeather">Weather</a></p>
 
@@ -185,7 +192,7 @@ Valid values are between 0% and 100%, or if the percent sign is omitted between 
 
   <div class="item-description">
     A very general condition, it simply compares two values. Usually you can only compare for equality (e.g. block is/isn't of &lt;type&gt;), but some values can also be compared using greater than/less than. In that case you can also test for whether an object is between two others.
-Note: This is the only element where not all patterns are shown. It has actually another two sets of similar patters, but with <code>(was|were)</code> or <code>will be</code> instead of <code>(is|are)</code> respectively, which check different <a href='../expressions/#ExprTimeState'>time states</a> of the first expression.
+Note: This is the only element where not all patterns are shown. It has actually another two sets of similar patters, but with <code>(was|were)</code> or <code>will be</code> instead of <code>(is|are)</code> respectively, which check different <a href='expressions.html#ExprTimeState'>time states</a> of the first expression.
   </div>
 
   <div class="item-examples">
@@ -265,7 +272,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Tests what kind of damage caused a <a href='../events/#damage'>damage event</a>. Refer to the <a href='../classes/#damagecause'>Damage Cause</a> type for a list of all possible causes.
+    Tests what kind of damage caused a <a href='events.html#damage'>damage event</a>. Refer to the <a href='classes.html#damagecause'>Damage Cause</a> type for a list of all possible causes.
   </div>
 
   <div class="item-examples">
@@ -286,6 +293,46 @@ Note: This is the only element where not all patterns are shown. It has actually
 <br>	entity is not a player
 <br>	damage wasn't caused by a block explosion, an attack, a projectile, a potion, fire, burning, thorns or poison
 <br>	clear drops
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondCancelled" class="item-title">Event Cancelled</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] event is cancel[l]ed</span></li>
+<li><span class="skript-code-inline">[the] event (is not|isn't) cancel[l]ed</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether or not the event is cancelled
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on click:
+<br>	if event is cancelled:
+<br>		broadcast "no clicks allowed!"
     </div>
 
   </div>
@@ -323,10 +370,48 @@ Note: This is the only element where not all patterns are shown. It has actually
     Examples:
 
     <div class="skript-code-block">
-      {teamscript.%player%.preferred team} is not set
+      {teams::%player's uuid%::preferred-team} is not set
 <br>on damage:
 <br>	projectile exists
 <br>	broadcast "%attacker% used a %projectile% to attack %victim%!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondHasMetadata" class="item-title">Has Metadata</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#metadataholder'>types.metadataholder</a>% (has|have) metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#metadataholder'>types.metadataholder</a>% (doesn't|does not|do not|don't) have metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a metadata holder has a metadata tag.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      if player has metadata value "healer":
     </div>
 
   </div>
@@ -396,7 +481,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks whether a player has played on this server before. You can also use <a href='../events/#first_join'>on first join</a> if you want to make triggers for new players.
+    Checks whether a player has played on this server before. You can also use <a href='events.html#first_join'>on first join</a> if you want to make triggers for new players.
   </div>
 
   <div class="item-examples">
@@ -435,7 +520,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks whetehr an entity is alive. This is mostly useful to check whether an entity stored in a variable does still exist
+    Checks whether an entity is alive. This is mostly useful to check whether an entity stored in a variable does still exist.
   </div>
 
   <div class="item-examples">
@@ -443,7 +528,7 @@ Note: This is the only element where not all patterns are shown. It has actually
     Examples:
 
     <div class="skript-code-block">
-      {villagerbuddy.%player%} is dead
+      {villager-buddy::%player's uuid%} is dead
     </div>
 
   </div>
@@ -563,9 +648,48 @@ Note: This is the only element where not all patterns are shown. It has actually
     Examples:
 
     <div class="skript-code-block">
-      # increased attack against buring targets
+      # increased attack against burning targets
 <br>victim is burning:
 <br>	increase damage by 2
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsEdible" class="item-title">Is Edible</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>% (is|are) edible</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>% (isn't|is not|aren't|are not) edible</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an item is edible.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      steak is edible
+<br>player's tool is edible
     </div>
 
   </div>
@@ -649,6 +773,45 @@ Note: This is the only element where not all patterns are shown. It has actually
 </div>
 
 
+<div id="CondIsFlammable" class="item-title">Is Flammable</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>% (is|are) flammable</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>% (isn't|is not|aren't|are not) flammable</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an item is flammable.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      wood is flammable
+<br>player's tool is flammable
+    </div>
+
+  </div>
+</div>
+
+
 <div id="CondIsFlying" class="item-title">Is Flying</div>
 <div class="item-content">
   <table>
@@ -672,7 +835,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks whether a player is flying
+    Checks whether a player is flying.
   </div>
 
   <div class="item-examples">
@@ -716,7 +879,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks whether a player is holdign a specific item. Cannot be used with endermen, use 'entity is [not] an enderman holding &lt;item type&gt;' instead.
+    Checks whether a player is holding a specific item. Cannot be used with endermen, use 'entity is [not] an enderman holding &lt;item type&gt;' instead.
   </div>
 
   <div class="item-examples">
@@ -803,7 +966,7 @@ Note: This is the only element where not all patterns are shown. It has actually
 
     <div class="skript-code-block">
       player is poisoned:
-<br>	cure the player from posion
+<br>	cure the player from poison
 <br>	message "You have been cured!"
     </div>
 
@@ -872,7 +1035,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Check if the current script or another script, is current loaded
+    Check if the current script or another script, is current loaded.
   </div>
 
   <div class="item-examples">
@@ -953,7 +1116,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks whether a player is sneaking
+    Checks whether a player is sneaking.
   </div>
 
   <div class="item-examples">
@@ -966,6 +1129,45 @@ Note: This is the only element where not all patterns are shown. It has actually
 <br>	target is sneaking
 <br>	distance of target and the entity is bigger than 4
 <br>	cancel the event
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsSolid" class="item-title">Is Solid</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>% (is|are) solid</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>% (isn't|is not|aren't|are not) solid</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an item is solid.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      grass block is solid
+<br>player's tool isn't solid
     </div>
 
   </div>
@@ -995,7 +1197,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks whether a player is sprinting
+    Checks whether a player is sprinting.
   </div>
 
   <div class="item-examples">
@@ -1004,6 +1206,45 @@ Note: This is the only element where not all patterns are shown. It has actually
 
     <div class="skript-code-block">
       player is not sprinting
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsTransparent" class="item-title">Is Transparent</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>% (is|are) transparent</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#itemstack'>item stacks</a>% (isn't|is not|aren't|are not) transparent</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether an item is transparent.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      glass is transparent
+<br>player's tool is transparent.
     </div>
 
   </div>
@@ -1072,7 +1313,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks whether an entity is in a specific world
+    Checks whether an entity is in a specific world.
   </div>
 
   <div class="item-examples">
@@ -1151,7 +1392,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Checks if entities are on ground or not.
+    Checks whether an entity is on ground.
   </div>
 
   <div class="item-examples">
@@ -1205,6 +1446,45 @@ Note: This is the only element where not all patterns are shown. It has actually
 </div>
 
 
+<div id="CondStartsWith" class="item-title">Starts/Ends With</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#string'>texts</a>% (start|end)[s] with %<a href='classes.html#string'>text</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#string'>texts</a>% do[es](n't| not) (start|end) with %<a href='classes.html#string'>text</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev36</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks if a text starts or ends with another.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      if the argument starts with "test":
+<br>	send "Stop!"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="CondDate" class="item-title">Time</div>
 <div class="item-content">
   <table>
@@ -1228,7 +1508,7 @@ Note: This is the only element where not all patterns are shown. It has actually
   </table>
 
   <div class="item-description">
-    Tests whether a given <a href='../classes/#date'>real time</a> was more or less than some <a href='../classes/#timespan'>time span</a> ago.
+    Tests whether a given <a href='classes.html#date'>real time</a> was more or less than some <a href='classes.html#timespan'>time span</a> ago.
   </div>
 
   <div class="item-examples">
@@ -1236,12 +1516,12 @@ Note: This is the only element where not all patterns are shown. It has actually
     Examples:
 
     <div class="skript-code-block">
-      command /command_with_cooldown:
+      command /command-with-cooldown:
 <br>	trigger:
-<br>		{command.%player%.lastused} was less than a minute ago:
+<br>		{command::%player's uuid%::last-usage} was less than a minute ago:
 <br>			message "Please wait a minute between uses of this command."
 <br>			stop
-<br>		set {command.%player%.lastused} to now
+<br>		set {command::%player's uuid%::last-usage} to now
 <br>		# ... actual command trigger here ...
     </div>
 

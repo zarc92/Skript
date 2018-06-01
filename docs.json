@@ -1,5 +1,5 @@
 {
-  "skriptVersion" : "2.2-dev35",
+  "skriptVersion" : "2.2-dev36",
 
   "classes" : [
     {
@@ -304,6 +304,17 @@
   "examples" : ""
 },
 {
+  "id" : "metadataholder",
+  "name" : "Metadata Holder",
+  "patterns" : [
+    
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Something that can hold metadata (e.g. an entity or block)",
+  "examples" : "set metadata value \"super cool\" of player to true"
+},
+{
   "id" : "money",
   "name" : "Money",
   "patterns" : [
@@ -576,7 +587,7 @@
     "pattern_end"
   ],
   "since" : "1.0",
-  "description" : "A very general condition, it simply compares two values. Usually you can only compare for equality (e.g. block is/isn't of &lt;type&gt;), but some values can also be compared using greater than/less than. In that case you can also test for whether an object is between two others.\\nNote: This is the only element where not all patterns are shown. It has actually another two sets of similar patters, but with <code>(was|were)</code> or <code>will be</code> instead of <code>(is|are)</code> respectively, which check different <a href='../expressions/#ExprTimeState'>time states</a> of the first expression.",
+  "description" : "A very general condition, it simply compares two values. Usually you can only compare for equality (e.g. block is/isn't of &lt;type&gt;), but some values can also be compared using greater than/less than. In that case you can also test for whether an object is between two others.\\nNote: This is the only element where not all patterns are shown. It has actually another two sets of similar patters, but with <code>(was|were)</code> or <code>will be</code> instead of <code>(is|are)</code> respectively, which check different <a href='expressions.html#ExprTimeState'>time states</a> of the first expression.",
   "examples" : "the clicked block is a stone slab or a double stone slab\\ntime in the player's world is greater than 8:00\\nthe creature is not an enderman or an ender dragon"
 },
 {
@@ -603,8 +614,21 @@
     "pattern_end"
   ],
   "since" : "2.0",
-  "description" : "Tests what kind of damage caused a <a href='../events/#damage'>damage event</a>. Refer to the <a href='../classes/#damagecause'>Damage Cause</a> type for a list of all possible causes.",
+  "description" : "Tests what kind of damage caused a <a href='events.html#damage'>damage event</a>. Refer to the <a href='classes.html#damagecause'>Damage Cause</a> type for a list of all possible causes.",
   "examples" : "# make players use their potions of fire resistance whenever they take any kind of fire damage\\non damage:\\n    damage was caused by lava, fire or burning\\n    victim is a player\\n    victim has a potion of fire resistance\\n    cancel event\\n    apply fire resistance to the victim for 30 seconds\\n    remove 1 potion of fire resistance from the victim\\n# prevent mobs from dropping items under certain circumstances\\non death;\\n    entity is not a player\\n    damage wasn't caused by a block explosion, an attack, a projectile, a potion, fire, burning, thorns or poison\\n    clear drops"
+},
+{
+  "id" : "CondCancelled",
+  "name" : "Event Cancelled",
+  "patterns" : [
+    "[the] event is cancel[l]ed",
+"[the] event (is not|isn't) cancel[l]ed",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Checks whether or not the event is cancelled",
+  "examples" : "on click:\\n    if event is cancelled:\\n        broadcast \"no clicks allowed!\""
 },
 {
   "id" : "CondIsSet",
@@ -617,7 +641,20 @@
   ],
   "since" : "1.2",
   "description" : "Checks whether a given expression or variable is set.",
-  "examples" : "{teamscript.%player%.preferred team} is not set\\non damage:\\n    projectile exists\\n    broadcast \"%attacker% used a %projectile% to attack %victim%!\""
+  "examples" : "{teams::%player's uuid%::preferred-team} is not set\\non damage:\\n    projectile exists\\n    broadcast \"%attacker% used a %projectile% to attack %victim%!\""
+},
+{
+  "id" : "CondHasMetadata",
+  "name" : "Has Metadata",
+  "patterns" : [
+    "%<a href='classes.html#metadataholder'>types.metadataholder</a>% (has|have) metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>%",
+"%<a href='classes.html#metadataholder'>types.metadataholder</a>% (doesn't|does not|do not|don't) have metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Checks whether a metadata holder has a metadata tag.",
+  "examples" : "if player has metadata value \"healer\":"
 },
 {
   "id" : "CondPermission",
@@ -642,7 +679,7 @@
     "pattern_end"
   ],
   "since" : "1.4",
-  "description" : "Checks whether a player has played on this server before. You can also use <a href='../events/#first_join'>on first join</a> if you want to make triggers for new players.",
+  "description" : "Checks whether a player has played on this server before. You can also use <a href='events.html#first_join'>on first join</a> if you want to make triggers for new players.",
   "examples" : "player has played on this server before\\nplayer hasn't played before"
 },
 {
@@ -655,8 +692,8 @@
     "pattern_end"
   ],
   "since" : "2.0",
-  "description" : "Checks whetehr an entity is alive. This is mostly useful to check whether an entity stored in a variable does still exist",
-  "examples" : "{villagerbuddy.%player%} is dead"
+  "description" : "Checks whether an entity is alive. This is mostly useful to check whether an entity stored in a variable does still exist.",
+  "examples" : "{villager-buddy::%player's uuid%} is dead"
 },
 {
   "id" : "CondIsBanned",
@@ -697,7 +734,20 @@
   ],
   "since" : "1.4.4",
   "description" : "Checks whether an entity is on fire, e.g. a zombie due to being in sunlight, or any entity after falling into lava.",
-  "examples" : "# increased attack against buring targets\\nvictim is burning:\\n    increase damage by 2"
+  "examples" : "# increased attack against burning targets\\nvictim is burning:\\n    increase damage by 2"
+},
+{
+  "id" : "CondIsEdible",
+  "name" : "Is Edible",
+  "patterns" : [
+    "%<a href='classes.html#itemstack'>item stacks</a>% (is|are) edible",
+"%<a href='classes.html#itemstack'>item stacks</a>% (isn't|is not|aren't|are not) edible",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Checks whether an item is edible.",
+  "examples" : "steak is edible\\nplayer's tool is edible"
 },
 {
   "id" : "CondIsEmpty",
@@ -726,6 +776,19 @@
   "examples" : "tool of the player is enchanted with efficiency 2\\nhelm, chestplate, leggings or boots are enchanted"
 },
 {
+  "id" : "CondIsFlammable",
+  "name" : "Is Flammable",
+  "patterns" : [
+    "%<a href='classes.html#itemstack'>item stacks</a>% (is|are) flammable",
+"%<a href='classes.html#itemstack'>item stacks</a>% (isn't|is not|aren't|are not) flammable",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Checks whether an item is flammable.",
+  "examples" : "wood is flammable\\nplayer's tool is flammable"
+},
+{
   "id" : "CondIsFlying",
   "name" : "Is Flying",
   "patterns" : [
@@ -735,7 +798,7 @@
     "pattern_end"
   ],
   "since" : "1.4.4",
-  "description" : "Checks whether a player is flying",
+  "description" : "Checks whether a player is flying.",
   "examples" : "player is not flying"
 },
 {
@@ -754,7 +817,7 @@
     "pattern_end"
   ],
   "since" : "1.0",
-  "description" : "Checks whether a player is holdign a specific item. Cannot be used with endermen, use 'entity is [not] an enderman holding &lt;item type&gt;' instead.",
+  "description" : "Checks whether a player is holding a specific item. Cannot be used with endermen, use 'entity is [not] an enderman holding &lt;item type&gt;' instead.",
   "examples" : "player is holding a stick\\nvictim isn't holding a sword of sharpness"
 },
 {
@@ -781,7 +844,7 @@
   ],
   "since" : "1.4.4",
   "description" : "Checks whether an entity is poisoned.",
-  "examples" : "player is poisoned:\\n    cure the player from posion\\n    message \"You have been cured!\""
+  "examples" : "player is poisoned:\\n    cure the player from poison\\n    message \"You have been cured!\""
 },
 {
   "id" : "CondIsRiding",
@@ -806,7 +869,7 @@
     "pattern_end"
   ],
   "since" : "2.2-dev31",
-  "description" : "Check if the current script or another script, is current loaded",
+  "description" : "Check if the current script or another script, is current loaded.",
   "examples" : "script is loaded\\nscript \"example.sk\" is loaded"
 },
 {
@@ -832,8 +895,21 @@
     "pattern_end"
   ],
   "since" : "1.4.4",
-  "description" : "Checks whether a player is sneaking",
+  "description" : "Checks whether a player is sneaking.",
   "examples" : "# prevent mobs from seeing sneaking players if they are at least 4 meters apart\\non target:\\n    target is sneaking\\n    distance of target and the entity is bigger than 4\\n    cancel the event"
+},
+{
+  "id" : "CondIsSolid",
+  "name" : "Is Solid",
+  "patterns" : [
+    "%<a href='classes.html#itemstack'>item stacks</a>% (is|are) solid",
+"%<a href='classes.html#itemstack'>item stacks</a>% (isn't|is not|aren't|are not) solid",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Checks whether an item is solid.",
+  "examples" : "grass block is solid\\nplayer's tool isn't solid"
 },
 {
   "id" : "CondIsSprinting",
@@ -845,8 +921,21 @@
     "pattern_end"
   ],
   "since" : "1.4.4",
-  "description" : "Checks whether a player is sprinting",
+  "description" : "Checks whether a player is sprinting.",
   "examples" : "player is not sprinting"
+},
+{
+  "id" : "CondIsTransparent",
+  "name" : "Is Transparent",
+  "patterns" : [
+    "%<a href='classes.html#itemstack'>item stacks</a>% (is|are) transparent",
+"%<a href='classes.html#itemstack'>item stacks</a>% (isn't|is not|aren't|are not) transparent",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Checks whether an item is transparent.",
+  "examples" : "glass is transparent\\nplayer's tool is transparent."
 },
 {
   "id" : "CondIsWearing",
@@ -871,7 +960,7 @@
     "pattern_end"
   ],
   "since" : "1.4",
-  "description" : "Checks whether an entity is in a specific world",
+  "description" : "Checks whether an entity is in a specific world.",
   "examples" : "player is in \"world\"\\nargument isn't in world \"world_nether\"\\nthe player is in the world of the victim"
 },
 {
@@ -897,7 +986,7 @@
     "pattern_end"
   ],
   "since" : "2.2-dev26",
-  "description" : "Checks if entities are on ground or not.",
+  "description" : "Checks whether an entity is on ground.",
   "examples" : "player is not on ground"
 },
 {
@@ -914,6 +1003,19 @@
   "examples" : "PvP is enabled\\nPvP is disabled in \"world\""
 },
 {
+  "id" : "CondStartsWith",
+  "name" : "Starts/Ends With",
+  "patterns" : [
+    "%<a href='classes.html#string'>texts</a>% (start|end)[s] with %<a href='classes.html#string'>text</a>%",
+"%<a href='classes.html#string'>texts</a>% do[es](n't| not) (start|end) with %<a href='classes.html#string'>text</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Checks if a text starts or ends with another.",
+  "examples" : "if the argument starts with \"test\":\\n    send \"Stop!\""
+},
+{
   "id" : "CondDate",
   "name" : "Time",
   "patterns" : [
@@ -923,8 +1025,8 @@
     "pattern_end"
   ],
   "since" : "2.0",
-  "description" : "Tests whether a given <a href='../classes/#date'>real time</a> was more or less than some <a href='../classes/#timespan'>time span</a> ago.",
-  "examples" : "command /command_with_cooldown:\\n    trigger:\\n        {command.%player%.lastused} was less than a minute ago:\\n            message \"Please wait a minute between uses of this command.\"\\n            stop\\n        set {command.%player%.lastused} to now\\n        # ... actual command trigger here ..."
+  "description" : "Tests whether a given <a href='classes.html#date'>real time</a> was more or less than some <a href='classes.html#timespan'>time span</a> ago.",
+  "examples" : "command /command-with-cooldown:\\n    trigger:\\n        {command::%player's uuid%::last-usage} was less than a minute ago:\\n            message \"Please wait a minute between uses of this command.\"\\n            stop\\n        set {command::%player's uuid%::last-usage} to now\\n        # ... actual command trigger here ..."
 },
 {
   "id" : "CondWeather",
@@ -1970,6 +2072,19 @@
   "examples" : ""
 },
 {
+  "id" : "flight_toggle",
+  "name" : "On Flight Toggle",
+  "patterns" : [
+    "[player] flight togg(e|ing)",
+"[player] toggl(e|ing) flight",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Called when a players stops/starts flying.",
+  "examples" : "on flight toggle:\\n    if {game::%player%::playing} exists:\\n        cancel event"
+},
+{
   "id" : "flow",
   "name" : "On Flow",
   "patterns" : [
@@ -2822,6 +2937,18 @@
 
   "expressions" : [
     {
+  "id" : "ExprAllGroups",
+  "name" : "All Groups",
+  "patterns" : [
+    "all groups",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "All the groups a player can have. This expression requires Vault and a compatible permissions plugin to be installed.",
+  "examples" : "command /group <text>:\\n   trigger:\\n       if argument is \"list\":\\n           send \"%all groups%\""
+},
+{
   "id" : "ExprPermissions",
   "name" : "All Permissions",
   "patterns" : [
@@ -2920,8 +3047,8 @@
   "id" : "ExprArmorSlot",
   "name" : "Armour Slot",
   "patterns" : [
-    "[the] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [slot] of %<a href='classes.html#livingentity'>living entities</a>%",
-"%<a href='classes.html#livingentity'>living entities</a>%'[s] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [slot]",
+    "[the] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [(item|slot)] of %<a href='classes.html#livingentity'>living entities</a>%",
+"%<a href='classes.html#livingentity'>living entities</a>%'[s] (boot[s]|shoe[s]|leg[ging][s]|chestplate[s]|helm[et][s]) [(item|slot)]",
 
     "pattern_end"
   ],
@@ -3252,8 +3379,8 @@
   "id" : "ExprChestInventory",
   "name" : "Custom Chest Inventory",
   "patterns" : [
-    "[a [new]] chest [inventory] (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]",
-"[a [new]] chest [inventory] with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]",
+    "[a [new]] chest inventory (named|with name) %<a href='classes.html#string'>text</a>% [with %<a href='classes.html#number'>number</a>% row[s]]",
+"[a [new]] chest inventory with %<a href='classes.html#number'>number</a>% row[s] [(named|with name) %<a href='classes.html#string'>text</a>%]",
 
     "pattern_end"
   ],
@@ -3312,6 +3439,18 @@
   "examples" : "set {_yesterday} to 1 day ago"
 },
 {
+  "id" : "ExprDefaultValue",
+  "name" : "Default Value",
+  "patterns" : [
+    "%<a href='classes.html#object'>objects</a>% (otherwise|?) %<a href='classes.html#object'>objects</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "A shorthand expression for giving things a default value. If the first thing isn't set, the second thing will be returned.",
+  "examples" : "broadcast {score::%player's uuid%} otherwise \"%player% has no score!\""
+},
+{
   "id" : "ExprDifference",
   "name" : "Difference",
   "patterns" : [
@@ -3367,7 +3506,7 @@
   "id" : "ExprElement",
   "name" : "Element of",
   "patterns" : [
-    "([the] first|[the] last|[a] random) element [out] of %<a href='classes.html#object'>objects</a>%",
+    "([the] first|[the] last|[a] random|%<a href='classes.html#number'>number</a>%(st|nd|rd|th)) element [out] of %<a href='classes.html#object'>objects</a>%",
 
     "pattern_end"
   ],
@@ -3455,6 +3594,30 @@
   "examples" : "# makes a bridge\\nloop blocks from the block below the player in the horizontal facing of the player:\\n    set block to cobblestone"
 },
 {
+  "id" : "ExprFilter",
+  "name" : "Filter",
+  "patterns" : [
+    "%<a href='classes.html#object'>objects</a>% (where|that match) \\[&lt;.+&gt;\\]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Filters a list based on a condition. For example, if you ran 'broadcast \"something\" and \"something else\" where [string input is \"something\"]only \"something\" would be broadcast as it is the only string that matched the condition.",
+  "examples" : "send \"congrats on being staff!\" to all players where [player input has permission \"staff\"]"
+},
+{
+  "id" : "ExprInput",
+  "name" : "Filter Input",
+  "patterns" : [
+    "[%<a href='classes.html#classinfo'>type</a>%] input",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Represents the input in a filter expression. For example, if you ran 'broadcast \"something\" and \"something else\" where [string input is \"something\"]the condition would be checked twice, using \"something\" and \"something else\" as the inputs.",
+  "examples" : "send \"congrats on being staff!\" to all players where [player input has permission \"staff\"]"
+},
+{
   "id" : "ExprFinalDamage",
   "name" : "Final Damage",
   "patterns" : [
@@ -3496,7 +3659,7 @@
   "id" : "ExprFormatTime",
   "name" : "Formatted time",
   "patterns" : [
-    "%<a href='classes.html#date'>date</a>% formatted human-readable [with %<a href='classes.html#string'>text</a>%]",
+    "%<a href='classes.html#date'>dates</a>% formatted [human-readable] [(with|as) %<a href='classes.html#string'>text</a>%]",
 
     "pattern_end"
   ],
@@ -3648,6 +3811,19 @@
   "examples" : "highest block at location of arg-player"
 },
 {
+  "id" : "ExprHotbarSlot",
+  "name" : "Hotbar Slot",
+  "patterns" : [
+    "[the] [([currently] selected|current)] hotbar slot of %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>%'[s] [([currently] selected|current)] hotbar slot",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "The slot number of the currently selected hotbar slot.",
+  "examples" : "message \"%player's current hotbar slot%\"\\nset player's selected hotbar slot to slot 4 of player"
+},
+{
   "id" : "ExprHumidity",
   "name" : "Humidity",
   "patterns" : [
@@ -3775,16 +3951,29 @@
   "examples" : "send \"You have got %item amount of player's tool% %player's tool% in your hand !\" to player"
 },
 {
+  "id" : "ExprEnchantments",
+  "name" : "Item Enchantments",
+  "patterns" : [
+    "[the] enchantments of %<a href='classes.html#itemtype'>item types</a>%",
+"%<a href='classes.html#itemtype'>item types</a>%'[s] enchantments",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "All the enchantments an <a href='classes.html#itemtype>item type</a> has.",
+  "examples" : "clear enchantments of event-item"
+},
+{
   "id" : "ExprItemFrameSlot",
-  "name" : "Item in Item Frame",
+  "name" : "Item of an Entity",
   "patterns" : [
     "[the] item of %<a href='classes.html#entity'>entities</a>%",
 "%<a href='classes.html#entity'>entities</a>%'[s] item",
 
     "pattern_end"
   ],
-  "since" : "2.2-dev35",
-  "description" : "An item inside an item frame entity.",
+  "since" : "2.2-dev35, 2.2-dev36 (improved)",
+  "description" : "An item associated with an entity. For dropped item entities, it gets, obviously, the item that was dropped. For item frames, the item inside the frame is returned. Other entities do not have items associated with them.",
   "examples" : ""
 },
 {
@@ -4038,6 +4227,19 @@
   "examples" : "on chat:\\n    player has permission \"admin\"\\n    set message to \"<red>%message%\"\\n\\non first join:\\n    set join message to \"Welcome %player% to our awesome server!\"\\non join:\\n    player has played before\\n    set join message to \"Welcome back, %player%!\"\\n\\non quit:\\n    set quit message to \"%player% left this awesome server!\"\\n\\non death:\\n    set the death message to \"%player% died!\""
 },
 {
+  "id" : "ExprMetadata",
+  "name" : "Metadata",
+  "patterns" : [
+    "metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>% of %<a href='classes.html#metadataholder'>types.metadataholder</a>%",
+"%<a href='classes.html#metadataholder'>types.metadataholder</a>%'[s] metadata [(value|tag)[s]] %<a href='classes.html#string'>text</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Metadata is a way to store temporary data on entities, blocks and more thatdisappears after a server restart.",
+  "examples" : "set metadata value \"healer\" of player to true\\nbroadcast \"%metadata value \"\"healer\"\" of player%\"\\nclear metadata value \"healer\" of player"
+},
+{
   "id" : "ExprBalance",
   "name" : "Money",
   "patterns" : [
@@ -4105,7 +4307,7 @@
   "id" : "ExprNamed",
   "name" : "Named Item/Inventory",
   "patterns" : [
-    "%<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#inventorytype'>types.inventorytype</a>% (named|with name[s]) %<a href='classes.html#string'>text</a>%",
+    "%<a href='classes.html#itemtype'>item type</a>/<a href='classes.html#inventorytype'>types.inventorytype</a>% (named|with name) %<a href='classes.html#string'>text</a>%",
 
     "pattern_end"
   ],
@@ -4199,6 +4401,19 @@
   "since" : "2.0, 2.2-dev26 (Multiple passengers for 1.11.2+)",
   "description" : "The passenger of a vehicle, or the rider of a mob.\\nSee also: <a href='#ExprVehicle'>vehicle</a>\\nFor 1.11.2 and above, it returns a list of passengers and you can use all changers in it.",
   "examples" : "#for 1.11 and lower\\npassenger of the minecart is a creeper or a cow\\nthe saddled pig's passenger is a player\\n#for 1.11.2+\\npassengers of the minecart contains a creeper or a cow\\nthe boat's passenger contains a pig\\nadd a cow and a zombie to passengers of last spawned boat\\nset passengers of player's vehicle to a pig and a horse\\nremove all pigs from player's vehicle\\nclear passengers of boat"
+},
+{
+  "id" : "ExprPing",
+  "name" : "Ping",
+  "patterns" : [
+    "[the] ping of %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>%'[s] ping",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Pings of players, as Minecraft server knows them. Note that they will almost certainly be different from the ones you'd get from using ICMP echo requests. This expression is only supported on some server software.",
+  "examples" : "command /ping <player=%player%>:\\n    trigger:\\n        send \"%arg-1%'s ping is %arg-1's ping%\""
 },
 {
   "id" : "ExprPlayerWeather",
@@ -4457,6 +4672,21 @@
   "examples" : "set {_s} to the first 5 characters of the text argument\\nmessage \"%subtext of {_s} from characters 2 to (the length of {_s} - 1)%\" # removes the first and last character from {_s} and sends it to the player or console"
 },
 {
+  "id" : "ExprTPS",
+  "name" : "TPS (ticks per second)",
+  "patterns" : [
+    "tps from [the] last ([1] minute|1[ ]m[inute])",
+"tps from [the] last 5[ ]m[inutes]",
+"tps from [the] last 15[ ]m[inutes]",
+"[the] tps",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "Returns the 3 most recent TPS readings, like the /tps command. This expression is only supported on some server software.",
+  "examples" : "broadcast \"%tps%\""
+},
+{
   "id" : "ExprTamer",
   "name" : "Tamer",
   "patterns" : [
@@ -4520,6 +4750,18 @@
   "since" : "2.2-dev35",
   "description" : "Temperature at given block.",
   "examples" : ""
+},
+{
+  "id" : "ExprTernary",
+  "name" : "Ternary",
+  "patterns" : [
+    "%<a href='classes.html#object'>objects</a>% if &lt;.+&gt;[,] (otherwise|else) %<a href='classes.html#object'>objects</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev36",
+  "description" : "A shorthand expression for returning something based on a condition.",
+  "examples" : "set {points} to 500 if {admin::%player's uuid%} is set else 100"
 },
 {
   "id" : "ExprTime",
