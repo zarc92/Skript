@@ -43,15 +43,13 @@ import ch.njol.util.Kleenean;
  */
 @Name("Arithmetic")
 @Description("Arithmetic expressions, e.g. 1+2, (2 - health of player)/3, etc.")
-@Examples({"set the player's health to 10 - the player's health",
-		"loop (argument + 2)/5 times:",
-		"	message \"Two useless numbers: %loop-num*2 - 5%, %2^loop-num - 1%\"",
-		"message \"You have %health of player * 2% half hearts of HP!\""})
+@Examples({"set the player's health to 10 - the player's health", "loop (argument + 2)/5 times:", "	message \"Two useless numbers: %loop-num*2 - 5%, %2^loop-num - 1%\"", "message \"You have %health of player * 2% half hearts of HP!\""})
 @Since("1.4.2")
 public class ExprArithmetic extends SimpleExpression<Number> {
-	
+
 	private static enum Operator {
 		PLUS('+') {
+
 			@SuppressWarnings("null")
 			@Override
 			public Number calculate(final Number n1, final Number n2, final boolean integer) {
@@ -61,6 +59,7 @@ public class ExprArithmetic extends SimpleExpression<Number> {
 			}
 		},
 		MINUS('-') {
+
 			@SuppressWarnings("null")
 			@Override
 			public Number calculate(final Number n1, final Number n2, final boolean integer) {
@@ -70,6 +69,7 @@ public class ExprArithmetic extends SimpleExpression<Number> {
 			}
 		},
 		MULT('*') {
+
 			@SuppressWarnings("null")
 			@Override
 			public Number calculate(final Number n1, final Number n2, final boolean integer) {
@@ -79,6 +79,7 @@ public class ExprArithmetic extends SimpleExpression<Number> {
 			}
 		},
 		DIV('/') {
+
 			@SuppressWarnings("null")
 			@Override
 			public Number calculate(final Number n1, final Number n2, final boolean integer) {
@@ -92,6 +93,7 @@ public class ExprArithmetic extends SimpleExpression<Number> {
 			}
 		},
 		EXP('^') {
+
 			@SuppressWarnings("null")
 			@Override
 			public Number calculate(final Number n1, final Number n2, final boolean integer) {
@@ -100,49 +102,48 @@ public class ExprArithmetic extends SimpleExpression<Number> {
 				return Double.valueOf(Math.pow(n1.doubleValue(), n2.doubleValue()));
 			}
 		};
-		
+
 		public final char sign;
-		
+
 		private Operator(final char sign) {
 			this.sign = sign;
 		}
-		
+
 		public abstract Number calculate(Number n1, Number n2, boolean integer);
-		
+
 		@Override
 		public String toString() {
 			return "" + sign;
 		}
 	}
-	
+
 	private final static Patterns<Operator> patterns = new Patterns<>(new Object[][] {
-			
-			{"%number%[ ]+[ ]%number%", Operator.PLUS},
-			{"%number%[ ]-[ ]%number%", Operator.MINUS},
-			
-			{"%number%[ ]*[ ]%number%", Operator.MULT},
-			{"%number%[ ]/[ ]%number%", Operator.DIV},
-			
+
+			{"%number%[ ]+[ ]%number%", Operator.PLUS}, {"%number%[ ]-[ ]%number%", Operator.MINUS},
+
+			{"%number%[ ]*[ ]%number%", Operator.MULT}, {"%number%[ ]/[ ]%number%", Operator.DIV},
+
 			{"%number%[ ]^[ ]%number%", Operator.EXP},
-	
+
 	});
-	
+
 	static {
 		Skript.registerExpression(ExprArithmetic.class, Number.class, ExpressionType.PATTERN_MATCHES_EVERYTHING, patterns.getPatterns());
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<? extends Number> first, second;
 	@SuppressWarnings("null")
 	private Operator op;
-	
+
 	@SuppressWarnings("null")
 	private Class<? extends Number> returnType;
 	private boolean integer;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		first = (Expression<? extends Number>) exprs[0];
 		second = (Expression<? extends Number>) exprs[1];
 		op = patterns.getInfo(matchedPattern);
@@ -164,7 +165,7 @@ public class ExprArithmetic extends SimpleExpression<Number> {
 		integer = returnType == Long.class;
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected Number[] get(final Event e) {
@@ -177,22 +178,22 @@ public class ExprArithmetic extends SimpleExpression<Number> {
 		one[0] = op.calculate(n1, n2, integer);
 		return one;
 	}
-	
+
 	@Override
 	public Class<? extends Number> getReturnType() {
 		return returnType;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return first.toString(e, debug) + " " + op + " " + second.toString(e, debug);
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public Expression<? extends Number> simplify() {
@@ -200,5 +201,5 @@ public class ExprArithmetic extends SimpleExpression<Number> {
 			return new SimpleLiteral<>(getArray(null), Number.class, false);
 		return this;
 	}
-	
+
 }

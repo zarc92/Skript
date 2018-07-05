@@ -34,8 +34,7 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
 
 @Name("Spectator Target")
-@Description("The entity a player is currently spectating. This can be set and cleared when" +
-		"the given player is in spectator mode.")
+@Description("The entity a player is currently spectating. This can be set and cleared when" + "the given player is in spectator mode.")
 @Examples("set spectator target of player to last spawned creeper")
 @Since("INSERT VERSION")
 public class ExprSpectatorTarget extends SimplePropertyExpression<Player, Entity> {
@@ -63,9 +62,7 @@ public class ExprSpectatorTarget extends SimplePropertyExpression<Player, Entity
 	@Nullable
 	@Override
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
-		if (mode == Changer.ChangeMode.SET
-				|| mode == Changer.ChangeMode.RESET
-				|| mode == Changer.ChangeMode.DELETE) {
+		if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.RESET || mode == Changer.ChangeMode.DELETE) {
 			return CollectionUtils.array(Entity.class);
 		}
 		return null;

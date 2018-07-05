@@ -38,14 +38,15 @@ import ch.njol.util.coll.CollectionUtils;
  * @author Peter Güttinger
  */
 public class SheepData extends EntityData<Sheep> {
+
 	static {
 		EntityData.register(SheepData.class, "sheep", Sheep.class, 1, "unsheared sheep", "sheep", "sheared sheep");
 	}
-	
+
 	@Nullable
 	private Color[] colors = null;
 	private int sheared = 0;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected boolean init(final Literal<?>[] exprs, final int matchedPattern, final ParseResult parseResult) {
@@ -54,7 +55,7 @@ public class SheepData extends EntityData<Sheep> {
 			colors = ((Literal<Color>) exprs[0]).getAll();
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected boolean init(final @Nullable Class<? extends Sheep> c, final @Nullable Sheep e) {
@@ -62,7 +63,7 @@ public class SheepData extends EntityData<Sheep> {
 		colors = e == null ? null : new Color[] {Color.byWoolColor(e.getColor())};
 		return true;
 	}
-	
+
 	@Override
 	public void set(final Sheep entity) {
 		if (colors != null) {
@@ -71,26 +72,26 @@ public class SheepData extends EntityData<Sheep> {
 			entity.setColor(c.getWoolColor());
 		}
 	}
-	
+
 	@Override
 	public boolean match(final Sheep entity) {
-		return (sheared == 0 || entity.isSheared() == (sheared == 1))
-				&& (colors == null || SimpleExpression.check(colors, new Checker<Color>() {
-					@Override
-					public boolean check(final @Nullable Color c) {
-						return c != null && entity.getColor() == c.getWoolColor();
-					}
-				}, false, false));
+		return (sheared == 0 || entity.isSheared() == (sheared == 1)) && (colors == null || SimpleExpression.check(colors, new Checker<Color>() {
+
+			@Override
+			public boolean check(final @Nullable Color c) {
+				return c != null && entity.getColor() == c.getWoolColor();
+			}
+		}, false, false));
 	}
-	
+
 	@Override
 	public Class<Sheep> getType() {
 		return Sheep.class;
 	}
-	
+
 	@Nullable
 	private Adjective[] adjectives = null;
-	
+
 	@Override
 	public String toString(final int flags) {
 		final Color[] colors = this.colors;
@@ -104,10 +105,9 @@ public class SheepData extends EntityData<Sheep> {
 		}
 		final Noun name = getName();
 		final Adjective age = getAgeAdjective();
-		return name.getArticleWithSpace(flags) + (age == null ? "" : age.toString(name.getGender(), flags) + " ")
-				+ Adjective.toString(adjectives, name.getGender(), flags, false) + " " + name.toString(flags & Language.NO_ARTICLE_MASK);
+		return name.getArticleWithSpace(flags) + (age == null ? "" : age.toString(name.getGender(), flags) + " ") + Adjective.toString(adjectives, name.getGender(), flags, false) + " " + name.toString(flags & Language.NO_ARTICLE_MASK);
 	}
-	
+
 	@Override
 	protected int hashCode_i() {
 		final int prime = 31;
@@ -116,7 +116,7 @@ public class SheepData extends EntityData<Sheep> {
 		result = prime * result + sheared;
 		return result;
 	}
-	
+
 	@Override
 	protected boolean equals_i(final EntityData<?> obj) {
 		if (!(obj instanceof SheepData))
@@ -128,7 +128,7 @@ public class SheepData extends EntityData<Sheep> {
 			return false;
 		return true;
 	}
-	
+
 //		if (colors != null) {
 //			final StringBuilder b = new StringBuilder();
 //			b.append(sheared);
@@ -172,17 +172,17 @@ public class SheepData extends EntityData<Sheep> {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean isSupertypeOf(final EntityData<?> e) {
 		if (e instanceof SheepData)
 			return colors == null || CollectionUtils.isSubset(colors, ((SheepData) e).colors);
 		return false;
 	}
-	
+
 	@Override
 	public EntityData getSuperType() {
 		return new SheepData();
 	}
-	
+
 }

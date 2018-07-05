@@ -23,10 +23,11 @@ package ch.njol.skript.localization;
  * @author Peter Güttinger
  */
 public abstract class GeneralWords {
+
 	private GeneralWords() {}
-	
+
 	public final static Message and = new Message("and");
 	public final static Message or = new Message("or");
 	public final static Message not = new Message("not");
-	
+
 }

@@ -33,7 +33,7 @@ import ch.njol.skript.util.VisualEffect;
  * Hook for multi version biomes.
  */
 public class BiomeHook extends Hook<Skript> {
-	
+
 	@SuppressWarnings("null")
 	public static BiomeHook instance;
 	@SuppressWarnings("null")
@@ -41,11 +41,11 @@ public class BiomeHook extends Hook<Skript> {
 	// SO, be careful when using this
 
 	public BiomeHook() throws IOException {}
-	
+
 	@Override
 	protected boolean init() {
 		instance = this;
-		
+
 		return true;
 	}
 
@@ -53,7 +53,7 @@ public class BiomeHook extends Hook<Skript> {
 	public String getName() {
 		return "Skript";
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected void loadClasses() throws IOException {
@@ -62,5 +62,5 @@ public class BiomeHook extends Hook<Skript> {
 			util19 = new EnumUtils<>(To19Mapping.class, "biomes");
 		}
 	}
-	
+
 }

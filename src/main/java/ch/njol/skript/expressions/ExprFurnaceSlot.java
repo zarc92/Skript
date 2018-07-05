@@ -52,31 +52,26 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Furnace Slot")
-@Description({"A slot of a furnace, i.e. either the ore, fuel or result slot.",
-		"Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace' is not an existing expression."})
-@Examples({"set the fuel slot of the clicked block to a lava bucket",
-		"set the block's ore slot to 64 iron ore",
-		"give the result of the block to the player",
-		"clear the result slot of the block"})
+@Description({"A slot of a furnace, i.e. either the ore, fuel or result slot.", "Remember to use '<a href='#ExprBlock'>block</a>' and not 'furnace', as 'furnace' is not an existing expression."})
+@Examples({"set the fuel slot of the clicked block to a lava bucket", "set the block's ore slot to 64 iron ore", "give the result of the block to the player", "clear the result slot of the block"})
 @Since("1.0")
 @Events({"smelt", "fuel burn"})
 public class ExprFurnaceSlot extends PropertyExpression<Block, Slot> {
+
 	private final static int ORE = 0, FUEL = 1, RESULT = 2;
 	private final static String[] slotNames = {"ore", "fuel", "result"};
-	
+
 	static {
-		Skript.registerExpression(ExprFurnaceSlot.class, Slot.class, ExpressionType.PROPERTY,
-				"(" + FUEL + "¦fuel|" + RESULT + "¦result) [slot]",
-				"(" + ORE + "¦ore|" + FUEL + "¦fuel|" + RESULT + "¦result)[s] [slot[s]] of %blocks%",
-				"%blocks%'[s] (" + ORE + "¦ore|" + FUEL + "¦fuel|" + RESULT + "¦result)[s] [slot[s]]");
+		Skript.registerExpression(ExprFurnaceSlot.class, Slot.class, ExpressionType.PROPERTY, "(" + FUEL + "¦fuel|" + RESULT + "¦result) [slot]", "(" + ORE + "¦ore|" + FUEL + "¦fuel|" + RESULT + "¦result)[s] [slot[s]] of %blocks%", "%blocks%'[s] (" + ORE + "¦ore|" + FUEL + "¦fuel|" + RESULT + "¦result)[s] [slot[s]]");
 	}
-	
+
 	private int slot;
 	private boolean isEvent;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		isEvent = matchedPattern == 0;
 		slot = parseResult.mark;
 		if (isEvent && slot == RESULT && !ScriptLoader.isCurrentEvent(FurnaceSmeltEvent.class)) {
@@ -90,16 +85,16 @@ public class ExprFurnaceSlot extends PropertyExpression<Block, Slot> {
 			setExpr((Expression<Block>) exprs[0]);
 		return true;
 	}
-	
+
 	private final class FurnaceEventSlot extends InventorySlot {
-		
+
 		private final Event e;
-		
+
 		public FurnaceEventSlot(final Event e, final FurnaceInventory invi) {
 			super(invi, slot);
 			this.e = e;
 		}
-		
+
 		@Override
 		@Nullable
 		public ItemStack getItem() {
@@ -112,7 +107,7 @@ public class ExprFurnaceSlot extends PropertyExpression<Block, Slot> {
 				case FUEL:
 					if (e instanceof FurnaceBurnEvent)
 						return getTime() > -1 ? ((FurnaceBurnEvent) e).getFuel().clone() : super.getItem();
-					 else
+					else
 						return pastItem();
 				case ORE:
 					if (e instanceof FurnaceSmeltEvent)
@@ -128,8 +123,7 @@ public class ExprFurnaceSlot extends PropertyExpression<Block, Slot> {
 		@Override
 		public void setItem(final @Nullable ItemStack item) {
 			if (getTime() > -1) {
-				Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(),
-						() -> FurnaceEventSlot.super.setItem(item));
+				Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), () -> FurnaceEventSlot.super.setItem(item));
 			} else {
 				if (e instanceof FurnaceSmeltEvent && slot == RESULT)
 					((FurnaceSmeltEvent) e).setResult(item);
@@ -150,12 +144,13 @@ public class ExprFurnaceSlot extends PropertyExpression<Block, Slot> {
 				return item.getAmount() == 0 ? new ItemStack(Material.AIR, 1) : item;
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	protected Slot[] get(final Event e, final Block[] source) {
 		return get(source, new Getter<Slot, Block>() {
+
 			@Override
 			@Nullable
 			public Slot get(final Block b) {
@@ -175,23 +170,23 @@ public class ExprFurnaceSlot extends PropertyExpression<Block, Slot> {
 			}
 		});
 	}
-	
+
 	@Override
 	public Class<Slot> getReturnType() {
 		return Slot.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (e == null)
 			return "the " + (getTime() == -1 ? "past " : getTime() == 1 ? "future " : "") + slotNames[slot] + " slot of " + getExpr().toString(e, debug);
 		return Classes.getDebugMessage(getSingle(e));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean setTime(final int time) {
 		return super.setTime(time, getExpr(), FurnaceSmeltEvent.class, FurnaceBurnEvent.class);
 	}
-	
+
 }

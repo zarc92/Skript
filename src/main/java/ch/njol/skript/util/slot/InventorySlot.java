@@ -36,48 +36,48 @@ import ch.njol.skript.registrations.Classes;
  * Represents a slot in some inventory.
  */
 public class InventorySlot extends SlotWithIndex {
-	
+
 	private final Inventory invi;
 	private final int index;
-	
+
 	public InventorySlot(final Inventory invi, final int index) {
 		assert invi != null;
 		assert index > 0;
 		this.invi = invi;
 		this.index = index;
 	}
-	
+
 	public Inventory getInventory() {
 		return invi;
 	}
-	
+
 	@Override
 	public int getIndex() {
 		return index;
 	}
-	
+
 	@Override
 	@Nullable
 	public ItemStack getItem() {
 		return invi.getItem(index) == null ? new ItemStack(Material.AIR, 1) : invi.getItem(index).clone();
 	}
-	
+
 	@Override
 	public void setItem(final @Nullable ItemStack item) {
 		invi.setItem(index, item != null && item.getType() != Material.AIR ? item : null);
 		if (invi instanceof PlayerInventory)
 			PlayerUtils.updateInventory((Player) invi.getHolder());
 	}
-	
+
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
 		if (invi.getHolder() != null) {
 			if (invi instanceof CraftingInventory) // 4x4 crafting grid is contained in player too!
 				return "crafting slot " + index + " of " + Classes.toString(invi.getHolder());
-			
+
 			return "inventory slot " + index + " of " + Classes.toString(invi.getHolder());
 		}
 		return "inventory slot " + index + " of " + Classes.toString(invi);
 	}
-	
+
 }

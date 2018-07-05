@@ -41,131 +41,133 @@ import org.eclipse.jdt.annotation.Nullable;
 import ch.njol.skript.Skript;
 
 /**
- * A block that gets all data from the world, but either delays any changes by 1 tick of reflects them on a given BlockState depending on which constructor is used.
+ * A block that gets all data from the world, but either delays any changes by 1 tick of reflects them on a given
+ * BlockState depending on which constructor is used.
  * 
  * @author Peter Güttinger
  */
 @SuppressWarnings("deprecation")
 @NonNullByDefault(false)
 public class DelayedChangeBlock implements Block {
-	
+
 	final Block b;
 	@Nullable
 	private final BlockState newState;
-	
+
 	public DelayedChangeBlock(final Block b) {
 		assert b != null;
 		this.b = b;
 		newState = null;
 	}
-	
+
 	public DelayedChangeBlock(final Block b, final BlockState newState) {
 		assert b != null;
 		this.b = b;
 		this.newState = newState;
 	}
-	
+
 	@Override
 	public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
 		b.setMetadata(metadataKey, newMetadataValue);
 	}
-	
+
 	@Override
 	public List<MetadataValue> getMetadata(final String metadataKey) {
 		return b.getMetadata(metadataKey);
 	}
-	
+
 	@Override
 	public boolean hasMetadata(final String metadataKey) {
 		return b.hasMetadata(metadataKey);
 	}
-	
+
 	@Override
 	public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
 		b.removeMetadata(metadataKey, owningPlugin);
 	}
-	
+
 	@Override
 	public byte getData() {
 		return b.getData();
 	}
-	
+
 	@Override
 	public Block getRelative(final int modX, final int modY, final int modZ) {
 		return b.getRelative(modX, modY, modZ);
 	}
-	
+
 	@Override
 	public Block getRelative(final BlockFace face) {
 		return b.getRelative(face);
 	}
-	
+
 	@Override
 	public Block getRelative(final BlockFace face, final int distance) {
 		return b.getRelative(face, distance);
 	}
-	
+
 	@Override
 	public Material getType() {
 		return b.getType();
 	}
-	
+
 	@Override
 	public int getTypeId() {
 		return b.getTypeId();
 	}
-	
+
 	@Override
 	public byte getLightLevel() {
 		return b.getLightLevel();
 	}
-	
+
 	@Override
 	public byte getLightFromSky() {
 		return b.getLightFromSky();
 	}
-	
+
 	@Override
 	public byte getLightFromBlocks() {
 		return b.getLightFromBlocks();
 	}
-	
+
 	@Override
 	public World getWorld() {
 		return b.getWorld();
 	}
-	
+
 	@Override
 	public int getX() {
 		return b.getX();
 	}
-	
+
 	@Override
 	public int getY() {
 		return b.getY();
 	}
-	
+
 	@Override
 	public int getZ() {
 		return b.getZ();
 	}
-	
+
 	@Override
 	public Location getLocation() {
 		return b.getLocation();
 	}
-	
+
 	@Override
 	public Chunk getChunk() {
 		return b.getChunk();
 	}
-	
+
 	@Override
 	public void setData(final byte data) {
 		if (newState != null) {
 			newState.setRawData(data);
 		} else {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					b.setData(data);
@@ -173,13 +175,14 @@ public class DelayedChangeBlock implements Block {
 			});
 		}
 	}
-	
+
 	@Override
 	public void setData(final byte data, final boolean applyPhysics) {
 		if (newState != null) {
 			newState.setRawData(data);
 		} else {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					b.setData(data, applyPhysics);
@@ -187,13 +190,14 @@ public class DelayedChangeBlock implements Block {
 			});
 		}
 	}
-	
+
 	@Override
 	public void setType(final Material type) {
 		if (newState != null) {
 			newState.setType(type);
 		} else {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					b.setType(type);
@@ -201,7 +205,7 @@ public class DelayedChangeBlock implements Block {
 			});
 		}
 	}
-	
+
 	@Override
 	public boolean setTypeId(final int type) {
 		final BlockState newState = this.newState;
@@ -210,6 +214,7 @@ public class DelayedChangeBlock implements Block {
 			return newState.getTypeId() != getTypeId();
 		} else {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					b.setTypeId(type);
@@ -218,7 +223,7 @@ public class DelayedChangeBlock implements Block {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public boolean setTypeId(final int type, final boolean applyPhysics) {
 		final BlockState newState = this.newState;
@@ -227,6 +232,7 @@ public class DelayedChangeBlock implements Block {
 			return newState.getTypeId() != getTypeId();
 		} else {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					b.setTypeId(type, applyPhysics);
@@ -235,7 +241,7 @@ public class DelayedChangeBlock implements Block {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public boolean setTypeIdAndData(final int type, final byte data, final boolean applyPhysics) {
 		final BlockState newState = this.newState;
@@ -245,6 +251,7 @@ public class DelayedChangeBlock implements Block {
 			return newState.getTypeId() != getTypeId() || newState.getRawData() != getData();
 		} else {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					b.setTypeIdAndData(type, data, applyPhysics);
@@ -253,88 +260,89 @@ public class DelayedChangeBlock implements Block {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public BlockFace getFace(final Block block) {
 		return b.getFace(block);
 	}
-	
+
 	@Override
 	public BlockState getState() {
 		return b.getState();
 	}
-	
+
 	@Override
 	public Biome getBiome() {
 		return b.getBiome();
 	}
-	
+
 	@Override
 	public void setBiome(final Biome bio) {
 		b.setBiome(bio);
 	}
-	
+
 	@Override
 	public boolean isBlockPowered() {
 		return b.isBlockPowered();
 	}
-	
+
 	@Override
 	public boolean isBlockIndirectlyPowered() {
 		return b.isBlockIndirectlyPowered();
 	}
-	
+
 	@Override
 	public boolean isBlockFacePowered(final BlockFace face) {
 		return b.isBlockFacePowered(face);
 	}
-	
+
 	@Override
 	public boolean isBlockFaceIndirectlyPowered(final BlockFace face) {
 		return b.isBlockFaceIndirectlyPowered(face);
 	}
-	
+
 	@Override
 	public int getBlockPower(final BlockFace face) {
 		return b.getBlockPower(face);
 	}
-	
+
 	@Override
 	public int getBlockPower() {
 		return b.getBlockPower();
 	}
-	
+
 	@Override
 	public boolean isEmpty() {
 		return getTypeId() == 0;
 	}
-	
+
 	@Override
 	public boolean isLiquid() {
 		return getType() == Material.WATER || getType() == Material.STATIONARY_WATER || getType() == Material.LAVA || getType() == Material.STATIONARY_LAVA;
 	}
-	
+
 	@Override
 	public double getTemperature() {
 		return b.getTemperature();
 	}
-	
+
 	@Override
 	public double getHumidity() {
 		return b.getHumidity();
 	}
-	
+
 	@Override
 	public PistonMoveReaction getPistonMoveReaction() {
 		return b.getPistonMoveReaction();
 	}
-	
+
 	@Override
 	public boolean breakNaturally() {
 		if (newState != null) {
 			return false;
 		} else {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					b.breakNaturally();
@@ -343,13 +351,14 @@ public class DelayedChangeBlock implements Block {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public boolean breakNaturally(final ItemStack tool) {
 		if (newState != null) {
 			return false;
 		} else {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					b.breakNaturally(tool);
@@ -358,17 +367,17 @@ public class DelayedChangeBlock implements Block {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public Collection<ItemStack> getDrops() {
 		return b.getDrops();
 	}
-	
+
 	@Override
 	public Collection<ItemStack> getDrops(final ItemStack tool) {
 		return b.getDrops(tool);
 	}
-	
+
 	@Override
 	public Location getLocation(final Location loc) {
 		if (loc != null) {
@@ -385,7 +394,7 @@ public class DelayedChangeBlock implements Block {
 	@Override
 	public void setType(Material arg0, boolean arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

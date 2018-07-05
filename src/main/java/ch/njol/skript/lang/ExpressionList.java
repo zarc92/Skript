@@ -43,19 +43,20 @@ import ch.njol.util.coll.CollectionUtils;
  * @author Peter Güttinger
  */
 public class ExpressionList<T> implements Expression<T> {
-	
+
 	protected final Expression<? extends T>[] expressions;
 	protected boolean and;
 	private final boolean single;
 	private final Class<T> returnType;
 	@Nullable
 	private ExpressionList<?> source;
-	
+
 	public ExpressionList(final Expression<? extends T>[] expressions, final Class<T> returnType, final boolean and) {
 		this(expressions, returnType, and, null);
 	}
-	
-	protected ExpressionList(final Expression<? extends T>[] expressions, final Class<T> returnType, final boolean and, final @Nullable ExpressionList<?> source) {
+
+	protected ExpressionList(final Expression<? extends T>[] expressions, final Class<T> returnType, final boolean and,
+			final @Nullable ExpressionList<?> source) {
 		assert expressions != null && expressions.length > 1;
 		this.expressions = expressions;
 		this.returnType = returnType;
@@ -74,12 +75,13 @@ public class ExpressionList<T> implements Expression<T> {
 		}
 		this.source = source;
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	@Nullable
 	public T getSingle(final Event e) {
@@ -92,7 +94,7 @@ public class ExpressionList<T> implements Expression<T> {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public T[] getArray(final Event e) {
 		if (and)
@@ -107,7 +109,7 @@ public class ExpressionList<T> implements Expression<T> {
 		assert r != null;
 		return r;
 	}
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
 	public T[] getAll(final Event e) {
@@ -116,7 +118,7 @@ public class ExpressionList<T> implements Expression<T> {
 			r.addAll(Arrays.asList(expr.getAll(e)));
 		return r.toArray((T[]) Array.newInstance(returnType, r.size()));
 	}
-	
+
 	@Override
 	@Nullable
 	public Iterator<? extends T> iterator(final Event e) {
@@ -129,10 +131,11 @@ public class ExpressionList<T> implements Expression<T> {
 			return null;
 		}
 		return new Iterator<T>() {
+
 			private int i = 0;
 			@Nullable
 			private Iterator<? extends T> current = null;
-			
+
 			@Override
 			public boolean hasNext() {
 				Iterator<? extends T> c = current;
@@ -140,7 +143,7 @@ public class ExpressionList<T> implements Expression<T> {
 					current = c = expressions[i++].iterator(e);
 				return c != null && c.hasNext();
 			}
-			
+
 			@Override
 			public T next() {
 				if (!hasNext())
@@ -152,24 +155,24 @@ public class ExpressionList<T> implements Expression<T> {
 				assert t != null : current;
 				return t;
 			}
-			
+
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return single;
 	}
-	
+
 	@Override
 	public boolean check(final Event e, final Checker<? super T> c, final boolean negated) {
 		return negated ^ check(e, c);
 	}
-	
+
 	@Override
 	public boolean check(final Event e, final Checker<? super T> c) {
 		for (final Expression<? extends T> expr : expressions) {
@@ -181,7 +184,7 @@ public class ExpressionList<T> implements Expression<T> {
 		}
 		return and;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -192,17 +195,17 @@ public class ExpressionList<T> implements Expression<T> {
 				return null;
 		return new ExpressionList<>(exprs, (Class<R>) Utils.getSuperType(to), and, this);
 	}
-	
+
 	@Override
 	public Class<T> getReturnType() {
 		return returnType;
 	}
-	
+
 	@Override
 	public boolean getAnd() {
 		return and;
 	}
-	
+
 	/**
 	 * For use in {@link CondCompare} only.
 	 * 
@@ -213,14 +216,14 @@ public class ExpressionList<T> implements Expression<T> {
 		this.and = and;
 		return r;
 	}
-	
+
 	/**
 	 * For use in {@link CondCompare} only.
 	 */
 	public void invertAnd() {
 		and = !and;
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -238,9 +241,10 @@ public class ExpressionList<T> implements Expression<T> {
 		}
 		return r.toArray(new Class[r.size()]);
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		if (delta == null || delta.length < expressions.length) {
 			for (Expression<?> expr : expressions) {
 				expr.change(e, delta, mode);
@@ -252,9 +256,9 @@ public class ExpressionList<T> implements Expression<T> {
 			}
 		}
 	}
-	
+
 	private int time = 0;
-	
+
 	@Override
 	public boolean setTime(final int time) {
 		boolean ok = false;
@@ -265,17 +269,17 @@ public class ExpressionList<T> implements Expression<T> {
 			this.time = time;
 		return ok;
 	}
-	
+
 	@Override
 	public int getTime() {
 		return time;
 	}
-	
+
 	@Override
 	public boolean isDefault() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isLoopOf(final String s) {
 		for (final Expression<?> e : expressions)
@@ -283,13 +287,13 @@ public class ExpressionList<T> implements Expression<T> {
 				return true;
 		return false;
 	}
-	
+
 	@Override
 	public Expression<?> getSource() {
 		final ExpressionList<?> s = source;
 		return s == null ? this : s;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		final StringBuilder b = new StringBuilder("(");
@@ -307,19 +311,19 @@ public class ExpressionList<T> implements Expression<T> {
 			b.append("[").append(returnType).append("]");
 		return "" + b;
 	}
-	
+
 	@Override
 	public String toString() {
 		return toString(null, false);
 	}
-	
+
 	/**
 	 * @return The internal list of expressions. Can be modified with care.
 	 */
 	public Expression<? extends T>[] getExpressions() {
 		return expressions;
 	}
-	
+
 	@Override
 	public Expression<T> simplify() {
 		boolean isLiteralList = true;
@@ -343,5 +347,5 @@ public class ExpressionList<T> implements Expression<T> {
 		}
 		return this;
 	}
-	
+
 }

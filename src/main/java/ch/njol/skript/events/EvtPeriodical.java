@@ -39,38 +39,26 @@ import ch.njol.skript.util.Timespan;
  * @author Peter Güttinger
  */
 public class EvtPeriodical extends SelfRegisteringSkriptEvent {
+
 	static {
-		Skript.registerEvent("*Periodical", EvtPeriodical.class, ScheduledNoWorldEvent.class, "every %timespan%")
-				.description("An event that is called periodically.")
-				.examples("every 2 seconds",
-						"every minecraft hour",
-						"every ticks #can cause lag (depends on the code in this trigger)",
-						"every minecraft days")
-				.since("1.0");
-		Skript.registerEvent("*Periodical", EvtPeriodical.class, ScheduledEvent.class, "every %timespan% in [world[s]] %worlds%")
-				.description("An event that is called periodically.")
-				.examples("every 2 seconds in \"world\"",
-						"every minecraft hour in \"flatworld\"",
-						"every ticks in \"world\" #can cause lag (depends on the code in this trigger)",
-						"every minecraft days in \"plots\"")
-				.since("1.0")
-				.documentationID("eventperiodical");
+		Skript.registerEvent("*Periodical", EvtPeriodical.class, ScheduledNoWorldEvent.class, "every %timespan%").description("An event that is called periodically.").examples("every 2 seconds", "every minecraft hour", "every ticks #can cause lag (depends on the code in this trigger)", "every minecraft days").since("1.0");
+		Skript.registerEvent("*Periodical", EvtPeriodical.class, ScheduledEvent.class, "every %timespan% in [world[s]] %worlds%").description("An event that is called periodically.").examples("every 2 seconds in \"world\"", "every minecraft hour in \"flatworld\"", "every ticks in \"world\" #can cause lag (depends on the code in this trigger)", "every minecraft days in \"plots\"").since("1.0").documentationID("eventperiodical");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Timespan period;
-	
+
 	@Nullable
 	private Trigger t;
 	@Nullable
 	private int[] taskIDs;
-	
+
 	@Nullable
 	private transient World[] worlds;
-	
+
 //	@Nullable
 //	private String[] worldNames;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
@@ -83,7 +71,7 @@ public class EvtPeriodical extends SelfRegisteringSkriptEvent {
 		}
 		return true;
 	}
-	
+
 	void execute(final @Nullable World w) {
 		final Trigger t = this.t;
 		if (t == null) {
@@ -97,7 +85,7 @@ public class EvtPeriodical extends SelfRegisteringSkriptEvent {
 		SkriptEventHandler.logTriggerEnd(t);
 		SkriptEventHandler.logEventEnd();
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public void register(final Trigger t) {
@@ -105,6 +93,7 @@ public class EvtPeriodical extends SelfRegisteringSkriptEvent {
 		int[] taskIDs;
 		if (worlds == null) {
 			taskIDs = new int[] {Bukkit.getScheduler().scheduleSyncRepeatingTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					execute(null);
@@ -115,6 +104,7 @@ public class EvtPeriodical extends SelfRegisteringSkriptEvent {
 			for (int i = 0; i < worlds.length; i++) {
 				final World w = worlds[i];
 				taskIDs[i] = Bukkit.getScheduler().scheduleSyncRepeatingTask(Skript.getInstance(), new Runnable() {
+
 					@Override
 					public void run() {
 						execute(w);
@@ -125,7 +115,7 @@ public class EvtPeriodical extends SelfRegisteringSkriptEvent {
 		}
 		this.taskIDs = taskIDs;
 	}
-	
+
 	@Override
 	public void unregister(final Trigger t) {
 		assert t == this.t;
@@ -134,7 +124,7 @@ public class EvtPeriodical extends SelfRegisteringSkriptEvent {
 		for (final int taskID : taskIDs)
 			Bukkit.getScheduler().cancelTask(taskID);
 	}
-	
+
 	@Override
 	public void unregisterAll() {
 		t = null;
@@ -142,10 +132,10 @@ public class EvtPeriodical extends SelfRegisteringSkriptEvent {
 		for (final int taskID : taskIDs)
 			Bukkit.getScheduler().cancelTask(taskID);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "every " + period;
 	}
-	
+
 }

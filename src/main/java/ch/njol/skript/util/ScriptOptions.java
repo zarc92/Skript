@@ -46,31 +46,30 @@ import java.util.HashMap;
 
 /**
  * @author Mirreducki
- * 
  */
 public class ScriptOptions {
-	
+
 	private HashMap<File, Boolean> usesNewLoops = new HashMap<>();
-	
+
 	@SuppressWarnings("null")
 	private static ScriptOptions instance = null;
-	
-	private ScriptOptions(){
+
+	private ScriptOptions() {
 		ScriptOptions.instance = this;
 	}
-	
+
 	@SuppressWarnings("null")
-	public static ScriptOptions getInstance(){
+	public static ScriptOptions getInstance() {
 		return instance != null ? instance : new ScriptOptions();
 	}
-	
-	public boolean usesNewLoops(File file){
-		if(usesNewLoops.containsKey(file))
+
+	public boolean usesNewLoops(File file) {
+		if (usesNewLoops.containsKey(file))
 			return usesNewLoops.get(file);
 		return true;
 	}
-	
-	public void setUsesNewLoops(File file, boolean b){
+
+	public void setUsesNewLoops(File file, boolean b) {
 		usesNewLoops.put(file, b);
 	}
 }

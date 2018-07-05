@@ -49,34 +49,35 @@ import ch.njol.util.Kleenean;
  */
 @Name("Drop")
 @Description("Drops one or more items.")
-@Examples({"on death of creeper:",
-		"	drop 1 TNT"})
+@Examples({"on death of creeper:", "	drop 1 TNT"})
 @Since("1.0")
 public class EffDrop extends Effect {
+
 	static {
-		Skript.registerEffect(EffDrop.class, "drop %itemtypes/experience% [%directions% %locations%]",
-				"drop %itemtypes/experience% [%directions% %locations%] without velocity");
+		Skript.registerEffect(EffDrop.class, "drop %itemtypes/experience% [%directions% %locations%]", "drop %itemtypes/experience% [%directions% %locations%] without velocity");
 	}
-	
+
 	@Nullable
 	public static Entity lastSpawned = null;
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> drops;
 	@SuppressWarnings("null")
 	private Expression<Location> locations;
-	
+
 	private boolean useVelocity = true;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		drops = exprs[0];
 		locations = Direction.combine((Expression<? extends Direction>) exprs[1], (Expression<? extends Location>) exprs[2]);
-		if (matchedPattern == 1) useVelocity = false;
+		if (matchedPattern == 1)
+			useVelocity = false;
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public void execute(final Event e) {
@@ -117,10 +118,10 @@ public class EffDrop extends Effect {
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "drop " + drops.toString(e, debug) + " " + locations.toString(e, debug);
 	}
-	
+
 }

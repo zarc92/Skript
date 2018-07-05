@@ -53,50 +53,22 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Comparison")
-@Description({"A very general condition, it simply compares two values. Usually you can only compare for equality (e.g. block is/isn't of &lt;type&gt;), " +
-		"but some values can also be compared using greater than/less than. In that case you can also test for whether an object is between two others.",
-		"Note: This is the only element where not all patterns are shown. It has actually another two sets of similar patters, " +
-				"but with <code>(was|were)</code> or <code>will be</code> instead of <code>(is|are)</code> respectively, " +
-				"which check different <a href='expressions.html#ExprTimeState'>time states</a> of the first expression."})
-@Examples({"the clicked block is a stone slab or a double stone slab",
-		"time in the player's world is greater than 8:00",
-		"the creature is not an enderman or an ender dragon"})
+@Description({"A very general condition, it simply compares two values. Usually you can only compare for equality (e.g. block is/isn't of &lt;type&gt;), " + "but some values can also be compared using greater than/less than. In that case you can also test for whether an object is between two others.", "Note: This is the only element where not all patterns are shown. It has actually another two sets of similar patters, " + "but with <code>(was|were)</code> or <code>will be</code> instead of <code>(is|are)</code> respectively, " + "which check different <a href='expressions.html#ExprTimeState'>time states</a> of the first expression."})
+@Examples({"the clicked block is a stone slab or a double stone slab", "time in the player's world is greater than 8:00", "the creature is not an enderman or an ender dragon"})
 @Since("1.0")
 public class CondCompare extends Condition {
-	
-	private final static Patterns<Relation> patterns = new Patterns<>(new Object[][] {
-			{"(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) ((greater|more|higher|bigger|larger) than|above)|\\>) %objects%", Relation.GREATER},
-			{"(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as)|\\>=) %objects%", Relation.GREATER_OR_EQUAL},
-			{"(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) ((less|smaller) than|below)|\\<) %objects%", Relation.SMALLER},
-			{"(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) (less|smaller|below) [than] or (equal to|the same as)|\\<=) %objects%", Relation.SMALLER_OR_EQUAL},
-			{"(1¦neither|) %objects% (2¦)((is|are) (not|4¦neither)|isn't|aren't|!=) [equal to] %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects% (is|are|=) [(equal to|the same as)] %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects% (is|are) between %objects% and %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects% (2¦)(is not|are not|isn't|aren't) between %objects% and %objects%", Relation.EQUAL},
-			
-			{"(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) ((greater|more|higher|bigger|larger) than|above) %objects%", Relation.GREATER},
-			{"(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as) %objects%", Relation.GREATER_OR_EQUAL},
-			{"(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) ((less|smaller) than|below) %objects%", Relation.SMALLER},
-			{"(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) (less|smaller|below) [than] or (equal to|the same as) %objects%", Relation.SMALLER_OR_EQUAL},
-			{"(1¦neither|) %objects@-1% (2¦)((was|were) (not|4¦neither)|wasn't|weren't) [equal to] %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects@-1% (was|were) [(equal to|the same as)] %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects@-1% (was|were) between %objects% and %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects@-1% (2¦)(was not|were not|wasn't|weren't) between %objects% and %objects%", Relation.EQUAL},
-			
-			{"(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) ((greater|more|higher|bigger|larger) than|above) %objects%", Relation.GREATER},
-			{"(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as) %objects%", Relation.GREATER_OR_EQUAL},
-			{"(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) ((less|smaller) than|below) %objects%", Relation.SMALLER},
-			{"(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) (less|smaller|below) [than] or (equal to|the same as) %objects%", Relation.SMALLER_OR_EQUAL},
-			{"(1¦neither|) %objects@1% (2¦)((will (not|4¦neither) be|won't be)|(isn't|aren't|is not|are not) (turning|changing) [in]to) [equal to] %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects@1% (will be [(equal to|the same as)]|(is|are) (turning|changing) [in]to) %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects@1% will be between %objects% and %objects%", Relation.EQUAL},
-			{"(1¦neither|) %objects@1% (2¦)(will not be|won't be) between %objects% and %objects%", Relation.EQUAL}
-	});
-	
+
+	private final static Patterns<Relation> patterns = new Patterns<>(
+			new Object[][] {{"(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) ((greater|more|higher|bigger|larger) than|above)|\\>) %objects%", Relation.GREATER}, {"(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as)|\\>=) %objects%", Relation.GREATER_OR_EQUAL}, {"(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) ((less|smaller) than|below)|\\<) %objects%", Relation.SMALLER}, {"(1¦neither|) %objects% ((is|are)(|2¦(n't| not|4¦ neither)) (less|smaller|below) [than] or (equal to|the same as)|\\<=) %objects%", Relation.SMALLER_OR_EQUAL}, {"(1¦neither|) %objects% (2¦)((is|are) (not|4¦neither)|isn't|aren't|!=) [equal to] %objects%", Relation.EQUAL}, {"(1¦neither|) %objects% (is|are|=) [(equal to|the same as)] %objects%", Relation.EQUAL}, {"(1¦neither|) %objects% (is|are) between %objects% and %objects%", Relation.EQUAL}, {"(1¦neither|) %objects% (2¦)(is not|are not|isn't|aren't) between %objects% and %objects%", Relation.EQUAL},
+
+					{"(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) ((greater|more|higher|bigger|larger) than|above) %objects%", Relation.GREATER}, {"(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as) %objects%", Relation.GREATER_OR_EQUAL}, {"(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) ((less|smaller) than|below) %objects%", Relation.SMALLER}, {"(1¦neither|) %objects@-1% (was|were)(|2¦(n't| not|4¦ neither)) (less|smaller|below) [than] or (equal to|the same as) %objects%", Relation.SMALLER_OR_EQUAL}, {"(1¦neither|) %objects@-1% (2¦)((was|were) (not|4¦neither)|wasn't|weren't) [equal to] %objects%", Relation.EQUAL}, {"(1¦neither|) %objects@-1% (was|were) [(equal to|the same as)] %objects%", Relation.EQUAL}, {"(1¦neither|) %objects@-1% (was|were) between %objects% and %objects%", Relation.EQUAL}, {"(1¦neither|) %objects@-1% (2¦)(was not|were not|wasn't|weren't) between %objects% and %objects%", Relation.EQUAL},
+
+					{"(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) ((greater|more|higher|bigger|larger) than|above) %objects%", Relation.GREATER}, {"(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) (greater|more|higher|bigger|larger|above) [than] or (equal to|the same as) %objects%", Relation.GREATER_OR_EQUAL}, {"(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) ((less|smaller) than|below) %objects%", Relation.SMALLER}, {"(1¦neither|) %objects@1% (will be|2¦(will (not|4¦neither) be|won't be)) (less|smaller|below) [than] or (equal to|the same as) %objects%", Relation.SMALLER_OR_EQUAL}, {"(1¦neither|) %objects@1% (2¦)((will (not|4¦neither) be|won't be)|(isn't|aren't|is not|are not) (turning|changing) [in]to) [equal to] %objects%", Relation.EQUAL}, {"(1¦neither|) %objects@1% (will be [(equal to|the same as)]|(is|are) (turning|changing) [in]to) %objects%", Relation.EQUAL}, {"(1¦neither|) %objects@1% will be between %objects% and %objects%", Relation.EQUAL}, {"(1¦neither|) %objects@1% (2¦)(will not be|won't be) between %objects% and %objects%", Relation.EQUAL}});
+
 	static {
 		Skript.registerCondition(CondCompare.class, patterns.getPatterns());
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> first;
 	@SuppressWarnings("null")
@@ -108,10 +80,11 @@ public class CondCompare extends Condition {
 	@SuppressWarnings("rawtypes")
 	@Nullable
 	Comparator comp;
-	
+
 	@SuppressWarnings("null")
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		first = vars[0];
 		second = vars[1];
 		if (vars.length == 3)
@@ -152,16 +125,16 @@ public class CondCompare extends Condition {
 				}
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	public static String f(final Expression<?> e) {
 		if (e.getReturnType() == Object.class)
 			return e.toString(null, false);
 		return Classes.getSuperClassInfo(e.getReturnType()).getName().withIndefiniteArticle();
 	}
-	
+
 	@SuppressWarnings({"unchecked"})
 	private boolean init(String expr) {
 		final RetainingLogHandler log = SkriptLogger.startRetainingLog();
@@ -195,33 +168,32 @@ public class CondCompare extends Condition {
 		} finally {
 			log.stop();
 		}
-		final Class<?> f = first.getReturnType(), s = third == null ? second.getReturnType() : Utils.getSuperType(second.getReturnType(), third.getReturnType());
+		final Class<?> f = first.getReturnType(),
+				s = third == null ? second.getReturnType() : Utils.getSuperType(second.getReturnType(), third.getReturnType());
 		if (f == Object.class || s == Object.class)
 			return true;
 		/*
 		 * https://github.com/Mirreski/Skript/issues/10
-		 * 
-		if(Entity.class.isAssignableFrom(s)){
-			String[] split = expr.split(" ");
-			System.out.println(expr);
-			if(!split[split.length - 1].equalsIgnoreCase("player") && EntityData.parseWithoutIndefiniteArticle(split[split.length - 1]) != null){
-				comp = Comparators.getComparator(f, EntityData.class);
-				second = SkriptParser.parseLiteral(split[split.length - 1], EntityData.class, ParseContext.DEFAULT);
-			}else
-				comp = Comparators.getComparator(f, s);
-			
-		}
-		*///else
-		
+		 * if(Entity.class.isAssignableFrom(s)){
+		 * String[] split = expr.split(" ");
+		 * System.out.println(expr);
+		 * if(!split[split.length - 1].equalsIgnoreCase("player") &&
+		 * EntityData.parseWithoutIndefiniteArticle(split[split.length - 1]) != null){
+		 * comp = Comparators.getComparator(f, EntityData.class);
+		 * second = SkriptParser.parseLiteral(split[split.length - 1], EntityData.class, ParseContext.DEFAULT);
+		 * }else
+		 * comp = Comparators.getComparator(f, s);
+		 * }
+		 *///else
+
 		comp = Comparators.getComparator(f, s);
-		
+
 		return comp != null;
 	}
-	
+
 	/*
 	 * # := condition (e.g. is, is less than, contains, is enchanted with, has permission, etc.)
 	 * !# := not #
-	 * 
 	 * a and b # x === a # x && b # x
 	 * a or b # x === a # x || b # x
 	 * a # x and y === a # x && a # y
@@ -230,45 +202,46 @@ public class CondCompare extends Condition {
 	 * a and b # x or y === a # x or y && b # x or y
 	 * a or b # x and y === a # x and y || b # x and y
 	 * a or b # x or y === a # x or y || b # x or y
-	 * 
-	 * 
 	 * a and b !# x === a !# x && b !# x
-	 * neither a nor b # x === a !# x && b !# x		// nor = and
+	 * neither a nor b # x === a !# x && b !# x // nor = and
 	 * a or b !# x === a !# x || b !# x
-	 * 
-	 * a !# x and y === a !# x || a !# y							// e.g. "player doesn't have 2 emeralds and 5 gold ingots" == "NOT(player has 2 emeralds and 5 gold ingots)" == "player doesn't have 2 emeralds OR player doesn't have 5 gold ingots"
-	 * a # neither x nor y === a !# x && a !# y		// nor = or 	// e.g. "player has neither 2 emeralds nor 5 gold ingots" == "player doesn't have 2 emeralds AND player doesn't have 5 gold ingots"
-	 * a # neither x nor y === a !# x && a !# y		// nor = or 	// e.g. "player is neither the attacker nor the victim" == "player is not the attacker AND player is not the victim"
-	 * a !# x or y === a !# x && a !# y								// e.g. "player doesn't have 2 emeralds or 5 gold ingots" == "NOT(player has 2 emeralds or 5 gold ingots)" == "player doesn't have 2 emeralds AND player doesn't have 5 gold ingots"
-	 * 
+	 * a !# x and y === a !# x || a !# y // e.g. "player doesn't have 2 emeralds and 5 gold ingots" ==
+	 * "NOT(player has 2 emeralds and 5 gold ingots)" ==
+	 * "player doesn't have 2 emeralds OR player doesn't have 5 gold ingots"
+	 * a # neither x nor y === a !# x && a !# y // nor = or // e.g. "player has neither 2 emeralds nor 5 gold ingots" ==
+	 * "player doesn't have 2 emeralds AND player doesn't have 5 gold ingots"
+	 * a # neither x nor y === a !# x && a !# y // nor = or // e.g. "player is neither the attacker nor the victim" ==
+	 * "player is not the attacker AND player is not the victim"
+	 * a !# x or y === a !# x && a !# y // e.g. "player doesn't have 2 emeralds or 5 gold ingots" ==
+	 * "NOT(player has 2 emeralds or 5 gold ingots)" ==
+	 * "player doesn't have 2 emeralds AND player doesn't have 5 gold ingots"
 	 * a and b !# x and y === a !# x and y && b !# x and y === (a !# x || a !# y) && (b !# x || b !# y)
 	 * a and b !# x or y === a !# x or y && b !# x or y
 	 * a and b # neither x nor y === a # neither x nor y && b # neither x nor y
-	 * 
 	 * a or b !# x and y === a !# x and y || b !# x and y
 	 * a or b !# x or y === a !# x or y || b !# x or y
 	 * a or b # neither x nor y === a # neither x nor y || b # neither x nor y
-	 * 
-	 * neither a nor b # x and y === a !# x and y && b !# x and y		// nor = and
-	 * neither a nor b # x or y === a !# x or y && b !# x or y			// nor = and
+	 * neither a nor b # x and y === a !# x and y && b !# x and y // nor = and
+	 * neither a nor b # x or y === a !# x or y && b !# x or y // nor = and
 	 */
 	@Override
 	public boolean check(final Event e) {
 		final Expression<?> third = this.third;
 		return first.check(e, new Checker<Object>() {
+
 			@Override
 			public boolean check(final Object o1) {
 				return second.check(e, new Checker<Object>() {
+
 					@Override
 					public boolean check(final Object o2) {
 						if (third == null)
 							return relation.is(comp != null ? comp.compare(o1, o2) : Comparators.compare(o1, o2));
 						return third.check(e, new Checker<Object>() {
+
 							@Override
 							public boolean check(final Object o3) {
-								return relation == Relation.NOT_EQUAL ^
-										(Relation.GREATER_OR_EQUAL.is(comp != null ? comp.compare(o1, o2) : Comparators.compare(o1, o2))
-										&& Relation.SMALLER_OR_EQUAL.is(comp != null ? comp.compare(o1, o3) : Comparators.compare(o1, o3)));
+								return relation == Relation.NOT_EQUAL ^ (Relation.GREATER_OR_EQUAL.is(comp != null ? comp.compare(o1, o2) : Comparators.compare(o1, o2)) && Relation.SMALLER_OR_EQUAL.is(comp != null ? comp.compare(o1, o3) : Comparators.compare(o1, o3)));
 							}
 						});
 					}
@@ -276,7 +249,7 @@ public class CondCompare extends Condition {
 			}
 		}, isNegated());
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		String s;
@@ -289,5 +262,5 @@ public class CondCompare extends Condition {
 			s += " (comparator: " + comp + ")";
 		return s;
 	}
-	
+
 }

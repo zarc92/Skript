@@ -34,31 +34,33 @@ import ch.njol.skript.log.SkriptLogger;
 import ch.njol.skript.util.Utils;
 
 public final class Parameter<T> {
-	
+
 	final String name;
-	
+
 	final ClassInfo<T> type;
-	
+
 	@Nullable
 	final Expression<? extends T> def;
-	
+
 	final boolean single;
-	
+
 	@SuppressWarnings("null")
-	public Parameter(final String name, final ClassInfo<T> type, final boolean single, final @Nullable Expression<? extends T> def) {
+	public Parameter(final String name, final ClassInfo<T> type, final boolean single,
+			final @Nullable Expression<? extends T> def) {
 		this.name = name != null ? name.toLowerCase() : null;
 		this.type = type;
 		this.def = def;
 		this.single = single;
 	}
-	
+
 	public ClassInfo<T> getType() {
 		return type;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Nullable
-	public static <T> Parameter<T> newInstance(final String name, final ClassInfo<T> type, final boolean single, final @Nullable String def) {
+	public static <T> Parameter<T> newInstance(final String name, final ClassInfo<T> type, final boolean single,
+			final @Nullable String def) {
 		if (!Variable.isValidVariableName(name, true, false)) {
 			Skript.error("An argument's name must be a valid variable name.");
 			return null;
@@ -89,7 +91,8 @@ public final class Parameter<T> {
 						d = (Expression<? extends T>) new SimpleLiteral<>(def, false);
 					}
 				} else {
-					d = new SkriptParser(def, SkriptParser.PARSE_LITERALS, ParseContext.DEFAULT).parseExpression(type.getC());
+					d = new SkriptParser(def, SkriptParser.PARSE_LITERALS,
+							ParseContext.DEFAULT).parseExpression(type.getC());
 				}
 				if (d == null) {
 					log.printErrors("'" + def + "' is not " + type.getName().withIndefiniteArticle());
@@ -103,14 +106,14 @@ public final class Parameter<T> {
 		}
 		return new Parameter<>(name, type, single, d);
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
 	public String toString() {
 		return name + ": " + Utils.toEnglishPlural(type.getCodeName(), !single) + (def != null ? " = " + def.toString(null, true) : "");
 	}
-	
+
 }

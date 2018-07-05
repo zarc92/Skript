@@ -40,24 +40,23 @@ import ch.njol.skript.util.slot.Slot;
  */
 @Name("Item")
 @Description("The item involved in an event, e.g. in a drop, dispense, pickup or craft event.")
-@Examples({"on dispense:",
-		"	item is a clock",
-		"	set the time to 6:00"/*,"	delete the item"*/})
+@Examples({"on dispense:", "	item is a clock", "	set the time to 6:00"/* ,"	delete the item" */})
 @Since("<i>unknown</i> (before 2.1)")
 public class ExprItem extends EventValueExpression<ItemStack> {
+
 	static {
 		Skript.registerExpression(ExprItem.class, ItemStack.class, ExpressionType.SIMPLE, "[the] item");
 	}
-	
+
 	public ExprItem() {
 		super(ItemStack.class);
 	}
-	
+
 	@Nullable
 	private EventValueExpression<Item> item;
 	@Nullable
 	private EventValueExpression<Slot> slot;
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -73,11 +72,11 @@ public class ExprItem extends EventValueExpression<ItemStack> {
 		slot = null;
 		return null;
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		assert mode != ChangeMode.RESET;
-		
+
 		final ItemType t = delta == null ? null : (ItemType) delta[0];
 		final Item i = item != null ? item.getSingle(e) : null;
 		final Slot s = slot != null ? slot.getSingle(e) : null;
@@ -117,5 +116,5 @@ public class ExprItem extends EventValueExpression<ItemStack> {
 		else
 			assert false;
 	}
-	
+
 }

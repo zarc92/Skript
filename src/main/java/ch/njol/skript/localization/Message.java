@@ -33,12 +33,13 @@ import ch.njol.skript.Skript;
  * @author Peter Güttinger
  */
 public class Message {
-	
+
 	// this is most likely faster than registering a listener for each Message
 	final static Collection<Message> messages = new ArrayList<>(50);
 	static boolean firstChange = true;
 	static {
 		Language.addListener(new LanguageChangeListener() {
+
 			@Override
 			public void onLanguageChange() {
 				for (final Message m : messages) {
@@ -54,12 +55,12 @@ public class Message {
 			}
 		});
 	}
-	
+
 	public final String key;
 	@Nullable
 	private String value;
 	boolean revalidate = true;
-	
+
 	public Message(final String key) {
 		this.key = "" + key.toLowerCase(Locale.ENGLISH);
 		messages.add(this);
@@ -68,7 +69,7 @@ public class Message {
 				Language.missingEntryError(this.key);
 		}
 	}
-	
+
 	/**
 	 * @return The value of this message in the current language
 	 */
@@ -77,7 +78,7 @@ public class Message {
 		validate();
 		return value == null ? key : "" + value;
 	}
-	
+
 	/**
 	 * Gets the text this Message refers to. This method automatically revalidates the value if necessary.
 	 * 
@@ -88,7 +89,7 @@ public class Message {
 		validate();
 		return value;
 	}
-	
+
 	/**
 	 * Checks whether this value is set in the current language or the english default.
 	 * 
@@ -98,7 +99,7 @@ public class Message {
 		validate();
 		return value != null;
 	}
-	
+
 	/**
 	 * Checks whether this message's value has changed and calls {@link #onValueChange()} if neccessary.
 	 */
@@ -109,11 +110,12 @@ public class Message {
 			onValueChange();
 		}
 	}
-	
+
 	/**
-	 * Called when this Message's value changes. This is not neccessarily called for every language change, but only when the value is actually accessed and the language has
+	 * Called when this Message's value changes. This is not neccessarily called for every language change, but only
+	 * when the value is actually accessed and the language has
 	 * changed since the last call of this method.
 	 */
 	protected void onValueChange() {}
-	
+
 }

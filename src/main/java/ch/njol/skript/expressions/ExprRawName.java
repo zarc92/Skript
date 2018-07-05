@@ -51,51 +51,54 @@ import ch.njol.util.Kleenean;
 @Examples("raw name of tool of player")
 @Since("unknown (2.2)")
 public class ExprRawName extends SimpleExpression<String> {
-	
+
 	static {
 		Skript.registerExpression(ExprRawName.class, String.class, ExpressionType.SIMPLE, "(raw|minecraft|vanilla) name of %itemtypes%");
 	}
-	
+
 	@Nullable
 	private Expression<ItemType> types;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		this.types = (Expression<ItemType>) exprs[0];
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	@Nullable
 	protected String[] get(final Event e) {
-		if (types == null) return null;
-		
+		if (types == null)
+			return null;
+
 		ItemType[] items = types.getAll(e);
 		List<String> names = new ArrayList<>();
 		for (int i = 0; i < items.length; i++) {
 			names.addAll(items[i].getRawNames());
 		}
-		
+
 		return names.toArray(new String[names.size()]);
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		String[] strs = get(e);
-		if (strs == null) return "";
+		if (strs == null)
+			return "";
 		return Arrays.toString(strs);
 	}
 }

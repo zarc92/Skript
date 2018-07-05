@@ -41,25 +41,23 @@ import ch.njol.util.Kleenean;
  */
 @Name("Command")
 @Description("Executes a command. This can be useful to use other plugins in triggers.")
-@Examples({"make player execute command \"/suicide\"",
-		"execute console command \"/say Hello everyone!\""})
+@Examples({"make player execute command \"/suicide\"", "execute console command \"/say Hello everyone!\""})
 @Since("1.0")
 public class EffCommand extends Effect {
+
 	static {
-		Skript.registerEffect(EffCommand.class,
-				"[execute] [the] command %strings% [by %-commandsenders%]",
-				"[execute] [the] %commandsenders% command %strings%",
-				"(let|make) %commandsenders% execute [[the] command] %strings%");
+		Skript.registerEffect(EffCommand.class, "[execute] [the] command %strings% [by %-commandsenders%]", "[execute] [the] %commandsenders% command %strings%", "(let|make) %commandsenders% execute [[the] command] %strings%");
 	}
-	
+
 	@Nullable
 	private Expression<CommandSender> senders;
 	@SuppressWarnings("null")
 	private Expression<String> commands;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		if (matchedPattern == 0) {
 			commands = (Expression<String>) vars[0];
 			senders = (Expression<CommandSender>) vars[1];
@@ -70,7 +68,7 @@ public class EffCommand extends Effect {
 		commands = VariableString.setStringMode(commands, StringMode.COMMAND);
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public void execute(final Event e) {
@@ -88,10 +86,10 @@ public class EffCommand extends Effect {
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "make " + (senders != null ? senders.toString(e, debug) : "the console") + " execute the command " + commands.toString(e, debug);
 	}
-	
+
 }

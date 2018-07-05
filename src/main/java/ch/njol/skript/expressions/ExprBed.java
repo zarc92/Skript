@@ -36,22 +36,20 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
  */
 @Name("Bed")
 @Description("The bed location of a player, i.e. the spawn point of a player if he ever slept in a bed and the bed still exists and is unobstructed.")
-@Examples({"bed of player exists:",
-		"	teleport player the the player's bed",
-		"else:",
-		"	teleport the player to the world's spawn point"})
+@Examples({"bed of player exists:", "	teleport player the the player's bed", "else:", "	teleport the player to the world's spawn point"})
 @Since("2.0")
 public class ExprBed extends SimplePropertyExpression<Player, Location> {
+
 	static {
 		register(ExprBed.class, Location.class, "bed[s] [location[s]]", "players");
 	}
-	
+
 	@Override
 	@Nullable
 	public Location convert(final Player p) {
 		return p.getBedSpawnLocation();
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -59,7 +57,7 @@ public class ExprBed extends SimplePropertyExpression<Player, Location> {
 			return new Class[] {Location.class};
 		return null;
 	}
-	
+
 	@Override
 	public void change(final Event e, @Nullable final Object[] delta, final ChangeMode mode) {
 		if (delta == null) {
@@ -73,15 +71,15 @@ public class ExprBed extends SimplePropertyExpression<Player, Location> {
 			}
 		}
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "bed";
 	}
-	
+
 	@Override
 	public Class<? extends Location> getReturnType() {
 		return Location.class;
 	}
-	
+
 }

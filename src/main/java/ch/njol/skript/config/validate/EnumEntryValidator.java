@@ -30,12 +30,12 @@ import ch.njol.util.Setter;
  * @author Peter Güttinger
  */
 public class EnumEntryValidator<E extends Enum<E>> extends EntryValidator {
-	
+
 	private final Class<E> enumType;
 	private final Setter<E> setter;
 	@Nullable
 	private String allowedValues = null;
-	
+
 	public EnumEntryValidator(final Class<E> enumType, final Setter<E> setter) {
 		assert enumType != null;
 		this.enumType = enumType;
@@ -50,14 +50,14 @@ public class EnumEntryValidator<E extends Enum<E>> extends EntryValidator {
 			allowedValues = "" + b.toString();
 		}
 	}
-	
+
 	public EnumEntryValidator(final Class<E> enumType, final Setter<E> setter, final String allowedValues) {
 		assert enumType != null;
 		this.enumType = enumType;
 		this.setter = setter;
 		this.allowedValues = allowedValues;
 	}
-	
+
 	@Override
 	public boolean validate(final Node node) {
 		if (!super.validate(node))
@@ -74,5 +74,5 @@ public class EnumEntryValidator<E extends Enum<E>> extends EntryValidator {
 		}
 		return true;
 	}
-	
+
 }

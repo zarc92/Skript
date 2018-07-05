@@ -23,7 +23,7 @@ package ch.njol.skript.classes;
  * @author Peter Güttinger
  */
 public class NumberArithmetic implements Arithmetic<Number, Number> {
-	
+
 	@Override
 	public Number difference(final Number first, final Number second) {
 		double result = Math.abs(first.doubleValue() - second.doubleValue());
@@ -31,7 +31,7 @@ public class NumberArithmetic implements Arithmetic<Number, Number> {
 			return (long) result;
 		return result;
 	}
-	
+
 	@Override
 	public Number add(final Number value, final Number difference) {
 		double result = value.doubleValue() + difference.doubleValue();
@@ -39,7 +39,7 @@ public class NumberArithmetic implements Arithmetic<Number, Number> {
 			return (long) result;
 		return result;
 	}
-	
+
 	@Override
 	public Number subtract(final Number value, final Number difference) {
 		double result = value.doubleValue() - difference.doubleValue();
@@ -71,5 +71,5 @@ public class NumberArithmetic implements Arithmetic<Number, Number> {
 			return (long) result;
 		return result;
 	}
-	
+
 }

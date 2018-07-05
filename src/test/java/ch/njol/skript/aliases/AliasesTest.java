@@ -35,8 +35,10 @@ import ch.njol.skript.log.BukkitLoggerFilter;
  * @author Peter Güttinger
  */
 public class AliasesTest {
+
 	static {
 		BukkitLoggerFilter.addFilter(new Filter() {
+
 			@Override
 			public boolean isLoggable(final @Nullable LogRecord record) {
 				if (record == null)
@@ -45,12 +47,12 @@ public class AliasesTest {
 			}
 		});
 	}
-	
+
 	@Test
 	public void testNames() {
 		final ItemType t = new ItemType();
 		t.add(new ItemData(0));
-		
+
 		final Aliases.Variations v = new Aliases.Variations();
 		final LinkedHashMap<String, ItemType> var1 = new LinkedHashMap<>();
 		var1.put("{default}", t);
@@ -70,22 +72,9 @@ public class AliasesTest {
 		varL.put("normales ", t);
 		varL.put("Birken", t);
 		v.put("varL", varL);
-		
-		final String[][] tests = {
-				{"a", "a"},
-				{"a[b]c", "abc", "ac"},
-				{"a [b] c", "a b c", "a c"},
-				{"a(b|c)d", "abd", "acd"},
-				{"a(b|)c", "abc", "ac"},
-				{"a {var1}", "a", "a v1.1", "a v1.2"},
-				{"a {var2} @an", "a v2.1@a", "a v2.2 @an", "a @an"},
-				{"a {var3}", "a v3.1¦¦s¦", "a v3.2¦a¦b¦", "a"},
-				{"<any> a @an", "aliases.any-skp a @-"},
-				{"a <item>", "a ¦item¦items¦"},
-				{"[Holz]Block", "Holzblock", "Block"},
-				{"{varL}Holz", "Holz", "normales Holz", "Birkenholz"}
-		};
-		
+
+		final String[][] tests = {{"a", "a"}, {"a[b]c", "abc", "ac"}, {"a [b] c", "a b c", "a c"}, {"a(b|c)d", "abd", "acd"}, {"a(b|)c", "abc", "ac"}, {"a {var1}", "a", "a v1.1", "a v1.2"}, {"a {var2} @an", "a v2.1@a", "a v2.2 @an", "a @an"}, {"a {var3}", "a v3.1¦¦s¦", "a v3.2¦a¦b¦", "a"}, {"<any> a @an", "aliases.any-skp a @-"}, {"a <item>", "a ¦item¦items¦"}, {"[Holz]Block", "Holzblock", "Block"}, {"{varL}Holz", "Holz", "normales Holz", "Birkenholz"}};
+
 		for (final String[] test : tests) {
 			@SuppressWarnings("null")
 			final Set<String> names = Aliases.getAliases(test[0], t, v).keySet();
@@ -95,5 +84,5 @@ public class AliasesTest {
 				assertEquals(test[0], test[i++], name);
 		}
 	}
-	
+
 }

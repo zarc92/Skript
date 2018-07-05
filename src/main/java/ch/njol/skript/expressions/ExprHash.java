@@ -37,36 +37,21 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 
-
 @Name("Hash")
-@Description({"Hashes the given text using the MD5 or SHA-256 algorithms. Each algorithm is suitable for different use cases.<p>",
-		"MD5 is provided mostly for backwards compatibility, as it is outdated and not secure. ",
-		"SHA-256 is more secure, and can used to hash somewhat confidental data like IP addresses and even passwords. ",
-		"It is not <i>that</i> secure out of the box, so please consider using salt when dealing with passwords! ",
-		"When hashing data, you <strong>must</strong> specify algorithms that will be used for security reasons! ",
-		"<p>Please note that a hash cannot be reversed under normal circumstanses. You will not be able to get original value from a hash with Skript."})
-@Examples({
-		"command /setpass <text>:",
-		"	trigger:",
-		"		set {password.%player%} to text-argument hashed with SHA-256",
-		"command /login <text>:",
-		"	trigger:",
-		"		{password.%player%} is text-argument hashed with SHA-256:",
-		"			message \"Login successful.\"",
-		"		else:",
-		"			message \"Wrong password!\""})
+@Description({"Hashes the given text using the MD5 or SHA-256 algorithms. Each algorithm is suitable for different use cases.<p>", "MD5 is provided mostly for backwards compatibility, as it is outdated and not secure. ", "SHA-256 is more secure, and can used to hash somewhat confidental data like IP addresses and even passwords. ", "It is not <i>that</i> secure out of the box, so please consider using salt when dealing with passwords! ", "When hashing data, you <strong>must</strong> specify algorithms that will be used for security reasons! ", "<p>Please note that a hash cannot be reversed under normal circumstanses. You will not be able to get original value from a hash with Skript."})
+@Examples({"command /setpass <text>:", "	trigger:", "		set {password.%player%} to text-argument hashed with SHA-256", "command /login <text>:", "	trigger:", "		{password.%player%} is text-argument hashed with SHA-256:", "			message \"Login successful.\"", "		else:", "			message \"Wrong password!\""})
 @Since("2.0, 2.2-dev32 (SHA-256 algorithm)")
 public class ExprHash extends PropertyExpression<String, String> {
+
 	static {
-		Skript.registerExpression(ExprHash.class, String.class, ExpressionType.SIMPLE,
-				"%strings% hash[ed] with (0¦MD5|1¦SHA-256)");
+		Skript.registerExpression(ExprHash.class, String.class, ExpressionType.SIMPLE, "%strings% hash[ed] with (0¦MD5|1¦SHA-256)");
 	}
-	
+
 	@Nullable
 	static MessageDigest md5;
 	@Nullable
 	static MessageDigest sha256;
-	
+
 	static {
 		try {
 			md5 = MessageDigest.getInstance("MD5");
@@ -75,24 +60,25 @@ public class ExprHash extends PropertyExpression<String, String> {
 			throw new InternalError("JVM does not adhere to Java specifications");
 		}
 	}
-	
+
 	private int algorithm;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		setExpr((Expression<? extends String>) exprs[0]);
 		algorithm = parseResult.mark;
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected String[] get(final Event e, final String[] source) {
 		// These can't be null
 		assert md5 != null;
 		assert sha256 != null;
-		
+
 		// Get correct digest
 		MessageDigest digest = null;
 		if (algorithm == 0)
@@ -106,11 +92,10 @@ public class ExprHash extends PropertyExpression<String, String> {
 		final String[] r = new String[source.length];
 		for (int i = 0; i < r.length; i++)
 			r[i] = toHex(digest.digest(source[i].getBytes(StandardCharsets.UTF_8)));
-		
-		
+
 		return r;
 	}
-	
+
 	private static String toHex(final byte[] b) {
 		final char[] r = new char[2 * b.length];
 		for (int i = 0; i < b.length; i++) {
@@ -119,15 +104,15 @@ public class ExprHash extends PropertyExpression<String, String> {
 		}
 		return new String(r);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "hash of " + getExpr();
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 }

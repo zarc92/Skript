@@ -36,12 +36,12 @@ import ch.njol.yggdrasil.YggdrasilSerializable;
  * @author Peter Güttinger
  */
 public class EnchantmentType implements YggdrasilSerializable {
-	
+
 	private final static String LANGUAGE_NODE = "enchantments";
-	
+
 	private final Enchantment type;
 	private final int level;
-	
+
 	/**
 	 * Used for deserialisation only
 	 */
@@ -50,32 +50,32 @@ public class EnchantmentType implements YggdrasilSerializable {
 		type = null;
 		level = -1;
 	}
-	
+
 	public EnchantmentType(final Enchantment type, final int level) {
 		assert type != null;
 		this.type = type;
 		this.level = level;
 	}
-	
+
 	/**
 	 * @return level or 1 if level == -1
 	 */
 	public int getLevel() {
 		return level == -1 ? 1 : level;
 	}
-	
+
 	/**
 	 * @return the internal level, can be -1
 	 */
 	public int getInternalLevel() {
 		return level;
 	}
-	
+
 	@Nullable
 	public Enchantment getType() {
 		return type;
 	}
-	
+
 	public boolean has(final ItemType item) {
 		final Map<Enchantment, Integer> enchs = item.getEnchantments();
 		if (enchs == null)
@@ -87,27 +87,28 @@ public class EnchantmentType implements YggdrasilSerializable {
 			return true;
 		return l == level;
 	}
-	
+
 	@Override
 	public String toString() {
 		return toString(type) + (level == -1 ? "" : " " + level);
 	}
-	
+
 	@SuppressWarnings("null")
 	public static String toString(final Enchantment e) {
 		return enchantmentNames.get(e);
 	}
-	
+
 	// REMIND flags?
 	@SuppressWarnings("null")
 	public static String toString(final Enchantment e, final int flags) {
 		return enchantmentNames.get(e);
 	}
-	
+
 	final static Map<Enchantment, String> enchantmentNames = new HashMap<>();
 	final static Map<String, Enchantment> enchantmentPatterns = new HashMap<>();
 	static {
 		Language.addListener(new LanguageChangeListener() {
+
 			@Override
 			public void onLanguageChange() {
 				enchantmentNames.clear();
@@ -120,10 +121,10 @@ public class EnchantmentType implements YggdrasilSerializable {
 			}
 		});
 	}
-	
+
 	@SuppressWarnings("null")
 	private final static Pattern pattern = Pattern.compile(".+ \\d+");
-	
+
 	@SuppressWarnings("null")
 	@Nullable
 	public static EnchantmentType parse(final String s) {
@@ -138,17 +139,17 @@ public class EnchantmentType implements YggdrasilSerializable {
 			return null;
 		return new EnchantmentType(ench, -1);
 	}
-	
+
 	@Nullable
 	public static Enchantment parseEnchantment(final String s) {
 		return enchantmentPatterns.get(s.toLowerCase());
 	}
-	
+
 	@SuppressWarnings("null")
 	public static Collection<String> getNames() {
 		return enchantmentNames.values();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -157,7 +158,7 @@ public class EnchantmentType implements YggdrasilSerializable {
 		result = prime * result + type.hashCode();
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(final @Nullable Object obj) {
 		if (this == obj)
@@ -173,5 +174,5 @@ public class EnchantmentType implements YggdrasilSerializable {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -35,15 +35,12 @@ import ch.njol.util.Kleenean;
 
 @Name("Starts/Ends With")
 @Description("Checks if a text starts or ends with another.")
-@Examples({"if the argument starts with \"test\":",
-		"	send \"Stop!\""})
+@Examples({"if the argument starts with \"test\":", "	send \"Stop!\""})
 @Since("2.2-dev36")
 public class CondStartsWith extends Condition {
 
 	static {
-		Skript.registerCondition(CondStartsWith.class,
-				"%strings% (start|1¦end)[s] with %string%",
-				"%strings% do[es](n't| not) (start|1¦end) with %string%");
+		Skript.registerCondition(CondStartsWith.class, "%strings% (start|1¦end)[s] with %string%", "%strings% do[es](n't| not) (start|1¦end) with %string%");
 	}
 
 	@SuppressWarnings("null")
@@ -54,7 +51,8 @@ public class CondStartsWith extends Condition {
 
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		strings = (Expression<String>) exprs[0];
 		prefix = (Expression<String>) exprs[1];
 		ends = parseResult.mark == 1;
@@ -70,6 +68,7 @@ public class CondStartsWith extends Condition {
 			return false;
 
 		return strings.check(e, new Checker<String>() {
+
 			@Override
 			public boolean check(String s) {
 				return ends ? s.startsWith(p) : s.endsWith(p);
@@ -79,8 +78,7 @@ public class CondStartsWith extends Condition {
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
-		return strings.toString(e, debug) + (isNegated() ? " don't " : " ") + (ends ? "start" : "end") +  " with " + prefix.toString(e, debug);
+		return strings.toString(e, debug) + (isNegated() ? " don't " : " ") + (ends ? "start" : "end") + " with " + prefix.toString(e, debug);
 	}
-
 
 }

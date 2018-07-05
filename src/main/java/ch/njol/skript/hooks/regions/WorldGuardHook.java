@@ -55,52 +55,52 @@ import com.sk89q.worldguard.protection.regions.ProtectedRegion;
  * @author Peter Güttinger
  */
 public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
-	
+
 	public WorldGuardHook() throws IOException {}
-	
+
 	boolean supportsUUIDs;
-	
+
 	@Override
 	protected boolean init() {
 		supportsUUIDs = Skript.methodExists(DefaultDomain.class, "getUniqueIds");
 		return super.init();
 	}
-	
+
 	@Override
 	public String getName() {
 		return "WorldGuard";
 	}
-	
+
 	@Override
 	public boolean canBuild_i(final Player p, final Location l) {
 		return plugin.canBuild(p, l);
 	}
-	
+
 	static {
 		Variables.yggdrasil.registerSingleClass(WorldGuardRegion.class);
 	}
-	
+
 	@YggdrasilID("WorldGuardRegion")
 	public final class WorldGuardRegion extends Region {
-		
+
 		final World world;
 		private transient ProtectedRegion region;
-		
+
 		@SuppressWarnings({"null", "unused"})
 		private WorldGuardRegion() {
 			world = null;
 		}
-		
+
 		public WorldGuardRegion(final World w, final ProtectedRegion r) {
 			world = w;
 			region = r;
 		}
-		
+
 		@Override
 		public boolean contains(final Location l) {
 			return l.getWorld().equals(world) && region.contains(l.getBlockX(), l.getBlockY(), l.getBlockZ());
 		}
-		
+
 		@SuppressWarnings("deprecation")
 		@Override
 		public boolean isMember(final OfflinePlayer p) {
@@ -109,7 +109,7 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 			else
 				return region.isMember(p.getName());
 		}
-		
+
 		@SuppressWarnings("deprecation")
 		@Override
 		public Collection<OfflinePlayer> getMembers() {
@@ -127,7 +127,7 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 				return r;
 			}
 		}
-		
+
 		@SuppressWarnings("deprecation")
 		@Override
 		public boolean isOwner(final OfflinePlayer p) {
@@ -136,7 +136,7 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 			else
 				return region.isOwner(p.getName());
 		}
-		
+
 		@SuppressWarnings("deprecation")
 		@Override
 		public Collection<OfflinePlayer> getOwners() {
@@ -154,11 +154,12 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 				return r;
 			}
 		}
-		
+
 		@Override
 		public Iterator<Block> getBlocks() {
 			final BlockVector min = region.getMinimumPoint(), max = region.getMaximumPoint();
-			return new AABB(world, new Vector(min.getBlockX(), min.getBlockY(), min.getBlockZ()), new Vector(max.getBlockX() + 1, max.getBlockY() + 1, max.getBlockZ() + 1)).iterator();
+			return new AABB(world, new Vector(min.getBlockX(), min.getBlockY(), min.getBlockZ()),
+					new Vector(max.getBlockX() + 1, max.getBlockY() + 1, max.getBlockZ() + 1)).iterator();
 //			final Iterator<BlockVector2D> iter = region.getPoints().iterator();
 //			if (!iter.hasNext())
 //				return EmptyIterator.get();
@@ -192,14 +193,14 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 //				}
 //			};
 		}
-		
+
 		@Override
 		public Fields serialize() throws NotSerializableException {
 			final Fields f = new Fields(this);
 			f.putObject("region", region.getId());
 			return f;
 		}
-		
+
 		@Override
 		public void deserialize(final Fields fields) throws StreamCorruptedException, NotSerializableException {
 			final String r = fields.getAndRemoveObject("region", String.class);
@@ -209,17 +210,17 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 				throw new StreamCorruptedException("Invalid region " + r + " in world " + world);
 			this.region = region;
 		}
-		
+
 		@Override
 		public String toString() {
 			return region.getId() + " in world " + world.getName();
 		}
-		
+
 		@Override
 		public RegionsPlugin<?> getPlugin() {
 			return WorldGuardHook.this;
 		}
-		
+
 		@Override
 		public boolean equals(final @Nullable Object o) {
 			if (o == this)
@@ -230,19 +231,19 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 				return false;
 			return world.equals(((WorldGuardRegion) o).world) && region.equals(((WorldGuardRegion) o).region);
 		}
-		
+
 		@Override
 		public int hashCode() {
 			return world.hashCode() * 31 + region.hashCode();
 		}
-		
+
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public Collection<? extends Region> getRegionsAt_i(@Nullable final Location l) {
 		final ArrayList<Region> r = new ArrayList<>();
-		
+
 		if (l == null) // Working around possible cause of issue #280
 			return Collections.emptyList();
 		if (l.getWorld() == null)
@@ -258,7 +259,7 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 			r.add(new WorldGuardRegion(l.getWorld(), i.next()));
 		return r;
 	}
-	
+
 	@Override
 	@Nullable
 	public Region getRegion_i(final World world, final String name) {
@@ -267,15 +268,15 @@ public class WorldGuardHook extends RegionsPlugin<WorldGuardPlugin> {
 			return new WorldGuardRegion(world, r);
 		return null;
 	}
-	
+
 	@Override
 	public boolean hasMultipleOwners_i() {
 		return true;
 	}
-	
+
 	@Override
 	protected Class<? extends Region> getRegionClass() {
 		return WorldGuardRegion.class;
 	}
-	
+
 }

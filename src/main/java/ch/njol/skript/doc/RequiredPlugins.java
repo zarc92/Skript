@@ -28,12 +28,11 @@ import java.lang.annotation.Target;
 /**
  * Provides a list of plugins other than Skript that the annotated
  * element requires to be used.
- * 
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface RequiredPlugins {
-	
-    String[] value();
+
+	String[] value();
 }

@@ -36,37 +36,37 @@ import ch.njol.skript.util.Color;
  * @author Peter Güttinger
  */
 public class CommandHelp {
-	
+
 	private final static String DEFAULTENTRY = "description";
-	
+
 	private final static ArgsMessage m_invalid_argument = new ArgsMessage("commands.invalid argument");
 	private final static Message m_usage = new Message("commands.usage");
-	
+
 	private String command;
 	@Nullable
 	private Message description = null;
 	private final String argsColor;
-	
+
 	@Nullable
 	private String langNode = null;
-	
+
 	private final LinkedHashMap<String, Object> arguments = new LinkedHashMap<>();
-	
+
 	@Nullable
 	private Message wildcardArg = null;
-	
+
 	public CommandHelp(final String command, final Color argsColor, final String langNode) {
 		this.command = command;
 		this.argsColor = "" + argsColor.getChat();
 		this.langNode = langNode;
 		description = new Message(langNode + "." + DEFAULTENTRY);
 	}
-	
+
 	public CommandHelp(final String command, final Color argsColor) {
 		this.command = command;
 		this.argsColor = "" + argsColor.getChat();
 	}
-	
+
 	public CommandHelp add(final String argument) {
 		if (langNode == null) {
 			if (argument.startsWith("<") && argument.endsWith(">")) {
@@ -86,13 +86,13 @@ public class CommandHelp {
 		}
 		return this;
 	}
-	
+
 	public CommandHelp add(final CommandHelp help) {
 		arguments.put(help.command, help);
 		help.onAdd(this);
 		return this;
 	}
-	
+
 	protected void onAdd(final CommandHelp parent) {
 		langNode = parent.langNode + "." + command;
 		description = new Message(langNode + "." + DEFAULTENTRY);
@@ -110,11 +110,11 @@ public class CommandHelp {
 			}
 		}
 	}
-	
+
 	public boolean test(final CommandSender sender, final String[] args) {
 		return test(sender, args, 0);
 	}
-	
+
 	private boolean test(final CommandSender sender, final String[] args, final int index) {
 		if (index >= args.length) {
 			showHelp(sender);
@@ -129,21 +129,21 @@ public class CommandHelp {
 			return ((CommandHelp) help).test(sender, args, index + 1);
 		return true;
 	}
-	
+
 	public void showHelp(final CommandSender sender) {
 		showHelp(sender, m_usage.toString());
 	}
-	
+
 	private void showHelp(final CommandSender sender, final String pre) {
 		Skript.message(sender, pre + " " + command + " " + argsColor + "...");
 		for (final Entry<String, Object> e : arguments.entrySet()) {
 			Skript.message(sender, "  " + argsColor + e.getKey() + " " + GRAY + "-" + RESET + " " + e.getValue());
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "" + description;
 	}
-	
+
 }

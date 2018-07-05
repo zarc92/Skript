@@ -24,6 +24,5 @@ package ch.njol.skript.lang.parser;
  * Do not ask what they do - as long they work.
  */
 public class ParserUtils {
-	
-	
+
 }

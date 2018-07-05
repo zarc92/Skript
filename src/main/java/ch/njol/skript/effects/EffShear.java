@@ -39,28 +39,27 @@ import ch.njol.util.Kleenean;
  */
 @Name("Shear")
 @Description("Shears or 'un-shears' a sheep. Please note that no wool is dropped, this only sets the 'sheared' state of the sheep.")
-@Examples({"on rightclick on a sheep holding a sword:",
-		"	shear the clicked sheep"})
+@Examples({"on rightclick on a sheep holding a sword:", "	shear the clicked sheep"})
 @Since("2.0")
 public class EffShear extends Effect {
+
 	static {
-		Skript.registerEffect(EffShear.class,
-				"shear %livingentities%",
-				"un[-]shear %livingentities%");
+		Skript.registerEffect(EffShear.class, "shear %livingentities%", "un[-]shear %livingentities%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<LivingEntity> sheep;
 	private boolean shear;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		sheep = (Expression<LivingEntity>) exprs[0];
 		shear = matchedPattern == 0;
 		return true;
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		for (final LivingEntity en : sheep.getArray(e)) {
@@ -69,10 +68,10 @@ public class EffShear extends Effect {
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return (shear ? "" : "un") + "shear " + sheep.toString(e, debug);
 	}
-	
+
 }

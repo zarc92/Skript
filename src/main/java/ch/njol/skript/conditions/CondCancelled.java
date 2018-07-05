@@ -34,18 +34,12 @@ import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Event Cancelled")
 @Description("Checks whether or not the event is cancelled")
-@Examples({"on click:",
-		"\tif event is cancelled:",
-		"\t\tbroadcast \"no clicks allowed!\""
-})
+@Examples({"on click:", "\tif event is cancelled:", "\t\tbroadcast \"no clicks allowed!\""})
 @Since("2.2-dev36")
 public class CondCancelled extends Condition {
 
 	static {
-		Skript.registerCondition(CondCancelled.class,
-				"[the] event is cancel[l]ed",
-				"[the] event (is not|isn't) cancel[l]ed"
-		);
+		Skript.registerCondition(CondCancelled.class, "[the] event is cancel[l]ed", "[the] event (is not|isn't) cancel[l]ed");
 	}
 
 	@Override
@@ -59,7 +53,8 @@ public class CondCancelled extends Condition {
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		setNegated(matchedPattern == 1);
 		return true;
 	}

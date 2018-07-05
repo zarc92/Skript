@@ -44,17 +44,19 @@ import ch.njol.skript.util.Task;
  * @author Peter Güttinger
  */
 public abstract class PlayerUtils {
+
 	private PlayerUtils() {}
-	
+
 	final static Set<Player> inviUpdate = new HashSet<>();
-	
+
 	public static void updateInventory(final @Nullable Player p) {
 		if (p != null)
 			inviUpdate.add(p);
 	}
-	
+
 	// created when first used
 	final static Task task = new Task(Skript.getInstance(), 1, 1) {
+
 		@Override
 		public void run() {
 			try {
@@ -67,11 +69,11 @@ public abstract class PlayerUtils {
 			inviUpdate.clear();
 		}
 	};
-	
+
 	private final static boolean hasCollecionGetOnlinePlayers = Skript.methodExists(Bukkit.class, "getOnlinePlayers", new Class[0], Collection.class);
 	@Nullable
 	private static Method getOnlinePlayers = null;
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	public static Collection<? extends Player> getOnlinePlayers() {
 		if (hasCollecionGetOnlinePlayers) {
@@ -100,13 +102,12 @@ public abstract class PlayerUtils {
 			return Collections.emptyList();
 		}
 	}
-	
-	
+
 	public static boolean canEat(Player p, Material food) {
 		GameMode gm = p.getGameMode();
 		if (gm == GameMode.CREATIVE || gm == GameMode.SPECTATOR)
 			return false; // Can't eat anything in those gamemodes
-		
+
 		boolean edible = food.isEdible();
 		if (!edible)
 			return false;
@@ -116,13 +117,13 @@ public abstract class PlayerUtils {
 			case CHORUS_FRUIT:
 				special = true;
 				break;
-				//$CASES-OMITTED$
+			//$CASES-OMITTED$
 			default:
 				special = false;
 		}
 		if (p.getFoodLevel() < 20 || special)
 			return true;
-		
+
 		return false;
 	}
 }

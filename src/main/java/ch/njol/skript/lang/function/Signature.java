@@ -33,7 +33,7 @@ import ch.njol.util.NonNullPair;
  * Function signature: name, parameter types and a return type.
  */
 public class Signature<T> {
-	
+
 	final String script;
 	final String name; // Stored for hashCode
 	final List<Parameter<?>> parameters;
@@ -42,47 +42,48 @@ public class Signature<T> {
 	@Nullable
 	final NonNullPair<String, Boolean> info;
 	final boolean single;
-	
+
 	final Collection<FunctionReference<?>> calls;
-	
+
 	@SuppressWarnings("null")
-	public Signature(String script, String name, List<Parameter<?>> parameters, @Nullable final ClassInfo<T> returnType, @Nullable final NonNullPair<String, Boolean> info, boolean single) {
+	public Signature(String script, String name, List<Parameter<?>> parameters, @Nullable final ClassInfo<T> returnType,
+			@Nullable final NonNullPair<String, Boolean> info, boolean single) {
 		this.script = script;
 		this.name = name;
 		this.parameters = Collections.unmodifiableList(parameters);
 		this.returnType = returnType;
 		this.info = info;
 		this.single = single;
-		
+
 		calls = new ArrayList<>();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	@SuppressWarnings("null")
 	public Parameter<?> getParameter(final int index) {
 		return parameters.get(index);
 	}
-	
+
 	public List<Parameter<?>> getParameters() {
 		return parameters;
 	}
-	
+
 	@Nullable
 	public ClassInfo<T> getReturnType() {
 		return returnType;
 	}
-	
+
 	public boolean isSingle() {
 		return single;
 	}
-	
+
 	public int getMaxParameters() {
 		return parameters.size();
 	}
-	
+
 	public int getMinParameters() {
 		for (int i = parameters.size() - 1; i >= 0; i--) {
 			if (parameters.get(i).def == null)
@@ -90,7 +91,7 @@ public class Signature<T> {
 		}
 		return 0;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return name.hashCode();

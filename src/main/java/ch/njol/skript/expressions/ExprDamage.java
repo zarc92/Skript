@@ -49,15 +49,17 @@ import ch.njol.util.coll.CollectionUtils;
 @Since("1.3.5")
 @Events("damage")
 public class ExprDamage extends SimpleExpression<Double> {
+
 	static {
 		Skript.registerExpression(ExprDamage.class, Double.class, ExpressionType.SIMPLE, "[the] damage");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Kleenean delay;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		if (!ScriptLoader.isCurrentEvent(EntityDamageEvent.class)) {
 			Skript.error("The expression 'damage' may only be used in damage events", ErrorQuality.SEMANTIC_ERROR);
 			return false;
@@ -65,7 +67,7 @@ public class ExprDamage extends SimpleExpression<Double> {
 		delay = isDelayed;
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Double[] get(final Event e) {
@@ -73,7 +75,7 @@ public class ExprDamage extends SimpleExpression<Double> {
 			return new Double[0];
 		return new Double[] {HealthUtils.getDamage((EntityDamageEvent) e)};
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -86,9 +88,10 @@ public class ExprDamage extends SimpleExpression<Double> {
 			return null;
 		return CollectionUtils.array(Number.class);
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		if (!(e instanceof EntityDamageEvent))
 			return;
 		double d = delta == null ? 0 : ((Number) delta[0]).doubleValue();
@@ -108,20 +111,20 @@ public class ExprDamage extends SimpleExpression<Double> {
 				assert false;
 		}
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends Double> getReturnType() {
 		return Double.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the damage";
 	}
-	
+
 }

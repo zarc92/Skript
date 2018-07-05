@@ -22,23 +22,24 @@ package ch.njol.skript.localization;
 import ch.njol.util.StringUtils;
 
 /**
- * An {@link ArgsMessage} that pluralises words following numbers. The plurals have to be in the format <tt>shel¦f¦ves¦</tt> (i.e. use 3 '¦'s).
+ * An {@link ArgsMessage} that pluralises words following numbers. The plurals have to be in the format
+ * <tt>shel¦f¦ves¦</tt> (i.e. use 3 '¦'s).
  * 
  * @author Peter Güttinger
  */
 public class PluralizingArgsMessage extends Message {
-	
+
 	public PluralizingArgsMessage(final String key) {
 		super(key);
 	}
-	
+
 	public String toString(final Object... args) {
 		final String val = getValue();
 		if (val == null)
 			return key;
 		return format("" + String.format(val, args));
 	}
-	
+
 	public static String format(final String s) {
 		final StringBuilder b = new StringBuilder();
 		int last = 0;
@@ -66,5 +67,5 @@ public class PluralizingArgsMessage extends Message {
 		b.append(s.substring(last, s.length()));
 		return "" + b;
 	}
-	
+
 }

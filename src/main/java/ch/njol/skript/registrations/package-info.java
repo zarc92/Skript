@@ -26,4 +26,3 @@
 package ch.njol.skript.registrations;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-

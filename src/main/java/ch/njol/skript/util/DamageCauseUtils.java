@@ -26,21 +26,22 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Peter Güttinger
  */
 public abstract class DamageCauseUtils {
+
 	private DamageCauseUtils() {}
-	
+
 	private final static EnumUtils<DamageCause> util = new EnumUtils<>(DamageCause.class, "damage causes");
-	
+
 	@Nullable
 	public static DamageCause parse(final String s) {
 		return util.parse(s);
 	}
-	
+
 	public static String toString(final DamageCause dc, final int flags) {
 		return util.toString(dc, flags);
 	}
-	
+
 	public static String getAllNames() {
 		return util.getAllNames();
 	}
-	
+
 }

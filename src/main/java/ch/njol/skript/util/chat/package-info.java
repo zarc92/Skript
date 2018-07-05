@@ -26,4 +26,3 @@
 package ch.njol.skript.util.chat;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-

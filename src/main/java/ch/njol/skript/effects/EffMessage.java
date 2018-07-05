@@ -45,14 +45,10 @@ import ch.njol.util.Kleenean;
  */
 @Name("Message")
 @Description("Sends a message to the given player.")
-@Examples({"message \"A wild %player% appeared!\"",
-		"message \"This message is a distraction. Mwahaha!\"",
-		"send \"Your kill streak is %{kill streak.%player%}%.\" to player",
-		"if the targeted entity exists:",
-		"	message \"You're currently looking at a %type of the targeted entity%!\""})
+@Examples({"message \"A wild %player% appeared!\"", "message \"This message is a distraction. Mwahaha!\"", "send \"Your kill streak is %{kill streak.%player%}%.\" to player", "if the targeted entity exists:", "	message \"You're currently looking at a %type of the targeted entity%!\""})
 @Since("1.0, 2.2-dev26 (advanced features)")
 public class EffMessage extends Effect {
-	
+
 	static {
 		Skript.registerEffect(EffMessage.class, "(message|send [message[s]]) %strings% [to %commandsenders%]");
 	}
@@ -68,10 +64,11 @@ public class EffMessage extends Effect {
 
 	@SuppressWarnings("null")
 	private Expression<CommandSender> recipients;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		messages = (Expression<String>[]) (exprs[0] instanceof ExpressionList ? ((ExpressionList) exprs[0]).getExpressions() : new Expression[] {exprs[0]});
 		messageExpr = (Expression<String>) exprs[0];
 		recipients = (Expression<CommandSender>) exprs[1];

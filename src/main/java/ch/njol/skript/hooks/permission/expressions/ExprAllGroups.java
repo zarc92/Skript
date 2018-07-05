@@ -35,10 +35,7 @@ import org.eclipse.jdt.annotation.Nullable;
 
 @Name("All Groups")
 @Description("All the groups a player can have. This expression requires Vault and a compatible permissions plugin to be installed.")
-@Examples({"command /group <text>:",
-		"   trigger:",
-		"       if argument is \"list\":",
-		"           send \"%all groups%\""})
+@Examples({"command /group <text>:", "   trigger:", "       if argument is \"list\":", "           send \"%all groups%\""})
 @Since("2.2-dev35")
 public class ExprAllGroups extends SimpleExpression<String> {
 
@@ -47,7 +44,8 @@ public class ExprAllGroups extends SimpleExpression<String> {
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		if (!VaultHook.permission.hasGroupSupport()) {
 			Skript.error(VaultHook.NO_GROUP_SUPPORT);
 			return false;

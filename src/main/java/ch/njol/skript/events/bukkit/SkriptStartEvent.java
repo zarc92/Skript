@@ -28,15 +28,15 @@ import org.bukkit.event.HandlerList;
  * @author Peter Güttinger
  */
 public class SkriptStartEvent extends Event {
-	
+
 	// Bukkit stuff
 	private final static HandlerList handlers = new HandlerList();
-	
+
 	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}
-	
+
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}

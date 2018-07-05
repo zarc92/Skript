@@ -41,20 +41,13 @@ import java.lang.reflect.Array;
  */
 @Name("Vectors - Arithmetic")
 @Description("Arithmetic expressions for vectors")
-@Examples({"set {_v} to vector 1, 2, 3 // 5",
-		"set {_v} to {_v} ++ {_v}",
-		"set {_v} to {_v} ++ 5",
-		"set {_v} to {_v} -- {_v}",
-		"set {_v} to {_v} -- 5",
-		"set {_v} to {_v} ** {_v}",
-		"set {_v} to {_v} ** 5",
-		"set {_v} to {_v} // {_v}",
-		"set {_v} to {_v} // 5"})
+@Examples({"set {_v} to vector 1, 2, 3 // 5", "set {_v} to {_v} ++ {_v}", "set {_v} to {_v} ++ 5", "set {_v} to {_v} -- {_v}", "set {_v} to {_v} -- 5", "set {_v} to {_v} ** {_v}", "set {_v} to {_v} ** 5", "set {_v} to {_v} // {_v}", "set {_v} to {_v} // 5"})
 @Since("2.2-dev28")
 public class ExprVectorArithmetic extends SimpleExpression<Vector> {
 
 	private static enum Operator {
 		PLUS("++") {
+
 			@Override
 			@SuppressWarnings("null")
 			public Vector calculate(final Vector v1, final Vector v2) {
@@ -62,6 +55,7 @@ public class ExprVectorArithmetic extends SimpleExpression<Vector> {
 			}
 		},
 		MINUS("--") {
+
 			@Override
 			@SuppressWarnings("null")
 			public Vector calculate(final Vector v1, final Vector v2) {
@@ -69,6 +63,7 @@ public class ExprVectorArithmetic extends SimpleExpression<Vector> {
 			}
 		},
 		MULT("**") {
+
 			@Override
 			@SuppressWarnings("null")
 			public Vector calculate(final Vector v1, final Vector v2) {
@@ -76,6 +71,7 @@ public class ExprVectorArithmetic extends SimpleExpression<Vector> {
 			}
 		},
 		DIV("//") {
+
 			@Override
 			@SuppressWarnings("null")
 			public Vector calculate(final Vector v1, final Vector v2) {
@@ -99,12 +95,9 @@ public class ExprVectorArithmetic extends SimpleExpression<Vector> {
 
 	private final static Patterns<Operator> patterns = new Patterns<>(new Object[][] {
 
-			{"%vector%[ ]++[ ]%vector%", Operator.PLUS},
-			{"%vector%[ ]--[ ]%vector%", Operator.MINUS},
+			{"%vector%[ ]++[ ]%vector%", Operator.PLUS}, {"%vector%[ ]--[ ]%vector%", Operator.MINUS},
 
-			{"%vector%[ ]**[ ]%vector%", Operator.MULT},
-			{"%vector%[ ]//[ ]%vector%", Operator.DIV},
-	});
+			{"%vector%[ ]**[ ]%vector%", Operator.MULT}, {"%vector%[ ]//[ ]%vector%", Operator.DIV},});
 
 	static {
 		Skript.registerExpression(ExprVectorArithmetic.class, Vector.class, ExpressionType.SIMPLE, patterns.getPatterns());
@@ -141,12 +134,13 @@ public class ExprVectorArithmetic extends SimpleExpression<Vector> {
 
 	@Override
 	public String toString(final @Nullable Event event, boolean b) {
-		return first.toString(event, b) + " " + op +  " " + second.toString(event, b);
+		return first.toString(event, b) + " " + op + " " + second.toString(event, b);
 	}
 
 	@Override
 	@SuppressWarnings({"unchecked", "null"})
-	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean kleenean,
+			SkriptParser.ParseResult parseResult) {
 		first = (Expression<Vector>) expressions[0];
 		second = (Expression<Vector>) expressions[1];
 		op = patterns.getInfo(matchedPattern);

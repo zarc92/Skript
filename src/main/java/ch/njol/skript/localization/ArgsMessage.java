@@ -24,16 +24,16 @@ import java.util.IllegalFormatException;
 import ch.njol.skript.Skript;
 
 public final class ArgsMessage extends Message {
-	
+
 	public ArgsMessage(final String key) {
 		super(key);
 	}
-	
+
 	@Override
 	public String toString() {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	public String toString(final Object... args) {
 		try {
 			final String val = getValue();
@@ -46,5 +46,5 @@ public final class ArgsMessage extends Message {
 			return "[ERROR]";
 		}
 	}
-	
+
 }

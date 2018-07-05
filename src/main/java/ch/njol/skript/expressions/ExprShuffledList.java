@@ -45,27 +45,27 @@ import ch.njol.util.Kleenean;
 @Examples({"set {_list::*} to shuffled {_list::*}"})
 @Since("2.2-dev32")
 public class ExprShuffledList extends SimpleExpression<Object> {
-	
-	static{
+
+	static {
 		Skript.registerExpression(ExprShuffledList.class, Object.class, ExpressionType.COMBINED, "shuffled %objects%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Object> list;
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		list = (Expression<Object>) exprs[0];
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Object[] get(Event e) {
 		Object[] origin = list.getAll(e);
 		List<Object> shuffled = Arrays.asList(origin.clone()); // Not yet shuffled...
-		
+
 		try {
 			Collections.shuffle(shuffled);
 		} catch (IllegalArgumentException ex) { // In case elements are not comparable
@@ -73,12 +73,12 @@ public class ExprShuffledList extends SimpleExpression<Object> {
 		}
 		return shuffled.toArray();
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
 		return Object.class;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;

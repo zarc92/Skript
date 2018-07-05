@@ -36,7 +36,7 @@ import ch.njol.skript.classes.Converter;
  * @author Peter Güttinger
  */
 public abstract class FileUtils {
-	
+
 	private static boolean RUNNINGJAVA6 = true;// = System.getProperty("java.version").startsWith("1.6"); // doesn't work reliably?
 	static {
 		try {
@@ -48,11 +48,11 @@ public abstract class FileUtils {
 			RUNNINGJAVA6 = false;
 		}
 	}
-	
+
 	private FileUtils() {}
-	
+
 	private final static SimpleDateFormat backupFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-	
+
 	/**
 	 * @return The current date and time
 	 */
@@ -61,7 +61,7 @@ public abstract class FileUtils {
 			return "" + backupFormat.format(System.currentTimeMillis());
 		}
 	}
-	
+
 	public static File backup(final File f) throws IOException {
 		String name = f.getName();
 		final int c = name.lastIndexOf('.');
@@ -77,10 +77,11 @@ public abstract class FileUtils {
 		copy(f, backup);
 		return backup;
 	}
-	
+
 	public static File move(final File from, final File to, final boolean replace) throws IOException {
 		if (!replace && to.exists())
-			throw new IOException("Can't rename " + from.getName() + " to " + to.getName() + ": The target file already exists");
+			throw new IOException(
+					"Can't rename " + from.getName() + " to " + to.getName() + ": The target file already exists");
 		if (!RUNNINGJAVA6) {
 			if (replace)
 				Files.move(from.toPath(), to.toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
@@ -94,7 +95,8 @@ public abstract class FileUtils {
 				while (moveTo.exists() && i < 1000)
 					moveTo = new File(to.getAbsolutePath() + ".old" + (++i));
 				if (i == 999 || !to.renameTo(moveTo))
-					throw new IOException("Can't rename " + from.getName() + " to " + to.getName() + ": Cannot temporarily rename the target file");
+					throw new IOException(
+							"Can't rename " + from.getName() + " to " + to.getName() + ": Cannot temporarily rename the target file");
 			}
 			if (!from.renameTo(to)) {
 				if (moveTo != null)
@@ -106,7 +108,7 @@ public abstract class FileUtils {
 		}
 		return to;
 	}
-	
+
 	public static void copy(final File from, final File to) throws IOException {
 		if (!RUNNINGJAVA6) {
 			Files.copy(from.toPath(), to.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
@@ -117,18 +119,21 @@ public abstract class FileUtils {
 				while ((bytesRead = in.read(buffer)) != -1)
 					out.write(buffer, 0, bytesRead);
 			} catch (final Exception e) {
-				throw new IOException("Can't copy " + from.getName() + " to " + to.getName() + ": " + e.getLocalizedMessage(), e);
+				throw new IOException(
+						"Can't copy " + from.getName() + " to " + to.getName() + ": " + e.getLocalizedMessage(), e);
 			}
 		}
 	}
-	
+
 	/**
 	 * @param directory
 	 * @param renamer Renames files. Return null to leave a file as-is.
 	 * @return A collection of all changed files (with their new names)
-	 * @throws IOException If renaming one of the files caused an IOException. Some files might have been renamed already.
+	 * @throws IOException If renaming one of the files caused an IOException. Some files might have been renamed
+	 *             already.
 	 */
-	public static Collection<File> renameAll(final File directory, final Converter<String, String> renamer) throws IOException {
+	public static Collection<File> renameAll(final File directory, final Converter<String, String> renamer)
+			throws IOException {
 		final Collection<File> changed = new ArrayList<>();
 		for (final File f : directory.listFiles()) {
 			if (f.isDirectory()) {
@@ -147,7 +152,7 @@ public abstract class FileUtils {
 		}
 		return changed;
 	}
-	
+
 	/**
 	 * Saves the contents of an InputStream in a file.
 	 * 
@@ -165,5 +170,5 @@ public abstract class FileUtils {
 			}
 		}
 	}
-	
+
 }

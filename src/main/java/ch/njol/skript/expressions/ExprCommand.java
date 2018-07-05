@@ -42,25 +42,21 @@ import ch.njol.util.Kleenean;
  */
 @Name("Command")
 @Description("The command that caused an 'on command' event (excluding the leading slash and all arguments)")
-@Examples({"# prevent any commands except for the /exit command during some game",
-		"on command:",
-		"{game.%player%.is playing} is true",
-		"command is not \"exit\"",
-		"message \"You're not allowed to use commands during the game\"",
-		"cancel the event"})
+@Examples({"# prevent any commands except for the /exit command during some game", "on command:", "{game.%player%.is playing} is true", "command is not \"exit\"", "message \"You're not allowed to use commands during the game\"", "cancel the event"})
 @Since("2.0")
 @Events("command")
 public class ExprCommand extends SimpleExpression<String> {
+
 	static {
-		Skript.registerExpression(ExprCommand.class, String.class, ExpressionType.SIMPLE,
-				"[the] (full|complete|whole) command", "[the] command [label]", "[the] arguments");
+		Skript.registerExpression(ExprCommand.class, String.class, ExpressionType.SIMPLE, "[the] (full|complete|whole) command", "[the] command [label]", "[the] arguments");
 	}
-	
+
 	private final static int FULL = 0, LABEL = 1, ARGS = 2;
 	private int what;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		what = matchedPattern;
 		if (!ScriptLoader.isCurrentEvent(PlayerCommandPreprocessEvent.class, ServerCommandEvent.class)) {
 			if (what != ARGS) // ExprArgument has the same syntax
@@ -69,7 +65,7 @@ public class ExprCommand extends SimpleExpression<String> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected String[] get(final Event e) {
@@ -92,20 +88,20 @@ public class ExprCommand extends SimpleExpression<String> {
 		assert what == LABEL;
 		return new String[] {c == -1 ? s : s.substring(0, c)};
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return what == 0 ? "the full command" : what == 1 ? "the command" : "the arguments";
 	}
-	
+
 }

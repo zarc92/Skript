@@ -35,75 +35,72 @@ import ch.njol.skript.localization.Noun;
 import ch.njol.util.coll.CollectionUtils;
 
 public enum StructureType {
-	TREE(TreeType.TREE, TreeType.BIG_TREE, TreeType.REDWOOD, TreeType.TALL_REDWOOD, TreeType.MEGA_REDWOOD,
-			TreeType.BIRCH, TreeType.TALL_BIRCH, TreeType.SMALL_JUNGLE, TreeType.JUNGLE, TreeType.COCOA_TREE,
-			TreeType.ACACIA, TreeType.DARK_OAK, TreeType.SWAMP),
-	
+	TREE(TreeType.TREE, TreeType.BIG_TREE, TreeType.REDWOOD, TreeType.TALL_REDWOOD, TreeType.MEGA_REDWOOD, TreeType.BIRCH, TreeType.TALL_BIRCH, TreeType.SMALL_JUNGLE, TreeType.JUNGLE, TreeType.COCOA_TREE, TreeType.ACACIA, TreeType.DARK_OAK, TreeType.SWAMP),
+
 	REGULAR(TreeType.TREE, TreeType.BIG_TREE), SMALL_REGULAR(TreeType.TREE), BIG_REGULAR(TreeType.BIG_TREE),
-	REDWOOD(TreeType.REDWOOD, TreeType.TALL_REDWOOD), SMALL_REDWOOD(TreeType.REDWOOD), BIG_REDWOOD(TreeType.TALL_REDWOOD),
-	MEGA_REDWOOD(TreeType.MEGA_REDWOOD),
-	BIRCH(TreeType.BIRCH), TALL_BIRCH(TreeType.TALL_BIRCH),
-	JUNGLE(TreeType.SMALL_JUNGLE, TreeType.JUNGLE), SMALL_JUNGLE(TreeType.SMALL_JUNGLE), BIG_JUNGLE(TreeType.JUNGLE),
-	JUNGLE_BUSH(TreeType.JUNGLE_BUSH), COCOA_TREE(TreeType.COCOA_TREE),
-	ACACIA(TreeType.ACACIA), DARK_OAK(TreeType.DARK_OAK),
-	SWAMP(TreeType.SWAMP),
-	
-	MUSHROOM(TreeType.RED_MUSHROOM, TreeType.BROWN_MUSHROOM),
-	RED_MUSHROOM(TreeType.RED_MUSHROOM), BROWN_MUSHROOM(TreeType.BROWN_MUSHROOM),
-	
+	REDWOOD(TreeType.REDWOOD, TreeType.TALL_REDWOOD), SMALL_REDWOOD(TreeType.REDWOOD),
+	BIG_REDWOOD(TreeType.TALL_REDWOOD), MEGA_REDWOOD(TreeType.MEGA_REDWOOD), BIRCH(TreeType.BIRCH),
+	TALL_BIRCH(TreeType.TALL_BIRCH), JUNGLE(TreeType.SMALL_JUNGLE, TreeType.JUNGLE),
+	SMALL_JUNGLE(TreeType.SMALL_JUNGLE), BIG_JUNGLE(TreeType.JUNGLE), JUNGLE_BUSH(TreeType.JUNGLE_BUSH),
+	COCOA_TREE(TreeType.COCOA_TREE), ACACIA(TreeType.ACACIA), DARK_OAK(TreeType.DARK_OAK), SWAMP(TreeType.SWAMP),
+
+	MUSHROOM(TreeType.RED_MUSHROOM, TreeType.BROWN_MUSHROOM), RED_MUSHROOM(TreeType.RED_MUSHROOM),
+	BROWN_MUSHROOM(TreeType.BROWN_MUSHROOM),
+
 	;
-	
+
 	private Noun name;
 	private final TreeType[] types;
-	
+
 	private StructureType(final TreeType... types) {
 		this.types = types;
 		name = new Noun("tree types." + name() + ".name");
 	}
-	
+
 	public void grow(final Location loc) {
 		loc.getWorld().generateTree(loc, CollectionUtils.getRandom(types));
 	}
-	
+
 	public void grow(final Block b) {
 		b.getWorld().generateTree(b.getLocation(), CollectionUtils.getRandom(types));
 	}
-	
+
 	public TreeType[] getTypes() {
 		return types;
 	}
-	
+
 	@Override
 	public String toString() {
 		return name.toString();
 	}
-	
+
 	public String toString(final int flags) {
 		return name.toString(flags);
 	}
-	
+
 	public Noun getName() {
 		return name;
 	}
-	
+
 	public boolean is(final TreeType type) {
 		return CollectionUtils.contains(types, type);
 	}
-	
+
 	/**
 	 * lazy
 	 */
 	final static Map<Pattern, StructureType> parseMap = new HashMap<>();
-	
+
 	static {
 		Language.addListener(new LanguageChangeListener() {
+
 			@Override
 			public void onLanguageChange() {
 				parseMap.clear();
 			}
 		});
 	}
-	
+
 	@Nullable
 	public static StructureType fromName(String s) {
 		if (parseMap.isEmpty()) {
@@ -119,5 +116,5 @@ public enum StructureType {
 		}
 		return null;
 	}
-	
+
 }

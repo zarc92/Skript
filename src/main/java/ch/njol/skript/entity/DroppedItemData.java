@@ -38,22 +38,23 @@ import ch.njol.util.coll.CollectionUtils;
  * @author Peter Güttinger
  */
 public class DroppedItemData extends EntityData<Item> {
+
 	static {
 		EntityData.register(DroppedItemData.class, "dropped item", Item.class, "dropped item");
 	}
-	
+
 	private final static Adjective m_adjective = new Adjective("entities.dropped item.adjective");
-	
+
 	@Nullable
 	private ItemType[] types;
-	
+
 	@Override
 	protected boolean init(final Literal<?>[] exprs, final int matchedPattern, final ParseResult parseResult) {
 		if (exprs.length > 0 && exprs[0] != null)
 			types = (ItemType[]) exprs[0].getAll();
 		return true;
 	}
-	
+
 	@Override
 	protected boolean init(final @Nullable Class<? extends Item> c, final @Nullable Item e) {
 		if (e != null) {
@@ -64,7 +65,7 @@ public class DroppedItemData extends EntityData<Item> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	protected boolean match(final Item entity) {
 		if (types != null) {
@@ -77,14 +78,14 @@ public class DroppedItemData extends EntityData<Item> {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public void set(final Item entity) {
 		final ItemType t = CollectionUtils.getRandom(types);
 		assert t != null;
 		entity.setItemStack(t.getItem().getRandom());
 	}
-	
+
 	@Override
 	public boolean isSupertypeOf(final EntityData<?> e) {
 		if (!(e instanceof DroppedItemData))
@@ -94,17 +95,17 @@ public class DroppedItemData extends EntityData<Item> {
 			return d.types != null && ItemType.isSubset(types, d.types);
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends Item> getType() {
 		return Item.class;
 	}
-	
+
 	@Override
 	public EntityData getSuperType() {
 		return new DroppedItemData();
 	}
-	
+
 	@Override
 	public String toString(final int flags) {
 		final ItemType[] types = this.types;
@@ -117,7 +118,7 @@ public class DroppedItemData extends EntityData<Item> {
 		b.append(Classes.toString(types, flags & Language.NO_ARTICLE_MASK, false));
 		return "" + b.toString();
 	}
-	
+
 //		return ItemType.serialize(types);
 	@Override
 	@Deprecated
@@ -127,17 +128,17 @@ public class DroppedItemData extends EntityData<Item> {
 		types = ItemType.deserialize(s);
 		return types != null;
 	}
-	
+
 	@Override
 	protected boolean equals_i(final EntityData<?> obj) {
 		if (!(obj instanceof DroppedItemData))
 			return false;
 		return Arrays.equals(types, ((DroppedItemData) obj).types);
 	}
-	
+
 	@Override
 	protected int hashCode_i() {
 		return Arrays.hashCode(types);
 	}
-	
+
 }

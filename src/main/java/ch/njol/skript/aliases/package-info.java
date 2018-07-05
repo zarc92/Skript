@@ -26,4 +26,3 @@
 package ch.njol.skript.aliases;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-

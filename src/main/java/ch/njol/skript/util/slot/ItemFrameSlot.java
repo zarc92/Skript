@@ -32,9 +32,9 @@ import ch.njol.skript.registrations.Classes;
  * Represents contents of an item frame.
  */
 public class ItemFrameSlot extends Slot {
-	
+
 	private ItemFrame frame;
-	
+
 	public ItemFrameSlot(ItemFrame frame) {
 		this.frame = frame;
 	}
@@ -49,7 +49,7 @@ public class ItemFrameSlot extends Slot {
 	public void setItem(@Nullable ItemStack item) {
 		frame.setItem(item);
 	}
-	
+
 	@Override
 	public boolean isSameSlot(Slot o) {
 		if (o instanceof ItemFrameSlot) // Same item frame
@@ -61,5 +61,5 @@ public class ItemFrameSlot extends Slot {
 	public String toString(@Nullable Event e, boolean debug) {
 		return Classes.toString(getItem());
 	}
-	
+
 }

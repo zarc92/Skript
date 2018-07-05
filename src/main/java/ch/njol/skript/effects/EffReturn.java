@@ -44,23 +44,24 @@ import ch.njol.util.Kleenean;
  */
 @Name("Return")
 @Description("Makes a function return a value")
-@Examples({"function double(i: number) :: number:",
-		"	return 2 * {_i}"})
+@Examples({"function double(i: number) :: number:", "	return 2 * {_i}"})
 @Since("2.2")
 public class EffReturn extends Effect {
+
 	static {
 		Skript.registerEffect(EffReturn.class, "return %objects%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private ScriptFunction<?> function;
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> value;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		final ScriptFunction<?> f = Functions.currentFunction;
 		if (f == null) {
 			Skript.error("The return statement can only be used in a function");
@@ -95,7 +96,7 @@ public class EffReturn extends Effect {
 		value = v;
 		return true;
 	}
-	
+
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Override
 	@Nullable
@@ -107,15 +108,15 @@ public class EffReturn extends Effect {
 			assert false : e;
 		return null;
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		assert false;
 	}
-	
+
 	@Override
 	public String toString(@Nullable final Event e, final boolean debug) {
 		return "return " + value.toString(e, debug);
 	}
-	
+
 }

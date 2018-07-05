@@ -34,28 +34,31 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 
 /**
- * Provided for convenience: one can write 'event-world' instead of only 'world' to distinguish between the event-world and the loop-world.
+ * Provided for convenience: one can write 'event-world' instead of only 'world' to distinguish between the event-world
+ * and the loop-world.
  * 
  * @author Peter Güttinger
  */
 @NoDoc
 public class ExprEventExpression extends WrapperExpression<Object> {
+
 	static {
 		Skript.registerExpression(ExprEventExpression.class, Object.class, ExpressionType.PROPERTY, "[the] event-%*classinfo%");// property so that it is parsed after most other expressions
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		@SuppressWarnings("unchecked")
 		final ClassInfo<?> ci = ((Literal<ClassInfo<?>>) exprs[0]).getSingle();
 		final EventValueExpression<?> e = new EventValueExpression<Object>(ci.getC());
 		setExpr(e);
 		return e.init();
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return getExpr().toString(e, debug);
 	}
-	
+
 }

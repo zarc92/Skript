@@ -59,21 +59,19 @@ import ch.njol.util.coll.CollectionUtils;
 
 @Name("Clicked Block/Entity/Inventory/Slot")
 @Description("The clicked block, entity, inventory slot, inventory, type or action.")
-@Examples({"message \"You clicked on a %type of clicked entity%!\"",
-		"clicked block is a chest:",
-		"	show the inventory of the clicked block to the player"})
+@Examples({"message \"You clicked on a %type of clicked entity%!\"", "clicked block is a chest:", "	show the inventory of the clicked block to the player"})
 @Since("1.0, 2.2-dev35 (more clickable things)")
 @Events({"click", "inventory click"})
 public class ExprClicked extends SimpleExpression<Object> {
 
 	private static enum ClickableType {
-		
+
 		BLOCK_AND_ITEMS(1, Block.class, "clicked block/itemtype/entity", " clicked (block|%-*itemtype/entitydata%)"),
 		SLOT(2, Slot.class, "clicked slot", "clicked slot"),
 		INVENTORY(3, Inventory.class, "clicked inventory", "clicked inventory"),
 		TYPE(4, ClickType.class, "click type", "click (type|action)"),
 		ACTION(5, InventoryAction.class, "inventory action", "inventory action");
-		
+
 		private String name, syntax;
 		private Class<?> c;
 		private int value;
@@ -84,47 +82,44 @@ public class ExprClicked extends SimpleExpression<Object> {
 			this.c = c;
 			this.name = name;
 		}
-		
+
 		public int getValue() {
 			return value;
 		}
-		
+
 		public Class<?> getClickableClass() {
 			return c;
 		}
-		
+
 		public String getName() {
 			return name;
 		}
-		
+
 		public String getSyntax(boolean last) {
 			return value + "¦" + syntax + (!last ? "|" : "");
 		}
-		
+
 		public static ClickableType getClickable(int num) {
 			for (ClickableType clickable : ClickableType.values())
-				if (clickable.getValue() == num) return clickable;
+				if (clickable.getValue() == num)
+					return clickable;
 			return BLOCK_AND_ITEMS;
 		}
 	}
-	
+
 	static {
-		Skript.registerExpression(ExprClicked.class, Object.class, ExpressionType.SIMPLE, "[the] ("
-					+ ClickableType.BLOCK_AND_ITEMS.getSyntax(false)
-					+ ClickableType.SLOT.getSyntax(false)
-					+ ClickableType.INVENTORY.getSyntax(false)
-					+ ClickableType.TYPE.getSyntax(false)
-					+ ClickableType.ACTION.getSyntax(true) + ")");
+		Skript.registerExpression(ExprClicked.class, Object.class, ExpressionType.SIMPLE, "[the] (" + ClickableType.BLOCK_AND_ITEMS.getSyntax(false) + ClickableType.SLOT.getSyntax(false) + ClickableType.INVENTORY.getSyntax(false) + ClickableType.TYPE.getSyntax(false) + ClickableType.ACTION.getSyntax(true) + ")");
 	}
-	
+
 	@Nullable
 	private EntityData<?> entityType;
 	@Nullable
 	private ItemType itemType; //null results in any itemtype
 	private ClickableType clickable = ClickableType.BLOCK_AND_ITEMS;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		clickable = ClickableType.getClickable(parseResult.mark);
 		switch (clickable) {
 			case BLOCK_AND_ITEMS:
@@ -155,17 +150,17 @@ public class ExprClicked extends SimpleExpression<Object> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
 		return (clickable != ClickableType.BLOCK_AND_ITEMS) ? clickable.getClickableClass() : entityType != null ? entityType.getType() : Block.class;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Object[] get(final Event e) {
@@ -175,7 +170,7 @@ public class ExprClicked extends SimpleExpression<Object> {
 					if (entityType != null) // This is supposed to be null as this event should be for blocks
 						return null;
 					final Block block = ((PlayerInteractEvent) e).getClickedBlock();
-					
+
 					if (itemType == null)
 						return new Block[] {block};
 					assert itemType != null;
@@ -186,7 +181,7 @@ public class ExprClicked extends SimpleExpression<Object> {
 					if (entityType == null) //We're testing for the entity in this event
 						return null;
 					final Entity entity = ((PlayerInteractEntityEvent) e).getRightClicked();
-					
+
 					assert entityType != null;
 					if (entityType.isInstance(entity)) {
 						assert entityType != null;
@@ -213,7 +208,7 @@ public class ExprClicked extends SimpleExpression<Object> {
 		}
 		return null;
 	}
-	
+
 	@Override
 	@Nullable
 	public Object[] beforeChange(Expression<?> changed, @Nullable Object[] delta) {
@@ -222,20 +217,20 @@ public class ExprClicked extends SimpleExpression<Object> {
 		Object first = delta[0];
 		if (first == null) // ConvertedExpression might cause this
 			return null;
-		
+
 		// Slots must be transformed to item stacks when writing to variables
 		// Documentation by Njol states so, plus it is convenient
 		if (changed instanceof Variable && first instanceof Slot) {
 			return new ItemStack[] {((Slot) first).getItem()};
 		}
-		
+
 		// Everything else (inventories, actions, etc.) does not need special handling
 		return delta;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the " + (clickable != ClickableType.BLOCK_AND_ITEMS ? clickable.getName() : "clicked " + (entityType != null ? entityType : itemType != null ? itemType : "block"));
 	}
-	
+
 }

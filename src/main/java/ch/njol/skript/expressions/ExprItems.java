@@ -50,26 +50,22 @@ import ch.njol.util.coll.iterator.IteratorIterable;
  */
 @Name("Items")
 @Description("Items or blocks of a specific type, useful for looping.")
-@Examples({"loop items of type ore and log:",
-		"	block contains loop-item",
-		"	message \"Theres at least one %loop-item% in this block\"",
-		"drop all blocks at the player # drops one of every block at the player"})
+@Examples({"loop items of type ore and log:", "	block contains loop-item", "	message \"Theres at least one %loop-item% in this block\"", "drop all blocks at the player # drops one of every block at the player"})
 @Since("<i>unknown</i> (before 2.1)")
 public class ExprItems extends SimpleExpression<ItemStack> {
-	
+
 	static {
-		Skript.registerExpression(ExprItems.class, ItemStack.class, ExpressionType.COMBINED,
-				"[(all [[of] the]|the|every)] item(s|[ ]types)", "[(all [[of] the]|the)] items of type[s] %itemtypes%",
-				"[(all [[of] the]|the|every)] block(s|[ ]types)", "[(all [[of] the]|the)] blocks of type[s] %itemtypes%");
+		Skript.registerExpression(ExprItems.class, ItemStack.class, ExpressionType.COMBINED, "[(all [[of] the]|the|every)] item(s|[ ]types)", "[(all [[of] the]|the)] items of type[s] %itemtypes%", "[(all [[of] the]|the|every)] block(s|[ ]types)", "[(all [[of] the]|the)] blocks of type[s] %itemtypes%");
 	}
-	
+
 	@Nullable
 	Expression<ItemType> types = null;
 	private boolean blocks = false;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		if (vars.length > 0)
 			types = (Expression<ItemType>) vars[0];
 		blocks = matchedPattern >= 2;
@@ -79,10 +75,10 @@ public class ExprItems extends SimpleExpression<ItemStack> {
 		}
 		return true;
 	}
-	
+
 	@Nullable
 	private ItemStack[] buffer = null;
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected ItemStack[] get(final Event e) {
@@ -95,29 +91,29 @@ public class ExprItems extends SimpleExpression<ItemStack> {
 			return buffer = r.toArray(new ItemStack[r.size()]);
 		return r.toArray(new ItemStack[r.size()]);
 	}
-	
+
 	@Override
 	@Nullable
 	public Iterator<ItemStack> iterator(final Event e) {
 		Iterator<ItemStack> iter;
 		if (types == null) {
 			iter = new Iterator<ItemStack>() {
-				
+
 				private final Iterator<Material> iter = new ArrayIterator<>(Material.values());
-				
+
 				@Override
 				public boolean hasNext() {
 					return iter.hasNext();
 				}
-				
+
 				@Override
 				public ItemStack next() {
 					return new ItemStack(iter.next());
 				}
-				
+
 				@Override
 				public void remove() {}
-				
+
 			};
 		} else {
 			@SuppressWarnings("null")
@@ -125,10 +121,10 @@ public class ExprItems extends SimpleExpression<ItemStack> {
 			if (!it.hasNext())
 				return null;
 			iter = new Iterator<ItemStack>() {
-				
+
 				@SuppressWarnings("null")
 				Iterator<ItemStack> current = it.next().getAll().iterator();
-				
+
 				@SuppressWarnings("null")
 				@Override
 				public boolean hasNext() {
@@ -137,7 +133,7 @@ public class ExprItems extends SimpleExpression<ItemStack> {
 					}
 					return current.hasNext();
 				}
-				
+
 				@SuppressWarnings("null")
 				@Override
 				public ItemStack next() {
@@ -145,17 +141,18 @@ public class ExprItems extends SimpleExpression<ItemStack> {
 						throw new NoSuchElementException();
 					return current.next();
 				}
-				
+
 				@Override
 				public void remove() {}
-				
+
 			};
 		}
-		
+
 		if (!blocks)
 			return iter;
-		
+
 		return new CheckedIterator<>(iter, new NullableChecker<ItemStack>() {
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public boolean check(final @Nullable ItemStack is) {
@@ -163,26 +160,26 @@ public class ExprItems extends SimpleExpression<ItemStack> {
 			}
 		});
 	}
-	
+
 	@Override
 	public Class<? extends ItemStack> getReturnType() {
 		return ItemStack.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		final Expression<ItemType> types = this.types;
 		return (blocks ? "blocks" : "items") + (types != null ? " of type" + (types.isSingle() ? "" : "s") + " " + types.toString(e, debug) : "");
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isLoopOf(final String s) {
 		return blocks && s.equalsIgnoreCase("block") || !blocks && s.equalsIgnoreCase("item");
 	}
-	
+
 }

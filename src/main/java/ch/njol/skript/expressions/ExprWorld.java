@@ -48,18 +48,17 @@ import ch.njol.util.coll.CollectionUtils;
  */
 @Name("World")
 @Description("The world the event occurred in.")
-@Examples({"world is \"world_nether\"",
-		"teleport the player to the world's spawn",
-		"set the weather in the player's world to rain"})
+@Examples({"world is \"world_nether\"", "teleport the player to the world's spawn", "set the weather in the player's world to rain"})
 @Since("1.0")
 public class ExprWorld extends PropertyExpression<Object, World> {
 
 	static {
 		Skript.registerExpression(ExprWorld.class, World.class, ExpressionType.PROPERTY, "[the] world [of %locations/entities%]", "%locations/entities%'[s] world");
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		Expression<?> expr = exprs[0];
 		if (expr == null) {
 			expr = new EventValueExpression<>(World.class);
@@ -69,17 +68,18 @@ public class ExprWorld extends PropertyExpression<Object, World> {
 		setExpr(expr);
 		return true;
 	}
-	
+
 	@Override
 	public Class<World> getReturnType() {
 		return World.class;
 	}
-	
+
 	@Override
 	protected World[] get(final Event e, final Object[] source) {
 		if (source instanceof World[]) // event value (see init)
 			return (World[]) source;
 		return get(source, new Converter<Object, World>() {
+
 			@Override
 			@Nullable
 			public World convert(final Object o) {
@@ -96,27 +96,28 @@ public class ExprWorld extends PropertyExpression<Object, World> {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the world" + (getExpr().isDefault() ? "" : " of " + getExpr().toString(e, debug));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean setTime(final int time) {
 		return super.setTime(time, getExpr(), PlayerTeleportEvent.class);
 	}
-	
+
 	@Override
 	public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-		if (!(getExpr().getAll(e) instanceof Location[] && delta != null)) return;
+		if (!(getExpr().getAll(e) instanceof Location[] && delta != null))
+			return;
 
 		for (final Location loc : (Location[]) getExpr().getAll(e)) {
-				loc.setWorld((World) delta[0]);
-		}	
+			loc.setWorld((World) delta[0]);
+		}
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final Changer.ChangeMode mode) {

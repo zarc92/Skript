@@ -34,17 +34,17 @@ import ch.njol.skript.localization.Noun;
  * Inventory action utils...
  */
 public class InventoryActions {
-	
+
 	private final static EnumUtils<InventoryAction> util = new EnumUtils<>(InventoryAction.class, "inventory actions");
-	
+
 	public static @Nullable InventoryAction parse(String s) {
 		return util.parse(s);
 	}
-	
+
 	public static String getAllNames() {
 		return util.getAllNames();
 	}
-	
+
 	public static String toString(final InventoryAction action, final int flags) {
 		return util.toString(action, flags);
 	}

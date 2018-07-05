@@ -46,25 +46,26 @@ import ch.njol.util.coll.CollectionUtils;
  */
 @Name("Game Mode")
 @Description("The gamemode of a player.")
-@Examples({"player's gamemode is survival",
-		"set the player's gamemode to creative"})
+@Examples({"player's gamemode is survival", "set the player's gamemode to creative"})
 @Since("1.0")
 public class ExprGameMode extends PropertyExpression<Player, GameMode> {
-	
+
 	static {
 		Skript.registerExpression(ExprGameMode.class, GameMode.class, ExpressionType.PROPERTY, "[the] game[ ]mode of %players%", "%players%'[s] game[ ]mode");
 	}
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<Player>) vars[0]);
 		return true;
 	}
-	
+
 	@Override
 	protected GameMode[] get(final Event e, final Player[] source) {
 		return get(source, new Converter<Player, GameMode>() {
+
 			@Override
 			@Nullable
 			public GameMode convert(final Player p) {
@@ -74,17 +75,17 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 			}
 		});
 	}
-	
+
 	@Override
 	public Class<GameMode> getReturnType() {
 		return GameMode.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the gamemode of " + getExpr().toString(e, debug);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -93,9 +94,10 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 			return CollectionUtils.array(GameMode.class);
 		return null;
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		final GameMode m = delta == null ? Bukkit.getDefaultGameMode() : (GameMode) delta[0];
 		for (final Player p : getExpr().getArray(e)) {
 			if (getTime() >= 0 && e instanceof PlayerGameModeChangeEvent && ((PlayerGameModeChangeEvent) e).getPlayer() == p && !Delay.isDelayed(e)) {
@@ -105,7 +107,7 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 			p.setGameMode(m);
 		}
 	}
-	
+
 	@Override
 	public boolean setTime(final int time) {
 		return super.setTime(time, PlayerGameModeChangeEvent.class, getExpr());

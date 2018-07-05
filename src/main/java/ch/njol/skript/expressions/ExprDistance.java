@@ -39,25 +39,26 @@ import ch.njol.util.Kleenean;
  */
 @Name("Distance")
 @Description("The distance between two points.")
-@Examples({"distance between the player and {%player%.home} is smaller than 20:",
-		"	message \"You're very close to your home!\""})
+@Examples({"distance between the player and {%player%.home} is smaller than 20:", "	message \"You're very close to your home!\""})
 @Since("1.0")
 public class ExprDistance extends SimpleExpression<Double> {
+
 	static {
 		Skript.registerExpression(ExprDistance.class, Double.class, ExpressionType.COMBINED, "[the] distance between %location% and %location%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Location> loc1, loc2;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		loc1 = (Expression<Location>) vars[0];
 		loc2 = (Expression<Location>) vars[1];
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Double[] get(final Event e) {
@@ -66,20 +67,20 @@ public class ExprDistance extends SimpleExpression<Double> {
 			return new Double[0];
 		return new Double[] {l1.distance(l2)};
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "distance between " + loc1.toString(e, debug) + " and " + loc2.toString(e, debug);
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends Double> getReturnType() {
 		return Double.class;
 	}
-	
+
 }

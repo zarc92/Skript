@@ -26,7 +26,7 @@ import org.bukkit.event.HandlerList;
  * @author Peter Güttinger
  */
 public class ScriptCommandEvent extends CommandEvent {
-	
+
 	private final ScriptCommand skriptCommand;
 	private boolean cooldownCancelled = false;
 
@@ -34,11 +34,11 @@ public class ScriptCommandEvent extends CommandEvent {
 		super(sender, command.getLabel(), null);
 		skriptCommand = command;
 	}
-	
+
 	public ScriptCommand getSkriptCommand() {
 		return skriptCommand;
 	}
-	
+
 	@Override
 	public String[] getArgs() {
 		throw new UnsupportedOperationException();
@@ -54,14 +54,14 @@ public class ScriptCommandEvent extends CommandEvent {
 
 	// Bukkit stuff
 	private final static HandlerList handlers = new HandlerList();
-	
+
 	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}
-	
+
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}
-	
+
 }

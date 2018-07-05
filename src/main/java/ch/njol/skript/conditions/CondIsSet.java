@@ -38,29 +38,26 @@ import ch.njol.util.Kleenean;
  */
 @Name("Exists/Is Set")
 @Description("Checks whether a given expression or variable is set.")
-@Examples({"{teams::%player's uuid%::preferred-team} is not set",
-		"on damage:",
-		"	projectile exists",
-		"	broadcast \"%attacker% used a %projectile% to attack %victim%!\""})
+@Examples({"{teams::%player's uuid%::preferred-team} is not set", "on damage:", "	projectile exists", "	broadcast \"%attacker% used a %projectile% to attack %victim%!\""})
 @Since("1.2")
 public class CondIsSet extends Condition {
+
 	static {
-		Skript.registerCondition(CondIsSet.class,
-				"%~objects% (exist[s]|(is|are) set)",
-				"%~objects% (do[es](n't| not) exist|(is|are)(n't| not) set)");
+		Skript.registerCondition(CondIsSet.class, "%~objects% (exist[s]|(is|are) set)", "%~objects% (do[es](n't| not) exist|(is|are)(n't| not) set)");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> expr;
-	
+
 	@SuppressWarnings("null")
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		expr = exprs[0];
 		setNegated(matchedPattern == 1);
 		return true;
 	}
-	
+
 	private boolean check(final Expression<?> expr, final Event e) {
 		if (expr instanceof ExpressionList) {
 			for (final Expression<?> ex : ((ExpressionList<?>) expr).getExpressions()) {
@@ -75,15 +72,15 @@ public class CondIsSet extends Condition {
 		final Object[] all = expr.getAll(e);
 		return isNegated() ^ (all.length != 0);
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		return check(expr, e);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return expr.toString(e, debug) + " " + (isNegated() ? "isn't" : "is") + " set";
 	}
-	
+
 }

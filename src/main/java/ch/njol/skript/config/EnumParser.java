@@ -30,12 +30,12 @@ import ch.njol.skript.classes.Converter;
  * @author Peter Güttinger
  */
 public class EnumParser<E extends Enum<E>> implements Converter<String, E> {
-	
+
 	private final Class<E> enumType;
 	@Nullable
 	private final String allowedValues;
 	private final String type;
-	
+
 	public EnumParser(final Class<E> enumType, final String type) {
 		assert enumType != null;
 		this.enumType = enumType;
@@ -52,7 +52,7 @@ public class EnumParser<E extends Enum<E>> implements Converter<String, E> {
 			allowedValues = null;
 		}
 	}
-	
+
 	@Override
 	@Nullable
 	public E convert(final String s) {
@@ -63,5 +63,5 @@ public class EnumParser<E extends Enum<E>> implements Converter<String, E> {
 			return null;
 		}
 	}
-	
+
 }

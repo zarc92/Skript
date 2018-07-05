@@ -46,20 +46,23 @@ import ch.njol.util.Kleenean;
 @Examples({"shooter is a skeleton"})
 @Since("1.3.7")
 public class ExprShooter extends PropertyExpression<Projectile, LivingEntity> {
+
 	static {
 		Skript.registerExpression(ExprShooter.class, LivingEntity.class, ExpressionType.SIMPLE, "[the] shooter [of %projectile%]");
 	}
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		setExpr((Expression<? extends Projectile>) exprs[0]);
 		return true;
 	}
-	
+
 	@Override
 	protected LivingEntity[] get(final Event e, final Projectile[] source) {
 		return get(source, new Converter<Projectile, LivingEntity>() {
+
 			@Override
 			@Nullable
 			public LivingEntity convert(final Projectile p) {
@@ -70,7 +73,7 @@ public class ExprShooter extends PropertyExpression<Projectile, LivingEntity> {
 			}
 		});
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -78,7 +81,7 @@ public class ExprShooter extends PropertyExpression<Projectile, LivingEntity> {
 			return new Class[] {LivingEntity.class};
 		return super.acceptChange(mode);
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		if (mode == ChangeMode.SET) {
@@ -91,15 +94,15 @@ public class ExprShooter extends PropertyExpression<Projectile, LivingEntity> {
 			super.change(e, delta, mode);
 		}
 	}
-	
+
 	@Override
 	public Class<LivingEntity> getReturnType() {
 		return LivingEntity.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the shooter" + (getExpr().isDefault() ? "" : " of " + getExpr().toString(e, debug));
 	}
-	
+
 }

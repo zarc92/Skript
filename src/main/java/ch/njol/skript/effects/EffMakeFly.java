@@ -38,38 +38,36 @@ import org.eclipse.jdt.annotation.Nullable;
 @Since("2.2-dev34")
 public class EffMakeFly extends Effect {
 
-    static {
-        if (Skript.methodExists(Player.class, "setFlying", boolean.class)) {
-            Skript.registerEffect(EffMakeFly.class, "force %players% to [(1¦stop|0¦start)] fly[ing]",
-                                                "make %players% (1¦stop|0¦start) flying",
-                                                "make %players% fly");
-        }
-    }
+	static {
+		if (Skript.methodExists(Player.class, "setFlying", boolean.class)) {
+			Skript.registerEffect(EffMakeFly.class, "force %players% to [(1¦stop|0¦start)] fly[ing]", "make %players% (1¦stop|0¦start) flying", "make %players% fly");
+		}
+	}
 
-    @SuppressWarnings("null")
-    private Expression<Player> players;
+	@SuppressWarnings("null")
+	private Expression<Player> players;
 
-    private boolean flying;
+	private boolean flying;
 
-    @SuppressWarnings({"unchecked", "null"})
-    @Override
-    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        players = (Expression<Player>) exprs[0];
-        flying = parseResult.mark == 0;
-        return true;
-    }
+	@SuppressWarnings({"unchecked", "null"})
+	@Override
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
+		players = (Expression<Player>) exprs[0];
+		flying = parseResult.mark == 0;
+		return true;
+	}
 
-    @Override
-    protected void execute(Event e) {
-        for (Player player : players.getArray(e)) {
-           player.setFlying(flying);
-        }
-    }
+	@Override
+	protected void execute(Event e) {
+		for (Player player : players.getArray(e)) {
+			player.setFlying(flying);
+		}
+	}
 
-    @Override
-    public String toString(@Nullable Event e, boolean debug) {
-        return "make " + players.toString(e, debug) + (flying ? " start " : " stop ") + "flying";
-    }
-
+	@Override
+	public String toString(@Nullable Event e, boolean debug) {
+		return "make " + players.toString(e, debug) + (flying ? " start " : " stop ") + "flying";
+	}
 
 }

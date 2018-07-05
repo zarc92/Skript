@@ -35,34 +35,34 @@ import ch.njol.util.Closeable;
  * @author Peter Güttinger
  */
 public abstract class Task implements Runnable, Closeable {
-	
+
 	private final Plugin plugin;
 	private final boolean async;
 	private long period = -1;
-	
+
 	private int taskID = -1;
-	
+
 	public Task(final Plugin plugin, final long delay, final long period) {
 		this(plugin, delay, period, false);
 	}
-	
+
 	public Task(final Plugin plugin, final long delay, final long period, final boolean async) {
 		this.plugin = plugin;
 		this.period = period;
 		this.async = async;
 		schedule(delay);
 	}
-	
+
 	public Task(final Plugin plugin, final long delay) {
 		this(plugin, delay, false);
 	}
-	
+
 	public Task(final Plugin plugin, final long delay, final boolean async) {
 		this.plugin = plugin;
 		this.async = async;
 		schedule(delay);
 	}
-	
+
 	/**
 	 * Only call this if the task is not alive.
 	 * 
@@ -73,24 +73,20 @@ public abstract class Task implements Runnable, Closeable {
 		assert !isAlive();
 		if (period == -1) {
 			if (async) {
-				taskID = Skript.isRunningMinecraft(1, 4, 6) ?
-						Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, this, delay).getTaskId() :
-						Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, this, delay);
+				taskID = Skript.isRunningMinecraft(1, 4, 6) ? Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, this, delay).getTaskId() : Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, this, delay);
 			} else {
 				taskID = Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, this, delay);
 			}
 		} else {
 			if (async) {
-				taskID = Skript.isRunningMinecraft(1, 4, 6) ?
-						Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, delay, period).getTaskId() :
-						Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, this, delay, period);
+				taskID = Skript.isRunningMinecraft(1, 4, 6) ? Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, delay, period).getTaskId() : Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, this, delay, period);
 			} else {
 				taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, this, delay, period);
 			}
 		}
 		assert taskID != -1;
 	}
-	
+
 	/**
 	 * @return Whether this task is still running, i.e. whether it will run later or is currently running.
 	 */
@@ -99,7 +95,7 @@ public abstract class Task implements Runnable, Closeable {
 			return false;
 		return Bukkit.getScheduler().isQueued(taskID) || Bukkit.getScheduler().isCurrentlyRunning(taskID);
 	}
-	
+
 	/**
 	 * Cancels this task.
 	 */
@@ -109,14 +105,15 @@ public abstract class Task implements Runnable, Closeable {
 			taskID = -1;
 		}
 	}
-	
+
 	@Override
 	public void close() {
 		cancel();
 	}
-	
+
 	/**
-	 * Re-schedules the task to run next after the given delay. If this task was repeating it will continue so using the same period as before.
+	 * Re-schedules the task to run next after the given delay. If this task was repeating it will continue so using the
+	 * same period as before.
 	 * 
 	 * @param delay
 	 */
@@ -125,9 +122,10 @@ public abstract class Task implements Runnable, Closeable {
 		cancel();
 		schedule(delay);
 	}
-	
+
 	/**
-	 * Sets the period of this task. This will re-schedule the task to be run next after the given period if the task is still running.
+	 * Sets the period of this task. This will re-schedule the task to be run next after the given period if the task is
+	 * still running.
 	 * 
 	 * @param period Period in ticks or -1 to cancel the task and make it non-repeating
 	 */
@@ -142,7 +140,7 @@ public abstract class Task implements Runnable, Closeable {
 				schedule(period);
 		}
 	}
-	
+
 	/**
 	 * Equivalent to <tt>{@link #callSync(Callable, Plugin) callSync}(c, {@link Skript#getInstance()})</tt>
 	 */
@@ -150,7 +148,7 @@ public abstract class Task implements Runnable, Closeable {
 	public static <T> T callSync(final Callable<T> c) {
 		return callSync(c, Skript.getInstance());
 	}
-	
+
 	/**
 	 * Calls a method on Bukkit's main thread.
 	 * <p>
@@ -158,7 +156,8 @@ public abstract class Task implements Runnable, Closeable {
 	 * 
 	 * @param c The method
 	 * @param p The plugin that owns the task. Must be enabled.
-	 * @return What the method returned or null if it threw an error or was stopped (usually due to the server shutting down)
+	 * @return What the method returned or null if it threw an error or was stopped (usually due to the server shutting
+	 *         down)
 	 */
 	@Nullable
 	public static <T> T callSync(final Callable<T> c, final Plugin p) {
@@ -178,9 +177,8 @@ public abstract class Task implements Runnable, Closeable {
 			}
 		} catch (final ExecutionException e) {
 			Skript.exception(e);
-		} catch (final CancellationException | ThreadDeath e) {
-		} // server shutting down
+		} catch (final CancellationException | ThreadDeath e) {} // server shutting down
 		return null;
 	}
-	
+
 }

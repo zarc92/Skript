@@ -39,17 +39,17 @@ public class ExprFlightMode extends SimplePropertyExpression<Player, Boolean> {
 	static {
 		register(ExprFlightMode.class, Boolean.class, "fl(y[ing]|ight) (mode|state)", "players");
 	}
-	
+
 	@Override
 	public Class<Boolean> getReturnType() {
 		return Boolean.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "fl(y[ing]|ight) (mode|state)";
 	}
-	
+
 	@Override
 	public Boolean convert(final Player player) {
 		return player.getAllowFlight();
@@ -71,6 +71,5 @@ public class ExprFlightMode extends SimplePropertyExpression<Player, Boolean> {
 			player.setAllowFlight(state);
 		}
 	}
-
 
 }

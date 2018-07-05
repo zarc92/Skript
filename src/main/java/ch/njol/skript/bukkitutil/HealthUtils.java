@@ -36,8 +36,9 @@ import ch.njol.util.Math2;
 
 @SuppressWarnings("null")
 public abstract class HealthUtils {
+
 	private HealthUtils() {}
-	
+
 	private final static boolean supportsDoubles = Skript.methodExists(Damageable.class, "setHealth", double.class);
 	private static Method getHealth, setHealth, getMaxHealth, setMaxHealth, damage;
 	static {
@@ -55,7 +56,7 @@ public abstract class HealthUtils {
 			}
 		}
 	}
-	
+
 	/**
 	 * @param e
 	 * @return The amount of hearts the entity has left
@@ -74,7 +75,7 @@ public abstract class HealthUtils {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * @param e
 	 * @param health The amount of hearts to set
@@ -92,7 +93,7 @@ public abstract class HealthUtils {
 			Skript.outdatedError(ex);
 		}
 	}
-	
+
 	/**
 	 * @param e
 	 * @return How many hearts the entity can have at most
@@ -110,7 +111,7 @@ public abstract class HealthUtils {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * @param e
 	 * @param health How many hearts the entity can have at most
@@ -129,7 +130,7 @@ public abstract class HealthUtils {
 			Skript.outdatedError(ex);
 		}
 	}
-	
+
 	/**
 	 * @param e
 	 * @param d Amount of hearts to damage
@@ -139,9 +140,10 @@ public abstract class HealthUtils {
 			heal(e, -d);
 			return;
 		}
-		EntityDamageEvent event = new EntityDamageEvent(e, DamageCause.CUSTOM, d*2);
+		EntityDamageEvent event = new EntityDamageEvent(e, DamageCause.CUSTOM, d * 2);
 		Bukkit.getPluginManager().callEvent(event);
-		if (event.isCancelled()) return;
+		if (event.isCancelled())
+			return;
 
 		if (supportsDoubles) {
 			e.damage(event.getDamage());
@@ -155,6 +157,7 @@ public abstract class HealthUtils {
 			Skript.outdatedError(ex);
 		}
 	}
+
 	/**
 	 * @param e
 	 * @param h Amount of hearts to heal
@@ -166,7 +169,7 @@ public abstract class HealthUtils {
 		}
 		setHealth(e, Math2.fit(0, getHealth(e) + h, getMaxHealth(e)));
 	}
-	
+
 	private static Method getDamage, setDamage;
 	static {
 		if (!supportsDoubles) {
@@ -180,7 +183,7 @@ public abstract class HealthUtils {
 			}
 		}
 	}
-	
+
 	public static double getDamage(final EntityDamageEvent e) {
 		if (supportsDoubles)
 			return e.getDamage() / 2;
@@ -193,13 +196,13 @@ public abstract class HealthUtils {
 		}
 		return 0;
 	}
-	
+
 	public static double getFinalDamage(final EntityDamageEvent e) {
 		if (supportsDoubles)
 			return e.getFinalDamage() / 2;
 		return 0;
 	}
-	
+
 	public static void setDamage(final EntityDamageEvent e, final double damage) {
 		if (supportsDoubles) {
 			e.setDamage(damage * 2);
@@ -213,11 +216,11 @@ public abstract class HealthUtils {
 			Skript.outdatedError(ex);
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public static void setDamageCause(final Damageable e, final DamageCause cause) {
 		e.setLastDamageCause(new EntityDamageEvent(e, cause, 0)); // Use deprecated way too keep it compatible and create cleaner code
 		// Non-deprecated way is really, really bad
 	}
-	
+
 }

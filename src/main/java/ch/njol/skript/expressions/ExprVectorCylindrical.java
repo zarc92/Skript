@@ -40,11 +40,10 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @Name("Vectors - Cylindrical shape")
 @Description("Forms a 'cylindrical shaped' vector using yaw to manipulate the current point")
-@Examples({"loop 360 times:",
-		"	set {_v} to cylindrical vector radius 1, yaw loop-value, height 2",
-		"set {_v} to cylindrical vector radius 1, yaw 90, height 2"})
+@Examples({"loop 360 times:", "	set {_v} to cylindrical vector radius 1, yaw loop-value, height 2", "set {_v} to cylindrical vector radius 1, yaw 90, height 2"})
 @Since("2.2-dev28")
 public class ExprVectorCylindrical extends SimpleExpression<Vector> {
+
 	static {
 		Skript.registerExpression(ExprVectorCylindrical.class, Vector.class, ExpressionType.SIMPLE, "[new] cylindrical vector [(from|with)] [radius] %number%, [yaw] %number%(,| and) [height] %number%");
 	}
@@ -85,7 +84,7 @@ public class ExprVectorCylindrical extends SimpleExpression<Vector> {
 		if (r == null || y == null || h == null) {
 			return null;
 		}
-		return new Vector[]{ VectorMath.fromCylindricalCoordinates(r.doubleValue(),VectorMath.fromSkriptYaw(y.floatValue()), h.doubleValue()) };
+		return new Vector[] {VectorMath.fromCylindricalCoordinates(r.doubleValue(), VectorMath.fromSkriptYaw(y.floatValue()), h.doubleValue())};
 	}
 
 }

@@ -40,29 +40,30 @@ import ch.njol.util.Kleenean;
  */
 @Name("Console")
 @Description("Represents the server's console which can receive messages and execute commands")
-@Examples({"execute console command \"/stop\"",
-		"send \"message to console\" to the console"})
+@Examples({"execute console command \"/stop\"", "send \"message to console\" to the console"})
 @Since("1.3.1")
 public class LitConsole extends SimpleLiteral<ConsoleCommandSender> {
+
 	static {
 		Skript.registerExpression(LitConsole.class, ConsoleCommandSender.class, ExpressionType.SIMPLE, "[the] (console|server)");
 	}
-	
+
 	@SuppressWarnings("null")
 	private final static ConsoleCommandSender console = Bukkit.getConsoleSender();
-	
+
 	public LitConsole() {
 		super(console, false);
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the console";
 	}
-	
+
 }

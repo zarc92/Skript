@@ -23,31 +23,31 @@ package ch.njol.skript.log;
  * @author Peter Güttinger
  */
 public abstract class LogHandler {
-	
+
 	public static enum LogResult {
 		LOG, CACHED, DO_NOT_LOG;
 	}
-	
+
 	/**
 	 * @param entry
 	 * @return Whether to print the specified entry or not.
 	 */
 	public abstract LogResult log(LogEntry entry);
-	
+
 	/**
 	 * Called just after the handler is removed from the active handlers stack.
 	 */
 	protected void onStop() {}
-	
+
 	public final void stop() {
 		SkriptLogger.removeHandler(this);
 		onStop();
 	}
-	
+
 	public boolean isStopped() {
 		return SkriptLogger.isStopped(this);
 	}
-	
+
 	/**
 	 * Mayby some day, we can use this - needs some parser rewrites to avoid
 	 * warnings though.
@@ -56,5 +56,5 @@ public abstract class LogHandler {
 //	public final void close() throws Exception {
 //		stop();
 //	}
-	
+
 }

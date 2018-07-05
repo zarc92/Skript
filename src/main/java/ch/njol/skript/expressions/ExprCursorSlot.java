@@ -42,11 +42,10 @@ import ch.njol.util.Kleenean;
  */
 @Name("Cursor Slot")
 @Description("The item which player has on their cursor. This slot is always empty if player has no inventories open.")
-@Examples({"cursor slot of player is dirt",
-		"set cursor slot of player to 64 diamonds"})
+@Examples({"cursor slot of player is dirt", "set cursor slot of player to 64 diamonds"})
 @Since("2.2-dev17")
 public class ExprCursorSlot extends SimplePropertyExpression<Player, Slot> {
-	
+
 	static {
 		register(ExprCursorSlot.class, Slot.class, "cursor slot", "players");
 	}
@@ -55,12 +54,12 @@ public class ExprCursorSlot extends SimplePropertyExpression<Player, Slot> {
 	public Class<? extends Slot> getReturnType() {
 		return Slot.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "cursor slot";
 	}
-	
+
 	@Override
 	@Nullable
 	public Slot convert(final Player player) {

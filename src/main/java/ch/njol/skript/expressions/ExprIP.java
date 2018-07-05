@@ -42,21 +42,18 @@ import ch.njol.util.Kleenean;
 
 @Name("IP")
 @Description("The IP address of a player.")
-@Examples({"IP-ban the player # is equal to the next line",
-		"ban the IP-address of the player",
-		"broadcast \"Banned the IP %IP of player%\""})
+@Examples({"IP-ban the player # is equal to the next line", "ban the IP-address of the player", "broadcast \"Banned the IP %IP of player%\""})
 @Since("1.4, 2.2-dev26 (when used in connect event)")
 public class ExprIP extends SimpleExpression<String> {
-	
+
 	static {
-		Skript.registerExpression(ExprIP.class, String.class, ExpressionType.PROPERTY, "IP[s][( |-)address[es]] of %players%",
-				"%players%'[s] IP[s][( |-)address[es]]");
+		Skript.registerExpression(ExprIP.class, String.class, ExpressionType.PROPERTY, "IP[s][( |-)address[es]] of %players%", "%players%'[s] IP[s][( |-)address[es]]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Player> players;
 	private boolean connectEvent;
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
@@ -64,7 +61,7 @@ public class ExprIP extends SimpleExpression<String> {
 		connectEvent = ScriptLoader.isCurrentEvent(PlayerLoginEvent.class);
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected String[] get(Event e) {
@@ -85,20 +82,20 @@ public class ExprIP extends SimpleExpression<String> {
 				}
 				addr = socketAddr.getAddress();
 			}
-			
+
 			// Check if address is not available, just in case...
 			if (addr == null) {
 				ips[i] = "unknown";
 				continue;
 			}
-			
+
 			// Finally, place ip here to array...
 			ips[i] = addr.getHostAddress();
 		}
-		
+
 		return ips;
 	}
-	
+
 	@Override
 	public Class<String> getReturnType() {
 		return String.class;
@@ -109,7 +106,6 @@ public class ExprIP extends SimpleExpression<String> {
 		return true;
 	}
 
-
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
 		if (e != null)
@@ -117,5 +113,5 @@ public class ExprIP extends SimpleExpression<String> {
 		else
 			return "ip";
 	}
-	
+
 }

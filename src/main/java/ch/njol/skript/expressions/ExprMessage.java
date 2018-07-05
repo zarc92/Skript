@@ -52,28 +52,15 @@ import ch.njol.util.coll.CollectionUtils;
 @SuppressWarnings("deprecation")
 @Name("Message")
 @Description("The (chat) message of a chat event, the join message of a join event, the quit message of a quit event, or the death message on a death event. This expression is mostly useful for being changed.")
-@Examples({"on chat:",
-		"	player has permission \"admin\"",
-		"	set message to \"<red>%message%\"",
-		"",
-		"on first join:",
-		"	set join message to \"Welcome %player% to our awesome server!\"",
-		"on join:",
-		"	player has played before",
-		"	set join message to \"Welcome back, %player%!\"",
-		"",
-		"on quit:",
-		"	set quit message to \"%player% left this awesome server!\"",
-		"",
-		"on death:",
-		"	set the death message to \"%player% died!\""})
+@Examples({"on chat:", "	player has permission \"admin\"", "	set message to \"<red>%message%\"", "", "on first join:", "	set join message to \"Welcome %player% to our awesome server!\"", "on join:", "	player has played before", "	set join message to \"Welcome back, %player%!\"", "", "on quit:", "	set quit message to \"%player% left this awesome server!\"", "", "on death:", "	set the death message to \"%player% died!\""})
 @Since("1.4.6 (chat message), 1.4.9 (join & quit messages), 2.0 (death message)")
 @Events({"chat", "join", "quit", "death"})
 public class ExprMessage extends SimpleExpression<String> {
-	
+
 	@SuppressWarnings("unchecked")
 	private static enum MessageType {
 		CHAT("chat", "[chat( |-)]message", PlayerChatEventHandler.usesAsyncEvent ? AsyncPlayerChatEvent.class : PlayerChatEvent.class) {
+
 			@Override
 			@Nullable
 			String get(final Event e) {
@@ -82,7 +69,7 @@ public class ExprMessage extends SimpleExpression<String> {
 				else
 					return ((PlayerChatEvent) e).getMessage();
 			}
-			
+
 			@Override
 			void set(final Event e, final String message) {
 				if (PlayerChatEventHandler.usesAsyncEvent)
@@ -92,18 +79,20 @@ public class ExprMessage extends SimpleExpression<String> {
 			}
 		},
 		JOIN("join", "(join|log[ ]in)( |-)message", PlayerJoinEvent.class) {
+
 			@Override
 			@Nullable
 			String get(final Event e) {
 				return ((PlayerJoinEvent) e).getJoinMessage();
 			}
-			
+
 			@Override
 			void set(final Event e, final String message) {
 				((PlayerJoinEvent) e).setJoinMessage(message);
 			}
 		},
 		QUIT("quit", "(quit|leave|log[ ]out|kick)( |-)message", PlayerQuitEvent.class, PlayerKickEvent.class) {
+
 			@Override
 			@Nullable
 			String get(final Event e) {
@@ -112,7 +101,7 @@ public class ExprMessage extends SimpleExpression<String> {
 				else
 					return ((PlayerQuitEvent) e).getQuitMessage();
 			}
-			
+
 			@Override
 			void set(final Event e, final String message) {
 				if (e instanceof PlayerKickEvent)
@@ -122,6 +111,7 @@ public class ExprMessage extends SimpleExpression<String> {
 			}
 		},
 		DEATH("death", "death( |-)message", EntityDeathEvent.class) {
+
 			@Override
 			@Nullable
 			String get(final Event e) {
@@ -129,48 +119,49 @@ public class ExprMessage extends SimpleExpression<String> {
 					return ((PlayerDeathEvent) e).getDeathMessage();
 				return null;
 			}
-			
+
 			@Override
 			void set(final Event e, final String message) {
 				if (e instanceof PlayerDeathEvent)
 					((PlayerDeathEvent) e).setDeathMessage(message);
 			}
 		};
-		
+
 		final String name;
 		private final String pattern;
 		final Class<? extends Event>[] events;
-		
+
 		MessageType(final String name, final String pattern, final Class<? extends Event>... events) {
 			this.name = name;
 			this.pattern = "[the] " + pattern;
 			this.events = events;
 		}
-		
+
 		static String[] patterns;
 		static {
 			patterns = new String[values().length];
 			for (int i = 0; i < patterns.length; i++)
 				patterns[i] = values()[i].pattern;
 		}
-		
+
 		@Nullable
 		abstract String get(Event e);
-		
+
 		abstract void set(Event e, String message);
-		
+
 	}
-	
+
 	static {
 		Skript.registerExpression(ExprMessage.class, String.class, ExpressionType.SIMPLE, MessageType.patterns);
 	}
-	
+
 	@SuppressWarnings("null")
 	private MessageType type;
-	
+
 	@SuppressWarnings("null")
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		type = MessageType.values()[matchedPattern];
 		if (!ScriptLoader.isCurrentEvent(type.events)) {
 			Skript.error("The " + type.name + " message can only be used in a " + type.name + " event", ErrorQuality.SEMANTIC_ERROR);
@@ -178,7 +169,7 @@ public class ExprMessage extends SimpleExpression<String> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	protected String[] get(final Event e) {
 		for (final Class<? extends Event> c : type.events) {
@@ -187,7 +178,7 @@ public class ExprMessage extends SimpleExpression<String> {
 		}
 		return new String[0];
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -196,7 +187,7 @@ public class ExprMessage extends SimpleExpression<String> {
 			return CollectionUtils.array(String.class);
 		return null;
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		assert mode == ChangeMode.SET;
@@ -206,20 +197,20 @@ public class ExprMessage extends SimpleExpression<String> {
 				type.set(e, "" + delta[0]);
 		}
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the " + type.name + " message";
 	}
-	
+
 }

@@ -43,18 +43,19 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
  */
 @Name("Level")
 @Description("The level of a player.")
-@Examples({"reduce the victim's level by 1",
-		"set the player's level to 0"})
+@Examples({"reduce the victim's level by 1", "set the player's level to 0"})
 @Since("<i>unknown</i> (before 2.1)")
 @Events("level change")
 public class ExprLevel extends SimplePropertyExpression<Player, Integer> {
+
 	static {
 		register(ExprLevel.class, Integer.class, "level", "players");
 	}
-	
+
 	@Override
 	protected Integer[] get(final Event e, final Player[] source) {
 		return super.get(source, new Converter<Player, Integer>() {
+
 			@SuppressWarnings("null")
 			@Override
 			public Integer convert(final Player p) {
@@ -65,19 +66,19 @@ public class ExprLevel extends SimplePropertyExpression<Player, Integer> {
 			}
 		});
 	}
-	
+
 	@Override
 	@Nullable
 	public Integer convert(final Player p) {
 		assert false;
 		return null;
 	}
-	
+
 	@Override
 	public Class<Integer> getReturnType() {
 		return Integer.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -88,20 +89,19 @@ public class ExprLevel extends SimplePropertyExpression<Player, Integer> {
 			return null;
 		}
 		if (ScriptLoader.isCurrentEvent(PlayerDeathEvent.class) && getTime() == 0 && getExpr().isDefault() && !ScriptLoader.hasDelayBefore.isTrue()) {
-			Skript.warning("Changing the player's level in a death event will change the player's level before he dies. " +
-					"Use either 'past level of player' or 'new level of player' to clearly state whether to change the level before or after he dies.");
+			Skript.warning("Changing the player's level in a death event will change the player's level before he dies. " + "Use either 'past level of player' or 'new level of player' to clearly state whether to change the level before or after he dies.");
 		}
 		if (getTime() == -1 && !ScriptLoader.isCurrentEvent(PlayerDeathEvent.class))
 			return null;
 		return new Class[] {Number.class};
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		assert mode != ChangeMode.REMOVE_ALL;
-		
+
 		final int l = delta == null ? 0 : ((Number) delta[0]).intValue();
-		
+
 		for (final Player p : getExpr().getArray(e)) {
 			int level;
 			if (getTime() > 0 && e instanceof PlayerDeathEvent && ((PlayerDeathEvent) e).getEntity() == p && !Delay.isDelayed(e)) {
@@ -134,16 +134,16 @@ public class ExprLevel extends SimplePropertyExpression<Player, Integer> {
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean setTime(final int time) {
 		return super.setTime(time, getExpr(), PlayerLevelChangeEvent.class, PlayerDeathEvent.class);
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "level";
 	}
-	
+
 }

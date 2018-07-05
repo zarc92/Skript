@@ -41,14 +41,14 @@ public class ExprInventoryAction extends EventValueExpression<InventoryAction> {
 	static {
 		Skript.registerExpression(ExprInventoryAction.class, InventoryAction.class, ExpressionType.SIMPLE, "[the] inventory action");
 	}
-	
+
 	public ExprInventoryAction() {
 		super(InventoryAction.class);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the inventory action";
 	}
-	
+
 }

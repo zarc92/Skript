@@ -38,26 +38,26 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
 @Examples({"set glowing of player on"})
 @Since("2.2-dev18")
 public class ExprGlowing extends SimplePropertyExpression<Entity, Boolean> {
-	
+
 	static {
 		register(ExprGlowing.class, Boolean.class, "glowing", "entities");
 	}
-	
+
 	@Override
 	public Boolean convert(final Entity e) {
 		return e.isGlowing();
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "glowing";
 	}
-	
+
 	@Override
 	public Class<Boolean> getReturnType() {
 		return Boolean.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -65,9 +65,10 @@ public class ExprGlowing extends SimplePropertyExpression<Entity, Boolean> {
 			return new Class[] {Boolean.class};
 		return null;
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		for (final Entity entity : getExpr().getArray(e))
 			entity.setGlowing(delta == null ? false : (Boolean) delta[0]);
 	}

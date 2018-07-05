@@ -30,25 +30,26 @@ import org.eclipse.jdt.annotation.Nullable;
 import ch.njol.yggdrasil.Fields;
 
 /**
- * Uses strings for serialisation because the whole ConfigurationSerializable interface is badly documented, and especially DelegateDeserialization doesn't work well with
+ * Uses strings for serialisation because the whole ConfigurationSerializable interface is badly documented, and
+ * especially DelegateDeserialization doesn't work well with
  * Yggdrasil.
  * 
  * @author Peter Güttinger
  */
 public class ConfigurationSerializer<T extends ConfigurationSerializable> extends Serializer<T> {
-	
+
 	@Override
 	public Fields serialize(final T o) throws NotSerializableException {
 		final Fields f = new Fields();
 		f.putObject("value", serializeCS(o));
 		return f;
 	}
-	
+
 	@Override
 	public boolean mustSyncDeserialization() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean canBeInstantiated() {
 		return false;
@@ -67,13 +68,13 @@ public class ConfigurationSerializer<T extends ConfigurationSerializable> extend
 			throw new StreamCorruptedException();
 		return t;
 	}
-	
+
 	public static String serializeCS(final ConfigurationSerializable o) {
 		final YamlConfiguration y = new YamlConfiguration();
 		y.set("value", o);
 		return "" + y.saveToString();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Nullable
 	public static <T extends ConfigurationSerializable> T deserializeCS(final String s, final Class<T> c) {
@@ -88,19 +89,19 @@ public class ConfigurationSerializer<T extends ConfigurationSerializable> extend
 			return null;
 		return (T) o;
 	}
-	
+
 	@Override
 	@Nullable
 	public <E extends T> E newInstance(final Class<E> c) {
 		assert false;
 		return null;
 	}
-	
+
 	@Override
 	public void deserialize(final T o, final Fields fields) throws StreamCorruptedException {
 		assert false;
 	}
-	
+
 	@Override
 	@Deprecated
 	@Nullable
@@ -109,7 +110,7 @@ public class ConfigurationSerializer<T extends ConfigurationSerializable> extend
 		assert info != null;
 		return deserializeCSOld(s, info.getC());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Deprecated
 	@Nullable
@@ -125,5 +126,5 @@ public class ConfigurationSerializer<T extends ConfigurationSerializable> extend
 			return null;
 		return (T) o;
 	}
-	
+
 }

@@ -33,7 +33,7 @@ import ch.njol.skript.util.Date;
 @Examples("unix timestamp of now")
 @Since("2.2-dev31")
 public class ExprUnixTicks extends SimplePropertyExpression<Date, Number> {
-	
+
 	static {
 		register(ExprUnixTicks.class, Number.class, "unix timestamp", "dates");
 	}
@@ -48,10 +48,10 @@ public class ExprUnixTicks extends SimplePropertyExpression<Date, Number> {
 	protected String getPropertyName() {
 		return "unix timestamp";
 	}
-	
+
 	@Override
 	public Class<? extends Number> getReturnType() {
 		return Number.class;
 	}
-	
+
 }

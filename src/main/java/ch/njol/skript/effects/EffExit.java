@@ -45,31 +45,23 @@ import ch.njol.util.Kleenean;
  */
 @Name("Exit")
 @Description("Exits a given amount of loops and conditionals, or the entire trigger.")
-@Examples({"if player has any ore:",
-		"	stop",
-		"message \"%player% has no ores!\"",
-		"loop blocks above the player:",
-		"	loop-block is not air:",
-		"		exit 2 sections",
-		"	set loop-block to water"})
+@Examples({"if player has any ore:", "	stop", "message \"%player% has no ores!\"", "loop blocks above the player:", "	loop-block is not air:", "		exit 2 sections", "	set loop-block to water"})
 @Since("<i>unknown</i> (before 2.1)")
 public class EffExit extends Effect { // TODO [code style] warn user about code after a stop effect
+
 	static {
-		Skript.registerEffect(EffExit.class,
-				"(exit|stop) [trigger]",
-				"(exit|stop) [(1|a|the|this)] (0¦section|1¦loop|2¦conditional)",
-				"(exit|stop) <\\d+> (0¦section|1¦loop|2¦conditional)s",
-				"(exit|stop) all (0¦section|1¦loop|2¦conditional)s");
+		Skript.registerEffect(EffExit.class, "(exit|stop) [trigger]", "(exit|stop) [(1|a|the|this)] (0¦section|1¦loop|2¦conditional)", "(exit|stop) <\\d+> (0¦section|1¦loop|2¦conditional)s", "(exit|stop) all (0¦section|1¦loop|2¦conditional)s");
 	}
-	
+
 	private int breakLevels;
-	
+
 	private final static int EVERYTHING = 0, LOOPS = 1, CONDITIONALS = 2;
 	private final static String[] names = {"sections", "loops", "conditionals"};
 	private int type;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		switch (matchedPattern) {
 			case 0:
 				breakLevels = ScriptLoader.currentSections.size() + 1;
@@ -98,7 +90,7 @@ public class EffExit extends Effect { // TODO [code style] warn user about code 
 		}
 		return true;
 	}
-	
+
 	private static int numLevels(final int type) {
 		if (type == EVERYTHING)
 			return ScriptLoader.currentSections.size();
@@ -109,7 +101,7 @@ public class EffExit extends Effect { // TODO [code style] warn user about code 
 		}
 		return r;
 	}
-	
+
 	@Override
 	@Nullable
 	protected TriggerItem walk(final Event e) {
@@ -126,15 +118,15 @@ public class EffExit extends Effect { // TODO [code style] warn user about code 
 		}
 		return n instanceof Loop ? ((Loop) n).getActualNext() : n instanceof While ? ((While) n).getActualNext() : n.getNext();
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		assert false;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "stop " + breakLevels + " " + names[type];
 	}
-	
+
 }

@@ -35,14 +35,16 @@ import ch.njol.skript.Skript;
  * @author Peter Güttinger
  */
 public abstract class Workarounds {
+
 	private Workarounds() {}
-	
+
 	public static void init() {}
-	
+
 	static {
 		if (!Skript.isRunningMinecraft(1, 9)) {
 			// allows to properly remove a player's tool in right click events
 			Bukkit.getPluginManager().registerEvents(new Listener() {
+
 				@SuppressWarnings("deprecation")
 				@EventHandler(priority = EventPriority.HIGHEST)
 				public void onInteract(final PlayerInteractEvent e) {
@@ -52,5 +54,5 @@ public abstract class Workarounds {
 			}, Skript.getInstance());
 		}
 	}
-	
+
 }

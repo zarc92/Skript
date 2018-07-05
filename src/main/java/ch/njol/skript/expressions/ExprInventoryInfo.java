@@ -41,21 +41,20 @@ import ch.njol.util.Kleenean;
 
 @Name("Inventory Holder/Viewers/Rows")
 @Description("Gets the rows/size/viewers/holder of an inventory.")
-@Examples({"event-inventory's amount of rows",
-		   "holder of player's top inventory",
-		   "{_inventory}'s viewers"})
+@Examples({"event-inventory's amount of rows", "holder of player's top inventory", "{_inventory}'s viewers"})
 @Since("2.2-dev34")
 public class ExprInventoryInfo extends PropertyExpression<Inventory, Object> {
 
 	private final static int HOLDER = 1, VIEWERS = 2, ROWS = 3;
 	private int type;
-	
+
 	static {
 		PropertyExpression.register(ExprInventoryInfo.class, Object.class, "(" + HOLDER + "¦holder[s]|" + VIEWERS + "¦viewers|" + ROWS + "¦[amount of] rows)", "inventories");
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		setExpr((Expression<? extends Inventory>) exprs[0]);
 		type = parseResult.mark;
 		return true;
@@ -68,6 +67,7 @@ public class ExprInventoryInfo extends PropertyExpression<Inventory, Object> {
 			case HOLDER:
 			case ROWS:
 				return get(source, new Converter<Inventory, Object>() {
+
 					@Override
 					@Nullable
 					public Object convert(Inventory inventory) {

@@ -41,14 +41,14 @@ import ch.njol.util.Kleenean;
 @Examples({"set {_list::*} to sorted {_list::*}"})
 @Since("2.2-dev19")
 public class ExprSortedList extends SimpleExpression<Object> {
-	
-	static{
+
+	static {
 		Skript.registerExpression(ExprSortedList.class, Object.class, ExpressionType.COMBINED, "sorted %objects%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Object> list;
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
@@ -60,13 +60,13 @@ public class ExprSortedList extends SimpleExpression<Object> {
 		list = (Expression<Object>) exprs[0];
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Object[] get(Event e) {
 		Object[] unsorted = list.getAll(e);
 		Object[] sorted = new Object[unsorted.length]; // Not yet sorted...
-		
+
 		for (int i = 0; i < sorted.length; i++) {
 			Object value = unsorted[i];
 			if (value instanceof Long) {
@@ -77,7 +77,7 @@ public class ExprSortedList extends SimpleExpression<Object> {
 				sorted[i] = value;
 			}
 		}
-		
+
 		try {
 			Arrays.sort(sorted); // Now sorted
 		} catch (IllegalArgumentException ex) { // In case elements are not comparable
@@ -85,12 +85,12 @@ public class ExprSortedList extends SimpleExpression<Object> {
 		}
 		return sorted;
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
 		return Object.class;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
@@ -100,5 +100,5 @@ public class ExprSortedList extends SimpleExpression<Object> {
 	public String toString(@Nullable Event e, boolean debug) {
 		return "sorted list";
 	}
-	
+
 }

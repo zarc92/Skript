@@ -53,27 +53,27 @@ import ch.njol.util.Kleenean;
  */
 @Name("Tool")
 @Description("The item a player is holding.")
-@Examples({"player is holding a pickaxe",
-		"# is the same as",
-		"player's tool is a pickaxe",
-		"player's off hand tool is shield #Only for Minecraft 1.9"})
+@Examples({"player is holding a pickaxe", "# is the same as", "player's tool is a pickaxe", "player's off hand tool is shield #Only for Minecraft 1.9"})
 @Since("1.0")
 public class ExprTool extends PropertyExpression<LivingEntity, Slot> {
+
 	static {
 		Skript.registerExpression(ExprTool.class, Slot.class, ExpressionType.PROPERTY, "[the] (tool|held item|weapon) [of %livingentities%]", "%livingentities%'[s] (tool|held item|weapon)");
 	}
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<Player>) exprs[0]);
 		return true;
 	}
-	
+
 	@Override
 	protected Slot[] get(final Event e, final LivingEntity[] source) {
 		final boolean delayed = Delay.isDelayed(e);
 		return get(source, new Getter<Slot, LivingEntity>() {
+
 			@Override
 			@Nullable
 			public Slot get(final LivingEntity p) {
@@ -81,17 +81,20 @@ public class ExprTool extends PropertyExpression<LivingEntity, Slot> {
 					if (e instanceof PlayerItemHeldEvent && ((PlayerItemHeldEvent) e).getPlayer() == p) {
 						final PlayerInventory i = ((PlayerItemHeldEvent) e).getPlayer().getInventory();
 						assert i != null;
-						return new InventorySlot(i, getTime() >= 0 ? ((PlayerItemHeldEvent) e).getNewSlot() : ((PlayerItemHeldEvent) e).getPreviousSlot());
+						return new InventorySlot(i,
+								getTime() >= 0 ? ((PlayerItemHeldEvent) e).getNewSlot() : ((PlayerItemHeldEvent) e).getPreviousSlot());
 					} else if (e instanceof PlayerBucketEvent && ((PlayerBucketEvent) e).getPlayer() == p) {
 						final PlayerInventory i = ((PlayerBucketEvent) e).getPlayer().getInventory();
 						assert i != null;
-						return new InventorySlot(i, ((PlayerBucketEvent) e).getPlayer().getInventory().getHeldItemSlot()) {
+						return new InventorySlot(i,
+								((PlayerBucketEvent) e).getPlayer().getInventory().getHeldItemSlot()) {
+
 							@Override
 							@Nullable
 							public ItemStack getItem() {
 								return getTime() <= 0 ? super.getItem() : ((PlayerBucketEvent) e).getItemStack();
 							}
-							
+
 							@Override
 							public void setItem(final @Nullable ItemStack item) {
 								if (getTime() >= 0) {
@@ -107,6 +110,7 @@ public class ExprTool extends PropertyExpression<LivingEntity, Slot> {
 				if (e == null)
 					return null;
 				return new EquipmentSlot(e, EquipmentSlot.EquipSlot.TOOL) {
+
 					@Override
 					public String toString(@Nullable Event event, boolean debug) {
 						return (getTime() == 1 ? "future " : getTime() == -1 ? "former " : "") + Classes.toString(getItem());
@@ -115,23 +119,23 @@ public class ExprTool extends PropertyExpression<LivingEntity, Slot> {
 			}
 		});
 	}
-	
+
 	@Override
 	public Class<Slot> getReturnType() {
 		return Slot.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (e == null)
 			return "the " + (getTime() == 1 ? "future " : getTime() == -1 ? "former " : "") + "tool of " + getExpr().toString(e, debug);
 		return Classes.getDebugMessage(getSingle(e));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean setTime(final int time) {
 		return super.setTime(time, getExpr(), PlayerItemHeldEvent.class, PlayerBucketFillEvent.class, PlayerBucketEmptyEvent.class);
 	}
-	
+
 }

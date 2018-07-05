@@ -39,55 +39,55 @@ import org.eclipse.jdt.annotation.Nullable;
 @Description("The amount of an <a href='classes.html#itemstack'>item stack</a>.")
 @Examples("send \"You have got %item amount of player's tool% %player's tool% in your hand !\" to player")
 @Since("2.2-dev24")
-public class ExprItemAmount extends SimplePropertyExpression<ItemStack, Number>{
-	
-    static {
-        register(ExprItemAmount.class, Number.class, "item[[ ]stack] (amount|size|number)", "itemstacks");
-    }
-    
-    @Override
+public class ExprItemAmount extends SimplePropertyExpression<ItemStack, Number> {
+
+	static {
+		register(ExprItemAmount.class, Number.class, "item[[ ]stack] (amount|size|number)", "itemstacks");
+	}
+
+	@Override
 	public Class<Number> getReturnType() {
 		return Number.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "item[[ ]stack] (amount|size|number)";
 	}
-	
+
 	@Override
 	public Number convert(final ItemStack itemstack) {
 		return itemstack.getAmount();
 	}
-	
-	@Override
-    public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
-        return (mode != ChangeMode.REMOVE_ALL) ? CollectionUtils.array(Number.class) : null;
-    }
 
-    @Override
-    public void change(Event event, @Nullable Object[] delta, Changer.ChangeMode mode) {
-    	int amount = delta != null ? ((Number) delta[0]).intValue() : 0;
-        switch (mode) {
-            case ADD:
-            	for (ItemStack itemstack : getExpr().getArray(event))
-            		itemstack.setAmount(itemstack.getAmount() + amount);
-                break;
-            case SET:
-            	for (ItemStack itemstack : getExpr().getArray(event))
-            		itemstack.setAmount(amount);
-                break;
-            case REMOVE:
-            	for (ItemStack itemstack : getExpr().getArray(event))
-            		itemstack.setAmount(itemstack.getAmount() - amount);
-                break;
-            case REMOVE_ALL:
-            case RESET:
+	@Override
+	public @Nullable Class<?>[] acceptChange(Changer.ChangeMode mode) {
+		return (mode != ChangeMode.REMOVE_ALL) ? CollectionUtils.array(Number.class) : null;
+	}
+
+	@Override
+	public void change(Event event, @Nullable Object[] delta, Changer.ChangeMode mode) {
+		int amount = delta != null ? ((Number) delta[0]).intValue() : 0;
+		switch (mode) {
+			case ADD:
+				for (ItemStack itemstack : getExpr().getArray(event))
+					itemstack.setAmount(itemstack.getAmount() + amount);
+				break;
+			case SET:
+				for (ItemStack itemstack : getExpr().getArray(event))
+					itemstack.setAmount(amount);
+				break;
+			case REMOVE:
+				for (ItemStack itemstack : getExpr().getArray(event))
+					itemstack.setAmount(itemstack.getAmount() - amount);
+				break;
+			case REMOVE_ALL:
+			case RESET:
 			case DELETE:
 				for (ItemStack itemstack : getExpr().getArray(event))
-            		itemstack.setAmount(1);
+					itemstack.setAmount(1);
 				break;
-        }
-    }
+		}
+	}
 
 }

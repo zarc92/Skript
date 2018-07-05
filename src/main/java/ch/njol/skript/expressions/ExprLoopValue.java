@@ -59,33 +59,28 @@ import ch.njol.util.Kleenean;
  */
 @Name("Loop value")
 @Description("The currently looped value.")
-@Examples({"# countdown:",
-		"loop 10 times:",
-		"	message \"%11 - loop-number%\"",
-		"	wait a second",
-		"# generate a 10x10 floor made of randomly coloured wool below the player:",
-		"loop blocks from the block below the player to the block 10 east of the block below the player:",
-		"	loop blocks from the loop-block to the block 10 north of the loop-block:",
-		"		set loop-block-2 to any wool"})
+@Examples({"# countdown:", "loop 10 times:", "	message \"%11 - loop-number%\"", "	wait a second", "# generate a 10x10 floor made of randomly coloured wool below the player:", "loop blocks from the block below the player to the block 10 east of the block below the player:", "	loop blocks from the loop-block to the block 10 north of the loop-block:", "		set loop-block-2 to any wool"})
 @Since("1.0")
 public class ExprLoopValue extends SimpleExpression<Object> {
+
 	static {
 		Skript.registerExpression(ExprLoopValue.class, Object.class, ExpressionType.SIMPLE, "[the] loop-<.+>");
 	}
-	
+
 	@SuppressWarnings("null")
 	private String name;
-	
+
 	@SuppressWarnings("null")
 	private Loop loop;
-	
+
 	// whether this loops a variable
 	boolean isVariableLoop = false;
 	// if this loops a variable and isIndex is true, return the index of the variable instead of the value
 	boolean isIndex = false;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		name = parser.expr;
 		String s = "" + parser.regexes.get(0).group();
 		int i = -1;
@@ -97,7 +92,7 @@ public class ExprLoopValue extends SimpleExpression<Object> {
 		final Class<?> c = Classes.getClassFromUserInput(s);
 		int j = 1;
 		Loop loop = null;
-		
+
 		@SuppressWarnings("null")
 		boolean b = ScriptOptions.getInstance().usesNewLoops(ScriptLoader.currentScript.getFile());
 		for (final Loop l : ScriptLoader.currentLoops) {
@@ -127,18 +122,19 @@ public class ExprLoopValue extends SimpleExpression<Object> {
 		this.loop = loop;
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
 	protected <R> ConvertedExpression<Object, ? extends R> getConvertedExpr(final Class<R>... to) {
 		if (isVariableLoop && !isIndex) {
 			return new ConvertedExpression<>(this, (Class<R>) Utils.getSuperType(to), new Converter<Object, R>() {
+
 				@Override
 				@Nullable
 				public R convert(final Object o) {
@@ -149,14 +145,14 @@ public class ExprLoopValue extends SimpleExpression<Object> {
 			return super.getConvertedExpr(to);
 		}
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
 		if (isIndex)
 			return String.class;
 		return loop.getLoopedExpression().getReturnType();
 	}
-	
+
 	@Override
 	@Nullable
 	protected Object[] get(final Event e) {
@@ -175,7 +171,7 @@ public class ExprLoopValue extends SimpleExpression<Object> {
 		one[0] = loop.getCurrent(e);
 		return one;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (e == null)
@@ -189,5 +185,5 @@ public class ExprLoopValue extends SimpleExpression<Object> {
 		}
 		return Classes.getDebugMessage(loop.getCurrent(e));
 	}
-	
+
 }

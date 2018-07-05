@@ -28,12 +28,12 @@ import org.eclipse.jdt.annotation.Nullable;
 import ch.njol.skript.SkriptAPIException;
 
 public final class SkriptEventInfo<E extends SkriptEvent> extends SyntaxElementInfo<E> {
-	
+
 	public Class<? extends Event>[] events;
 	public final String name;
-	
+
 	private final String id;
-	
+
 	@Nullable
 	private String[] description;
 	@Nullable
@@ -44,51 +44,53 @@ public final class SkriptEventInfo<E extends SkriptEvent> extends SyntaxElementI
 	private String documentationID;
 	@Nullable
 	private String[] requiredPlugins;
-	
+
 	/**
-	 * @param name Capitalised name of the event without leading "On" which is added automatically (Start the name with an asterisk to prevent this).
+	 * @param name Capitalised name of the event without leading "On" which is added automatically (Start the name with
+	 *            an asterisk to prevent this).
 	 * @param patterns
 	 * @param c The SkriptEvent's class
 	 * @param originClassPath The class path for the origin of this event.
 	 * @param events The Bukkit-Events this SkriptEvent listens to
 	 */
-	public SkriptEventInfo(String name, final String[] patterns, final Class<E> c, final String originClassPath, final Class<? extends Event>[] events) {
+	public SkriptEventInfo(String name, final String[] patterns, final Class<E> c, final String originClassPath,
+			final Class<? extends Event>[] events) {
 		super(patterns, c, originClassPath);
 		assert name != null;
 		assert patterns != null && patterns.length > 0;
 		assert c != null;
 		assert originClassPath != null;
 		assert events != null && events.length > 0;
-		
+
 		for (int i = 0; i < events.length; i++) {
 			for (int j = i + 1; j < events.length; j++) {
 				if (events[i].isAssignableFrom(events[j]) || events[j].isAssignableFrom(events[i])) {
-					if (events[i].equals(PlayerInteractAtEntityEvent.class)
-							|| events[j].equals(PlayerInteractAtEntityEvent.class))
+					if (events[i].equals(PlayerInteractAtEntityEvent.class) || events[j].equals(PlayerInteractAtEntityEvent.class))
 						continue; // Spigot seems to have an exception for those two events...
-					
-					throw new SkriptAPIException("The event " + name + " (" + c.getName() + ") registers with super/subclasses " + events[i].getName() + " and " + events[j].getName());
+
+					throw new SkriptAPIException(
+							"The event " + name + " (" + c.getName() + ") registers with super/subclasses " + events[i].getName() + " and " + events[j].getName());
 				}
 			}
 		}
-		
+
 		this.events = events;
-		
+
 		if (name.startsWith("*")) {
 			this.name = name = "" + name.substring(1);
 		} else {
 			this.name = "On " + name;
 		}
-		
+
 		// uses the name without 'on ' or '*'
 		this.id = "" + name.toLowerCase(Locale.ENGLISH).replaceAll("[#'\"<>/&]", "").replaceAll("\\s+", "_");
 	}
-	
+
 	/**
 	 * Use this as {@link #description(String...)} to prevent warnings about missing documentation.
 	 */
 	public final static String[] NO_DOC = new String[0];
-	
+
 	/**
 	 * Only used for Skript's documentation.
 	 * 
@@ -100,7 +102,7 @@ public final class SkriptEventInfo<E extends SkriptEvent> extends SyntaxElementI
 		this.description = description;
 		return this;
 	}
-	
+
 	/**
 	 * Only used for Skript's documentation.
 	 * 
@@ -112,7 +114,7 @@ public final class SkriptEventInfo<E extends SkriptEvent> extends SyntaxElementI
 		this.examples = examples;
 		return this;
 	}
-	
+
 	/**
 	 * Only used for Skript's documentation.
 	 * 
@@ -127,7 +129,6 @@ public final class SkriptEventInfo<E extends SkriptEvent> extends SyntaxElementI
 
 	/**
 	 * A non critical ID remapping for syntax elements register using the a class multiple times.
-	 *
 	 * Only used for Skript's documentation.
 	 *
 	 * @param id
@@ -141,7 +142,6 @@ public final class SkriptEventInfo<E extends SkriptEvent> extends SyntaxElementI
 
 	/**
 	 * Other plugin dependencies for a syntax element
-	 *
 	 * Only used for Skript's documentation.
 	 *
 	 * @param pluginNames
@@ -153,25 +153,24 @@ public final class SkriptEventInfo<E extends SkriptEvent> extends SyntaxElementI
 		return this;
 	}
 
-	
 	public String getId() {
 		return id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	@Nullable
 	public String[] getDescription() {
 		return description;
 	}
-	
+
 	@Nullable
 	public String[] getExamples() {
 		return examples;
 	}
-	
+
 	@Nullable
 	public String getSince() {
 		return since;

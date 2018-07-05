@@ -53,31 +53,33 @@ public class ExprSeed extends PropertyExpression<World, Long> {
 
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<World>) exprs[0]);
 		return true;
 	}
-	
+
 	@Override
 	protected Long[] get(final Event event, final World[] source) {
 		return get(source, new Getter<Long, World>() {
+
 			@Override
 			public Long get(final World world) {
 				return world.getSeed();
 			}
 		});
 	}
-	
+
 	@Override
 	public Class<Long> getReturnType() {
 		return Long.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event event, final boolean debug) {
 		if (event == null)
 			return "the seed of " + getExpr().toString(event, debug);
 		return Classes.getDebugMessage(getAll(event));
 	}
-	
+
 }

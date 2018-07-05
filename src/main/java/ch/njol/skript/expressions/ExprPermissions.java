@@ -44,19 +44,20 @@ import java.util.Set;
 @Examples("set {_permissions::*} to all permissions of the player")
 @Since("2.2-dev33")
 public class ExprPermissions extends PropertyExpression<Player, String> {
-	
+
 	static {
 		register(ExprPermissions.class, String.class, "permissions", "players");
 	}
-	
+
 	@Override
 	public Class<String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		setExpr((Expression<? extends Player>) exprs[0]);
 		return true;
 	}
@@ -65,12 +66,12 @@ public class ExprPermissions extends PropertyExpression<Player, String> {
 	@Override
 	protected String[] get(Event event, Player[] source) {
 		final Set<String> permissions = new HashSet<>();
-		for (Player player : source) 
+		for (Player player : source)
 			for (final PermissionAttachmentInfo permission : player.getEffectivePermissions())
 				permissions.add(permission.getPermission());
 		return permissions.toArray(new String[permissions.size()]);
 	}
-	
+
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return "permissions " + (getExpr().isDefault() ? "" : " of " + getExpr().toString(event, debug));

@@ -48,18 +48,19 @@ import ch.njol.util.coll.CollectionUtils;
  */
 @Name("Weather")
 @Description("The weather in the given or the current world.")
-@Examples({"set weather to clear",
-		"weather in \"world\" is rainy"})
+@Examples({"set weather to clear", "weather in \"world\" is rainy"})
 @Since("1.0")
 @Events("weather change")
 public class ExprWeather extends PropertyExpression<World, WeatherType> {
+
 	static {
 		Skript.registerExpression(ExprWeather.class, WeatherType.class, ExpressionType.PROPERTY, "[the] weather [(in|of) %worlds%]", "%worlds%'[s] weather");
 	}
 
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<World>) exprs[0]);
 		return true;
 	}
@@ -67,6 +68,7 @@ public class ExprWeather extends PropertyExpression<World, WeatherType> {
 	@Override
 	protected WeatherType[] get(final Event e, final World[] source) {
 		return get(source, new Getter<WeatherType, World>() {
+
 			@Override
 			public WeatherType get(final World w) {
 				if (getTime() >= 0 && e instanceof WeatherEvent && w.equals(((WeatherEvent) e).getWorld()) && !Delay.isDelayed(e))
@@ -76,12 +78,12 @@ public class ExprWeather extends PropertyExpression<World, WeatherType> {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the weather in " + getExpr().toString(e, debug);
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -89,7 +91,7 @@ public class ExprWeather extends PropertyExpression<World, WeatherType> {
 			return CollectionUtils.array(WeatherType.class);
 		return null;
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		final WeatherType t = delta == null ? WeatherType.CLEAR : (WeatherType) delta[0];
@@ -112,16 +114,16 @@ public class ExprWeather extends PropertyExpression<World, WeatherType> {
 			}
 		}
 	}
-	
+
 	@Override
 	public Class<WeatherType> getReturnType() {
 		return WeatherType.class;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean setTime(final int time) {
 		return super.setTime(time, getExpr(), WeatherChangeEvent.class, ThunderChangeEvent.class);
 	}
-	
+
 }

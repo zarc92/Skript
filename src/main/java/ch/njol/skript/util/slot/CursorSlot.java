@@ -31,17 +31,17 @@ import ch.njol.skript.registrations.Classes;
  * Item that is in player's cursor.
  */
 public class CursorSlot extends Slot {
-	
+
 	private final Player player;
-	
+
 	public CursorSlot(Player p) {
 		this.player = p;
 	}
-	
+
 	public Player getPlayer() {
 		return player;
 	}
-	
+
 	@Override
 	@Nullable
 	public ItemStack getItem() {
@@ -65,5 +65,5 @@ public class CursorSlot extends Slot {
 	public String toString(@Nullable Event e, boolean debug) {
 		return "cursor slot of " + Classes.toString(player);
 	}
-	
+
 }

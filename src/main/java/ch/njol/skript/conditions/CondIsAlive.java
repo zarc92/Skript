@@ -38,26 +38,28 @@ import ch.njol.util.Kleenean;
 @Examples({"{villager-buddy::%player's uuid%} is dead"})
 @Since("2.0")
 public class CondIsAlive extends PropertyCondition<LivingEntity> {
+
 	static {
 		register(CondIsAlive.class, "(1¦alive|0¦dead)", "livingentities");
 	}
-	
+
 	private boolean alive;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		alive = parseResult.mark == 1;
 		return super.init(exprs, matchedPattern, isDelayed, parseResult);
 	}
-	
+
 	@Override
 	public boolean check(final LivingEntity e) {
 		return alive != e.isDead();
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return alive ? "alive" : "dead";
 	}
-	
+
 }

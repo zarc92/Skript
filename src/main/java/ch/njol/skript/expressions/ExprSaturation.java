@@ -49,39 +49,41 @@ public class ExprSaturation extends PropertyExpression<Player, Number> {
 	static {
 		Skript.registerExpression(ExprSaturation.class, Number.class, ExpressionType.PROPERTY, "[the] saturation [of %players%]", "%players%'[s] saturation");
 	}
-	
+
 	@Override
 	public Class<Number> getReturnType() {
 		return Number.class;
 	}
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		setExpr((Expression<? extends Player>) exprs[0]);
 		return true;
 	}
-	
+
 	@Override
 	protected Number[] get(final Event e, final Player[] source) {
 		return get(source, new Getter<Float, Player>() {
+
 			@Override
 			public Float get(final Player player) {
 				return player.getSaturation();
 			}
 		});
 	}
-	
+
 	@Nullable
 	@Override
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
 		return (mode != ChangeMode.REMOVE_ALL) ? CollectionUtils.array(Number.class) : null;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
-		float value = ((Number)delta[0]).floatValue();
+		float value = ((Number) delta[0]).floatValue();
 		switch (mode) {
 			case ADD:
 				for (Player player : getExpr().getArray(e))
@@ -103,10 +105,10 @@ public class ExprSaturation extends PropertyExpression<Player, Number> {
 				break;
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event event, final boolean debug) {
 		return "saturation" + (getExpr().isDefault() ? "" : " of " + getExpr().toString(event, debug));
 	}
-	
+
 }

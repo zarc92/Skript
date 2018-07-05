@@ -36,30 +36,24 @@ import ch.njol.util.Checker;
 import ch.njol.util.coll.CollectionUtils;
 
 public class EvtGrow extends SkriptEvent {
-	
+
 	/**
 	 * Growth event restriction.
-	 * 
 	 * ANY means any grow event goes.
-	 * 
 	 * Structure/block restrict for structure/block grow events only.
 	 */
 	public static final int ANY = 0, STRUCTURE = 1, BLOCK = 2;
-	
+
 	static {
-		Skript.registerEvent("Grow", EvtGrow.class, CollectionUtils.array(StructureGrowEvent.class, BlockGrowEvent.class),
-				"grow [of (1¦%-structuretype%|2¦%-itemtype%)]")
-				.description("Called when a tree, giant mushroom or plant grows to next stage.")
-				.examples("on grow", "on grow of a tree", "on grow of a huge jungle tree")
-				.since("1.0 (2.2-dev20 for plants)");
+		Skript.registerEvent("Grow", EvtGrow.class, CollectionUtils.array(StructureGrowEvent.class, BlockGrowEvent.class), "grow [of (1¦%-structuretype%|2¦%-itemtype%)]").description("Called when a tree, giant mushroom or plant grows to next stage.").examples("on grow", "on grow of a tree", "on grow of a huge jungle tree").since("1.0 (2.2-dev20 for plants)");
 	}
-	
+
 	@Nullable
 	private Literal<StructureType> types;
 	@Nullable
 	private Literal<ItemType> blocks;
 	private int evtType;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
@@ -71,7 +65,7 @@ public class EvtGrow extends SkriptEvent {
 		// Else: no type restrictions specified
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (evtType == STRUCTURE)
@@ -80,11 +74,12 @@ public class EvtGrow extends SkriptEvent {
 			return "grow" + (blocks != null ? " of " + blocks.toString(e, debug) : "");
 		return "grow";
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
-		if (evtType == STRUCTURE  && types != null && e instanceof StructureGrowEvent) {
+		if (evtType == STRUCTURE && types != null && e instanceof StructureGrowEvent) {
 			return types.check(e, new Checker<StructureType>() {
+
 				@SuppressWarnings("null")
 				@Override
 				public boolean check(final StructureType t) {
@@ -93,6 +88,7 @@ public class EvtGrow extends SkriptEvent {
 			});
 		} else if (evtType == BLOCK && blocks != null && e instanceof BlockGrowEvent) {
 			return blocks.check(e, new Checker<ItemType>() {
+
 				@SuppressWarnings("null")
 				@Override
 				public boolean check(final ItemType t) {
@@ -102,5 +98,5 @@ public class EvtGrow extends SkriptEvent {
 		}
 		return true;
 	}
-	
+
 }

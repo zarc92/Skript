@@ -31,18 +31,18 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Peter Güttinger
  */
 public class ConfigReader extends BufferedReader {
-	
+
 	@Nullable
 	private String line;
 	private boolean reset = false;
 	private int ln = 0;
-	
+
 	private boolean hasNonEmptyLine = false;
-	
+
 	public ConfigReader(final InputStream source) {
 		super(new InputStreamReader(source, StandardCharsets.UTF_8));
 	}
-	
+
 	@Override
 	@Nullable
 	public String readLine() throws IOException {
@@ -54,7 +54,7 @@ public class ConfigReader extends BufferedReader {
 		}
 		return line;
 	}
-	
+
 	@Nullable
 	private final String stripUTF8BOM(final @Nullable String line) {
 		if (!hasNonEmptyLine && line != null && !line.isEmpty()) {
@@ -65,31 +65,31 @@ public class ConfigReader extends BufferedReader {
 		}
 		return line;
 	}
-	
+
 	@Override
 	public void reset() {
 		if (reset)
 			throw new IllegalStateException("reset was called twice without a readLine inbetween");
 		reset = true;
 	}
-	
+
 	public int getLineNum() {
 		return ln;
 	}
-	
+
 	@Nullable
 	public String getLine() {
 		return line;
 	}
-	
+
 	@Override
 	public boolean markSupported() {
 		return false;
 	}
-	
+
 	@Override
 	public void mark(final int readAheadLimit) throws IOException {
 		throw new UnsupportedOperationException();
 	}
-	
+
 }

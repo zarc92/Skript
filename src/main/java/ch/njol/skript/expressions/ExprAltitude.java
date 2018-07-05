@@ -32,11 +32,10 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
  */
 @Name("Altitude")
 @Description("Effectively an alias of 'y-<a href='#ExprCoordinate'>coordinate</a> of …', it represents the height of some object above bedrock.")
-@Examples({"on damage:",
-		"	altitude of the attacker is higher that the altitude of the victim",
-		"	set damage to damage * 1.2"})
+@Examples({"on damage:", "	altitude of the attacker is higher that the altitude of the victim", "	set damage to damage * 1.2"})
 @Since("1.4.3")
 public class ExprAltitude extends SimplePropertyExpression<Location, Double> {
+
 	static {
 		register(ExprAltitude.class, Double.class, "altitude[s]", "locations");
 	}
@@ -45,15 +44,15 @@ public class ExprAltitude extends SimplePropertyExpression<Location, Double> {
 	public Double convert(final Location l) {
 		return l.getY();
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "altitude";
 	}
-	
+
 	@Override
 	public Class<Double> getReturnType() {
 		return Double.class;
 	}
-	
+
 }

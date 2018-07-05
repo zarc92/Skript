@@ -40,24 +40,26 @@ import ch.njol.util.coll.CollectionUtils;
  */
 @NoDoc
 public class ExprEventCancelled extends SimpleExpression<Boolean> {
+
 	static {
 		Skript.registerExpression(ExprEventCancelled.class, Boolean.class, ExpressionType.SIMPLE, "[is] event cancelled");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Kleenean delay;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		delay = isDelayed;
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Boolean[] get(final Event e) {
@@ -65,17 +67,17 @@ public class ExprEventCancelled extends SimpleExpression<Boolean> {
 			return new Boolean[0];
 		return new Boolean[] {((Cancellable) e).isCancelled()};
 	}
-	
+
 	@Override
 	public Class<? extends Boolean> getReturnType() {
 		return Boolean.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "is event cancelled";
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -88,7 +90,7 @@ public class ExprEventCancelled extends SimpleExpression<Boolean> {
 			return CollectionUtils.array(Boolean.class);
 		return null;
 	}
-	
+
 	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
@@ -103,5 +105,5 @@ public class ExprEventCancelled extends SimpleExpression<Boolean> {
 				((Cancellable) e).setCancelled((Boolean) delta[0]);
 		}
 	}
-	
+
 }

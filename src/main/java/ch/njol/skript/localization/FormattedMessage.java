@@ -25,9 +25,9 @@ import java.util.concurrent.atomic.AtomicReference;
 import ch.njol.skript.Skript;
 
 public final class FormattedMessage extends Message {
-	
+
 	private final Object[] args;
-	
+
 	/**
 	 * @param key
 	 * @param args An array of Objects to replace into the format message, e.g. {@link AtomicReference}s.
@@ -37,7 +37,7 @@ public final class FormattedMessage extends Message {
 		assert args.length > 0;
 		this.args = args;
 	}
-	
+
 	@Override
 	public String toString() {
 		try {
@@ -51,5 +51,5 @@ public final class FormattedMessage extends Message {
 			return "[ERROR]";
 		}
 	}
-	
+
 }

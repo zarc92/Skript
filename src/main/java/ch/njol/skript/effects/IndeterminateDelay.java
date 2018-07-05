@@ -33,7 +33,7 @@ import ch.njol.skript.util.Timespan;
  * @author Peter Güttinger
  */
 public class IndeterminateDelay extends Delay {
-	
+
 	@Override
 	@Nullable
 	protected TriggerItem walk(final Event e) {
@@ -46,6 +46,7 @@ public class IndeterminateDelay extends Delay {
 			if (d == null)
 				return null;
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					if (Skript.debug())
@@ -56,10 +57,10 @@ public class IndeterminateDelay extends Delay {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public String toString(@Nullable final Event e, final boolean debug) {
 		return "wait for operation to finish";
 	}
-	
+
 }

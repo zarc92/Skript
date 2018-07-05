@@ -38,41 +38,41 @@ import org.eclipse.jdt.annotation.Nullable;
 @Since("2.2-dev34")
 public class EffFeed extends Effect {
 
-    static {
-        Skript.registerEffect(EffFeed.class, "feed [the] %players% [by %-number% [beef[s]]]");
-    }
+	static {
+		Skript.registerEffect(EffFeed.class, "feed [the] %players% [by %-number% [beef[s]]]");
+	}
 
-    @SuppressWarnings("null")
-    private Expression<Player> players;
-    @Nullable
-    private Expression<Number> beefs;
+	@SuppressWarnings("null")
+	private Expression<Player> players;
+	@Nullable
+	private Expression<Number> beefs;
 
-    @Override
-    public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-        players = (Expression<Player>) exprs[0];
-        beefs = (Expression<Number>) exprs[1];
-        return true;
-    }
+	@Override
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
+		players = (Expression<Player>) exprs[0];
+		beefs = (Expression<Number>) exprs[1];
+		return true;
+	}
 
-    @Override
-    protected void execute(Event e) {
-        int level = 20;
+	@Override
+	protected void execute(Event e) {
+		int level = 20;
 
-        if (beefs != null) {
-            Number n = beefs.getSingle(e);
-            if (n == null)
-                return;
-            level = n.intValue();
-        }
-        for (Player player : players.getArray(e)) {
-            player.setFoodLevel(level);
-        }
-    }
+		if (beefs != null) {
+			Number n = beefs.getSingle(e);
+			if (n == null)
+				return;
+			level = n.intValue();
+		}
+		for (Player player : players.getArray(e)) {
+			player.setFoodLevel(level);
+		}
+	}
 
-    @Override
-    public String toString(@Nullable Event e, boolean debug) {
-        return "feed " + players.toString(e, debug) + (beefs != null ? " by " + beefs.toString(e, debug) : "");
-    }
-
+	@Override
+	public String toString(@Nullable Event e, boolean debug) {
+		return "feed " + players.toString(e, debug) + (beefs != null ? " by " + beefs.toString(e, debug) : "");
+	}
 
 }

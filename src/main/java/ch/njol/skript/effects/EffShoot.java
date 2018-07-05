@@ -46,19 +46,16 @@ import ch.njol.util.Kleenean;
  */
 @Name("Shoot")
 @Description("Shoots a projectile (or any other entity) from a given entity.")
-@Examples({"shoot an arrow",
-		"make the player shoot a creeper at speed 10",
-		"shoot a pig from the creeper"})
+@Examples({"shoot an arrow", "make the player shoot a creeper at speed 10", "shoot a pig from the creeper"})
 @Since("1.4")
 public class EffShoot extends Effect {
+
 	static {
-		Skript.registerEffect(EffShoot.class,
-				"shoot %entitydatas% [from %livingentities/locations%] [(at|with) (speed|velocity) %-number%] [%-direction%]",
-				"(make|let) %livingentities/locations% shoot %entitydatas% [(at|with) (speed|velocity) %-number%] [%-direction%]");
+		Skript.registerEffect(EffShoot.class, "shoot %entitydatas% [from %livingentities/locations%] [(at|with) (speed|velocity) %-number%] [%-direction%]", "(make|let) %livingentities/locations% shoot %entitydatas% [(at|with) (speed|velocity) %-number%] [%-direction%]");
 	}
-	
+
 	private final static Double DEFAULT_SPEED = 5.;
-	
+
 	@SuppressWarnings("null")
 	private Expression<EntityData<?>> types;
 	@SuppressWarnings("null")
@@ -67,20 +64,21 @@ public class EffShoot extends Effect {
 	private Expression<Number> velocity;
 	@Nullable
 	private Expression<Direction> direction;
-	
+
 	@Nullable
 	public static Entity lastSpawned = null;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		types = (Expression<EntityData<?>>) exprs[matchedPattern];
 		shooters = exprs[1 - matchedPattern];
 		velocity = (Expression<Number>) exprs[2];
 		direction = (Expression<Direction>) exprs[3];
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected void execute(final Event e) {
@@ -125,15 +123,15 @@ public class EffShoot extends Effect {
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private static <E extends Entity> void set(final Entity e, final EntityData<E> d) {
 		d.set((E) e);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "shoot " + types.toString(e, debug) + " from " + shooters.toString(e, debug) + (velocity != null ? " at speed " + velocity.toString(e, debug) : "") + (direction != null ? " " + direction.toString(e, debug) : "");
 	}
-	
+
 }

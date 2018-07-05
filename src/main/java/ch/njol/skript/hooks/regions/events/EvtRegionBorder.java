@@ -51,34 +51,30 @@ import ch.njol.util.Checker;
  * @author Peter Güttinger
  */
 public class EvtRegionBorder extends SelfRegisteringSkriptEvent {
+
 	static {
-		Skript.registerEvent("Region Enter/Leave", EvtRegionBorder.class, RegionBorderEvent.class,
-				"(0¦enter[ing]|1¦leav(e|ing)|1¦exit[ing]) [of] ([a] region|[[the] region] %-regions%)",
-				"region (0¦enter[ing]|1¦leav(e|ing)|1¦exit[ing])")
-				.description("Called when a player enters or leaves a <a href='../classes/#region'>region</a>.",
-						"This event requires a supported regions plugin to be installed.")
-				.examples("on region exit:",
-						"	message \"Leaving %region%.\"")
-				.since("2.1");
+		Skript.registerEvent("Region Enter/Leave", EvtRegionBorder.class, RegionBorderEvent.class, "(0¦enter[ing]|1¦leav(e|ing)|1¦exit[ing]) [of] ([a] region|[[the] region] %-regions%)", "region (0¦enter[ing]|1¦leav(e|ing)|1¦exit[ing])").description("Called when a player enters or leaves a <a href='../classes/#region'>region</a>.", "This event requires a supported regions plugin to be installed.").examples("on region exit:", "	message \"Leaving %region%.\"").since("2.1");
 		EventValues.registerEventValue(RegionBorderEvent.class, Region.class, new Getter<Region, RegionBorderEvent>() {
+
 			@Override
 			public Region get(final RegionBorderEvent e) {
 				return e.getRegion();
 			}
 		}, 0);
 		EventValues.registerEventValue(RegionBorderEvent.class, Player.class, new Getter<Player, RegionBorderEvent>() {
+
 			@Override
 			public Player get(final RegionBorderEvent e) {
 				return e.getPlayer();
 			}
 		}, 0);
 	}
-	
+
 	private boolean enter;
-	
+
 	@Nullable
 	private Literal<Region> regions;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parseResult) {
@@ -86,31 +82,31 @@ public class EvtRegionBorder extends SelfRegisteringSkriptEvent {
 		regions = args.length == 0 ? null : (Literal<Region>) args[0];
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		final Literal<Region> r = regions;
 		return (enter ? "enter" : "leave") + " of " + (r == null ? "a region" : r.toString(e, debug));
 	}
-	
+
 	private final static Collection<Trigger> triggers = new ArrayList<>();
-	
+
 	@Override
 	public void register(final Trigger t) {
 		triggers.add(t);
 		register();
 	}
-	
+
 	@Override
 	public void unregister(final Trigger t) {
 		triggers.remove(t);
 	}
-	
+
 	@Override
 	public void unregisterAll() {
 		triggers.clear();
 	}
-	
+
 	private boolean applies(final Event e) {
 		assert e instanceof RegionBorderEvent;
 		if (enter != ((RegionBorderEvent) e).isEntering())
@@ -120,13 +116,14 @@ public class EvtRegionBorder extends SelfRegisteringSkriptEvent {
 			return true;
 		final Region re = ((RegionBorderEvent) e).getRegion();
 		return r.check(e, new Checker<Region>() {
+
 			@Override
 			public boolean check(final Region r) {
 				return r.equals(re);
 			}
 		});
 	}
-	
+
 	static void callEvent(final Region r, final PlayerMoveEvent me, final boolean enter) {
 		final Player p = me.getPlayer();
 		assert p != null;
@@ -138,12 +135,13 @@ public class EvtRegionBorder extends SelfRegisteringSkriptEvent {
 		}
 		me.setCancelled(e.isCancelled());
 	}
-	
+
 	// even WorldGuard doesn't have events, and this way all region plugins are supported for sure.
 	private final static EventExecutor ee = new EventExecutor() {
+
 		@Nullable
 		Event last = null;
-		
+
 		@SuppressWarnings("null")
 		@Override
 		public void execute(final @Nullable Listener listener, final Event event) throws EventException {
@@ -156,7 +154,8 @@ public class EvtRegionBorder extends SelfRegisteringSkriptEvent {
 				return;
 			//if (to.getWorld().equals(from.getWorld()) && to.distanceSquared(from) < 2)
 			//	return;
-			final Set<? extends Region> oldRs = RegionsPlugin.getRegionsAt(from), newRs = RegionsPlugin.getRegionsAt(to);
+			final Set<? extends Region> oldRs = RegionsPlugin.getRegionsAt(from),
+					newRs = RegionsPlugin.getRegionsAt(to);
 			for (final Region r : oldRs) {
 				if (!newRs.contains(r))
 					callEvent(r, e, false);
@@ -167,9 +166,9 @@ public class EvtRegionBorder extends SelfRegisteringSkriptEvent {
 			}
 		}
 	};
-	
+
 	private static boolean registered = false;
-	
+
 	private static void register() {
 		if (registered)
 			return;
@@ -178,5 +177,5 @@ public class EvtRegionBorder extends SelfRegisteringSkriptEvent {
 		Bukkit.getPluginManager().registerEvent(PlayerPortalEvent.class, new Listener() {}, SkriptConfig.defaultEventPriority.value(), ee, Skript.getInstance(), true);
 		registered = true;
 	}
-	
+
 }

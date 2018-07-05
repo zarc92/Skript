@@ -43,35 +43,36 @@ import ch.njol.util.Kleenean;
 @Examples({"send \"Size of all players who have joined the server: %size of all offline players%\""})
 @Since("2.2-dev35")
 public class ExprOfflinePlayers extends SimpleExpression<OfflinePlayer> {
-	
+
 	static {
 		Skript.registerExpression(ExprOfflinePlayers.class, OfflinePlayer.class, ExpressionType.SIMPLE, "[(all [[of] the]|the)] offline[ ]players");
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return Bukkit.getOfflinePlayers().length == 1;
 	}
-	
+
 	@Override
 	public Class<? extends OfflinePlayer> getReturnType() {
 		return OfflinePlayer.class;
 	}
-	
+
 	@Override
 	@Nullable
 	protected OfflinePlayer[] get(final Event event) {
 		return Bukkit.getOfflinePlayers();
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event event, final boolean debug) {
 		return "offline players";
 	}
-	
+
 }

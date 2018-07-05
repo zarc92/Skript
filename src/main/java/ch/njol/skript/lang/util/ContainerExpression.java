@@ -34,20 +34,20 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 public class ContainerExpression extends SimpleExpression<Object> {
-	
+
 	final Expression<? extends Container<?>> expr;
 	private final Class<?> c;
-	
+
 	public ContainerExpression(final Expression<? extends Container<?>> expr, final Class<?> c) {
 		this.expr = expr;
 		this.c = c;
 	}
-	
+
 	@Override
 	protected Object[] get(final Event e) {
 		throw new UnsupportedOperationException("ContanerExpression must only be used by Loops");
 	}
-	
+
 	@Override
 	@Nullable
 	public Iterator<Object> iterator(final Event e) {
@@ -55,9 +55,10 @@ public class ContainerExpression extends SimpleExpression<Object> {
 		if (iter == null)
 			return null;
 		return new Iterator<Object>() {
+
 			@Nullable
 			private Iterator<?> current;
-			
+
 			@Override
 			public boolean hasNext() {
 				Iterator<?> c = current;
@@ -66,7 +67,7 @@ public class ContainerExpression extends SimpleExpression<Object> {
 				}
 				return c != null && c.hasNext();
 			}
-			
+
 			@Override
 			public Object next() {
 				if (!hasNext())
@@ -78,32 +79,33 @@ public class ContainerExpression extends SimpleExpression<Object> {
 				assert o != null : current + "; " + expr;
 				return o;
 			}
-			
+
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
 		return c;
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return expr.toString(e, debug);
 	}
-	
+
 }

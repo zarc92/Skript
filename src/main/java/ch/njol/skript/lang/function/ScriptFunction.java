@@ -30,33 +30,36 @@ import ch.njol.skript.lang.function.Functions.FunctionData;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.variables.Variables;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * @author Peter Güttinger
  */
 public class ScriptFunction<T> extends Function<T> {
-	
+
 	@Nullable
 	final Trigger trigger;
-	
+
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
-	public ScriptFunction(final String name, final Parameter<?>[] parameters, final SectionNode node, @Nullable final ClassInfo<T> returnType, final boolean single) {
+	public ScriptFunction(final String name, final Parameter<?>[] parameters, final SectionNode node,
+			@Nullable final ClassInfo<T> returnType, final boolean single) {
 		super(name, parameters, returnType, single);
-		
+
 		// here to allow recursion
 		Functions.functions.put(name, new FunctionData(this));
-		
+
 		Functions.currentFunction = this;
 		try {
-			trigger = new Trigger(node.getConfig().getFile(), "function " + name, new SimpleEvent(), ScriptLoader.loadItems(node));
+			trigger = new Trigger(node.getConfig().getFile(), "function " + name, new SimpleEvent(),
+					ScriptLoader.loadItems(node));
 		} finally {
 			Functions.currentFunction = null;
 		}
 	}
-	
+
 	private boolean returnValueSet = false;
 	@Nullable
 	private T[] returnValue = null;
-	
+
 	/**
 	 * Should only be called by {@link EffReturn}.
 	 * 
@@ -68,7 +71,7 @@ public class ScriptFunction<T> extends Function<T> {
 		returnValueSet = true;
 		returnValue = value;
 	}
-	
+
 	// REMIND track possible types of local variables (including undefined variables) (consider functions, commands, and EffChange) - maybe make a general interface for this purpose
 	// REM: use patterns, e.g. {_a%b%} is like "a.*", and thus subsequent {_axyz} may be set and of that type.
 	@Override
@@ -76,7 +79,7 @@ public class ScriptFunction<T> extends Function<T> {
 	public T[] execute(final FunctionEvent e, final Object[][] params) {
 		if (trigger == null)
 			throw new IllegalStateException("trigger for function is not available");
-		
+
 		for (int i = 0; i < parameters.length; i++) {
 			final Parameter<?> p = parameters[i];
 			final Object[] val = params[i];
@@ -88,7 +91,7 @@ public class ScriptFunction<T> extends Function<T> {
 				}
 			}
 		}
-		
+
 		assert trigger != null;
 		trigger.execute(e);
 		return returnValue;

@@ -44,9 +44,7 @@ import java.util.List;
 
 @Name("Group")
 @Description("The primary group or all groups of a player. This expression requires Vault and a compatible permissions plugin to be installed.")
-@Examples({"on join:",
-			"broadcast \"%group of player%\" # this is the player's primary group",
-			"broadcast \"%groups of player%\" # this is all of the player's groups"})
+@Examples({"on join:", "broadcast \"%group of player%\" # this is the player's primary group", "broadcast \"%groups of player%\" # this is all of the player's groups"})
 @Since("2.2-dev35")
 public class ExprGroup extends SimpleExpression<String> {
 
@@ -60,7 +58,8 @@ public class ExprGroup extends SimpleExpression<String> {
 
 	@SuppressWarnings({"unchecked"})
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		if (!VaultHook.permission.hasGroupSupport()) {
 			Skript.error(VaultHook.NO_GROUP_SUPPORT);
 			return false;
@@ -86,11 +85,7 @@ public class ExprGroup extends SimpleExpression<String> {
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
-		if (mode == Changer.ChangeMode.ADD ||
-				mode == Changer.ChangeMode.REMOVE ||
-				mode == Changer.ChangeMode.SET ||
-				mode == Changer.ChangeMode.DELETE ||
-				mode == Changer.ChangeMode.RESET) {
+		if (mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE || mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.DELETE || mode == Changer.ChangeMode.RESET) {
 			return new Class<?>[] {String[].class};
 		}
 		return null;

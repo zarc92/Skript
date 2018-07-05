@@ -48,29 +48,21 @@ import ch.njol.util.StringUtils;
  * @author Peter Güttinger
  */
 @Name("Argument")
-@Description({"Only usable in command events. Holds the value of the nth argument given to the command, " +
-		"e.g. if the command \"/tell &lt;player&gt; &lt;text&gt;\" is used like \"/tell Njol Hello Njol!\" argument 1 is the player named \"Njol\" and argument 2 is \"Hello Njol!\".",
-		"One can also use the type of the argument instead of its index to address the argument, e.g. in the above example 'player-argument' is the same as 'argument 1'."})
-@Examples({"give the item-argument to the player-argument",
-		"damage the player-argument by the number-argument",
-		"give a diamond pickaxe to the argument",
-		"add argument 1 to argument 2",
-		"heal the last argument"})
+@Description({"Only usable in command events. Holds the value of the nth argument given to the command, " + "e.g. if the command \"/tell &lt;player&gt; &lt;text&gt;\" is used like \"/tell Njol Hello Njol!\" argument 1 is the player named \"Njol\" and argument 2 is \"Hello Njol!\".", "One can also use the type of the argument instead of its index to address the argument, e.g. in the above example 'player-argument' is the same as 'argument 1'."})
+@Examples({"give the item-argument to the player-argument", "damage the player-argument by the number-argument", "give a diamond pickaxe to the argument", "add argument 1 to argument 2", "heal the last argument"})
 @Since("1.0")
 public class ExprArgument extends SimpleExpression<Object> {
+
 	static {
-		Skript.registerExpression(ExprArgument.class, Object.class, ExpressionType.SIMPLE,
-				"[the] last arg[ument][s]",
-				"[the] arg[ument][s](-| )<(\\d+)>", "[the] <(\\d*1)st|(\\d*2)nd|(\\d*3)rd|(\\d*[4-90])th> arg[ument][s]",
-				"[the] arg[ument][s]",
-				"[the] %*classinfo%( |-)arg[ument][( |-)<\\d+>]", "[the] arg[ument]( |-)%*classinfo%[( |-)<\\d+>]");
+		Skript.registerExpression(ExprArgument.class, Object.class, ExpressionType.SIMPLE, "[the] last arg[ument][s]", "[the] arg[ument][s](-| )<(\\d+)>", "[the] <(\\d*1)st|(\\d*2)nd|(\\d*3)rd|(\\d*[4-90])th> arg[ument][s]", "[the] arg[ument][s]", "[the] %*classinfo%( |-)arg[ument][( |-)<\\d+>]", "[the] arg[ument]( |-)%*classinfo%[( |-)<\\d+>]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Argument<?> arg;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		final List<Argument<?>> currentArguments = Commands.currentArguments;
 		if (currentArguments == null) {
 			Skript.error("The expression 'argument' can only be used within a command", ErrorQuality.SEMANTIC_ERROR);
@@ -144,7 +136,7 @@ public class ExprArgument extends SimpleExpression<Object> {
 		this.arg = arg;
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Object[] get(final Event e) {
@@ -152,27 +144,27 @@ public class ExprArgument extends SimpleExpression<Object> {
 			return null;
 		return arg.getCurrent(e);
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
 		return arg.getType();
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (e == null)
 			return "the " + StringUtils.fancyOrderNumber(arg.getIndex() + 1) + " argument";
 		return Classes.getDebugMessage(getArray(e));
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return arg.isSingle();
 	}
-	
+
 	@Override
 	public boolean isLoopOf(final String s) {
 		return s.equalsIgnoreCase("argument");
 	}
-	
+
 }

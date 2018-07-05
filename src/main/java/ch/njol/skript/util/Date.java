@@ -32,55 +32,55 @@ import ch.njol.yggdrasil.YggdrasilSerializable;
  * @author Peter Güttinger
  */
 public class Date implements Comparable<Date>, YggdrasilSerializable {
-	
+
 	/**
 	 * Timestamp. Should always be in computer time/UTC/GMT+0.
 	 */
 	private long timestamp;
-	
+
 	public Date() {
 		this(System.currentTimeMillis());
 	}
-	
+
 	public Date(final long timestamp) {
 		this.timestamp = timestamp;
 	}
-	
+
 	public Date(final long timestamp, final TimeZone zone) {
 		final long offset = zone.getOffset(timestamp);
 		this.timestamp = timestamp - offset;
 	}
-	
+
 	public Timespan difference(final Date other) {
 		return new Timespan(Math.abs(timestamp - other.timestamp));
 	}
-	
+
 	@Override
 	public int compareTo(final @Nullable Date other) {
 		final long d = other == null ? timestamp : timestamp - other.timestamp;
 		return d < 0 ? -1 : d > 0 ? 1 : 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		return SkriptConfig.formatDate(timestamp);
 	}
-	
+
 	/**
 	 * @return The timestamp in milliseconds
 	 */
 	public long getTimestamp() {
 		return timestamp;
 	}
-	
+
 	public void add(final Timespan span) {
 		timestamp += span.getMilliSeconds();
 	}
-	
+
 	public void subtract(final Timespan span) {
 		timestamp -= span.getMilliSeconds();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -88,7 +88,7 @@ public class Date implements Comparable<Date>, YggdrasilSerializable {
 		result = prime * result + (int) (timestamp ^ (timestamp >>> 32));
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(final @Nullable Object obj) {
 		if (this == obj)
@@ -102,5 +102,5 @@ public class Date implements Comparable<Date>, YggdrasilSerializable {
 			return false;
 		return true;
 	}
-	
+
 }

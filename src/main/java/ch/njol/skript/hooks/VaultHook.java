@@ -37,7 +37,7 @@ public class VaultHook extends Hook<Vault> {
 	public static final String NO_GROUP_SUPPORT = "The permissions plugin you are using does not support groups.";
 
 	public VaultHook() throws IOException {}
-	
+
 	@SuppressWarnings("null")
 	public static Economy economy;
 	@SuppressWarnings("null")
@@ -45,7 +45,7 @@ public class VaultHook extends Hook<Vault> {
 
 	@SuppressWarnings("null")
 	public static Permission permission;
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected boolean init() {
@@ -54,7 +54,7 @@ public class VaultHook extends Hook<Vault> {
 		permission = Bukkit.getServicesManager().getRegistration(Permission.class) == null ? null : Bukkit.getServicesManager().getRegistration(Permission.class).getProvider();
 		return economy != null || chat != null || permission != null;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected void loadClasses() throws IOException {
@@ -66,10 +66,10 @@ public class VaultHook extends Hook<Vault> {
 			Skript.getAddonInstance().loadClasses(getClass().getPackage().getName() + ".permission");
 
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Vault";
 	}
-	
+
 }

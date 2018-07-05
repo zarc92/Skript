@@ -48,32 +48,24 @@ import ch.njol.util.StringUtils;
  * @author Peter Güttinger
  */
 @Name("Replace")
-@Description({"Replaces all occurrences of a given text with another text. Please note that you can only change variables and a few expressions, e.g. a <a href='../expressions/#ExprMessage'>message</a> or a line of a sign.",
-		"Starting with 2.2-dev24, you can replace items in a inventory too."})
-@Examples({"replace \"<item>\" in {textvar} with \"%item%\"",
-		"replace every \"&\" with \"§\" in line 1",
-		"# The following acts as a simple chat censor, but it will e.g. censor mass, hassle, assassin, etc. as well:",
-		"on chat:",
-		"	replace all \"fuck\", \"bitch\" and \"ass\" with \"****\" in the message",
-		" ",
-		"replace all stone and dirt in player's inventory and player's top inventory with diamond"})
+@Description({"Replaces all occurrences of a given text with another text. Please note that you can only change variables and a few expressions, e.g. a <a href='../expressions/#ExprMessage'>message</a> or a line of a sign.", "Starting with 2.2-dev24, you can replace items in a inventory too."})
+@Examples({"replace \"<item>\" in {textvar} with \"%item%\"", "replace every \"&\" with \"§\" in line 1", "# The following acts as a simple chat censor, but it will e.g. censor mass, hassle, assassin, etc. as well:", "on chat:", "	replace all \"fuck\", \"bitch\" and \"ass\" with \"****\" in the message", " ", "replace all stone and dirt in player's inventory and player's top inventory with diamond"})
 @Since("2.0, 2.2-dev24 (replace in muliple strings and replace items in inventory)")
 public class EffReplace extends Effect {
+
 	static {
-		Skript.registerEffect(EffReplace.class,
-				"replace (all|every|) %strings% in %strings% with %string%",
-				"replace (all|every|) %strings% with %string% in %strings%",
-				"replace (all|every|) %itemstacks% in %inventories% with %itemstack%",
-				"replace (all|every|) %itemstacks% with %itemstack% in %inventories%");
+		Skript.registerEffect(EffReplace.class, "replace (all|every|) %strings% in %strings% with %string%", "replace (all|every|) %strings% with %string% in %strings%", "replace (all|every|) %itemstacks% in %inventories% with %itemstack%", "replace (all|every|) %itemstacks% with %itemstack% in %inventories%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> haystack, needles, replacement;
 	private boolean replaceString = true;
+
 	@SuppressWarnings({"null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
-		haystack =  exprs[1 + matchedPattern % 2];
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
+		haystack = exprs[1 + matchedPattern % 2];
 		replaceString = matchedPattern < 2;
 		if (replaceString && !ChangerUtils.acceptsChange(haystack, ChangeMode.SET, String.class)) {
 			Skript.error(haystack + " cannot be changed and can thus not have parts replaced.");
@@ -83,7 +75,7 @@ public class EffReplace extends Effect {
 		replacement = exprs[2 - matchedPattern % 2];
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected void execute(final Event e) {
@@ -96,21 +88,21 @@ public class EffReplace extends Effect {
 			for (int x = 0; x < haystack.length; x++)
 				for (final Object n : needles) {
 					assert n != null;
-					haystack[x] = StringUtils.replace((String)haystack[x], (String)n, Matcher.quoteReplacement((String)replacement), SkriptConfig.caseSensitive.value());
+					haystack[x] = StringUtils.replace((String) haystack[x], (String) n, Matcher.quoteReplacement((String) replacement), SkriptConfig.caseSensitive.value());
 				}
 			this.haystack.change(e, haystack, ChangeMode.SET);
 		} else {
-			for (Inventory inv : (Inventory[])haystack)
+			for (Inventory inv : (Inventory[]) haystack)
 				for (ItemStack item : (ItemStack[]) needles)
-					for (Integer slot : inv.all(item).keySet()){
-						inv.setItem(slot.intValue(), (ItemStack)replacement);
+					for (Integer slot : inv.all(item).keySet()) {
+						inv.setItem(slot.intValue(), (ItemStack) replacement);
 					}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "replace " + needles.toString(e, debug) + " in " + haystack.toString(e, debug) + " with " + replacement.toString(e, debug);
 	}
-	
+
 }

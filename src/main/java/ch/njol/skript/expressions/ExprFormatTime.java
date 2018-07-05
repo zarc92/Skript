@@ -40,14 +40,13 @@ import ch.njol.skript.util.Getter;
 import ch.njol.util.Kleenean;
 
 @Name("Formatted time")
-@Description("Converts date to human-readable text format. By default, yyyy-MM-dd HH:mm:ss z will be used. For reference, see this "
-		+ "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\">Wikipedia article</a>.")
+@Description("Converts date to human-readable text format. By default, yyyy-MM-dd HH:mm:ss z will be used. For reference, see this " + "<a href=\"https://en.wikipedia.org/wiki/ISO_8601\">Wikipedia article</a>.")
 @Examples("now formatted human-readable")
 @Since("2.2-dev31")
 public class ExprFormatTime extends PropertyExpression<Date, String> {
-	
+
 	private static final String defaultFormat = "yyyy-MM-dd HH:mm:ss z";
-	
+
 	static {
 		Skript.registerExpression(ExprFormatTime.class, String.class, ExpressionType.PROPERTY, "%dates% formatted [human-readable] [(with|as) %-string%]");
 	}
@@ -71,14 +70,14 @@ public class ExprFormatTime extends PropertyExpression<Date, String> {
 		} else {
 			format = new SimpleDateFormat(defaultFormat);
 		}
-		
+
 		return true;
 	}
-
 
 	@Override
 	protected String[] get(Event e, Date[] source) {
 		return get(source, new Getter<String, Date>() {
+
 			@Override
 			public String get(Date date) {
 				return format.format(new java.util.Date(date.getTimestamp()));

@@ -35,19 +35,19 @@ import ch.njol.skript.doc.Since;
 @Examples("player is not flying")
 @Since("1.4.4")
 public class CondIsFlying extends PropertyCondition<Player> {
-	
+
 	static {
 		register(CondIsFlying.class, "flying", "players");
 	}
-	
+
 	@Override
 	public boolean check(final Player p) {
 		return p.isFlying();
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "flying";
 	}
-	
+
 }

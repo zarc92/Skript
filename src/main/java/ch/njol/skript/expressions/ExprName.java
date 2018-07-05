@@ -50,26 +50,17 @@ import ch.njol.util.coll.CollectionUtils;
  * @author Peter Güttinger
  */
 @Name("Name / Display Name")
-@Description({"Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item, en entity or an inventory.",
-		"The differences between the different names are:",
-		"<ul>",
-		"<li>name: Minecraft account name of a player (unmodifiable), or the custom name of an item or mob (modifiable).</li>",
-		"<li>display name: The name of a player as displayed in the chat and messages, e.g. when including %player% in a message. This name can be changed freely and can include colour codes, and is shared among all plugins (e.g. chat plugins will use a changed name).</li>",
-		"<li>tab list name: The name of a player used in the player lists that usually opens with the tab key. Please note that this is limited to 16 characters, including colour codes which are counted as 2 characters each, and that no two players can have the same tab list name at the same time.</li>",
-		"</ul>"})
-@Examples({"on join:",
-		"	player has permission \"name.red\"",
-		"	set the player's display name to \"<red>[admin]<gold>%name of player%\"",
-		"	set the player's tablist name to \"<green>%name of player%\"",
-		"set the name of the player's tool to \"Legendary Sword of Awesomeness\""})
+@Description({"Represents a player's minecraft account name, chat display name, or playerlist name, or the custom name of an item, en entity or an inventory.", "The differences between the different names are:", "<ul>", "<li>name: Minecraft account name of a player (unmodifiable), or the custom name of an item or mob (modifiable).</li>", "<li>display name: The name of a player as displayed in the chat and messages, e.g. when including %player% in a message. This name can be changed freely and can include colour codes, and is shared among all plugins (e.g. chat plugins will use a changed name).</li>", "<li>tab list name: The name of a player used in the player lists that usually opens with the tab key. Please note that this is limited to 16 characters, including colour codes which are counted as 2 characters each, and that no two players can have the same tab list name at the same time.</li>", "</ul>"})
+@Examples({"on join:", "	player has permission \"name.red\"", "	set the player's display name to \"<red>[admin]<gold>%name of player%\"", "	set the player's tablist name to \"<green>%name of player%\"", "set the name of the player's tool to \"Legendary Sword of Awesomeness\""})
 @Since("1.4.6 (players' name & display name), <i>unknown</i> (player list name), 2.0 (item name), 2.2-dev20 (inventory name)")
 public class ExprName extends SimplePropertyExpression<Object, String> {
-	
+
 	final static int ITEMSTACK = 1, ENTITY = 2, PLAYER = 4, INVENTORY = 8;
 	final static String[] types = {"itemstacks/slots", "livingentities", "players", "inventories"};
-	
+
 	private static enum NameType {
 		NAME("name", "name[s]", PLAYER | ITEMSTACK | ENTITY | INVENTORY, ITEMSTACK | ENTITY) {
+
 			@Override
 			void set(final @Nullable Object o, final @Nullable String s) {
 				if (o == null)
@@ -87,7 +78,7 @@ public class ExprName extends SimplePropertyExpression<Object, String> {
 					assert false;
 				}
 			}
-			
+
 			@Override
 			@Nullable
 			String get(final @Nullable Object o) {
@@ -111,6 +102,7 @@ public class ExprName extends SimplePropertyExpression<Object, String> {
 			}
 		},
 		DISPLAY_NAME("display name", "(display|nick|chat)[ ]name[s]", PLAYER | ITEMSTACK | ENTITY | INVENTORY, PLAYER | ITEMSTACK | ENTITY) {
+
 			@Override
 			void set(final @Nullable Object o, final @Nullable String s) {
 				if (o == null)
@@ -131,7 +123,7 @@ public class ExprName extends SimplePropertyExpression<Object, String> {
 					assert false;
 				}
 			}
-			
+
 			@Override
 			@Nullable
 			String get(final @Nullable Object o) {
@@ -155,6 +147,7 @@ public class ExprName extends SimplePropertyExpression<Object, String> {
 			}
 		},
 		TABLIST_NAME("player list name", "(player|tab)[ ]list name[s]", PLAYER, PLAYER) {
+
 			@Override
 			void set(final @Nullable Object o, final @Nullable String s) {
 				if (o == null)
@@ -167,7 +160,7 @@ public class ExprName extends SimplePropertyExpression<Object, String> {
 					assert false;
 				}
 			}
-			
+
 			@Override
 			@Nullable
 			String get(final @Nullable Object o) {
@@ -181,24 +174,24 @@ public class ExprName extends SimplePropertyExpression<Object, String> {
 				}
 			}
 		};
-		
+
 		final String name;
 		final String pattern;
 		final int from;
 		final int acceptChange;
-		
+
 		NameType(final String name, final String pattern, final int from, final int change) {
 			this.name = name;
 			this.pattern = "(" + ordinal() + "¦)" + pattern;
 			this.from = from;
 			acceptChange = change;
 		}
-		
+
 		abstract void set(@Nullable Object o, @Nullable String s);
-		
+
 		@Nullable
 		abstract String get(@Nullable Object o);
-		
+
 		String getFrom() {
 			final StringBuilder b = new StringBuilder();
 			for (int i = 0; i < types.length; i++) {
@@ -215,45 +208,46 @@ public class ExprName extends SimplePropertyExpression<Object, String> {
 			return "" + b;
 		}
 	}
-	
+
 	static {
-		for (final NameType n : NameType.values()){
+		for (final NameType n : NameType.values()) {
 			register(ExprName.class, String.class, n.pattern, n.getFrom());
 		}
 	}
-	
+
 	@SuppressWarnings("null")
 	private NameType type;
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		type = NameType.values()[parseResult.mark];
-		if(exprs[0] instanceof Variable)
+		if (exprs[0] instanceof Variable)
 			setExpr(exprs[0].getConvertedExpression(Object.class));
 		else
 			setExpr(exprs[0]);
 		return true;
 	}
-	
+
 	@Override
 	public Class<String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return type.name;
 	}
-	
+
 	@Override
 	@Nullable
 	public String convert(final Object o) {
 		return type.get(o instanceof Slot ? ((Slot) o).getItem() : o);
 	}
-	
+
 	private int changeType = 0;
-	
+
 	// TODO find a better method for handling changes (in general)
 	// e.g. a Changer that takes an object and returns another which should then be saved if applicable (the Changer includes the ChangeMode)
 	@SuppressWarnings("unchecked")
@@ -277,9 +271,10 @@ public class ExprName extends SimplePropertyExpression<Object, String> {
 		}
 		return changeType == 0 ? null : CollectionUtils.array(String.class);
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		final String name = delta == null ? null : (String) delta[0];
 		if (changeType == ITEMSTACK) {
 			if (Slot.class.isAssignableFrom(getExpr().getReturnType())) {

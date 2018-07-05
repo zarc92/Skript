@@ -37,23 +37,22 @@ import ch.njol.skript.lang.ExpressionType;
  */
 @Name("Command Sender")
 @Description("The player or the console who sent a command. Mostly useful in <a href='../commands/'>commands</a> and <a href='../events/#command'>command events</a>.")
-@Examples({"make the command sender execute \"/say hi!\"",
-		"on command:",
-		"	log \"%executor% used command /%command% %arguments%\" to \"commands.log\""})
+@Examples({"make the command sender execute \"/say hi!\"", "on command:", "	log \"%executor% used command /%command% %arguments%\" to \"commands.log\""})
 @Since("2.0")
 @Events("command")
 public class ExprCommandSender extends EventValueExpression<CommandSender> {
+
 	static {
 		Skript.registerExpression(ExprCommandSender.class, CommandSender.class, ExpressionType.SIMPLE, "[the] [command['s]] (sender|executor)");
 	}
-	
+
 	public ExprCommandSender() {
 		super(CommandSender.class);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the command sender";
 	}
-	
+
 }

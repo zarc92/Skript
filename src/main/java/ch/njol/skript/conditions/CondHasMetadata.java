@@ -45,15 +45,13 @@ public class CondHasMetadata extends Condition {
 	private Expression<String> values;
 
 	static {
-		Skript.registerCondition(CondHasMetadata.class,
-				"%metadataholders% (has|have) metadata [(value|tag)[s]] %strings%",
-				"%metadataholders% (doesn't|does not|do not|don't) have metadata [(value|tag)[s]] %strings%"
-		);
+		Skript.registerCondition(CondHasMetadata.class, "%metadataholders% (has|have) metadata [(value|tag)[s]] %strings%", "%metadataholders% (doesn't|does not|do not|don't) have metadata [(value|tag)[s]] %strings%");
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		holders = (Expression<Metadatable>) exprs[0];
 		values = (Expression<String>) exprs[1];
 		setNegated(matchedPattern == 1);

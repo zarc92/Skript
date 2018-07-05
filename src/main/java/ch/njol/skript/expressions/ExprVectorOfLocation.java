@@ -42,6 +42,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @Examples({"set {_v} to vector of {_loc}"})
 @Since("2.2-dev28")
 public class ExprVectorOfLocation extends SimpleExpression<Vector> {
+
 	static {
 		Skript.registerExpression(ExprVectorOfLocation.class, Vector.class, ExpressionType.SIMPLE, "vector (of|from|to) %location%", "%location%['s] vector");
 	}
@@ -62,7 +63,7 @@ public class ExprVectorOfLocation extends SimpleExpression<Vector> {
 	@Override
 	@SuppressWarnings({"unchecked", "null"})
 	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-		location = (Expression<Location>)expressions[0];
+		location = (Expression<Location>) expressions[0];
 		return true;
 	}
 
@@ -70,10 +71,10 @@ public class ExprVectorOfLocation extends SimpleExpression<Vector> {
 	@SuppressWarnings("null")
 	protected Vector[] get(Event event) {
 		Location l = location.getSingle(event);
-		if (l == null){
+		if (l == null) {
 			return null;
 		}
-		return new Vector[] { l.toVector() };
+		return new Vector[] {l.toVector()};
 	}
 
 	@Override

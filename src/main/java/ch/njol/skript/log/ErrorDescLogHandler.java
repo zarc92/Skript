@@ -26,26 +26,29 @@ import org.eclipse.jdt.annotation.Nullable;
 import ch.njol.skript.Skript;
 
 /**
- * Does nothing but print messages before the first error encountered and/or a message at the end if no error were encountered.
+ * Does nothing but print messages before the first error encountered and/or a message at the end if no error were
+ * encountered.
  * 
  * @author Peter Güttinger
  */
 public class ErrorDescLogHandler extends LogHandler {
+
 	@Nullable
 	private final String before, after, success;
-	
+
 	public ErrorDescLogHandler() {
 		this(null, null, null);
 	}
-	
-	public ErrorDescLogHandler(final @Nullable String before, final @Nullable String after, final @Nullable String success) {
+
+	public ErrorDescLogHandler(final @Nullable String before, final @Nullable String after,
+			final @Nullable String success) {
 		this.before = before;
 		this.after = after;
 		this.success = success;
 	}
-	
+
 	private boolean hadError = false;
-	
+
 	@Override
 	public LogResult log(final LogEntry entry) {
 		if (!hadError && entry.getLevel() == Level.SEVERE) {
@@ -54,22 +57,22 @@ public class ErrorDescLogHandler extends LogHandler {
 		}
 		return LogResult.LOG;
 	}
-	
+
 	protected void beforeErrors() {
 		if (before != null)
 			Skript.error(before);
 	}
-	
+
 	protected void afterErrors() {
 		if (after != null)
 			Skript.error(after);
 	}
-	
+
 	protected void onSuccess() {
 		if (success != null)
 			Skript.info(success);
 	}
-	
+
 	@Override
 	protected void onStop() {
 		if (!hadError)
@@ -77,5 +80,5 @@ public class ErrorDescLogHandler extends LogHandler {
 		else
 			afterErrors();
 	}
-	
+
 }

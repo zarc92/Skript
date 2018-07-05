@@ -51,11 +51,11 @@ import ch.njol.util.StringUtils;
  * @author Peter Güttinger
  */
 public abstract class Utils {
-	
+
 	private Utils() {}
-	
+
 	public final static Random random = new Random();
-	
+
 	public static String join(final Object[] objects) {
 		assert objects != null;
 		final StringBuilder b = new StringBuilder();
@@ -66,7 +66,7 @@ public abstract class Utils {
 		}
 		return "" + b.toString();
 	}
-	
+
 	public static String join(final Iterable<?> objects) {
 		assert objects != null;
 		final StringBuilder b = new StringBuilder();
@@ -80,7 +80,7 @@ public abstract class Utils {
 		}
 		return "" + b.toString();
 	}
-	
+
 	/**
 	 * Tests whether two item stacks are of the same type, i.e. it ignores the amounts.
 	 * 
@@ -91,10 +91,9 @@ public abstract class Utils {
 	public static boolean itemStacksEqual(final @Nullable ItemStack is1, final @Nullable ItemStack is2) {
 		if (is1 == null || is2 == null)
 			return is1 == is2;
-		return is1.getType() == is2.getType() && is1.getDurability() == is2.getDurability()
-				&& (ItemType.itemMetaSupported ? is1.getItemMeta().equals(is2.getItemMeta()) : is1.getEnchantments().equals(is2.getEnchantments()));
+		return is1.getType() == is2.getType() && is1.getDurability() == is2.getDurability() && (ItemType.itemMetaSupported ? is1.getItemMeta().equals(is2.getItemMeta()) : is1.getEnchantments().equals(is2.getEnchantments()));
 	}
-	
+
 	/**
 	 * Gets an entity's target.
 	 * 
@@ -126,7 +125,7 @@ public abstract class Utils {
 		}
 		return target;
 	}
-	
+
 	public static Pair<String, Integer> getAmount(final String s) {
 		if (s.matches("\\d+ of .+")) {
 			return new Pair<>(s.split(" ", 3)[2], Utils.parseInt("" + s.split(" ", 2)[0]));
@@ -137,7 +136,7 @@ public abstract class Utils {
 		}
 		return new Pair<>(s, Integer.valueOf(-1));
 	}
-	
+
 //	public final static class AmountResponse {
 //		public final String s;
 //		public final int amount;
@@ -182,44 +181,32 @@ public abstract class Utils {
 //		}
 //		return new AmountResponse(s);
 //	}
-	
+
 	private final static String[][] plurals = {
-			
+
 			{"fe", "ves"},// most -f words' plurals can end in -fs as well as -ves
-			
-			{"axe", "axes"},
-			{"x", "xes"},
-			
-			{"ay", "ays"},
-			{"ey", "eys"},
-			{"iy", "iys"},
-			{"oy", "oys"},
-			{"uy", "uys"},
-			{"kie", "kies"},
-			{"zombie", "zombies"},
-			{"y", "ies"},
-			
+
+			{"axe", "axes"}, {"x", "xes"},
+
+			{"ay", "ays"}, {"ey", "eys"}, {"iy", "iys"}, {"oy", "oys"}, {"uy", "uys"}, {"kie", "kies"}, {"zombie", "zombies"}, {"y", "ies"},
+
 			{"h", "hes"},
-			
+
 			{"man", "men"},
-			
+
 			{"us", "i"},
-			
-			{"hoe", "hoes"},
-			{"toe", "toes"},
-			{"o", "oes"},
-			
-			{"alias", "aliases"},
-			{"gas", "gases"},
-			
+
+			{"hoe", "hoes"}, {"toe", "toes"}, {"o", "oes"},
+
+			{"alias", "aliases"}, {"gas", "gases"},
+
 			{"child", "children"},
-			
+
 			{"sheep", "sheep"},
-			
+
 			// general ending
-			{"", "s"},
-	};
-	
+			{"", "s"},};
+
 	/**
 	 * @param s trimmed string
 	 * @return Pair of singular string + boolean whether it was plural
@@ -237,7 +224,7 @@ public abstract class Utils {
 		}
 		return new NonNullPair<>(s, Boolean.FALSE);
 	}
-	
+
 	/**
 	 * Gets the english plural of a word.
 	 * 
@@ -253,7 +240,7 @@ public abstract class Utils {
 		assert false;
 		return s + "s";
 	}
-	
+
 	/**
 	 * Gets the plural of a word (or not if p is false)
 	 * 
@@ -266,7 +253,7 @@ public abstract class Utils {
 			return toEnglishPlural(s);
 		return s;
 	}
-	
+
 	/**
 	 * Adds 'a' or 'an' to the given string, depending on the first character of the string.
 	 * 
@@ -278,7 +265,7 @@ public abstract class Utils {
 	public static String a(final String s) {
 		return a(s, false);
 	}
-	
+
 	/**
 	 * Adds 'A' or 'An' to the given string, depending on the first character of the string.
 	 * 
@@ -290,7 +277,7 @@ public abstract class Utils {
 	public static String A(final String s) {
 		return a(s, true);
 	}
-	
+
 	/**
 	 * Adds 'a' or 'an' to the given string, depending on the first character of the string.
 	 * 
@@ -311,9 +298,10 @@ public abstract class Utils {
 			return "a " + s;
 		}
 	}
-	
+
 	/**
-	 * Gets the collision height of solid or partially-solid blocks at the center of the block. This is mostly for use in the {@link EffTeleport teleport effect}.
+	 * Gets the collision height of solid or partially-solid blocks at the center of the block. This is mostly for use
+	 * in the {@link EffTeleport teleport effect}.
 	 * <p>
 	 * TODO !Update with every version [blocks]
 	 * 
@@ -367,12 +355,13 @@ public abstract class Utils {
 				return 1;
 		}
 	}
-	
+
 	final static ChatColor[] styles = {ChatColor.BOLD, ChatColor.ITALIC, ChatColor.STRIKETHROUGH, ChatColor.UNDERLINE, ChatColor.MAGIC, ChatColor.RESET};
 	final static Map<String, String> chat = new HashMap<>();
 	final static Map<String, String> englishChat = new HashMap<>();
 	static {
 		Language.addListener(new LanguageChangeListener() {
+
 			@Override
 			public void onLanguageChange() {
 				final boolean english = englishChat.isEmpty();
@@ -387,7 +376,7 @@ public abstract class Utils {
 			}
 		});
 	}
-	
+
 	@Nullable
 	public static String getChatStyle(final String s) {
 		final Color c = Color.byName(s);
@@ -395,9 +384,9 @@ public abstract class Utils {
 			return c.getChat();
 		return chat.get(s);
 	}
-	
+
 	private final static Pattern stylePattern = Pattern.compile("<([^<>]+)>");
-	
+
 	/**
 	 * Replaces &lt;chat styles&gt; in the message
 	 * 
@@ -408,6 +397,7 @@ public abstract class Utils {
 		if (message.isEmpty())
 			return message;
 		String m = StringUtils.replaceAll("" + message.replace("<<none>>", ""), stylePattern, new Callback<String, Matcher>() {
+
 			@Override
 			public String run(final Matcher m) {
 				final Color c = Color.byName("" + m.group(1));
@@ -423,9 +413,10 @@ public abstract class Utils {
 		m = ChatColor.translateAlternateColorCodes('&', "" + m);
 		return "" + m;
 	}
-	
+
 	/**
-	 * Replaces english &lt;chat styles&gt; in the message. This is used for messages in the language file as the language of colour codes is not well defined while the language is
+	 * Replaces english &lt;chat styles&gt; in the message. This is used for messages in the language file as the
+	 * language of colour codes is not well defined while the language is
 	 * changing, and for some hardcoded messages.
 	 * 
 	 * @param message
@@ -435,6 +426,7 @@ public abstract class Utils {
 		if (message.isEmpty())
 			return message;
 		String m = StringUtils.replaceAll(message, stylePattern, new Callback<String, Matcher>() {
+
 			@Override
 			public String run(final Matcher m) {
 				final Color c = Color.byEnglishName("" + m.group(1));
@@ -450,7 +442,7 @@ public abstract class Utils {
 		m = ChatColor.translateAlternateColorCodes('&', "" + m);
 		return "" + m;
 	}
-	
+
 	/**
 	 * Gets a random value between <tt>start</tt> (inclusive) and <tt>end</tt> (exclusive)
 	 * 
@@ -463,7 +455,7 @@ public abstract class Utils {
 			throw new IllegalArgumentException("end (" + end + ") must be > start (" + start + ")");
 		return start + random.nextInt(end - start);
 	}
-	
+
 	// TODO improve
 	public static Class<?> getSuperType(final Class<?>... cs) {
 		assert cs.length > 0;
@@ -495,9 +487,10 @@ public abstract class Utils {
 		}
 		return r;
 	}
-	
+
 	/**
-	 * Parses a number that was validated to be an integer but might still result in a {@link NumberFormatException} when parsed with {@link Integer#parseInt(String)} due to
+	 * Parses a number that was validated to be an integer but might still result in a {@link NumberFormatException}
+	 * when parsed with {@link Integer#parseInt(String)} due to
 	 * overflow.
 	 * This method will return {@link Integer#MIN_VALUE} or {@link Integer#MAX_VALUE} respectively if that happens.
 	 * 
@@ -512,9 +505,10 @@ public abstract class Utils {
 			return s.startsWith("-") ? Integer.MIN_VALUE : Integer.MAX_VALUE;
 		}
 	}
-	
+
 	/**
-	 * Parses a number that was validated to be an integer but might still result in a {@link NumberFormatException} when parsed with {@link Long#parseLong(String)} due to
+	 * Parses a number that was validated to be an integer but might still result in a {@link NumberFormatException}
+	 * when parsed with {@link Long#parseLong(String)} due to
 	 * overflow.
 	 * This method will return {@link Long#MIN_VALUE} or {@link Long#MAX_VALUE} respectively if that happens.
 	 * 
@@ -529,10 +523,11 @@ public abstract class Utils {
 			return s.startsWith("-") ? Long.MIN_VALUE : Long.MAX_VALUE;
 		}
 	}
-	
+
 	/**
 	 * Gets class for name. Throws RuntimeException instead of checked one.
 	 * Use this only when absolutely necessary.
+	 * 
 	 * @param name Class name.
 	 * @return The class.
 	 */
@@ -545,5 +540,5 @@ public abstract class Utils {
 			throw new RuntimeException("Class not found!");
 		}
 	}
-	
+
 }

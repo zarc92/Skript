@@ -37,27 +37,23 @@ import org.eclipse.jdt.annotation.Nullable;
 @Examples({"if {_number} is NaN value:"})
 @Since("2.2-dev32d")
 public class ExprSpecialNumber extends SimpleExpression<Number> {
+
 	private int value;
 
 	static {
-		Skript.registerExpression(
-			ExprSpecialNumber.class,
-			Number.class,
-			ExpressionType.SIMPLE, 
-			"(0¦NaN|1¦[(2¦-|2¦minus)](infinity|\u221e)) value",
-			"value of (0¦NaN|1¦[(2¦-|2¦minus)](infinity|\u221e))"
-		);
+		Skript.registerExpression(ExprSpecialNumber.class, Number.class, ExpressionType.SIMPLE, "(0¦NaN|1¦[(2¦-|2¦minus)](infinity|\u221e)) value", "value of (0¦NaN|1¦[(2¦-|2¦minus)](infinity|\u221e))");
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		this.value = parseResult.mark;
 		return true;
 	}
 
 	@Override
 	protected Number[] get(Event e) {
-		return new Number[]{value == 0 ? Double.NaN : value == 1 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY};
+		return new Number[] {value == 0 ? Double.NaN : value == 1 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY};
 	}
 
 	@Override

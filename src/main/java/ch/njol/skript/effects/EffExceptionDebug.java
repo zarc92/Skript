@@ -32,7 +32,7 @@ import ch.njol.util.Kleenean;
 
 @NoDoc
 public class EffExceptionDebug extends Effect {
-	
+
 	static {
 		Skript.registerEffect(EffExceptionDebug.class, "cause exception");
 	}
@@ -41,7 +41,6 @@ public class EffExceptionDebug extends Effect {
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		return true;
 	}
-	
 
 	@Override
 	protected void execute(Event e) {
@@ -52,5 +51,5 @@ public class EffExceptionDebug extends Effect {
 	public String toString(@Nullable Event e, boolean debug) {
 		return "cause exception";
 	}
-	
+
 }

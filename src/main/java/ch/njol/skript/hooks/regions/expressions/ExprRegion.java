@@ -35,24 +35,22 @@ import ch.njol.skript.lang.ExpressionType;
  * @author Peter Güttinger
  */
 @Name("Region")
-@Description({"The <a href='classes.html#region'>region</a> involved in an event.",
-		"This expression requires a supported regions plugin to be installed."})
-@Examples({"on region enter:",
-		"	region is {forbidden region}",
-		"	cancel the event"})
+@Description({"The <a href='classes.html#region'>region</a> involved in an event.", "This expression requires a supported regions plugin to be installed."})
+@Examples({"on region enter:", "	region is {forbidden region}", "	cancel the event"})
 @Since("2.1")
 public class ExprRegion extends EventValueExpression<Region> {
+
 	static {
 		Skript.registerExpression(ExprRegion.class, Region.class, ExpressionType.SIMPLE, "[the] [event-]region");
 	}
-	
+
 	public ExprRegion() {
 		super(Region.class);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the region";
 	}
-	
+
 }

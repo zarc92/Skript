@@ -41,13 +41,14 @@ import ch.njol.yggdrasil.ClassResolver;
  */
 // REMIND support more plugins?
 public abstract class RegionsPlugin<P extends Plugin> extends Hook<P> {
-	
+
 	public RegionsPlugin() throws IOException {}
-	
+
 	public static Collection<RegionsPlugin<?>> plugins = new ArrayList<>(2);
-	
+
 	static {
 		Variables.yggdrasil.registerClassResolver(new ClassResolver() {
+
 			@Override
 			@Nullable
 			public String getID(final Class<?> c) {
@@ -56,7 +57,7 @@ public abstract class RegionsPlugin<P extends Plugin> extends Hook<P> {
 						return c.getClass().getSimpleName();
 				return null;
 			}
-			
+
 			@Override
 			@Nullable
 			public Class<?> getClass(final String id) {
@@ -67,15 +68,15 @@ public abstract class RegionsPlugin<P extends Plugin> extends Hook<P> {
 			}
 		});
 	}
-	
+
 	@Override
 	protected boolean init() {
 		plugins.add(this);
 		return true;
 	}
-	
+
 	public abstract boolean canBuild_i(Player p, Location l);
-	
+
 	public static boolean canBuild(final Player p, final Location l) {
 		for (final RegionsPlugin<?> pl : plugins) {
 			if (!pl.canBuild_i(p, l))
@@ -83,9 +84,9 @@ public abstract class RegionsPlugin<P extends Plugin> extends Hook<P> {
 		}
 		return true;
 	}
-	
+
 	public abstract Collection<? extends Region> getRegionsAt_i(Location l);
-	
+
 	public static Set<? extends Region> getRegionsAt(final Location l) {
 		final Set<Region> r = new HashSet<>();
 		for (final RegionsPlugin<?> pl : plugins) {
@@ -93,10 +94,10 @@ public abstract class RegionsPlugin<P extends Plugin> extends Hook<P> {
 		}
 		return r;
 	}
-	
+
 	@Nullable
 	public abstract Region getRegion_i(World world, String name);
-	
+
 	@Nullable
 	public static Region getRegion(final World world, final String name) {
 		for (final RegionsPlugin<?> pl : plugins) {
@@ -104,9 +105,9 @@ public abstract class RegionsPlugin<P extends Plugin> extends Hook<P> {
 		}
 		return null;
 	}
-	
+
 	public abstract boolean hasMultipleOwners_i();
-	
+
 	public static boolean hasMultipleOwners() {
 		for (final RegionsPlugin<?> pl : plugins) {
 			if (pl.hasMultipleOwners_i())
@@ -114,9 +115,9 @@ public abstract class RegionsPlugin<P extends Plugin> extends Hook<P> {
 		}
 		return false;
 	}
-	
+
 	protected abstract Class<? extends Region> getRegionClass();
-	
+
 	@Nullable
 	public static RegionsPlugin<?> getPlugin(final String name) {
 		for (final RegionsPlugin<?> pl : plugins) {
@@ -125,5 +126,5 @@ public abstract class RegionsPlugin<P extends Plugin> extends Hook<P> {
 		}
 		return null;
 	}
-	
+
 }

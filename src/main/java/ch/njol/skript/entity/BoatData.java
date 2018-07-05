@@ -32,30 +32,30 @@ import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 
 public class BoatData extends EntityData<Boat> {
+
 	static {
 		// It will only register for 1.10+,
 		// See SimpleEntityData if 1.9 or lower.
 		if (Skript.methodExists(Boat.class, "getWoodType")) { //The 'boat' is the same of 'oak boat', 'any boat' works as supertype and it can spawn random boat.
-			EntityData.register(BoatData.class, "boat", Boat.class, 0,
-					"boat", "any boat", "oak boat", "spruce boat", "birch boat", "jungle boat", "acacia boat", "dark oak boat");
+			EntityData.register(BoatData.class, "boat", Boat.class, 0, "boat", "any boat", "oak boat", "spruce boat", "birch boat", "jungle boat", "acacia boat", "dark oak boat");
 		}
 	}
-	
-	public BoatData(){
+
+	public BoatData() {
 		this(0);
 	}
-	
-	public BoatData(@Nullable TreeSpecies type){
+
+	public BoatData(@Nullable TreeSpecies type) {
 		this(type != null ? type.ordinal() + 2 : 1);
 	}
-	
-	private BoatData(int type){
+
+	private BoatData(int type) {
 		matchedPattern = type;
 	}
-	
+
 	@Override
 	protected boolean init(Literal<?>[] exprs, int matchedPattern, ParseResult parseResult) {
-		
+
 		return true;
 	}
 
@@ -97,33 +97,46 @@ public class BoatData extends EntityData<Boat> {
 	@Override
 	protected boolean equals_i(EntityData<?> obj) {
 		if (obj instanceof BoatData)
-			return matchedPattern == ((BoatData)obj).matchedPattern;
+			return matchedPattern == ((BoatData) obj).matchedPattern;
 		return false;
 	}
 
 	@Override
 	public boolean isSupertypeOf(EntityData<?> e) {
 		if (e instanceof BoatData)
-			return matchedPattern <= 1 || matchedPattern == ((BoatData)e).matchedPattern;
+			return matchedPattern <= 1 || matchedPattern == ((BoatData) e).matchedPattern;
 		return false;
 	}
-	
+
 	@SuppressWarnings("null")
-	public boolean isOfItemType(ItemType i){
+	public boolean isOfItemType(ItemType i) {
 		if (i.getRandom() == null)
 			return false;
 		int ordinal = -1;
-		switch (i.getRandom().getType()){
-			case BOAT: ordinal = 0 ; break; //It is to make 'boat' and 'any boat' works as supertype when comparing.
-			case BOAT_SPRUCE: ordinal = TreeSpecies.REDWOOD.ordinal(); break;
-			case BOAT_BIRCH: ordinal = TreeSpecies.BIRCH.ordinal(); break;
-			case BOAT_JUNGLE: ordinal = TreeSpecies.JUNGLE.ordinal(); break;
-			case BOAT_ACACIA: ordinal = TreeSpecies.ACACIA.ordinal(); break;
-			case BOAT_DARK_OAK: ordinal = TreeSpecies.DARK_OAK.ordinal(); break;
-				//$CASES-OMITTED$
-			default: return false;
+		switch (i.getRandom().getType()) {
+			case BOAT:
+				ordinal = 0;
+				break; //It is to make 'boat' and 'any boat' works as supertype when comparing.
+			case BOAT_SPRUCE:
+				ordinal = TreeSpecies.REDWOOD.ordinal();
+				break;
+			case BOAT_BIRCH:
+				ordinal = TreeSpecies.BIRCH.ordinal();
+				break;
+			case BOAT_JUNGLE:
+				ordinal = TreeSpecies.JUNGLE.ordinal();
+				break;
+			case BOAT_ACACIA:
+				ordinal = TreeSpecies.ACACIA.ordinal();
+				break;
+			case BOAT_DARK_OAK:
+				ordinal = TreeSpecies.DARK_OAK.ordinal();
+				break;
+			//$CASES-OMITTED$
+			default:
+				return false;
 		}
 		return hashCode_i() == ordinal + 2 || (matchedPattern + ordinal == 2) || ordinal == 0;
-		
+
 	}
 }

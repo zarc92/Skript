@@ -39,16 +39,12 @@ import ch.njol.util.Kleenean;
 
 @Name("Indexes of List")
 @Description("Returns all the indexes of a list variable")
-@Examples("set {l::*} to \"some\", \"cool\" and \"values\"\n" +
-		"broadcast \"%all indexes of {l::*}%\" # result is 1, 2 and 3")
+@Examples("set {l::*} to \"some\", \"cool\" and \"values\"\n" + "broadcast \"%all indexes of {l::*}%\" # result is 1, 2 and 3")
 @Since("INSERT VERSION")
 public class ExprIndexes extends SimpleExpression<String> {
 
 	static {
-		Skript.registerExpression(ExprIndexes.class, String.class, ExpressionType.COMBINED,
-				"[the] indexes of %objects%",
-				"(all of the|all the|all) indexes of %objects%"
-		);
+		Skript.registerExpression(ExprIndexes.class, String.class, ExpressionType.COMBINED, "[the] indexes of %objects%", "(all of the|all the|all) indexes of %objects%");
 	}
 
 	@SuppressWarnings("null")
@@ -82,7 +78,8 @@ public class ExprIndexes extends SimpleExpression<String> {
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		if (exprs[0] instanceof Variable<?> && ((Variable<?>) exprs[0]).isList()) {
 			list = (Variable<?>) exprs[0];
 			return true;

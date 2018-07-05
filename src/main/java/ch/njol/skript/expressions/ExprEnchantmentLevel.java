@@ -43,33 +43,33 @@ import ch.njol.util.Kleenean;
  */
 @Name("Enchantment Level")
 @Description("The level of a particular <a href='classes.html#enchantment'>enchantment</a> on an item")
-@Examples({"player' tool is a sword of sharpness:",
-		"	message \"You have a sword of sharpness %level of sharpness of the player's tool% equipped\""})
+@Examples({"player' tool is a sword of sharpness:", "	message \"You have a sword of sharpness %level of sharpness of the player's tool% equipped\""})
 @Since("2.0")
 public class ExprEnchantmentLevel extends PropertyExpression<ItemType, Integer> {
+
 	static {
-		Skript.registerExpression(ExprEnchantmentLevel.class, Integer.class, ExpressionType.PROPERTY,
-				"[the] (%-enchantment% level|level of [[the] enchant[ment]] %-enchantment%) o(f|n) %itemtypes%",
-				"%itemtypes%'[s] (%-enchantment% level|level of [[the] enchant[ment]] %-enchantment%)");
+		Skript.registerExpression(ExprEnchantmentLevel.class, Integer.class, ExpressionType.PROPERTY, "[the] (%-enchantment% level|level of [[the] enchant[ment]] %-enchantment%) o(f|n) %itemtypes%", "%itemtypes%'[s] (%-enchantment% level|level of [[the] enchant[ment]] %-enchantment%)");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Enchantment> enchantment;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		setExpr((Expression<? extends ItemType>) exprs[2 - 2 * matchedPattern]);
 		enchantment = (Expression<Enchantment>) (exprs[matchedPattern] == null ? exprs[matchedPattern + 1] : exprs[matchedPattern]);
 		return true;
 	}
-	
+
 	@Override
 	protected Integer[] get(final Event e, final ItemType[] source) {
 		final Enchantment ench = enchantment.getSingle(e);
 		if (ench == null)
 			return new Integer[0];
 		return get(source, new Converter<ItemType, Integer>() {
+
 			@Override
 			@Nullable
 			public Integer convert(final ItemType i) {
@@ -81,15 +81,15 @@ public class ExprEnchantmentLevel extends PropertyExpression<ItemType, Integer> 
 			}
 		});
 	}
-	
+
 	@Override
 	public Class<? extends Integer> getReturnType() {
 		return Integer.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the level of " + enchantment.toString(e, debug) + " of " + getExpr().toString(e, debug);
 	}
-	
+
 }

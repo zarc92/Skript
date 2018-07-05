@@ -47,33 +47,28 @@ import ch.njol.util.Kleenean;
 
 @Name("Inventory Slot")
 @Description({"Represents a slot in a inventory. It can be used to change the item in a inventory too."})
-@Examples({"if slot 0 of player is air:",
-	"\tset slot 0 of player to 2 stones",
-	"\tremove 1 stone from slot 0 of player",
-	"\tadd 2 stones to slot 0 of player",
-	"\tclear slot 1 of player"})
+@Examples({"if slot 0 of player is air:", "\tset slot 0 of player to 2 stones", "\tremove 1 stone from slot 0 of player", "\tadd 2 stones to slot 0 of player", "\tclear slot 1 of player"})
 @Since("2.2-dev24")
 public class ExprInventorySlot extends SimpleExpression<Slot> {
-	
+
 	static {
-		Skript.registerExpression(ExprInventorySlot.class, Slot.class, ExpressionType.COMBINED,
-				"[the] slot[s] %numbers% of %inventory%", "%inventory%'[s] slot[s] %numbers%");
+		Skript.registerExpression(ExprInventorySlot.class, Slot.class, ExpressionType.COMBINED, "[the] slot[s] %numbers% of %inventory%", "%inventory%'[s] slot[s] %numbers%");
 	}
 
 	@SuppressWarnings("null")
 	private Expression<Number> slots;
 	@SuppressWarnings("null")
 	private Expression<Inventory> invis;
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-		if (matchedPattern == 0){
-			 slots = (Expression<Number>) exprs[0];
-			 invis = (Expression<Inventory>) exprs[1];
+		if (matchedPattern == 0) {
+			slots = (Expression<Number>) exprs[0];
+			invis = (Expression<Inventory>) exprs[1];
 		} else {
-			 slots = (Expression<Number>) exprs[1];
-			 invis = (Expression<Inventory>) exprs[0];			
+			slots = (Expression<Number>) exprs[1];
+			invis = (Expression<Inventory>) exprs[0];
 		}
 		return true;
 	}
@@ -84,7 +79,7 @@ public class ExprInventorySlot extends SimpleExpression<Slot> {
 		Inventory invi = invis.getSingle(event);
 		if (invi == null)
 			return null;
-		
+
 		List<Slot> inventorySlots = new ArrayList<>();
 		for (Number slot : slots.getArray(event)) {
 			if (slot.intValue() >= 0 && slot.intValue() < invi.getSize()) {
@@ -99,12 +94,12 @@ public class ExprInventorySlot extends SimpleExpression<Slot> {
 				}
 			}
 		}
-		
+
 		if (inventorySlots.isEmpty())
 			return null;
 		return inventorySlots.toArray(new Slot[inventorySlots.size()]);
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return slots.isSingle();
@@ -114,7 +109,7 @@ public class ExprInventorySlot extends SimpleExpression<Slot> {
 	public Class<? extends Slot> getReturnType() {
 		return Slot.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Object[] beforeChange(Expression<?> changed, @Nullable Object[] delta) {
@@ -123,16 +118,16 @@ public class ExprInventorySlot extends SimpleExpression<Slot> {
 		Object first = delta[0];
 		if (first == null) // ConvertedExpression might cause this
 			return null;
-		
+
 		// Slots must be transformed to item stacks when writing to variables
 		// Documentation by Njol states so, plus it is convenient
 		if (changed instanceof Variable && first instanceof Slot) {
 			return new ItemStack[] {((Slot) first).getItem()};
 		}
-		
+
 		return delta;
 	}
-	
+
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
 		return "slots " + slots.toString(e, debug) + " of " + invis.toString(e, debug);

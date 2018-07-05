@@ -45,20 +45,21 @@ import ch.njol.util.Closeable;
  */
 @SuppressWarnings("null")
 public class UnresolvedOfflinePlayer implements OfflinePlayer {
-	
+
 	static LinkedBlockingQueue<UnresolvedOfflinePlayer> toResolve;
 	final static Thread resolverThread;
-	
+
 	static {
 		resolverThread = Skript.newThread(new Runnable() {
+
 			@SuppressWarnings({"deprecation", "unused"})
 			@Override
-			public void run() {				
+			public void run() {
 				while (true) {
 					if (toResolve == null) {
 						toResolve = new LinkedBlockingQueue<>();
 					}
-					
+
 					try {
 						final UnresolvedOfflinePlayer p = toResolve.take();
 						p.bukkitOfflinePlayer = Bukkit.getOfflinePlayer(p.name);
@@ -71,99 +72,101 @@ public class UnresolvedOfflinePlayer implements OfflinePlayer {
 		}, "Skript offline player resolver thread (fetches UUIDs from the minecraft servers)");
 		resolverThread.start();
 		Skript.closeOnDisable(new Closeable() {
+
 			@Override
 			public void close() {
 				resolverThread.interrupt();
 			}
 		});
 	}
-	
+
 	final String name;
 	@Nullable
 	OfflinePlayer bukkitOfflinePlayer = null;
 	final Callback<Void, OfflinePlayer> callback;
-	
+
 	/**
 	 * @param name The player's name
-	 * @param callback A callback that will be run when the player has been resolved. It will be called on the resolver thread which should not be blocked.
+	 * @param callback A callback that will be run when the player has been resolved. It will be called on the resolver
+	 *            thread which should not be blocked.
 	 */
 	public UnresolvedOfflinePlayer(final String name, final Callback<Void, OfflinePlayer> callback) {
 		this.name = name;
 		this.callback = callback;
-		
+
 		toResolve.add(this);
 	}
-	
+
 	@Override
 	public String getName() {
 		return bukkitOfflinePlayer != null ? bukkitOfflinePlayer.getName() : name;
 	}
-	
+
 	@Override
 	public boolean isOnline() {
 		return bukkitOfflinePlayer != null ? bukkitOfflinePlayer.isOnline() : getPlayer() != null;
 	}
-	
+
 	@Override
 	@SuppressWarnings("deprecation")
 	@Nullable
 	public Player getPlayer() {
 		return bukkitOfflinePlayer != null ? bukkitOfflinePlayer.getPlayer() : Bukkit.getPlayerExact(name);
 	}
-	
+
 	@Override
 	public boolean isOp() {
 		return bukkitOfflinePlayer.isOp();
 	}
-	
+
 	@Override
 	public void setOp(final boolean value) {
 		bukkitOfflinePlayer.setOp(value);
 	}
-	
+
 	@Override
 	public UUID getUniqueId() {
 		return bukkitOfflinePlayer.getUniqueId();
 	}
-	
+
 	@Override
 	public Map<String, Object> serialize() {
 		return bukkitOfflinePlayer.serialize();
 	}
-	
+
 	@Override
 	public boolean isBanned() {
 		return bukkitOfflinePlayer.isBanned();
 	}
-	
+
 	@Override
 	public boolean isWhitelisted() {
 		return bukkitOfflinePlayer.isWhitelisted();
 	}
-	
+
 	@Override
 	public void setWhitelisted(final boolean value) {
 		bukkitOfflinePlayer.setWhitelisted(value);
 	}
-	
+
 	@Override
 	public long getFirstPlayed() {
 		return bukkitOfflinePlayer.getFirstPlayed();
 	}
-	
+
 	@Override
 	public long getLastPlayed() {
 		return bukkitOfflinePlayer.getLastPlayed();
 	}
-	
+
 	@Override
 	public boolean hasPlayedBefore() {
 		return bukkitOfflinePlayer.hasPlayedBefore();
 	}
-	
+
 	@Override
 	public Location getBedSpawnLocation() {
 		return bukkitOfflinePlayer.getBedSpawnLocation();
 	}
-	
+
 }

@@ -38,11 +38,11 @@ import ch.njol.util.Pair;
  * @author Peter Güttinger
  */
 public class Comparators {
-	
+
 	private Comparators() {}
-	
+
 	public final static Collection<ComparatorInfo<?, ?>> comparators = new ArrayList<>();
-	
+
 	/**
 	 * Registers a {@link Comparator}.
 	 * 
@@ -57,31 +57,32 @@ public class Comparators {
 			throw new IllegalArgumentException("You must not add a comparator for Objects");
 		comparators.add(new ComparatorInfo<>(t1, t2, c));
 	}
-	
+
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	public static Relation compare(final @Nullable Object o1, final @Nullable Object o2) {
 		if (o1 == null || o2 == null)
 			return Relation.NOT_EQUAL;
 		final Comparator c = getComparator(o1.getClass(), o2.getClass());
-		
+
 		if (c == null)
 			return Relation.NOT_EQUAL;
 		return c.compare(o1, o2);
 	}
-	
+
 	private final static java.util.Comparator<Object> javaComparator = new java.util.Comparator<Object>() {
+
 		@Override
 		public int compare(final @Nullable Object o1, final @Nullable Object o2) {
 			return Comparators.compare(o1, o2).getRelation();
 		}
 	};
-	
+
 	public static java.util.Comparator<Object> getJavaComparator() {
 		return javaComparator;
 	}
-	
+
 	private final static Map<Pair<Class<?>, Class<?>>, Comparator<?, ?>> comparatorsQuickAccess = new HashMap<>();
-	
+
 	@SuppressWarnings("unchecked")
 	@Nullable
 	public static <F, S> Comparator<? super F, ? super S> getComparator(final Class<F> f, final Class<S> s) {
@@ -92,11 +93,11 @@ public class Comparators {
 		comparatorsQuickAccess.put(p, comp);
 		return (Comparator<? super F, ? super S>) comp;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Nullable
 	private static <F, S> Comparator<?, ?> getComparator_i(final Class<F> f, final Class<S> s) {
-		
+
 		// perfect match
 		for (final ComparatorInfo<?, ?> info : comparators) {
 			if (info.c1.isAssignableFrom(f) && info.c2.isAssignableFrom(s)) {
@@ -105,74 +106,78 @@ public class Comparators {
 				return new InverseComparator<F, S>((Comparator<? super S, ? super F>) info.c);
 			}
 		}
-		
+
 		// same class but no comparator
 		if (s == f && f != Object.class && s != Object.class) {
 			return Comparator.equalsComparator;
 		}
-		
+
 		final boolean[] trueFalse = {true, false};
 		Converter<? super F, ?> c1;
 		Converter<? super S, ?> c2;
-		
+
 		// single conversion
 		for (final ComparatorInfo<?, ?> info : comparators) {
 			for (final boolean first : trueFalse) {
 				if (info.getType(first).isAssignableFrom(f)) {
 					c2 = Converters.getConverter(s, info.getType(!first));
 					if (c2 != null) {
-						return first ? new ConvertedComparator<F, S>(info.c, c2) : new InverseComparator<>(new ConvertedComparator<>(c2, info.c));
+						return first ? new ConvertedComparator<F, S>(info.c,
+								c2) : new InverseComparator<>(new ConvertedComparator<>(c2, info.c));
 					}
 				}
 				if (info.getType(first).isAssignableFrom(s)) {
 					c1 = Converters.getConverter(f, info.getType(!first));
 					if (c1 != null) {
-						return !first ? new ConvertedComparator<F, S>(c1, info.c) : new InverseComparator<>(new ConvertedComparator<>(info.c, c1));
+						return !first ? new ConvertedComparator<F, S>(c1,
+								info.c) : new InverseComparator<>(new ConvertedComparator<>(info.c, c1));
 					}
 				}
 			}
 		}
-		
+
 		// double conversion
 		for (final ComparatorInfo<?, ?> info : comparators) {
 			for (final boolean first : trueFalse) {
 				c1 = Converters.getConverter(f, info.getType(first));
 				c2 = Converters.getConverter(s, info.getType(!first));
 				if (c1 != null && c2 != null) {
-					return first ? new ConvertedComparator<F, S>(c1, info.c, c2) : new InverseComparator<>(new ConvertedComparator<>(c2, info.c, c1));
+					return first ? new ConvertedComparator<F, S>(c1, info.c,
+							c2) : new InverseComparator<>(new ConvertedComparator<>(c2, info.c, c1));
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	private final static class ConvertedComparator<T1, T2> implements Comparator<T1, T2> {
-		
+
 		@SuppressWarnings("rawtypes")
 		private final Comparator c;
 		@SuppressWarnings("rawtypes")
 		@Nullable
 		private final Converter c1, c2;
-		
+
 		public ConvertedComparator(final Converter<? super T1, ?> c1, final Comparator<?, ?> c) {
 			this.c1 = c1;
 			this.c = c;
 			this.c2 = null;
 		}
-		
+
 		public ConvertedComparator(final Comparator<?, ?> c, final Converter<? super T2, ?> c2) {
 			this.c1 = null;
 			this.c = c;
 			this.c2 = c2;
 		}
-		
-		public ConvertedComparator(final Converter<? super T1, ?> c1, final Comparator<?, ?> c, final Converter<? super T2, ?> c2) {
+
+		public ConvertedComparator(final Converter<? super T1, ?> c1, final Comparator<?, ?> c,
+				final Converter<? super T2, ?> c2) {
 			this.c1 = c1;
 			this.c = c;
 			this.c2 = c2;
 		}
-		
+
 		@SuppressWarnings({"rawtypes", "unchecked"})
 		@Override
 		public Relation compare(final T1 o1, final T2 o2) {
@@ -186,17 +191,17 @@ public class Comparators {
 				return Relation.NOT_EQUAL;
 			return c.compare(t1, t2);
 		}
-		
+
 		@Override
 		public boolean supportsOrdering() {
 			return c.supportsOrdering();
 		}
-		
+
 		@Override
 		public String toString() {
 			return "ConvertedComparator(" + c1 + "," + c + "," + c2 + ")";
 		}
-		
+
 	}
-	
+
 }

@@ -49,40 +49,37 @@ import ch.njol.util.Kleenean;
  */
 @Name("Targeted Block")
 @Description("The block at the crosshair. This regards all blocks that are not air as fully opaque, e.g. torches will be like a solid stone block for this expression.")
-@Examples({"# A command to set the block a player looks at to a specific type:",
-		"command /setblock <material>:",
-		"    trigger:",
-		"        set targeted block to argument"})
+@Examples({"# A command to set the block a player looks at to a specific type:", "command /setblock <material>:", "    trigger:", "        set targeted block to argument"})
 @Since("1.0")
 public class ExprTargetedBlock extends PropertyExpression<Player, Block> {
+
 	static {
-		Skript.registerExpression(ExprTargetedBlock.class, Block.class, ExpressionType.COMBINED,
-				"[the] target[ed] block[s] [of %players%]", "%players%'[s] target[ed] block[s]",
-				"[the] actual[ly] target[ed] block[s] [of %players%]", "%players%'[s] actual[ly] target[ed] block[s]");
+		Skript.registerExpression(ExprTargetedBlock.class, Block.class, ExpressionType.COMBINED, "[the] target[ed] block[s] [of %players%]", "%players%'[s] target[ed] block[s]", "[the] actual[ly] target[ed] block[s] [of %players%]", "%players%'[s] actual[ly] target[ed] block[s]");
 	}
-	
+
 	private boolean actualTargetedBlock;
-	
+
 	@Nullable
 	private static Event last = null;
 	private final static WeakHashMap<Player, Block> targetedBlocks = new WeakHashMap<>();
 	private static long blocksValidForTick = 0;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<Player>) exprs[0]);
 		actualTargetedBlock = matchedPattern >= 2;
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (e == null)
 			return "the targeted block" + (getExpr().isSingle() ? "" : "s") + " of " + getExpr().toString(e, debug);
 		return Classes.getDebugMessage(getAll(e));
 	}
-	
+
 	@Nullable
 	Block getTargetedBlock(final @Nullable Player p, final Event e) {
 		if (p == null)
@@ -100,7 +97,7 @@ public class ExprTargetedBlock extends PropertyExpression<Player, Block> {
 //			return ((PlayerInteractEvent) e).getClickedBlock();
 //		}
 		try {
-			Block b = p.getTargetBlock((Set<Material>)null, SkriptConfig.maxTargetBlockDistance.value());
+			Block b = p.getTargetBlock((Set<Material>) null, SkriptConfig.maxTargetBlockDistance.value());
 			if (b.getType() == Material.AIR)
 				b = null;
 			targetedBlocks.put(p, b);
@@ -109,10 +106,11 @@ public class ExprTargetedBlock extends PropertyExpression<Player, Block> {
 			return null;
 		}
 	}
-	
+
 	@Override
 	protected Block[] get(final Event e, final Player[] source) {
 		return get(source, new Converter<Player, Block>() {
+
 			@Override
 			@Nullable
 			public Block convert(final Player p) {
@@ -120,21 +118,21 @@ public class ExprTargetedBlock extends PropertyExpression<Player, Block> {
 			}
 		});
 	}
-	
+
 	@Override
 	public Class<Block> getReturnType() {
 		return Block.class;
 	}
-	
+
 	@Override
 	public boolean isDefault() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean setTime(final int time) {
 		super.setTime(time);
 		return true;
 	}
-	
+
 }

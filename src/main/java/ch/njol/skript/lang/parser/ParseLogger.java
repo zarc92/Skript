@@ -35,45 +35,47 @@ import ch.njol.skript.log.ParseLogHandler;
  * Interface for logging during parsing.
  */
 public interface ParseLogger {
-	
+
 	/**
 	 * Submits a parse log handler. Errors will be displayed
 	 * when enabling scripts, which allows them to be ordered.
-	 * 
 	 * It is not recommended to write anything to log after submitting it.
+	 * 
 	 * @param log Log handler.
 	 */
 	void submitErrorLog(ParseLogHandler log);
-	
+
 	void submitParseLog(LogHandler log);
-	
+
 	void error(@Nullable String msg, ErrorQuality quality);
-	
+
 	void error(@Nullable String msg);
-	
+
 	void warning(@Nullable String msg);
-	
+
 	void info(@Nullable String msg);
-	
+
 	default void debug(@Nullable String msg) {
 		if (Skript.debug())
 			info(msg);
 	}
-	
+
 	void log(@Nullable LogEntry entry);
-	
+
 	default void logAll(Collection<LogEntry> entries) {
 		entries.forEach(entry -> log(entry));
 	}
-	
+
 	/**
 	 * Sets node for this parser instance.
+	 * 
 	 * @param node Node.
 	 */
 	void setNode(@Nullable Node node);
-	
+
 	/**
 	 * Gets node from this parser instance.
+	 * 
 	 * @return Node or null, if there is no node.
 	 */
 	@Nullable

@@ -102,12 +102,13 @@ import ch.njol.util.coll.CollectionUtils;
  * @author Peter Güttinger
  */
 final public class ScriptLoader {
+
 	private ScriptLoader() {}
-	
+
 	private final static Message m_no_errors = new Message("skript.no errors"),
 			m_no_scripts = new Message("skript.no scripts");
 	private final static PluralizingArgsMessage m_scripts_loaded = new PluralizingArgsMessage("skript.scripts loaded");
-	
+
 	@Nullable
 	public static Config currentScript = null;
 
@@ -130,6 +131,7 @@ final public class ScriptLoader {
 	 * Sets {@link ScriptLoader#callPreLoadEvent} to the provided boolean,
 	 * and adds/removes the provided SkriptAddon from {@link ScriptLoader#preloadListeners}
 	 * depending on the provided boolean (true adds, false removes).
+	 * 
 	 * @param state The new value for {@link ScriptLoader#callPreLoadEvent}
 	 * @param addon A non-null SkriptAddon
 	 */
@@ -160,18 +162,18 @@ final public class ScriptLoader {
 	 */
 	@Nullable
 	private static String currentEventName = null;
-	
+
 	@Nullable
 	public static String getCurrentEventName() {
 		return currentEventName;
 	}
-	
+
 	/**
 	 * use {@link #setCurrentEvent(String, Class...)}
 	 */
 	@Nullable
 	private static Class<? extends Event>[] currentEvents = null;
-	
+
 	/**
 	 * Call {@link #deleteCurrentEvent()} after parsing
 	 * 
@@ -183,44 +185,46 @@ final public class ScriptLoader {
 		currentEvents = events;
 		hasDelayBefore = Kleenean.FALSE;
 	}
-	
+
 	public static void deleteCurrentEvent() {
 		currentEventName = null;
 		currentEvents = null;
 		hasDelayBefore = Kleenean.FALSE;
 		TypeHints.clear(); // Local variables are local to event
 	}
-	
+
 	public static List<TriggerSection> currentSections = new ArrayList<>();
 	public static List<Loop> currentLoops = new ArrayList<>();
 	private final static Map<String, ItemType> currentAliases = new HashMap<>();
 	final static HashMap<String, String> currentOptions = new HashMap<>();
-		
+
 	public static Map<String, ItemType> getScriptAliases() {
 		return currentAliases;
 	}
-	
+
 	/**
 	 * must be synchronized
 	 */
 	private final static ScriptInfo loadedScripts = new ScriptInfo();
-	
+
 	public static Kleenean hasDelayBefore = Kleenean.FALSE;
-	
+
 	public static class ScriptInfo {
+
 		public int files, triggers, commands, functions;
-		
+
 		public ScriptInfo() {}
-		
+
 		public ScriptInfo(final int numFiles, final int numTriggers, final int numCommands, final int numFunctions) {
 			files = numFiles;
 			triggers = numTriggers;
 			commands = numCommands;
 			functions = numFunctions;
 		}
-		
+
 		/**
 		 * Copy constructor.
+		 * 
 		 * @param loadedscripts
 		 */
 		public ScriptInfo(ScriptInfo o) {
@@ -236,34 +240,34 @@ final public class ScriptLoader {
 			commands += other.commands;
 			functions += other.functions;
 		}
-		
+
 		public void subtract(final ScriptInfo other) {
 			files -= other.files;
 			triggers -= other.triggers;
 			commands -= other.commands;
 			functions -= other.functions;
 		}
-		
+
 		@Override
 		public String toString() {
 			return "ScriptInfo{files=" + files + ",triggers=" + triggers + ",commands=" + commands + ",functions:" + functions + "}";
 		}
 	}
-	
+
 //	private final static class SerializedScript {
 //		public SerializedScript() {}
 //
 //		public final List<Trigger> triggers = new ArrayList<Trigger>();
 //		public final List<ScriptCommand> commands = new ArrayList<ScriptCommand>();
 //	}
-	
+
 	private static String indentation = "";
-	
+
 	// Load scripts in separate (one) thread
 	static final BlockingQueue<Runnable> loadQueue = new ArrayBlockingQueue<>(20, true);
 	static final Thread loaderThread;
 	static boolean loadAsync; // See below
-	
+
 	/**
 	 * Checks if scripts are loaded in separate thread. If true,
 	 * following behavior should be expected:
@@ -274,32 +278,33 @@ final public class ScriptLoader {
 	 * <li>When reloading all scripts, scripts that were removed are disabled
 	 * after everything has been reloaded
 	 * <li>Script infos returned by most methods are inaccurate
+	 * 
 	 * @return If main thread is not blocked when loading.
 	 */
 	public static boolean isAsync() {
 		return loadAsync;
 	}
-	
+
 	/**
 	 * All loaded script files.
 	 */
 	@SuppressWarnings("null")
 	static final Set<File> loadedFiles = Collections.synchronizedSet(new HashSet<>());
-	
+
 	@SuppressWarnings("null") // Collections methods don't return nulls, ever
 	public static Collection<File> getLoadedFiles() {
 		return Collections.unmodifiableCollection(loadedFiles);
 	}
-	
+
 	// Initialize and start load thread
 	static {
 		loaderThread = new AsyncLoaderThread();
 		loaderThread.start();
 	}
-	
+
 	private static class AsyncLoaderThread extends Thread {
-		
-		public AsyncLoaderThread() { }
+
+		public AsyncLoaderThread() {}
 
 		@Override
 		public void run() {
@@ -312,49 +317,51 @@ final public class ScriptLoader {
 			}
 		}
 	}
-	
+
 	static void loadScripts() {
-		final File scriptsFolder = new File(Skript.getInstance().getDataFolder(), Skript.SCRIPTSFOLDER + File.separator);
+		final File scriptsFolder = new File(Skript.getInstance().getDataFolder(),
+				Skript.SCRIPTSFOLDER + File.separator);
 		if (!scriptsFolder.isDirectory())
 			scriptsFolder.mkdirs();
-		
+
 		final Date start = new Date();
-		
+
 		Runnable task = () -> {
 			final Set<File> oldLoadedFiles = new HashSet<>(loadedFiles);
-			
+
 			final ScriptInfo i;
-			
-			final ErrorDescLogHandler h = SkriptLogger.startLogHandler(new ErrorDescLogHandler(null, null, m_no_errors.toString()));
+
+			final ErrorDescLogHandler h = SkriptLogger.startLogHandler(new ErrorDescLogHandler(null, null,
+					m_no_errors.toString()));
 			try {
 				Language.setUseLocal(false);
-				
+
 				List<Config> configs = loadStructures(scriptsFolder);
 				i = loadScripts(configs);
 			} finally {
 				Language.setUseLocal(true);
 				h.stop();
 			}
-			
+
 			// Now, make sure that old files that are no longer there are unloaded
 			// Only if this is done using async loading, though!
 			if (loadAsync) {
 				oldLoadedFiles.removeAll(loadedFiles);
 				for (File script : oldLoadedFiles) {
 					assert script != null;
-					
+
 					// Use internal unload method which does not call validateFunctions()
 					unloadScript_(script);
 					Functions.clearFunctions(script);
 				}
 				Functions.validateFunctions(); // Manually validate functions
 			}
-			
+
 			if (i.files == 0)
 				Skript.warning(m_no_scripts.toString());
 			if (Skript.logNormal() && i.files > 0)
 				Skript.info(m_scripts_loaded.toString(i.files, i.triggers, i.commands, start.difference(new Date())));
-			
+
 			SkriptEventHandler.registerBukkitEvents();
 		};
 		if (loadAsync)
@@ -362,17 +369,18 @@ final public class ScriptLoader {
 		else
 			task.run();
 	}
-	
+
 	/**
 	 * Filter for enabled scripts & folders.
 	 */
 	private final static FileFilter scriptFilter = new FileFilter() {
+
 		@Override
 		public boolean accept(final @Nullable File f) {
 			return f != null && (f.isDirectory() || StringUtils.endsWithIgnoreCase("" + f.getName(), ".sk")) && !f.getName().startsWith("-");
 		}
 	};
-	
+
 	/**
 	 * Loads the specified scripts.
 	 * 
@@ -381,7 +389,7 @@ final public class ScriptLoader {
 	 */
 	public static ScriptInfo loadScripts(final List<Config> configs) {
 		ScriptInfo i = new ScriptInfo();
-		
+
 		Runnable task = () -> {
 			// Do NOT sort here, list must be loaded in order it came in (see issue #667)
 			final boolean wasLocal = Language.setUseLocal(false);
@@ -394,19 +402,19 @@ final public class ScriptLoader {
 				if (wasLocal)
 					Language.setUseLocal(true);
 			}
-			
+
 			SkriptEventHandler.registerBukkitEvents();
 		};
 		if (loadAsync && Bukkit.isPrimaryThread())
 			loadQueue.add(task);
 		else
 			task.run();
-		
+
 		// If task was ran asynchronously, returned stats may be wrong
 		// This is probably ok, since loadScripts() will go async if needed
 		return i;
 	}
-	
+
 	/**
 	 * Loads specified scripts and places log to given list.
 	 * 
@@ -424,7 +432,7 @@ final public class ScriptLoader {
 			logHandler.printLog(); // Won't print anything, but handler is properly closed
 		}
 	}
-	
+
 	/**
 	 * Loads the specified scripts.
 	 * 
@@ -435,7 +443,7 @@ final public class ScriptLoader {
 	public static ScriptInfo loadScripts(final Config... configs) {
 		return loadScripts(Arrays.asList(configs));
 	}
-	
+
 	/**
 	 * Load specified scripts.
 	 * 
@@ -448,28 +456,30 @@ final public class ScriptLoader {
 		List<Config> configs = loadStructures(files);
 		return loadScripts(configs);
 	}
-	
+
 	/**
 	 * Represents data for event which is waiting to be loaded.
 	 */
 	private static class ParsedEventData {
-		
-		public ParsedEventData(NonNullPair<SkriptEventInfo<?>, SkriptEvent> info, String event, SectionNode node, List<TriggerItem> items) {
+
+		public ParsedEventData(NonNullPair<SkriptEventInfo<?>, SkriptEvent> info, String event, SectionNode node,
+				List<TriggerItem> items) {
 			this.info = info;
 			this.event = event;
 			this.node = node;
 			this.items = items;
 		}
-		
+
 		public final NonNullPair<SkriptEventInfo<?>, SkriptEvent> info;
 		public final String event;
 		public final SectionNode node;
 		public final List<TriggerItem> items;
 	}
-	
+
 	/**
 	 * Loads one script. Only for internal use, as this doesn't register/update
 	 * event handlers.
+	 * 
 	 * @param config Config for script to be loaded.
 	 * @return Info about script that is loaded
 	 */
@@ -478,21 +488,21 @@ final public class ScriptLoader {
 		if (config == null) { // Something bad happened, hopefully got logged to console
 			return new ScriptInfo();
 		}
-		
+
 		// When something is parsed, it goes there to be loaded later
 		List<ScriptCommand> commands = new ArrayList<>();
 		List<Function<?>> functions = new ArrayList<>();
 		List<ParsedEventData> events = new ArrayList<>();
-		
+
 		// Track what is loaded
 		int numTriggers = 0;
 		int numCommands = 0;
 		int numFunctions = 0;
-		
+
 		try {
 			if (SkriptConfig.keepConfigsLoaded.value())
 				SkriptConfig.configs.add(config);
-			
+
 			currentAliases.clear();
 			currentOptions.clear();
 			currentScript = config;
@@ -506,21 +516,22 @@ final public class ScriptLoader {
 				Bukkit.getPluginManager().callEvent(new PreScriptLoadEvent(config));
 
 //			final SerializedScript script = new SerializedScript();
-			
-			final CountingLogHandler numErrors = SkriptLogger.startLogHandler(new CountingLogHandler(SkriptLogger.SEVERE));
-			
+
+			final CountingLogHandler numErrors = SkriptLogger.startLogHandler(new CountingLogHandler(
+					SkriptLogger.SEVERE));
+
 			try {
 				for (final Node cnode : config.getMainNode()) {
 					if (!(cnode instanceof SectionNode)) {
 						Skript.error("invalid line - all code has to be put into triggers");
 						continue;
 					}
-					
+
 					final SectionNode node = ((SectionNode) cnode);
 					String event = node.getKey();
 					if (event == null)
 						continue;
-					
+
 					if (event.equalsIgnoreCase("aliases")) {
 						node.convertToEntries(0, "=");
 						for (final Node n : node) {
@@ -557,6 +568,7 @@ final public class ScriptLoader {
 								name = "" + name.substring(1, name.length() - 1);
 							final String var = name;
 							name = StringUtils.replaceAll(name, "%(.+)?%", new Callback<String, Matcher>() {
+
 								@Override
 								@Nullable
 								public String run(final Matcher m) {
@@ -612,70 +624,70 @@ final public class ScriptLoader {
 						}
 						continue;
 					}
-					
+
 					if (!SkriptParser.validateLine(event))
 						continue;
-					
+
 					if (event.toLowerCase().startsWith("command ")) {
-						
+
 						setCurrentEvent("command", CommandEvent.class);
-						
+
 						final ScriptCommand c = Commands.loadCommand(node, false);
 						if (c != null) {
 							commands.add(c);
 						}
 						numCommands++;
-						
+
 						deleteCurrentEvent();
-						
+
 						continue;
 					} else if (event.toLowerCase().startsWith("function ")) {
-						
+
 						setCurrentEvent("function", FunctionEvent.class);
-						
+
 						final Function<?> func = Functions.loadFunction(node);
 						if (func != null) {
 							functions.add(func);
 						}
 						numFunctions++;
-						
+
 						deleteCurrentEvent();
-						
+
 						continue;
 					}
-					
+
 					if (Skript.logVeryHigh() && !Skript.debug())
 						Skript.info("loading trigger '" + event + "'");
-					
+
 					if (StringUtils.startsWithIgnoreCase(event, "on "))
 						event = "" + event.substring("on ".length());
-					
+
 					event = replaceOptions(event);
-					
+
 					final NonNullPair<SkriptEventInfo<?>, SkriptEvent> parsedEvent = SkriptParser.parseEvent(event, "can't understand this event: '" + node.getKey() + "'");
 					if (parsedEvent == null)
 						continue;
-					
+
 					if (Skript.debug() || node.debug())
 						Skript.debug(event + " (" + parsedEvent.getSecond().toString(null, true) + "):");
-					
+
 					try {
 						setCurrentEvent("" + parsedEvent.getFirst().getName().toLowerCase(Locale.ENGLISH), parsedEvent.getFirst().events);
 						events.add(new ParsedEventData(parsedEvent, event, node, loadItems(node)));
 					} finally {
 						deleteCurrentEvent();
 					}
-					
+
 					if (parsedEvent.getSecond() instanceof SelfRegisteringSkriptEvent) {
 						((SelfRegisteringSkriptEvent) parsedEvent.getSecond()).afterParse(config);
 					}
-					
+
 					numTriggers++;
 				}
-				
+
 				if (Skript.logHigh())
 					Skript.info("loaded " + numTriggers + " trigger" + (numTriggers == 1 ? "" : "s") + " and " + numCommands + " command" + (numCommands == 1 ? "" : "s") + " from '" + config.getFileName() + "'");
-				
+
 				currentScript = null;
 			} finally {
 				numErrors.stop();
@@ -685,13 +697,13 @@ final public class ScriptLoader {
 		} finally {
 			SkriptLogger.setNode(null);
 		}
-		
+
 		// In always sync task, enable stuff
 		Callable<Void> callable = new Callable<Void>() {
 
 			@SuppressWarnings("synthetic-access")
 			@Override
-			public @Nullable Void call() throws Exception {				
+			public @Nullable Void call() throws Exception {
 				// Unload script IF we're doing async stuff
 				// (else it happened already)
 				File file = config.getFile();
@@ -699,21 +711,21 @@ final public class ScriptLoader {
 					if (file != null)
 						unloadScript_(file);
 				}
-				
+
 				// Now, enable everything!
 				for (ScriptCommand command : commands) {
 					assert command != null;
 					Commands.registerCommand(command);
 				}
-				
+
 				for (Function<?> func : functions) {
 					assert func != null;
 					Functions.putFunction(func);
 				}
-				
+
 				for (ParsedEventData event : events) {
 					setCurrentEvent("" + event.info.getFirst().getName().toLowerCase(Locale.ENGLISH), event.info.getFirst().events);
-					
+
 					final Trigger trigger;
 					try {
 						trigger = new Trigger(config.getFile(), event.event, event.info.getSecond(), event.items);
@@ -722,20 +734,20 @@ final public class ScriptLoader {
 					} finally {
 						deleteCurrentEvent();
 					}
-					
+
 					if (event.info.getSecond() instanceof SelfRegisteringSkriptEvent) {
 						((SelfRegisteringSkriptEvent) event.info.getSecond()).register(trigger);
 						SkriptEventHandler.addSelfRegisteringTrigger(trigger);
 					} else {
 						SkriptEventHandler.addTrigger(event.info.getFirst().events, trigger);
 					}
-					
+
 					deleteCurrentEvent();
 				}
-				
+
 				// Add to loaded files to use for future reloads
 				loadedFiles.add(file);
-				
+
 				return null;
 			}
 		};
@@ -748,10 +760,10 @@ final public class ScriptLoader {
 				Skript.exception(e);
 			}
 		}
-		
+
 		return new ScriptInfo(1, numTriggers, numCommands, numFunctions);
 	}
-	
+
 	/**
 	 * Loads structures of specified scripts.
 	 * 
@@ -759,16 +771,16 @@ final public class ScriptLoader {
 	 */
 	public static List<Config> loadStructures(final File[] files) {
 		Arrays.sort(files);
-		
+
 		List<Config> loadedFiles = new ArrayList<>(files.length);
 		for (final File f : files) {
 			assert f != null : Arrays.toString(files);
 			loadedFiles.add(loadStructure(f));
 		}
-		
+
 		return loadedFiles;
 	}
-	
+
 	/**
 	 * Loads structures of all scripts in given directory.
 	 * 
@@ -777,7 +789,7 @@ final public class ScriptLoader {
 	public static List<Config> loadStructures(final File directory) {
 		final File[] files = directory.listFiles(scriptFilter);
 		Arrays.sort(files);
-		
+
 		List<Config> loadedFiles = new ArrayList<>(files.length);
 		for (final File f : files) {
 			if (f.isDirectory()) {
@@ -788,10 +800,11 @@ final public class ScriptLoader {
 		}
 		return loadedFiles;
 	}
-	
+
 	/**
 	 * Loads structure of given script, currently only for functions. Must be called before
 	 * actually loading that script.
+	 * 
 	 * @param f Script file.
 	 */
 	@SuppressWarnings("resource") // Stream is closed in Config constructor called in loadStructure
@@ -800,7 +813,7 @@ final public class ScriptLoader {
 			unloadScript(f); // ... it might be good idea to unload it now
 			return null;
 		}
-		
+
 		try {
 			String name = Skript.getInstance().getDataFolder().toPath().resolve(Skript.SCRIPTSFOLDER).relativize(f.toPath()).toString();
 			assert name != null;
@@ -808,64 +821,66 @@ final public class ScriptLoader {
 		} catch (final IOException e) {
 			Skript.error("Could not load " + f.getName() + ": " + ExceptionUtils.toString(e));
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Loads structure of given script, currently only for functions. Must be called before
 	 * actually loading that script.
+	 * 
 	 * @param source Source input stream.
 	 * @param name Name of source "file".
 	 */
 	public static @Nullable Config loadStructure(final InputStream source, final String name) {
 		try {
 			final Config config = new Config(source, name,
-					Skript.getInstance().getDataFolder().toPath().resolve(Skript.SCRIPTSFOLDER).resolve(name).toFile(), true, false, ":");
+					Skript.getInstance().getDataFolder().toPath().resolve(Skript.SCRIPTSFOLDER).resolve(name).toFile(),
+					true, false, ":");
 			return loadStructure(config);
 		} catch (final IOException e) {
 			Skript.error("Could not load " + name + ": " + ExceptionUtils.toString(e));
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Loads structure of given script, currently only for functions. Must be called before
 	 * actually loading that script.
+	 * 
 	 * @param config Config object for the script.
 	 */
 	@SuppressWarnings("unchecked")
 	public static @Nullable Config loadStructure(final Config config) {
 		try {
 			//final CountingLogHandler numErrors = SkriptLogger.startLogHandler(new CountingLogHandler(SkriptLogger.SEVERE));
-			
+
 			try {
 				for (final Node cnode : config.getMainNode()) {
 					if (!(cnode instanceof SectionNode)) {
 						// Don't spit error yet, we are only pre-parsing...
 						continue;
 					}
-					
+
 					final SectionNode node = ((SectionNode) cnode);
 					String event = node.getKey();
 					if (event == null)
 						continue;
-					
-					
+
 					if (!SkriptParser.validateLine(event))
 						continue;
-					
+
 					if (event.toLowerCase().startsWith("function ")) {
-						
+
 						setCurrentEvent("function", FunctionEvent.class);
-						
+
 						final Signature<?> func = Functions.loadSignature(config.getFileName(), node);
-						
+
 						deleteCurrentEvent();
 					}
 				}
-				
+
 				currentScript = null;
 			} finally {
 				//numErrors.stop();
@@ -879,7 +894,7 @@ final public class ScriptLoader {
 		}
 		return null; // Oops something went wrong
 	}
-	
+
 	/**
 	 * Unloads enabled scripts from the specified directory and its subdirectories.
 	 * 
@@ -891,7 +906,7 @@ final public class ScriptLoader {
 		Functions.validateFunctions();
 		return r;
 	}
-	
+
 	private static ScriptInfo unloadScripts_(final File folder) {
 		final ScriptInfo info = new ScriptInfo();
 		final File[] files = folder.listFiles(scriptFilter);
@@ -904,7 +919,7 @@ final public class ScriptLoader {
 		}
 		return info;
 	}
-	
+
 	/**
 	 * Unloads the specified script.
 	 * 
@@ -917,18 +932,18 @@ final public class ScriptLoader {
 		Functions.validateFunctions();
 		return r;
 	}
-	
+
 	private static ScriptInfo unloadScript_(final File script) {
 		if (loadedFiles.contains(script)) {
 			final ScriptInfo info = SkriptEventHandler.removeTriggers(script); // Remove triggers
 			synchronized (loadedScripts) { // Update script info
 				loadedScripts.subtract(info);
 			}
-			
+
 			loadedFiles.remove(script); // We just unloaded it, so...
 			return info; // Return how much we unloaded
 		}
-		
+
 		return new ScriptInfo(); // Return that we unloaded literally nothing
 	}
 
@@ -937,6 +952,7 @@ final public class ScriptLoader {
 	 */
 	public static String replaceOptions(final String s) {
 		final String r = StringUtils.replaceAll(s, "\\{@(.+?)\\}", new Callback<String, Matcher>() {
+
 			@Override
 			@Nullable
 			public String run(final Matcher m) {
@@ -951,17 +967,17 @@ final public class ScriptLoader {
 		assert r != null;
 		return r;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static ArrayList<TriggerItem> loadItems(final SectionNode node) {
-		
+
 		if (Skript.debug())
 			indentation += "    ";
-		
+
 		final ArrayList<TriggerItem> items = new ArrayList<>();
-		
+
 		Kleenean hadDelayBeforeLastIf = Kleenean.FALSE;
-		
+
 		for (final Node n : node) {
 			SkriptLogger.setNode(n);
 			if (n instanceof SimpleNode) {
@@ -981,7 +997,7 @@ final public class ScriptLoader {
 				String name = replaceOptions("" + n.getKey());
 				if (!SkriptParser.validateLine(name))
 					continue;
-				
+
 				if (StringUtils.startsWithIgnoreCase(name, "loop ")) {
 					final String l = "" + name.substring("loop ".length());
 					final RetainingLogHandler h = SkriptLogger.startRetainingLog();
@@ -1060,18 +1076,18 @@ final public class ScriptLoader {
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < items.size() - 1; i++)
 			items.get(i).setNext(items.get(i + 1));
-		
+
 		SkriptLogger.setNode(node);
-		
+
 		if (Skript.debug())
 			indentation = "" + indentation.substring(0, indentation.length() - 4);
-		
+
 		return items;
 	}
-	
+
 	/**
 	 * For unit testing
 	 * 
@@ -1087,13 +1103,13 @@ final public class ScriptLoader {
 		}
 		if (event.toLowerCase().startsWith("on "))
 			event = "" + event.substring("on ".length());
-		
+
 		final NonNullPair<SkriptEventInfo<?>, SkriptEvent> parsedEvent = SkriptParser.parseEvent(event, "can't understand this event: '" + node.getKey() + "'");
 		if (parsedEvent == null) {
 			assert false;
 			return null;
 		}
-		
+
 		setCurrentEvent("unit test", parsedEvent.getFirst().events);
 		try {
 			return new Trigger(null, event, parsedEvent.getSecond(), loadItems(node));
@@ -1101,46 +1117,47 @@ final public class ScriptLoader {
 			deleteCurrentEvent();
 		}
 	}
-	
+
 	public static int loadedScripts() {
 		synchronized (loadedScripts) {
 			return loadedScripts.files;
 		}
 	}
-	
+
 	public static int loadedCommands() {
 		synchronized (loadedScripts) {
 			return loadedScripts.commands;
 		}
 	}
-	
+
 	public static int loadedFunctions() {
 		synchronized (loadedScripts) {
 			return loadedScripts.functions;
 		}
 	}
-	
+
 	public static int loadedTriggers() {
 		synchronized (loadedScripts) {
 			return loadedScripts.triggers;
 		}
 	}
-	
+
 	public static boolean isCurrentEvent(final @Nullable Class<? extends Event> event) {
 		return CollectionUtils.containsSuperclass(currentEvents, event);
 	}
-	
+
 	@SafeVarargs
 	public static boolean isCurrentEvent(final Class<? extends Event>... events) {
 		return CollectionUtils.containsAnySuperclass(currentEvents, events);
 	}
-	
+
 	/**
-	 * Use this sparingly; {@link #isCurrentEvent(Class)} or {@link #isCurrentEvent(Class...)} should be used in most cases.
+	 * Use this sparingly; {@link #isCurrentEvent(Class)} or {@link #isCurrentEvent(Class...)} should be used in most
+	 * cases.
 	 */
 	@Nullable
 	public static Class<? extends Event>[] getCurrentEvents() {
 		return currentEvents;
 	}
-	
+
 }

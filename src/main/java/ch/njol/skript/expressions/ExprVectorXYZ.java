@@ -39,18 +39,10 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @Name("Vectors - Coordinate")
 @Description("Gets or sets the x, y or z coordinate of a vector")
-@Examples({"set {_v} to vector 1, 2, 3",
-		"send \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"",
-		"add 1 to x of {_v}",
-		"add 2 to y of {_v}",
-		"add 3 to z of {_v}",
-		"send \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"",
-		"set x of {_v} to 1",
-		"set y of {_v} to 2",
-		"set z of {_v} to 3",
-		"send \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"",})
+@Examples({"set {_v} to vector 1, 2, 3", "send \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"", "add 1 to x of {_v}", "add 2 to y of {_v}", "add 3 to z of {_v}", "send \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"", "set x of {_v} to 1", "set y of {_v} to 2", "set z of {_v} to 3", "send \"%x of {_v}%, %y of {_v}%, %z of {_v}%\"",})
 @Since("2.2-dev28")
 public class ExprVectorXYZ extends SimplePropertyExpression<Vector, Number> {
+
 	static {
 		Skript.registerExpression(ExprVectorXYZ.class, Number.class, ExpressionType.PROPERTY, "(0¦x|1¦y|2¦z) of %vector%");
 	}
@@ -60,7 +52,8 @@ public class ExprVectorXYZ extends SimplePropertyExpression<Vector, Number> {
 	private int axis;
 
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final SkriptParser.ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final SkriptParser.ParseResult parseResult) {
 		super.init(exprs, matchedPattern, isDelayed, parseResult);
 		axis = parseResult.mark;
 		return true;
@@ -85,12 +78,13 @@ public class ExprVectorXYZ extends SimplePropertyExpression<Vector, Number> {
 	@SuppressWarnings("null")
 	public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
 		if ((mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) && getExpr().isSingle() && Changer.ChangerUtils.acceptsChange(getExpr(), Changer.ChangeMode.SET, Vector.class))
-			return new Class[] { Number.class };
+			return new Class[] {Number.class};
 		return null;
 	}
 
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final Changer.ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final Changer.ChangeMode mode)
+			throws UnsupportedOperationException {
 		assert delta != null;
 		final Vector v = getExpr().getSingle(e);
 		if (v == null)

@@ -36,30 +36,28 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Chance")
-@Description({"A condition that randomly succeeds or fails.",
-		"Valid values are between 0% and 100%, or if the percent sign is omitted between 0 and 1."})
-@Examples({"chance of 50%:",
-		"	drop a diamond",
-		"chance of {var}% # {var} between 0 and 100",
-		"chance of {var} # {var} between 0 and 1"})
+@Description({"A condition that randomly succeeds or fails.", "Valid values are between 0% and 100%, or if the percent sign is omitted between 0 and 1."})
+@Examples({"chance of 50%:", "	drop a diamond", "chance of {var}% # {var} between 0 and 100", "chance of {var} # {var} between 0 and 1"})
 @Since("1.0")
 public class CondChance extends Condition {
+
 	static {
 		Skript.registerCondition(CondChance.class, "chance of %number%(1¦\\%|)");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Double> chance;
 	boolean percent;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		chance = (Expression<Double>) exprs[0];
 		percent = parser.mark == 1;
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		final Number n = chance.getSingle(e);
@@ -67,10 +65,10 @@ public class CondChance extends Condition {
 			return false;
 		return Math.random() < (percent ? n.doubleValue() / 100 : n.doubleValue());
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "chance of " + chance.toString(e, debug) + (percent ? "%" : "");
 	}
-	
+
 }

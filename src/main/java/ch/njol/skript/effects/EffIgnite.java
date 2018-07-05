@@ -42,34 +42,33 @@ import ch.njol.util.Kleenean;
  */
 @Name("Ignite/Extinguish")
 @Description({"Lights entities on fire or extinguishes them."})
-@Examples({"ignite the player",
-		"extinguish the player"})
+@Examples({"ignite the player", "extinguish the player"})
 @Since("1.4")
 public class EffIgnite extends Effect {
+
 	static {
-		Skript.registerEffect(EffIgnite.class,
-				"(ignite|set fire to) %entities% [for %-timespan%]", "(set|light) %entities% on fire [for %-timespan%]",
-				"extinguish %entities%");
+		Skript.registerEffect(EffIgnite.class, "(ignite|set fire to) %entities% [for %-timespan%]", "(set|light) %entities% on fire [for %-timespan%]", "extinguish %entities%");
 	}
-	
+
 	private final static int DEFAULT_DURATION = 8 * 20; // default is 8 seconds for lava and fire, I didn't test other sources
-	
+
 	@SuppressWarnings("null")
 	private Expression<Entity> entities;
 	private boolean ignite;
 	@Nullable
 	private Expression<Timespan> duration = null;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		entities = (Expression<Entity>) exprs[0];
 		ignite = exprs.length > 1;
 		if (ignite)
 			duration = (Expression<Timespan>) exprs[1];
 		return true;
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		final int d;
@@ -84,6 +83,7 @@ public class EffIgnite extends Effect {
 		for (final Entity en : entities.getArray(e)) {
 			if (e instanceof EntityDamageEvent && ((EntityDamageEvent) e).getEntity() == en && !Delay.isDelayed(e)) {
 				Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 					@Override
 					public void run() {
 						en.setFireTicks(d);
@@ -96,7 +96,7 @@ public class EffIgnite extends Effect {
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (ignite)
@@ -104,5 +104,5 @@ public class EffIgnite extends Effect {
 		else
 			return "extinguish " + entities.toString(e, debug);
 	}
-	
+
 }

@@ -41,27 +41,26 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Peter Güttinger
  */
 @Name("Kill")
-@Description({"Kills an entity.",
-		"Note: This effect does not set the entitie's health to 0 (which causes issues), but damages the entity by 100 times its maximum health."})
-@Examples({"kill the player",
-		"kill all creepers in the player's world",
-		"kill all endermen, witches and bats"})
+@Description({"Kills an entity.", "Note: This effect does not set the entitie's health to 0 (which causes issues), but damages the entity by 100 times its maximum health."})
+@Examples({"kill the player", "kill all creepers in the player's world", "kill all endermen, witches and bats"})
 @Since("1.0")
 public class EffKill extends Effect {
+
 	static {
 		Skript.registerEffect(EffKill.class, "kill %entities%");
 	}
-	
+
 	// Absolutely make sure it dies
 	public static final int DAMAGE_AMOUNT = Integer.MAX_VALUE;
-	
+
 	@SuppressWarnings("null")
 	private Expression<Entity> entities;
 	private boolean erase;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		entities = (Expression<Entity>) vars[0];
 		return true;
 	}
@@ -90,10 +89,10 @@ public class EffKill extends Effect {
 
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "kill" + entities.toString(e, debug);
 	}
-	
+
 }

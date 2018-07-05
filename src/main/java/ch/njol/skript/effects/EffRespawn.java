@@ -41,8 +41,7 @@ import ch.njol.util.Kleenean;
 
 @Name("Force Respawn")
 @Description("Forces player(s) to respawn if they are dead. If this is called without delay from death event, one tick is waited before respawn attempt.")
-@Examples({"on death of player:",
-		"	force event-player to respawn",})
+@Examples({"on death of player:", "	force event-player to respawn",})
 @Since("2.2-dev21")
 public class EffRespawn extends Effect {
 
@@ -56,7 +55,8 @@ public class EffRespawn extends Effect {
 
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		players = (Expression<Player>) exprs[0];
 		if (ScriptLoader.isCurrentEvent(PlayerDeathEvent.class) && ScriptLoader.hasDelayBefore.isTrue()) // Then we will internally force you to wait
 			hasDelay = true;

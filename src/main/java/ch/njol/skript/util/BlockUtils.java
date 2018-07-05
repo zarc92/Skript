@@ -38,38 +38,22 @@ import ch.njol.util.coll.CollectionUtils;
  */
 @SuppressWarnings("deprecation")
 public abstract class BlockUtils {
-	
-	private final static BlockFace[] torch = new BlockFace[] {
-			null, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.DOWN
-	};
-	
-	private final static BlockFace[] button = new BlockFace[] {
-			null, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, null, null, null,
-			null, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH
-	};
-	
-	private final static BlockFace[] ladder = new BlockFace[] {
-			null, null, BlockFace.SOUTH, BlockFace.NORTH, BlockFace.EAST, BlockFace.WEST
-	}, wallSign = ladder;
-	
-	private final static BlockFace[] trapdoor = new BlockFace[] {
-			BlockFace.SOUTH, BlockFace.NORTH, BlockFace.EAST, BlockFace.WEST
-	};
-	
-	private final static BlockFace[] lever = new BlockFace[] {
-			BlockFace.UP, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.DOWN, BlockFace.DOWN, BlockFace.UP,
-			BlockFace.UP, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.DOWN, BlockFace.DOWN, BlockFace.UP
-	};
-	
-	private final static BlockFace[] cocoa = new BlockFace[] {
-			BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST
-	};
-	
-	private final static BlockFace[] tripwireHook = new BlockFace[] {
-			BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST,
-			BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST
-	};
-	
+
+	private final static BlockFace[] torch = new BlockFace[] {null, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.DOWN};
+
+	private final static BlockFace[] button = new BlockFace[] {null, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, null, null, null, null, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH};
+
+	private final static BlockFace[] ladder = new BlockFace[] {null, null, BlockFace.SOUTH, BlockFace.NORTH, BlockFace.EAST, BlockFace.WEST},
+			wallSign = ladder;
+
+	private final static BlockFace[] trapdoor = new BlockFace[] {BlockFace.SOUTH, BlockFace.NORTH, BlockFace.EAST, BlockFace.WEST};
+
+	private final static BlockFace[] lever = new BlockFace[] {BlockFace.UP, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.DOWN, BlockFace.DOWN, BlockFace.UP, BlockFace.UP, BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.DOWN, BlockFace.DOWN, BlockFace.UP};
+
+	private final static BlockFace[] cocoa = new BlockFace[] {BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST};
+
+	private final static BlockFace[] tripwireHook = new BlockFace[] {BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST};
+
 	private final static BlockFace[][] attached = new BlockFace[Skript.MAXBLOCKID + 1][];
 	static {
 		attached[Material.TORCH.getId()] = torch;
@@ -85,16 +69,12 @@ public abstract class BlockUtils {
 		if (Skript.fieldExists(Material.class, "WOOD_BUTTON"))
 			attached[Material.WOOD_BUTTON.getId()] = button;
 	}
-	
-	private final static BlockFace[] bed = new BlockFace[] {
-			BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST
-	};
-	
+
+	private final static BlockFace[] bed = new BlockFace[] {BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST};
+
 	// not the actual facing, but a direction where fence posts should exist
-	private final static BlockFace[] gate = new BlockFace[] {
-			BlockFace.WEST, BlockFace.NORTH
-	};
-	
+	private final static BlockFace[] gate = new BlockFace[] {BlockFace.WEST, BlockFace.NORTH};
+
 	/**
 	 * @param b
 	 * @param type
@@ -113,7 +93,7 @@ public abstract class BlockUtils {
 			throw new IllegalArgumentException("Invalid block type id " + type);
 		if (dataMin < 0 || dataMin > dataMax || dataMax > 15)
 			throw new IllegalArgumentException("Invalid data range " + dataMin + " to " + dataMax);
-		
+
 		// ATTACHABLES
 		final BlockFace[] attach = attached[type];
 		if (attach != null) {
@@ -168,7 +148,7 @@ public abstract class BlockUtils {
 			b.setTypeIdAndData(type, (byte) Utils.random(dataMin, dataMax + 1), applyPhysics);
 			return true;
 		}
-		
+
 		// DOORS
 		if (type == Material.IRON_DOOR_BLOCK.getId() || type == Material.WOODEN_DOOR.getId()) {
 			final int up = b.getRelative(BlockFace.UP).getTypeId();
@@ -198,7 +178,7 @@ public abstract class BlockUtils {
 			}
 			return false;
 		}
-		
+
 		// BED
 		if (type == Material.BED_BLOCK.getId()) {
 			for (final byte data : CollectionUtils.permutation(dataMin, dataMax)) {
@@ -220,7 +200,7 @@ public abstract class BlockUtils {
 			}
 			return false;
 		}
-		
+
 		// FENCE GATE
 		if (type == Material.FENCE_GATE.getId()) {
 			final boolean[] tried = new boolean[gate.length];
@@ -231,8 +211,7 @@ public abstract class BlockUtils {
 				final Block b1 = b.getRelative(f), b2 = b.getRelative(f, -1);
 				final int m1 = b1.getTypeId(), m2 = b2.getTypeId();
 				// 113 == nether fence
-				if ((m1 == Material.FENCE.getId() || m1 == 113 || m1 == Material.FENCE_GATE.getId() && (b1.getData() & 0x1) == (data & 0x1))
-						&& (m2 == Material.FENCE.getId() || m2 == 113 || m2 == Material.FENCE_GATE.getId() && (b2.getData() & 0x1) == (data & 0x1))) {
+				if ((m1 == Material.FENCE.getId() || m1 == 113 || m1 == Material.FENCE_GATE.getId() && (b1.getData() & 0x1) == (data & 0x1)) && (m2 == Material.FENCE.getId() || m2 == 113 || m2 == Material.FENCE_GATE.getId() && (b2.getData() & 0x1) == (data & 0x1))) {
 					b.setTypeIdAndData(type, data, applyPhysics);
 					return true;
 				} else {
@@ -242,7 +221,7 @@ public abstract class BlockUtils {
 			b.setTypeIdAndData(type, (byte) Utils.random(dataMin, dataMax + 1), applyPhysics);
 			return true;
 		}
-		
+
 		// LARGE FLOWER
 		if (type == 175) {
 			if (b.getRelative(BlockFace.UP).getType() == Material.AIR) {
@@ -252,44 +231,39 @@ public abstract class BlockUtils {
 				return true;
 			}
 		}
-		
+
 		// REMIND rails?
-		
+
 		// DUMMY
 		b.setTypeIdAndData(type, any ? 0 : (byte) Utils.random(dataMin, dataMax + 1), applyPhysics);
 		return true;
 	}
-	
+
 	// Material.isSolid() treats e.g. steps as solid...
 	// TODO !Update with every version [blocks]
-	private final static int[] solid = {
-			1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 29, 33, 35, 41, 42, 43, 45, 46, 47, 48, 49,
-			52, 54, 56, 57, 58, 60, 61, 62, 73, 74, 79, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99,
-			100, 103, 110, 112, 120, 121, 123, 124, 125, 129, 130, 133, 137, 138, 146,
-			152, 153, 155, 158, 159, 161, 162, 170, 172, 173, 174
-	};
+	private final static int[] solid = {1, 2, 3, 4, 5, 7, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 29, 33, 35, 41, 42, 43, 45, 46, 47, 48, 49, 52, 54, 56, 57, 58, 60, 61, 62, 73, 74, 79, 80, 82, 84, 86, 87, 88, 89, 91, 95, 97, 98, 99, 100, 103, 110, 112, 120, 121, 123, 124, 125, 129, 130, 133, 137, 138, 146, 152, 153, 155, 158, 159, 161, 162, 170, 172, 173, 174};
 	private final static boolean[] isSolid = new boolean[Skript.MAXBLOCKID + 1];
 	static {
 		for (final int i : solid)
 			isSolid[i] = true;
 	}
-	
+
 	public static boolean isSolid(final int type) {
 		if (type < 0 || type >= isSolid.length)
 			throw new IllegalArgumentException(type + " is not a block id");
 		return isSolid[type];
 	}
-	
+
 	@SuppressWarnings("null")
 	public static Iterable<Block> getBlocksAround(final Block b) {
 		return Arrays.asList(b.getRelative(BlockFace.NORTH), b.getRelative(BlockFace.EAST), b.getRelative(BlockFace.SOUTH), b.getRelative(BlockFace.WEST));
 	}
-	
+
 	@SuppressWarnings("null")
 	public static Iterable<BlockFace> getFaces() {
 		return Arrays.asList(BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST);
 	}
-	
+
 	/**
 	 * @param b A block
 	 * @return Location of the block, including its direction
@@ -307,5 +281,5 @@ public abstract class BlockUtils {
 		}
 		return l;
 	}
-	
+
 }

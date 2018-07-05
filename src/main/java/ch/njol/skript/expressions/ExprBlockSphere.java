@@ -49,25 +49,25 @@ import ch.njol.util.coll.iterator.IteratorIterable;
 @Examples("loop blocks in radius 5 around the player:")
 @Since("1.0")
 public class ExprBlockSphere extends SimpleExpression<Block> {
+
 	static {
-		Skript.registerExpression(ExprBlockSphere.class, Block.class, ExpressionType.COMBINED,
-				"[(all [[of] the]|the)] blocks in radius %number% [(of|around) %location%]",
-				"[(all [[of] the]|the)] blocks around %location% in radius %number%");
+		Skript.registerExpression(ExprBlockSphere.class, Block.class, ExpressionType.COMBINED, "[(all [[of] the]|the)] blocks in radius %number% [(of|around) %location%]", "[(all [[of] the]|the)] blocks around %location% in radius %number%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Number> radius;
 	@SuppressWarnings("null")
 	private Expression<Location> center;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		radius = (Expression<Number>) exprs[matchedPattern];
 		center = (Expression<Location>) exprs[1 - matchedPattern];
 		return true;
 	}
-	
+
 	@Override
 	public Iterator<Block> iterator(final Event e) {
 		final Location l = center.getSingle(e);
@@ -76,7 +76,7 @@ public class ExprBlockSphere extends SimpleExpression<Block> {
 			return new EmptyIterator<>();
 		return new BlockSphereIterator(l, r.doubleValue());
 	}
-	
+
 	@Override
 	@Nullable
 	protected Block[] get(final Event e) {
@@ -88,25 +88,25 @@ public class ExprBlockSphere extends SimpleExpression<Block> {
 			list.add(b);
 		return list.toArray(new Block[list.size()]);
 	}
-	
+
 	@Override
 	public Class<? extends Block> getReturnType() {
 		return Block.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the blocks in radius " + radius + " around " + center.toString(e, debug);
 	}
-	
+
 	@Override
 	public boolean isLoopOf(final String s) {
 		return s.equalsIgnoreCase("block");
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
 	}
-	
+
 }

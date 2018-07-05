@@ -52,19 +52,21 @@ import ch.njol.skript.variables.Variables;
  * @author Peter Güttinger
  */
 public abstract class SkriptEventHandler {
+
 	private SkriptEventHandler() {}
-	
+
 	final static Map<Class<? extends Event>, List<Trigger>> triggers = new HashMap<>();
-	
+
 	private final static List<Trigger> selfRegisteredTriggers = new ArrayList<>();
-	
+
 	private static Iterator<Trigger> getTriggers(final Class<? extends Event> event) {
 		return new Iterator<Trigger>() {
+
 			@Nullable
 			private Class<?> e = event;
 			@Nullable
 			private Iterator<Trigger> current = null;
-			
+
 			@Override
 			public boolean hasNext() {
 				Iterator<Trigger> current = this.current;
@@ -78,7 +80,7 @@ public abstract class SkriptEventHandler {
 				}
 				return true;
 			}
-			
+
 			@Override
 			public Trigger next() {
 				final Iterator<Trigger> current = this.current;
@@ -88,18 +90,19 @@ public abstract class SkriptEventHandler {
 				assert next != null;
 				return next;
 			}
-			
+
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};
 	}
-	
+
 	@Nullable
 	static Event last = null;
-	
+
 	final static EventExecutor ee = new EventExecutor() {
+
 		@Override
 		public void execute(final @Nullable Listener l, final @Nullable Event e) {
 			if (e == null)
@@ -110,12 +113,12 @@ public abstract class SkriptEventHandler {
 			check(e);
 		}
 	};
-	
+
 	static void check(final Event e) {
 		Iterator<Trigger> ts = getTriggers(e.getClass());
 		if (!ts.hasNext())
 			return;
-		
+
 		if (Skript.logVeryHigh()) {
 			boolean hasTrigger = false;
 			while (ts.hasNext()) {
@@ -129,52 +132,46 @@ public abstract class SkriptEventHandler {
 			final Class<? extends Event> c = e.getClass();
 			assert c != null;
 			ts = getTriggers(c);
-			
+
 			logEventStart(e);
 		}
-		
-		if (e instanceof Cancellable && ((Cancellable) e).isCancelled() && !listenCancelled.contains(e.getClass()) &&
-				!(e instanceof PlayerInteractEvent && (((PlayerInteractEvent) e).getAction() == Action.LEFT_CLICK_AIR || ((PlayerInteractEvent) e).getAction() == Action.RIGHT_CLICK_AIR) && ((PlayerInteractEvent) e).useItemInHand() != Result.DENY)
-				|| e instanceof ServerCommandEvent && (((ServerCommandEvent) e).getCommand() == null || ((ServerCommandEvent) e).getCommand().isEmpty())) {
+
+		if (e instanceof Cancellable && ((Cancellable) e).isCancelled() && !listenCancelled.contains(e.getClass()) && !(e instanceof PlayerInteractEvent && (((PlayerInteractEvent) e).getAction() == Action.LEFT_CLICK_AIR || ((PlayerInteractEvent) e).getAction() == Action.RIGHT_CLICK_AIR) && ((PlayerInteractEvent) e).useItemInHand() != Result.DENY) || e instanceof ServerCommandEvent && (((ServerCommandEvent) e).getCommand() == null || ((ServerCommandEvent) e).getCommand().isEmpty())) {
 			if (Skript.logVeryHigh())
 				Skript.info(" -x- was cancelled");
 			return;
 		}
-		
+
 		while (ts.hasNext()) {
 			final Trigger t = ts.next();
 			if (!t.getEvent().check(e))
 				continue;
-			
+
 			logTriggerStart(t);
 			Object timing = SkriptTimings.start(t.getDebugLabel());
-			
+
 			t.execute(e);
-			
+
 			SkriptTimings.stop(timing);
 			logTriggerEnd(t);
 		}
-		
+
 		// Clear local variables
 		Variables.removeLocals(e);
 		/*
 		 * Local variables can be used in delayed effects by backing reference
 		 * of VariablesMap up. Basically:
-		 * 
 		 * Object localVars = Variables.removeLocals(e);
-		 * 
 		 * ... and when you want to continue execution:
-		 * 
 		 * Variables.setLocalVariables(e, localVars);
-		 * 
 		 * See Delay effect for reference.
 		 */
-		
+
 		logEventEnd();
 	}
-	
+
 	private static long startEvent;
-	
+
 	public static void logEventStart(final Event e) {
 		startEvent = System.nanoTime();
 		if (!Skript.logVeryHigh())
@@ -182,22 +179,22 @@ public abstract class SkriptEventHandler {
 		Skript.info("");
 		Skript.info("== " + e.getClass().getName() + " ==");
 	}
-	
+
 	public static void logEventEnd() {
 		if (!Skript.logVeryHigh())
 			return;
 		Skript.info("== took " + 1. * (System.nanoTime() - startEvent) / 1000000. + " milliseconds ==");
 	}
-	
+
 	static long startTrigger;
-	
+
 	public static void logTriggerStart(final Trigger t) {
 		startTrigger = System.nanoTime();
 		if (!Skript.logVeryHigh())
 			return;
 		Skript.info("# " + t.getName());
 	}
-	
+
 	public static void logTriggerEnd(final Trigger t) {
 		if (!Skript.logVeryHigh())
 			return;
@@ -212,7 +209,7 @@ public abstract class SkriptEventHandler {
 			ts.add(trigger);
 		}
 	}
-	
+
 	/**
 	 * Stores a self registered trigger to allow for it to be unloaded later on.
 	 * 
@@ -222,11 +219,11 @@ public abstract class SkriptEventHandler {
 		assert t.getEvent() instanceof SelfRegisteringSkriptEvent;
 		selfRegisteredTriggers.add(t);
 	}
-	
+
 	static ScriptInfo removeTriggers(final File script) {
 		final ScriptInfo info = new ScriptInfo();
 		info.files = 1;
-		
+
 		final Iterator<List<Trigger>> triggersIter = SkriptEventHandler.triggers.values().iterator();
 		while (triggersIter.hasNext()) {
 			final List<Trigger> ts = triggersIter.next();
@@ -240,7 +237,7 @@ public abstract class SkriptEventHandler {
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < selfRegisteredTriggers.size(); i++) {
 			final Trigger t = selfRegisteredTriggers.get(i);
 			if (script.equals(t.getScript())) {
@@ -250,14 +247,14 @@ public abstract class SkriptEventHandler {
 				i--;
 			}
 		}
-		
+
 		info.commands = Commands.unregisterCommands(script);
-		
+
 		info.functions = Functions.clearFunctions(script);
-		
+
 		return info;
 	}
-	
+
 	static void removeAllTriggers() {
 		triggers.clear();
 		for (final Trigger t : selfRegisteredTriggers)
@@ -265,13 +262,13 @@ public abstract class SkriptEventHandler {
 		selfRegisteredTriggers.clear();
 //		unregisterEvents();
 	}
-	
+
 	/**
 	 * Stores which events are currently registered with Bukkit
 	 */
 	private final static Set<Class<? extends Event>> registeredEvents = new HashSet<>();
 	private final static Listener listener = new Listener() {};
-	
+
 	/**
 	 * Registers event handlers for all events which currently loaded
 	 * triggers are using.
@@ -293,7 +290,7 @@ public abstract class SkriptEventHandler {
 			}
 		}
 	}
-	
+
 	public static boolean containsSuperclass(final Set<Class<?>> classes, final Class<?> c) {
 		if (classes.contains(c))
 			return true;
@@ -303,7 +300,7 @@ public abstract class SkriptEventHandler {
 		}
 		return false;
 	}
-	
+
 //	private final static void unregisterEvents() {
 //		for (final Iterator<Class<? extends Event>> i = registeredEvents.iterator(); i.hasNext();) {
 //			if (unregisterEvent(i.next()))
@@ -335,10 +332,10 @@ public abstract class SkriptEventHandler {
 //		}
 //		return false;
 //	}
-	
+
 	/**
 	 * Events which are listened even if they are cancelled.
 	 */
 	public final static Set<Class<? extends Event>> listenCancelled = new HashSet<>();
-	
+
 }

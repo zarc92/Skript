@@ -32,12 +32,13 @@ import ch.njol.skript.Skript;
  * @author Peter Güttinger
  */
 public abstract class StringUtils {
-	
+
 	public static void checkIndices(final String s, final int start, final int end) {
 		if (start < 0 || end > s.length())
-			throw new StringIndexOutOfBoundsException("invalid start/end indices " + start + "," + end + " for string \"" + s + "\" (length " + s.length() + ")");
+			throw new StringIndexOutOfBoundsException(
+					"invalid start/end indices " + start + "," + end + " for string \"" + s + "\" (length " + s.length() + ")");
 	}
-	
+
 	/**
 	 * Appends the english order suffix to the given number.
 	 * 
@@ -54,33 +55,39 @@ public abstract class StringUtils {
 			return i + "rd";
 		return i + "th";
 	}
-	
+
 	/**
 	 * Performs regex replacing using a callback.
 	 * 
 	 * @param string the String in which should be searched & replaced
 	 * @param regex the Regex to match
-	 * @param callback the callback will be run for every match of the regex in the string, and should return the replacement string for the given match.
-	 *            If the callback returns null for any given match this function will immediately terminate and return null.
+	 * @param callback the callback will be run for every match of the regex in the string, and should return the
+	 *            replacement string for the given match.
+	 *            If the callback returns null for any given match this function will immediately terminate and return
+	 *            null.
 	 * @return
 	 */
 	@SuppressWarnings("null")
 	@Nullable
-	public static String replaceAll(final CharSequence string, final String regex, final Callback<String, Matcher> callback) {
+	public static String replaceAll(final CharSequence string, final String regex,
+			final Callback<String, Matcher> callback) {
 		return replaceAll(string, Pattern.compile(regex), callback);
 	}
-	
+
 	/**
 	 * Performs regex replacing using a callback.
 	 * 
 	 * @param string the String in which should be searched & replaced
 	 * @param regex the Regex to match
-	 * @param callback the callback will be run for every match of the regex in the string, and should return the replacement string for the given match.
-	 *            If the callback returns null for any given match this function will immediately terminate and return null.
+	 * @param callback the callback will be run for every match of the regex in the string, and should return the
+	 *            replacement string for the given match.
+	 *            If the callback returns null for any given match this function will immediately terminate and return
+	 *            null.
 	 * @return
 	 */
 	@Nullable
-	public static String replaceAll(final CharSequence string, final Pattern regex, final Callback<String, Matcher> callback) {
+	public static String replaceAll(final CharSequence string, final Pattern regex,
+			final Callback<String, Matcher> callback) {
 		final Matcher m = regex.matcher(string);
 		final StringBuffer sb = new StringBuffer();
 		while (m.find()) {
@@ -92,15 +99,15 @@ public abstract class StringUtils {
 		m.appendTail(sb);
 		return sb.toString();
 	}
-	
+
 	public static int count(final String s, final char c) {
 		return count(s, c, 0, s.length());
 	}
-	
+
 	public static int count(final String s, final char c, final int start) {
 		return count(s, c, start, s.length());
 	}
-	
+
 	public static int count(final String s, final char c, final int start, final int end) {
 		checkIndices(s, start, end);
 		int r = 0;
@@ -110,7 +117,7 @@ public abstract class StringUtils {
 		}
 		return r;
 	}
-	
+
 	public static boolean contains(final String s, final char c, final int start, final int end) {
 		checkIndices(s, start, end);
 		for (int i = start; i < end; i++) {
@@ -119,7 +126,7 @@ public abstract class StringUtils {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Gets a rounded english (##.##) representation of a number
 	 * 
@@ -139,7 +146,7 @@ public abstract class StringUtils {
 			c--;
 		return "" + s.substring(0, c + 1);
 	}
-	
+
 	public static String firstToUpper(final String s) {
 		if (s.isEmpty())
 			return s;
@@ -147,9 +154,10 @@ public abstract class StringUtils {
 			return s;
 		return Character.toUpperCase(s.charAt(0)) + s.substring(1);
 	}
-	
+
 	/**
-	 * Equal to {@link String#substring(int, int)}, but allows negative indices that are counted from the end of the string.
+	 * Equal to {@link String#substring(int, int)}, but allows negative indices that are counted from the end of the
+	 * string.
 	 * 
 	 * @param s
 	 * @param start
@@ -165,9 +173,10 @@ public abstract class StringUtils {
 			throw new IllegalArgumentException("invalid indices");
 		return "" + s.substring(start, end);
 	}
-	
+
 	/**
-	 * Capitalises the first character of the string and all characters that follow periods, exclamation and question marks.
+	 * Capitalises the first character of the string and all characters that follow periods, exclamation and question
+	 * marks.
 	 * 
 	 * @param string
 	 * @return
@@ -186,7 +195,7 @@ public abstract class StringUtils {
 		}
 		return new String(s);
 	}
-	
+
 	private static int indexOf(final char[] s, final int start, final char... cs) {
 		for (int i = start; i < s.length; i++) {
 			for (final char c : cs)
@@ -195,7 +204,7 @@ public abstract class StringUtils {
 		}
 		return -1;
 	}
-	
+
 	/**
 	 * Shorthand for <tt>{@link #numberAt(CharSequence, int, boolean) numberAt}(s, index, true)</tt>
 	 * 
@@ -206,7 +215,7 @@ public abstract class StringUtils {
 	public static double numberAfter(final CharSequence s, final int index) {
 		return numberAt(s, index, true);
 	}
-	
+
 	/**
 	 * Shorthand for <tt>{@link #numberAt(CharSequence, int, boolean) numberAt}(s, index, false)</tt>
 	 * 
@@ -217,11 +226,13 @@ public abstract class StringUtils {
 	public static double numberBefore(final CharSequence s, final int index) {
 		return numberAt(s, index, false);
 	}
-	
+
 	/**
-	 * Finds a positive number in the given CharSequence, starting at the given index, and searching in the given direction.
+	 * Finds a positive number in the given CharSequence, starting at the given index, and searching in the given
+	 * direction.
 	 * <p>
-	 * The number has to start exactly at the given index (ignoring whitespace), and will only count if the other end of the number is either at an end of the string or padded by
+	 * The number has to start exactly at the given index (ignoring whitespace), and will only count if the other end of
+	 * the number is either at an end of the string or padded by
 	 * whitespace.
 	 * 
 	 * @param s The ChatSequence to search the number in
@@ -269,11 +280,11 @@ public abstract class StringUtils {
 			return -1;
 		return Double.parseDouble(s.subSequence(Math.min(d1, d2), Math.max(d1, d2) + 1).toString());
 	}
-	
+
 	public static boolean startsWithIgnoreCase(final String string, final String start) {
 		return startsWithIgnoreCase(string, start, 0);
 	}
-	
+
 	public static boolean startsWithIgnoreCase(final String string, final String start, final int offset) {
 		assert string != null;
 		assert start != null;
@@ -281,7 +292,7 @@ public abstract class StringUtils {
 			return false;
 		return string.substring(offset, start.length()).equalsIgnoreCase(start);
 	}
-	
+
 	public static boolean endsWithIgnoreCase(final String string, final String end) {
 		assert string != null;
 		assert end != null;
@@ -289,7 +300,7 @@ public abstract class StringUtils {
 			return false;
 		return string.substring(string.length() - end.length()).equalsIgnoreCase(end);
 	}
-	
+
 	public static String multiply(final @Nullable String s, final int amount) {
 		assert amount >= 0 : amount;
 		if (s == null)
@@ -304,7 +315,7 @@ public abstract class StringUtils {
 			System.arraycopy(input, 0, multiplied, i * input.length, input.length);
 		return new String(multiplied);
 	}
-	
+
 	public static String multiply(final char c, final int amount) {
 		if (amount == 0)
 			return "";
@@ -313,20 +324,21 @@ public abstract class StringUtils {
 			multiplied[i] = c;
 		return new String(multiplied);
 	}
-	
+
 	public static String join(final @Nullable Object[] strings) {
 		if (strings == null)
 			return "";
 		return join(strings, "", 0, strings.length);
 	}
-	
+
 	public static String join(final @Nullable Object[] strings, final String delimiter) {
 		if (strings == null)
 			return "";
 		return join(strings, delimiter, 0, strings.length);
 	}
-	
-	public static String join(final @Nullable Object[] strings, final String delimiter, final int start, final int end) {
+
+	public static String join(final @Nullable Object[] strings, final String delimiter, final int start,
+			final int end) {
 		if (strings == null)
 			return "";
 		assert start >= 0 && start <= end && end <= strings.length : start + ", " + end + ", " + strings.length;
@@ -339,19 +351,19 @@ public abstract class StringUtils {
 		}
 		return "" + b;
 	}
-	
+
 	public static String join(final @Nullable Iterable<?> strings) {
 		if (strings == null)
 			return "";
 		return join(strings.iterator(), "");
 	}
-	
+
 	public static String join(final @Nullable Iterable<?> strings, final String delimiter) {
 		if (strings == null)
 			return "";
 		return join(strings.iterator(), delimiter);
 	}
-	
+
 	public static String join(final @Nullable Iterator<?> strings, final String delimiter) {
 		if (strings == null || !strings.hasNext())
 			return "";
@@ -362,7 +374,7 @@ public abstract class StringUtils {
 		}
 		return "" + b;
 	}
-	
+
 	/**
 	 * Scans the string starting at <tt>start</tt> for digits.
 	 * 
@@ -376,7 +388,7 @@ public abstract class StringUtils {
 			end++;
 		return end;
 	}
-	
+
 	/**
 	 * Searches for whether a String contains any of the characters of another string.
 	 * 
@@ -391,21 +403,22 @@ public abstract class StringUtils {
 		}
 		return false;
 	}
-	
+
 	public static boolean equals(final String s1, final String s2, final boolean caseSensitive) {
 		return caseSensitive ? s1.equals(s2) : s1.equalsIgnoreCase(s2);
 	}
-	
+
 	public static boolean contains(final String haystack, final String needle, final boolean caseSensitive) {
 		if (caseSensitive)
 			return haystack.contains(needle);
 		return haystack.toLowerCase().contains(needle.toLowerCase());
 	}
-	
-	public static String replace(final String haystack, final String needle, final String replacement, final boolean caseSensitive) {
+
+	public static String replace(final String haystack, final String needle, final String replacement,
+			final boolean caseSensitive) {
 		if (caseSensitive)
 			return "" + haystack.replace(needle, replacement);
 		return "" + haystack.replaceAll("(?ui)" + Pattern.quote(needle), replacement);
 	}
-	
+
 }

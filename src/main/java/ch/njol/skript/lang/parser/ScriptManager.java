@@ -46,9 +46,8 @@ import ch.njol.skript.config.Config;
 
 /**
  * Manages loading of ALL scripts.
- * 
  * There should never be more than one instance of this in use at same time.
  */
 public class ScriptManager {
-	
+
 }

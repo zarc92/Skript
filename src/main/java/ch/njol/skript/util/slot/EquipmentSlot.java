@@ -38,9 +38,10 @@ import ch.njol.skript.registrations.Classes;
  * Represents equipment slot of an entity.
  */
 public class EquipmentSlot extends SlotWithIndex {
-	
+
 	public static enum EquipSlot {
 		TOOL {
+
 			@SuppressWarnings("deprecation")
 			@Override
 			@Nullable
@@ -50,7 +51,7 @@ public class EquipmentSlot extends SlotWithIndex {
 				}
 				return e.getItemInHand();
 			}
-			
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public void set(final EntityEquipment e, final @Nullable ItemStack item) {
@@ -81,90 +82,94 @@ public class EquipmentSlot extends SlotWithIndex {
 					Skript.warning("No off hand support, but a skript would need that!");
 				}
 			}
-			
+
 		},
 		HELMET(39) {
+
 			@Override
 			@Nullable
 			public ItemStack get(final EntityEquipment e) {
 				return e.getHelmet();
 			}
-			
+
 			@Override
 			public void set(final EntityEquipment e, final @Nullable ItemStack item) {
 				e.setHelmet(item);
 			}
 		},
 		CHESTPLATE(38) {
+
 			@Override
 			@Nullable
 			public ItemStack get(final EntityEquipment e) {
 				return e.getChestplate();
 			}
-			
+
 			@Override
 			public void set(final EntityEquipment e, final @Nullable ItemStack item) {
 				e.setChestplate(item);
 			}
 		},
 		LEGGINGS(37) {
+
 			@Override
 			@Nullable
 			public ItemStack get(final EntityEquipment e) {
 				return e.getLeggings();
 			}
-			
+
 			@Override
 			public void set(final EntityEquipment e, final @Nullable ItemStack item) {
 				e.setLeggings(item);
 			}
 		},
 		BOOTS(36) {
+
 			@Override
 			@Nullable
 			public ItemStack get(final EntityEquipment e) {
 				return e.getBoots();
 			}
-			
+
 			@Override
 			public void set(final EntityEquipment e, final @Nullable ItemStack item) {
 				e.setBoots(item);
 			}
 		};
-		
+
 		public final int slotNumber;
-		
+
 		EquipSlot() {
 			slotNumber = -1;
 		}
-		
+
 		EquipSlot(int number) {
 			slotNumber = number;
 		}
-		
+
 		@Nullable
 		public abstract ItemStack get(EntityEquipment e);
-		
+
 		public abstract void set(EntityEquipment e, @Nullable ItemStack item);
-		
+
 	}
-	
+
 	private static final EquipSlot[] values = EquipSlot.values();
-	
+
 	private final EntityEquipment e;
 	private final EquipSlot slot;
 	private final boolean slotToString;
-	
+
 	public EquipmentSlot(final EntityEquipment e, final EquipSlot slot, final boolean slotToString) {
 		this.e = e;
 		this.slot = slot;
 		this.slotToString = slotToString;
 	}
-	
+
 	public EquipmentSlot(final EntityEquipment e, final EquipSlot slot) {
 		this(e, slot, false);
 	}
-	
+
 	@SuppressWarnings("null")
 	public EquipmentSlot(HumanEntity holder, int index) {
 		this.e = holder.getEquipment();
@@ -178,16 +183,17 @@ public class EquipmentSlot extends SlotWithIndex {
 	public ItemStack getItem() {
 		return slot.get(e);
 	}
-	
+
 	@Override
 	public void setItem(final @Nullable ItemStack item) {
 		slot.set(e, item);
 		if (e.getHolder() instanceof Player)
 			PlayerUtils.updateInventory((Player) e.getHolder());
 	}
-	
+
 	/**
 	 * Gets underlying armor slot enum.
+	 * 
 	 * @return Armor slot.
 	 */
 	public EquipSlot getEquipSlot() {
@@ -206,5 +212,5 @@ public class EquipmentSlot extends SlotWithIndex {
 		else // Contents of slot to string
 			return Classes.toString(getItem());
 	}
-	
+
 }

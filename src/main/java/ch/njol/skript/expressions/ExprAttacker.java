@@ -48,33 +48,31 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Attacker")
-@Description({"The attacker of a damage event, e.g. when a player attacks a zombie this expression represents the player.",
-		"Please note that the attacker can also be a block, e.g. a cactus or lava, but this expression will not be set in these cases."})
-@Examples({"on damage:",
-		"	attacker is a player",
-		"	health of attacker is less than or equal to 2",
-		"	damage victim by 1 heart"})
+@Description({"The attacker of a damage event, e.g. when a player attacks a zombie this expression represents the player.", "Please note that the attacker can also be a block, e.g. a cactus or lava, but this expression will not be set in these cases."})
+@Examples({"on damage:", "	attacker is a player", "	health of attacker is less than or equal to 2", "	damage victim by 1 heart"})
 @Since("1.3")
 @Events({"damage", "death", "destroy"})
 public class ExprAttacker extends SimpleExpression<Entity> {
+
 	static {
 		Skript.registerExpression(ExprAttacker.class, Entity.class, ExpressionType.SIMPLE, "[the] (attacker|damager)");
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		if (!ScriptLoader.isCurrentEvent(EntityDamageByEntityEvent.class, EntityDeathEvent.class, VehicleDamageEvent.class, VehicleDestroyEvent.class)) {
 			Skript.error("Cannot use 'attacker' outside of a damage/death/destroy event", ErrorQuality.SEMANTIC_ERROR);
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	protected Entity[] get(final Event e) {
 		return new Entity[] {getAttacker(e)};
 	}
-	
+
 	@Nullable
 	private static Entity getAttacker(final @Nullable Event e) {
 		if (e == null)
@@ -98,22 +96,22 @@ public class ExprAttacker extends SimpleExpression<Entity> {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Class<? extends Entity> getReturnType() {
 		return Entity.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (e == null)
 			return "the attacker";
 		return Classes.getDebugMessage(getSingle(e));
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 }

@@ -24,12 +24,13 @@ package ch.njol.skript.lang;
  * @param <E> the syntax element this info is for
  */
 public class SyntaxElementInfo<E extends SyntaxElement> {
-	
+
 	public final Class<E> c;
 	public final String[] patterns;
 	public final String originClassPath;
-	
-	public SyntaxElementInfo(final String[] patterns, final Class<E> c, final String originClassPath) throws IllegalArgumentException {
+
+	public SyntaxElementInfo(final String[] patterns, final Class<E> c, final String originClassPath)
+			throws IllegalArgumentException {
 		this.patterns = patterns;
 		this.c = c;
 		this.originClassPath = originClassPath;
@@ -44,5 +45,5 @@ public class SyntaxElementInfo<E extends SyntaxElement> {
 			throw new IllegalStateException("Skript cannot run properly because a security manager is blocking it!");
 		}
 	}
-	
+
 }

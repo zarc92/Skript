@@ -41,6 +41,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @Examples({"set {_v} to vector 0, 1, 0"})
 @Since("2.2-dev28")
 public class ExprVectorFromXYZ extends SimpleExpression<Vector> {
+
 	static {
 		Skript.registerExpression(ExprVectorFromXYZ.class, Vector.class, ExpressionType.SIMPLE, "[new] vector [(from|at|to)] %number%,[ ]%number%(,[ ]| and )%number%");
 	}
@@ -54,7 +55,7 @@ public class ExprVectorFromXYZ extends SimpleExpression<Vector> {
 		Number x = this.x.getSingle(event);
 		Number y = this.y.getSingle(event);
 		Number z = this.z.getSingle(event);
-		if ( x == null || y == null || z == null) {
+		if (x == null || y == null || z == null) {
 			return null;
 		}
 		return new Vector[] {new Vector(x.doubleValue(), y.doubleValue(), z.doubleValue())};

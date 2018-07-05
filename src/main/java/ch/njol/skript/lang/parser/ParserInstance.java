@@ -86,5 +86,5 @@ import ch.njol.util.coll.CollectionUtils;
  * Instance of Skript parser. Runs asynchronously.
  */
 public class ParserInstance {
-	
+
 }

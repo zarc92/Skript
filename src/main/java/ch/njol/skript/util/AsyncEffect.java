@@ -40,7 +40,7 @@ import java.util.concurrent.Executors;
  * Majority of Skript and Minecraft APIs are not thread-safe, so be careful.
  */
 public abstract class AsyncEffect extends Effect {
-	
+
 	@Override
 	@Nullable
 	protected TriggerItem walk(Event e) {
@@ -48,12 +48,14 @@ public abstract class AsyncEffect extends Effect {
 		TriggerItem next = getNext();
 		Delay.addDelayedEvent(e);
 		Bukkit.getScheduler().runTaskAsynchronously(Skript.getInstance(), new Runnable() {
-	        	@SuppressWarnings("synthetic-access")
+
+			@SuppressWarnings("synthetic-access")
 			@Override
-	            	public void run() {
+			public void run() {
 				execute(e); // Execute this effect
-	                	if (next != null) {
+				if (next != null) {
 					Bukkit.getScheduler().runTask(Skript.getInstance(), new Runnable() {
+
 						@Override
 						public void run() { // Walk to next item synchronously
 							Object timing = null;
@@ -68,10 +70,10 @@ public abstract class AsyncEffect extends Effect {
 
 							SkriptTimings.stop(timing); // Stop timing if it was even started
 						}
-					});	
+					});
 				}
-	            	}
-	        });
-        return null;
-    }
+			}
+		});
+		return null;
+	}
 }

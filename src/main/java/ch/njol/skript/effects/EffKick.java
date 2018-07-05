@@ -41,33 +41,33 @@ import ch.njol.util.Kleenean;
  */
 @Name("Kick")
 @Description("Kicks a player from the server.")
-@Examples({"on place of TNT, lava, or obsidian:",
-		"	kick the player due to \"You may not place %block%!\"",
-		"	cancel the event"})
+@Examples({"on place of TNT, lava, or obsidian:", "	kick the player due to \"You may not place %block%!\"", "	cancel the event"})
 @Since("1.0")
 public class EffKick extends Effect {
+
 	static {
 		Skript.registerEffect(EffKick.class, "kick %players% [(by reason of|because [of]|on account of|due to) %-string%]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Player> players;
 	@Nullable
 	private Expression<String> reason;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		players = (Expression<Player>) exprs[0];
 		reason = (Expression<String>) exprs[1];
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "kick " + players.toString(e, debug) + (reason != null ? " on account of " + reason.toString(e, debug) : "");
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		final String r = reason != null ? reason.getSingle(e) : "";
@@ -83,5 +83,5 @@ public class EffKick extends Effect {
 			}
 		}
 	}
-	
+
 }

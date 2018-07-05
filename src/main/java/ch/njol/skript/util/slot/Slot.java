@@ -31,22 +31,23 @@ import ch.njol.skript.registrations.Classes;
  * slot or perhaps an item frame.
  */
 public abstract class Slot implements Debuggable {
-	
+
 	protected Slot() {}
-	
+
 	@Nullable
 	public abstract ItemStack getItem();
-	
+
 	public abstract void setItem(final @Nullable ItemStack item);
-	
+
 	@Override
 	public final String toString() {
 		return toString(null, false);
 	}
-	
+
 	/**
 	 * Checks if given slot is in same position with this.
 	 * Ignores slot contents.
+	 * 
 	 * @param o Another slot
 	 * @return True if positions equal, false otherwise.
 	 */

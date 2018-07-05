@@ -28,13 +28,13 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Peter Güttinger
  */
 public class OptionSection {
-	
+
 	public final String key;
-	
+
 	public OptionSection(final String key) {
 		this.key = key;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Nullable
 	public final <T> T get(String key) {
@@ -55,5 +55,5 @@ public class OptionSection {
 		}
 		return null;
 	}
-	
+
 }

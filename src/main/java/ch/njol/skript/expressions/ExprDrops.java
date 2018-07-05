@@ -52,20 +52,21 @@ import ch.njol.util.coll.iterator.IteratorIterable;
  */
 @Name("Drops")
 @Description("Only works in death events. Holds the drops of the dying creature. Drops can be prevented by removing them with \"remove ... from drops\", e.g. \"remove all pickaxes from the drops\", or \"clear drops\" if you don't want any drops at all.")
-@Examples({"clear drops",
-		"remove 4 planks from the drops"})
+@Examples({"clear drops", "remove 4 planks from the drops"})
 @Since("1.0")
 @Events("death")
 public class ExprDrops extends SimpleExpression<ItemStack> {
+
 	static {
 		Skript.registerExpression(ExprDrops.class, ItemStack.class, ExpressionType.SIMPLE, "[the] drops");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Kleenean delayed;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		if (!ScriptLoader.isCurrentEvent(EntityDeathEvent.class)) {
 			Skript.error("The expression 'drops' can only be used in death events", ErrorQuality.SEMANTIC_ERROR);
 			return false;
@@ -73,7 +74,7 @@ public class ExprDrops extends SimpleExpression<ItemStack> {
 		delayed = isDelayed;
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected ItemStack[] get(final Event e) {
@@ -81,7 +82,7 @@ public class ExprDrops extends SimpleExpression<ItemStack> {
 			return new ItemStack[0];
 		return ((EntityDeathEvent) e).getDrops().toArray(new ItemStack[0]);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -94,7 +95,7 @@ public class ExprDrops extends SimpleExpression<ItemStack> {
 		}
 		return CollectionUtils.array(ItemType[].class, Inventory[].class, Experience[].class);
 	}
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
 	public void change(final Event e, final @Nullable Object[] deltas, final ChangeMode mode) {
@@ -103,14 +104,14 @@ public class ExprDrops extends SimpleExpression<ItemStack> {
 			assert false;
 			return;
 		}
-		
+
 		final List<ItemStack> drops = ((EntityDeathEvent) e).getDrops();
 		if (mode == ChangeMode.DELETE) {
 			drops.clear();
 			return;
 		}
 		boolean cleared = false;
-		
+
 		assert deltas != null;
 		for (final Object delta : deltas) {
 			if (delta instanceof Experience) {
@@ -164,22 +165,22 @@ public class ExprDrops extends SimpleExpression<ItemStack> {
 			}
 		}
 	}
-	
+
 	@Override
 	public Class<? extends ItemStack> getReturnType() {
 		return ItemStack.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (e == null)
 			return "the drops";
 		return Classes.getDebugMessage(getAll(e));
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
 	}
-	
+
 }

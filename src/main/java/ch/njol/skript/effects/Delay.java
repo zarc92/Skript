@@ -49,11 +49,10 @@ import edu.umd.cs.findbugs.ba.bcp.New;
  */
 @Name("Delay")
 @Description("Delays the script's execution by a given timespan. Please note that delays are not persistent, e.g. trying to create a tempban script with <code>ban player → wait 7 days → unban player</code> will not work if you restart your server anytime within these 7 days. You also have to be careful even when using small delays!")
-@Examples({"wait 2 minutes",
-		"halt for 5 minecraft hours",
-		"wait a tick"})
+@Examples({"wait 2 minutes", "halt for 5 minecraft hours", "wait a tick"})
 @Since("1.4")
 public class Delay extends Effect {
+
 	static {
 		Skript.registerEffect(Delay.class, "(wait|halt) [for] %timespan%");
 	}
@@ -63,7 +62,8 @@ public class Delay extends Effect {
 
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		duration = (Expression<Timespan>) exprs[0];
 		if (duration instanceof Literal) { // If we can, do sanity check for delays
 			long millis = ((Literal<Timespan>) duration).getSingle().getMilliSeconds();
@@ -83,21 +83,22 @@ public class Delay extends Effect {
 		if (next != null) {
 			// Back up local variables
 			Object localVars = Variables.removeLocals(e);
-			
+
 			delayed.add(e);
 			final Timespan d = duration.getSingle(e);
 			if (d == null)
 				return null;
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					if (Skript.debug())
 						Skript.info(getIndentation() + "... continuing after " + (System.nanoTime() - start) / 1000000000. + "s");
-					
+
 					// Re-set local variables
 					if (localVars != null)
 						Variables.setLocalVariables(e, localVars);
-					
+
 					Object timing = null;
 					if (SkriptTimings.enabled()) { // getTrigger call is not free, do it only if we must
 						Trigger trigger = getTrigger();
@@ -105,9 +106,9 @@ public class Delay extends Effect {
 							timing = SkriptTimings.start(trigger.getDebugLabel());
 						}
 					}
-					
+
 					TriggerItem.walk(next, e);
-					
+
 					SkriptTimings.stop(timing); // Stop timing if it was even started
 				}
 			}, d.getTicks_i() < 1 ? 1 : d.getTicks_i()); // Minimum delay is one tick, less than it is useless!
@@ -117,12 +118,12 @@ public class Delay extends Effect {
 
 	@SuppressWarnings("null")
 	protected final static Set<Event> delayed = Collections.newSetFromMap(new WeakHashMap<>());
-	
+
 	public static boolean isDelayed(final Event e) {
 		return delayed.contains(e);
 	}
 
-	public static void addDelayedEvent(Event event){
+	public static void addDelayedEvent(Event event) {
 		delayed.add(event);
 	}
 

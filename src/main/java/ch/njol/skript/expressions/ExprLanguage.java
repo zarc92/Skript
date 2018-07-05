@@ -29,8 +29,7 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 
 @Name("Language")
-@Description({"Currently selected game language of a player. The value of the language is not defined properly.",
-			"The vanilla Minecraft client will use lowercase language / country pairs separated by an underscore, but custom resource packs may use any format they wish."})
+@Description({"Currently selected game language of a player. The value of the language is not defined properly.", "The vanilla Minecraft client will use lowercase language / country pairs separated by an underscore, but custom resource packs may use any format they wish."})
 @Examples({"message player's current language"})
 @Since("INSERT VERSION")
 public class ExprLanguage extends SimplePropertyExpression<Player, String> {

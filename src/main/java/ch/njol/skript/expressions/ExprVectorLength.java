@@ -37,12 +37,10 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @Name("Vectors - Length")
 @Description("Gets or sets the length of a vector")
-@Examples({"send \"%standard length of vector 1, 2, 3%\"",
-		"set {_v} to vector 1, 2, 3",
-		"set standard length of {_v} to 2",
-		"send \"%standard length of {_v}%\""})
+@Examples({"send \"%standard length of vector 1, 2, 3%\"", "set {_v} to vector 1, 2, 3", "set standard length of {_v} to 2", "send \"%standard length of {_v}%\""})
 @Since("2.2-dev28")
 public class ExprVectorLength extends SimplePropertyExpression<Vector, Double> {
+
 	static {
 		Skript.registerExpression(ExprVectorLength.class, Double.class, ExpressionType.PROPERTY, "(vector|standard|normal) length of %vector%", "%vector%['s] (vector|standard|normal) length");
 	}
@@ -69,8 +67,8 @@ public class ExprVectorLength extends SimplePropertyExpression<Vector, Double> {
 	@Override
 	@SuppressWarnings("null")
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
-		if (mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE || mode == Changer.ChangeMode.SET){
-			return new Class[]{ Number.class };
+		if (mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE || mode == Changer.ChangeMode.SET) {
+			return new Class[] {Number.class};
 		}
 		return null;
 	}
@@ -93,7 +91,7 @@ public class ExprVectorLength extends SimplePropertyExpression<Vector, Double> {
 					double l = n + v.length();
 					v.normalize().multiply(l);
 				}
-				getExpr().change(e, new Vector[]{v}, Changer.ChangeMode.SET);
+				getExpr().change(e, new Vector[] {v}, Changer.ChangeMode.SET);
 				break;
 			case SET:
 				if (n < 0) {
@@ -101,7 +99,7 @@ public class ExprVectorLength extends SimplePropertyExpression<Vector, Double> {
 				} else {
 					v.normalize().multiply(n);
 				}
-				getExpr().change(e, new Vector[]{v}, Changer.ChangeMode.SET);
+				getExpr().change(e, new Vector[] {v}, Changer.ChangeMode.SET);
 				break;
 			case DELETE:
 			case REMOVE_ALL:

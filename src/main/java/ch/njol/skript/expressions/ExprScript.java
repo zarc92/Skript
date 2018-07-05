@@ -41,22 +41,21 @@ import ch.njol.util.Kleenean;
  */
 @Name("Script Name")
 @Description("Holds the current script's name (the file name without '.sk').")
-@Examples({"on script load:",
-		"	set {running.%script%} to true",
-		"on script unload:",
-		"	set {running.%script%} to false"})
+@Examples({"on script load:", "	set {running.%script%} to true", "on script unload:", "	set {running.%script%} to false"})
 @Since("2.0")
 @Events("Script Load/Unload")
 public class ExprScript extends SimpleExpression<String> {
+
 	static {
 		Skript.registerExpression(ExprScript.class, String.class, ExpressionType.SIMPLE, "[the] script[['s] name]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private String name;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		final Config script = ScriptLoader.currentScript;
 		if (script == null) {
 			assert false;
@@ -68,25 +67,25 @@ public class ExprScript extends SimpleExpression<String> {
 		this.name = name;
 		return true;
 	}
-	
+
 	@Override
 	protected String[] get(final Event e) {
 		return new String[] {name};
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the script's name";
 	}
-	
+
 }

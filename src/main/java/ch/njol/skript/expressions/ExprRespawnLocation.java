@@ -48,15 +48,14 @@ import ch.njol.util.coll.CollectionUtils;
 
 @Name("Respawn location")
 @Description("The location that a player should respawn at. This is used within the respawn event.")
-@Examples({"on respawn:",
-	"	set respawn location to {example::spawn}"})
+@Examples({"on respawn:", "	set respawn location to {example::spawn}"})
 @Since("2.2-dev35")
 public class ExprRespawnLocation extends SimpleExpression<Location> {
 
 	static {
 		Skript.registerExpression(ExprRespawnLocation.class, Location.class, ExpressionType.SIMPLE, "[the] respawn location");
 	}
-	
+
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (!ScriptLoader.isCurrentEvent(PlayerRespawnEvent.class)) {
@@ -65,11 +64,11 @@ public class ExprRespawnLocation extends SimpleExpression<Location> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Location[] get(Event event) {
-		return CollectionUtils.array(((PlayerRespawnEvent)event).getRespawnLocation());
+		return CollectionUtils.array(((PlayerRespawnEvent) event).getRespawnLocation());
 	}
 
 	@Override
@@ -81,12 +80,12 @@ public class ExprRespawnLocation extends SimpleExpression<Location> {
 	public Class<? extends Location> getReturnType() {
 		return Location.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event event, final boolean debug) {
-		return "the respawn location " + ((event != null) ? ": " + ((PlayerRespawnEvent)event).getRespawnLocation() : "");
+		return "the respawn location " + ((event != null) ? ": " + ((PlayerRespawnEvent) event).getRespawnLocation() : "");
 	}
-	
+
 	@Nullable
 	@Override
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
@@ -97,7 +96,8 @@ public class ExprRespawnLocation extends SimpleExpression<Location> {
 
 	@Override
 	public void change(Event event, @Nullable Object[] delta, Changer.ChangeMode mode) {
-		if (delta != null) ((PlayerRespawnEvent)event).setRespawnLocation((Location)delta[0]);
+		if (delta != null)
+			((PlayerRespawnEvent) event).setRespawnLocation((Location) delta[0]);
 	}
-	
+
 }

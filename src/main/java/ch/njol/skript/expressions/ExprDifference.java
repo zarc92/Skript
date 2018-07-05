@@ -48,30 +48,29 @@ import ch.njol.util.Kleenean;
  */
 @Name("Difference")
 @Description("The difference between two values, e.g. <a href='../classes/#number'>numbers</a>, <a href='../classes/#date'>dates</a> or <a href='../classes/#time'>times</a>.")
-@Examples({"difference between {command.%player%.lastuse} and now is smaller than a minute:",
-		"  message \"You have to wait a minute before using this command again!\"",
-		"  stop"})
+@Examples({"difference between {command.%player%.lastuse} and now is smaller than a minute:", "  message \"You have to wait a minute before using this command again!\"", "  stop"})
 @Since("1.4")
 public class ExprDifference extends SimpleExpression<Object> {
-	
+
 	static {
 		Skript.registerExpression(ExprDifference.class, Object.class, ExpressionType.COMBINED, "difference (between|of) %object% and %object%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> first, second;
-	
+
 	@SuppressWarnings("rawtypes")
 	@Nullable
 	private Arithmetic math;
 	@SuppressWarnings("null")
 	private Class<?> relativeType;
-	
+
 	private boolean bothVariables;
-	
+
 	@SuppressWarnings({"unchecked", "null", "unused"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		first = exprs[0];
 		second = exprs[1];
 		final ClassInfo<?> ci;
@@ -116,7 +115,7 @@ public class ExprDifference extends SimpleExpression<Object> {
 		}
 		return true;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -125,7 +124,7 @@ public class ExprDifference extends SimpleExpression<Object> {
 		if (f == null || s == null)
 			return null;
 		final Object[] one = (Object[]) Array.newInstance(relativeType, 1);
-		
+
 		// If we're comparing variables, math is null right now
 		if (bothVariables) {
 			ClassInfo<?> info = Classes.getSuperClassInfo(f.getClass());
@@ -134,26 +133,26 @@ public class ExprDifference extends SimpleExpression<Object> {
 				return one;
 			}
 		}
-		
+
 		assert math != null; // NOW it cannot be null
 		one[0] = math.difference(f, s);
-		
+
 		return one;
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
 		return relativeType;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "difference between " + first.toString(e, debug) + " and " + second.toString(e, debug);
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 }

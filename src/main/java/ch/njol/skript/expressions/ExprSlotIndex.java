@@ -30,25 +30,21 @@ import ch.njol.skript.util.slot.Slot;
 import ch.njol.skript.util.slot.SlotWithIndex;
 
 @Name("Slot Index")
-@Description("Index of an an inventory slot. Other types of slots may or may "
-		+ "not have indices. Note that comparing slots with numbers is also "
-		+ "possible; if index of slot is same as the number, comparison"
-		+ "succeeds. This expression is mainly for the cases where you must "
-		+ "for some reason save the slot numbers.")
+@Description("Index of an an inventory slot. Other types of slots may or may " + "not have indices. Note that comparing slots with numbers is also " + "possible; if index of slot is same as the number, comparison" + "succeeds. This expression is mainly for the cases where you must " + "for some reason save the slot numbers.")
 @Examples("")
 @Since("2.2-dev35")
 public class ExprSlotIndex extends SimplePropertyExpression<Slot, Integer> {
-	
+
 	static {
 		register(ExprSlotIndex.class, Integer.class, "(index|indices)", "slots");
 	}
-	
+
 	@Override
 	@Nullable
 	public Integer convert(Slot f) {
 		if (f instanceof SlotWithIndex)
 			return ((SlotWithIndex) f).getIndex();
-		
+
 		return 0; // Slot does not have index. At all
 	}
 
@@ -56,7 +52,7 @@ public class ExprSlotIndex extends SimplePropertyExpression<Slot, Integer> {
 	protected String getPropertyName() {
 		return "slot";
 	}
-	
+
 	@Override
 	public Class<? extends Integer> getReturnType() {
 		return Integer.class;

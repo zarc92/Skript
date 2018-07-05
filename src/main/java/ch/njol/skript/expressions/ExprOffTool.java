@@ -44,20 +44,20 @@ import ch.njol.skript.util.slot.Slot;
 
 @NoDoc
 public class ExprOffTool extends ExprTool {
+
 	static {
 		if (Skript.isRunningMinecraft(1, 9)) {
-			Skript.registerExpression(ExprOffTool.class, Slot.class, ExpressionType.PROPERTY, "[the] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon) [of %livingentities%]", "%livingentities%'[s] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon)",
-					"[the] (off[ ]hand tool|off[ ] hand item|shield[ item]) [of %livingentities%]", "%livingentities%'[s] (off[ ]hand tool|off[ ] hand item|shield[ item])");
+			Skript.registerExpression(ExprOffTool.class, Slot.class, ExpressionType.PROPERTY, "[the] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon) [of %livingentities%]", "%livingentities%'[s] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon)", "[the] (off[ ]hand tool|off[ ] hand item|shield[ item]) [of %livingentities%]", "%livingentities%'[s] (off[ ]hand tool|off[ ] hand item|shield[ item])");
 		} else { // Don't break scripts if running older Minecraft
-			Skript.registerExpression(ExprTool.class, Slot.class, ExpressionType.PROPERTY, "[the] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon) [of %livingentities%]", "%livingentities%'[s] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon)",
-					"[the] (off[ ]hand tool|off[ ] hand item|shield[ item]) [of %livingentities%]", "%livingentities%'[s] (off[ ]hand tool|off[ ] hand item|shield[ item])");
+			Skript.registerExpression(ExprTool.class, Slot.class, ExpressionType.PROPERTY, "[the] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon) [of %livingentities%]", "%livingentities%'[s] (off[(-| )]tool|off[(-| )][held ]item|off[(-| )]weapon)", "[the] (off[ ]hand tool|off[ ] hand item|shield[ item]) [of %livingentities%]", "%livingentities%'[s] (off[ ]hand tool|off[ ] hand item|shield[ item])");
 		}
 	}
-	
+
 	@Override
 	protected Slot[] get(final Event e, final LivingEntity[] source) {
 		final boolean delayed = Delay.isDelayed(e);
 		return get(source, new Getter<Slot, LivingEntity>() {
+
 			@Override
 			@Nullable
 			public Slot get(final LivingEntity p) {
@@ -66,18 +66,21 @@ public class ExprOffTool extends ExprTool {
 						Skript.info("ItemHeldEvent");
 						final PlayerInventory i = ((PlayerItemHeldEvent) e).getPlayer().getInventory();
 						assert i != null;
-						return new InventorySlot(i, getTime() >= 0 ? ((PlayerItemHeldEvent) e).getNewSlot() : ((PlayerItemHeldEvent) e).getPreviousSlot());
+						return new InventorySlot(i,
+								getTime() >= 0 ? ((PlayerItemHeldEvent) e).getNewSlot() : ((PlayerItemHeldEvent) e).getPreviousSlot());
 					} else if (e instanceof PlayerBucketEvent && ((PlayerBucketEvent) e).getPlayer() == p) {
 						Skript.info("PlayerBucketEvent");
 						final PlayerInventory i = ((PlayerBucketEvent) e).getPlayer().getInventory();
 						assert i != null;
-						return new InventorySlot(i, ((PlayerBucketEvent) e).getPlayer().getInventory().getHeldItemSlot()) {
+						return new InventorySlot(i,
+								((PlayerBucketEvent) e).getPlayer().getInventory().getHeldItemSlot()) {
+
 							@Override
 							@Nullable
 							public ItemStack getItem() {
 								return getTime() <= 0 ? super.getItem() : ((PlayerBucketEvent) e).getItemStack();
 							}
-							
+
 							@Override
 							public void setItem(final @Nullable ItemStack item) {
 								if (getTime() >= 0) {
@@ -93,6 +96,7 @@ public class ExprOffTool extends ExprTool {
 				if (e == null)
 					return null;
 				return new EquipmentSlot(e, EquipmentSlot.EquipSlot.OFF_HAND) {
+
 					@Override
 					public String toString(@Nullable Event event, boolean debug) {
 						return (getTime() == 1 ? "future " : getTime() == -1 ? "former " : "") + Classes.toString(getItem());

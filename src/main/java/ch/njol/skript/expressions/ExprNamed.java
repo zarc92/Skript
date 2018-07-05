@@ -47,20 +47,14 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Named Item/Inventory")
-@Description("Directly names an item/inventory, useful for defining a named item/inventory in a script. " +
-		"If you want to (re)name existing items/inventories you can either use this expression or use <code>set <a href='#ExprName'>name of &lt;item/inventory&gt;</a> to &lt;text&gt;</code>.")
-@Examples({"give a diamond sword of sharpness 100 named \"<gold>Excalibur\" to the player",
-		"set tool of player to the player's tool named \"<gold>Wand\"",
-		"set the name of the player's tool to \"<gold>Wand\"",
-		"open hopper inventory named \"Magic Hopper\" to player"})
+@Description("Directly names an item/inventory, useful for defining a named item/inventory in a script. " + "If you want to (re)name existing items/inventories you can either use this expression or use <code>set <a href='#ExprName'>name of &lt;item/inventory&gt;</a> to &lt;text&gt;</code>.")
+@Examples({"give a diamond sword of sharpness 100 named \"<gold>Excalibur\" to the player", "set tool of player to the player's tool named \"<gold>Wand\"", "set the name of the player's tool to \"<gold>Wand\"", "open hopper inventory named \"Magic Hopper\" to player"})
 @Since("2.0, 2.2-dev34 (inventories)")
 @SuppressWarnings("null")
 public class ExprNamed<T> extends SimpleExpression<T> {
 
 	static {
-		Skript.registerExpression(ExprNamed.class, Object.class, ExpressionType.PROPERTY,
-				"%itemtype/inventorytype% (named|with name) %string%"
-		);
+		Skript.registerExpression(ExprNamed.class, Object.class, ExpressionType.PROPERTY, "%itemtype/inventorytype% (named|with name) %string%");
 	}
 
 	@Nullable
@@ -88,12 +82,13 @@ public class ExprNamed<T> extends SimpleExpression<T> {
 
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		toName = (Expression<Object>) exprs[0];
 		name = (Expression<String>) exprs[1];
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected T[] get(final Event e) {
@@ -150,5 +145,5 @@ public class ExprNamed<T> extends SimpleExpression<T> {
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return String.format("%s named %s", toName.toString(e, debug), name.toString(e, debug));
 	}
-	
+
 }

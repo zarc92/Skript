@@ -37,16 +37,17 @@ import ch.njol.skript.lang.Trigger;
  * @author Peter Güttinger
  */
 public class SkriptTest {
-	
+
 	@SuppressWarnings("null")
 	private static Player njol = createMock(Player.class);
 	static {
-		
+
 	}
-	
+
 //	@Test
 	public static void main() {
 		new Thread(new Runnable() {
+
 			@Override
 			public void run() {
 //				org.bukkit.craftbukkit.Main.main(new String[] {"-nojline"});
@@ -58,6 +59,7 @@ public class SkriptTest {
 			} catch (final InterruptedException e) {}
 		}
 		Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 			@Override
 			public void run() {
 				assertNotNull(Skript.getInstance());
@@ -65,15 +67,15 @@ public class SkriptTest {
 			}
 		}, 2);
 	}
-	
+
 	final static void test() {
-		
+
 		final Trigger t = ScriptLoader.loadTrigger(nodeFromString("on rightclick on air:\n kill player"));
 		assert t != null;
 		t.execute(new PlayerInteractEvent(njol, Action.LEFT_CLICK_AIR, null, null, null));
-		
+
 	}
-	
+
 	@SuppressWarnings("null")
 	private final static SectionNode nodeFromString(final String s) {
 		try {
@@ -83,5 +85,5 @@ public class SkriptTest {
 			return null;
 		}
 	}
-	
+
 }

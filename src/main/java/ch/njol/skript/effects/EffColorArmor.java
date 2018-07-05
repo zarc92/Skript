@@ -43,33 +43,28 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.Math2;
 
 @Name("Colour Items")
-@Description("Colours items in a given <a href='classes.html#color'>colour</a>. " +
-		"You can also use RGB codes if you feel limited with the 16 default colours. " +
-		"RGB codes are three numbers from 0 to 255 in the order <code>(red, green, blue)</code>, where <code>(0,0,0)</code> is black and <code>(255,255,255)</code> is white. " +
-		"Armor is colourable for all Minecraft versions. With Minecraft 1.11 or newer you can also colour potions and maps. Note that the colours might not look exactly how you'd expect.")
-@Examples({"dye player's helmet blue",
-		"colour the player's tool red"})
+@Description("Colours items in a given <a href='classes.html#color'>colour</a>. " + "You can also use RGB codes if you feel limited with the 16 default colours. " + "RGB codes are three numbers from 0 to 255 in the order <code>(red, green, blue)</code>, where <code>(0,0,0)</code> is black and <code>(255,255,255)</code> is white. " + "Armor is colourable for all Minecraft versions. With Minecraft 1.11 or newer you can also colour potions and maps. Note that the colours might not look exactly how you'd expect.")
+@Examples({"dye player's helmet blue", "colour the player's tool red"})
 @Since("2.0, 2.2-dev26 (maps and potions)")
 public class EffColorArmor extends Effect {
-	
+
 	private static final boolean potionColors = Skript.isRunningMinecraft(1, 11);
-	
+
 	static {
-		Skript.registerEffect(EffColorArmor.class,
-				"(dye|colo[u]r|paint) %slots/itemstack% %color%",
-				"(dye|colo[u]r|paint) %slots/itemstack% \\(%number%, %number%, %number%\\)");
+		Skript.registerEffect(EffColorArmor.class, "(dye|colo[u]r|paint) %slots/itemstack% %color%", "(dye|colo[u]r|paint) %slots/itemstack% \\(%number%, %number%, %number%\\)");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> items;
 	@Nullable
 	private Expression<Color> color;
 	@Nullable
 	private Expression<Number>[] rgb;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		items = exprs[0];
 		if (!Slot.class.isAssignableFrom(items.getReturnType()) && !ChangerUtils.acceptsChange(items, ChangeMode.SET, ItemStack.class)) {
 			Skript.error(items + " cannot be coloured as it cannot be changed at all.");
@@ -82,7 +77,7 @@ public class EffColorArmor extends Effect {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		final Expression<Color> color = this.color;
@@ -94,7 +89,7 @@ public class EffColorArmor extends Effect {
 			return "dye " + items.toString(e, debug) + " (" + rgb[0].toString(e, debug) + "," + rgb[1].toString(e, debug) + "," + rgb[2].toString(e, debug) + ")";
 		}
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		final org.bukkit.Color c;
@@ -111,7 +106,7 @@ public class EffColorArmor extends Effect {
 				return;
 			c = org.bukkit.Color.fromRGB(Math2.fit(0, r.intValue(), 255), Math2.fit(0, g.intValue(), 255), Math2.fit(0, b.intValue(), 255));
 		}
-		
+
 		for (final Object o : items.getArray(e)) {
 			final ItemStack i = o instanceof Slot ? ((Slot) o).getItem() : (ItemStack) o;
 			if (i == null)

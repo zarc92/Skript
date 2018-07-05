@@ -41,6 +41,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @Examples({"send \"%vector 1, 0, 0 cross vector 0, 1, 0%\""})
 @Since("2.2-dev28")
 public class ExprVectorCrossProduct extends SimpleExpression<Vector> {
+
 	static {
 		Skript.registerExpression(ExprVectorCrossProduct.class, Vector.class, ExpressionType.SIMPLE, "%vector% cross %vector%");
 	}
@@ -55,7 +56,7 @@ public class ExprVectorCrossProduct extends SimpleExpression<Vector> {
 
 	@Override
 	public String toString(final @Nullable Event event, boolean b) {
-		return  first.toString() + " cross " + second.toString();
+		return first.toString() + " cross " + second.toString();
 	}
 
 	@Override
@@ -66,8 +67,8 @@ public class ExprVectorCrossProduct extends SimpleExpression<Vector> {
 	@Override
 	@SuppressWarnings({"unchecked", "null"})
 	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-		first = (Expression<Vector>)expressions[0];
-		second = (Expression<Vector>)expressions[1];
+		first = (Expression<Vector>) expressions[0];
+		second = (Expression<Vector>) expressions[1];
 		return true;
 	}
 
@@ -79,6 +80,6 @@ public class ExprVectorCrossProduct extends SimpleExpression<Vector> {
 		if (v1 == null || v2 == null) {
 			return null;
 		}
-		return new Vector[]{ v1.clone().crossProduct(v2)};
+		return new Vector[] {v1.clone().crossProduct(v2)};
 	}
 }

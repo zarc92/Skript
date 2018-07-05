@@ -40,34 +40,28 @@ import ch.njol.util.Kleenean;
  */
 @Name("Is Holding")
 @Description("Checks whether a player is holding a specific item. Cannot be used with endermen, use 'entity is [not] an enderman holding &lt;item type&gt;' instead.")
-@Examples({"player is holding a stick",
-		"victim isn't holding a sword of sharpness"})
+@Examples({"player is holding a stick", "victim isn't holding a sword of sharpness"})
 @Since("1.0")
 public class CondItemInHand extends Condition {
-	
+
 	static {
 		if (Skript.isRunningMinecraft(1, 9)) {
-			Skript.registerCondition(CondItemInHand.class,
-					"[%livingentities%] ha(s|ve) %itemtypes% in [main] hand", "[%livingentities%] (is|are) holding %itemtypes% [in main hand]",
-					"[%livingentities%] ha(s|ve) %itemtypes% in off[(-| )]hand", "[%livingentities%] (is|are) holding %itemtypes% in off[(-| )]hand",
-					"[%livingentities%] (ha(s|ve) not|do[es]n't have) %itemtypes% in [main] hand", "[%livingentities%] (is not|isn't) holding %itemtypes% [in main hand]",
-					"[%livingentities%] (ha(s|ve) not|do[es]n't have) %itemtypes% in off[(-| )]hand", "[%livingentities%] (is not|isn't) holding %itemtypes% in off[(-| )]hand");
+			Skript.registerCondition(CondItemInHand.class, "[%livingentities%] ha(s|ve) %itemtypes% in [main] hand", "[%livingentities%] (is|are) holding %itemtypes% [in main hand]", "[%livingentities%] ha(s|ve) %itemtypes% in off[(-| )]hand", "[%livingentities%] (is|are) holding %itemtypes% in off[(-| )]hand", "[%livingentities%] (ha(s|ve) not|do[es]n't have) %itemtypes% in [main] hand", "[%livingentities%] (is not|isn't) holding %itemtypes% [in main hand]", "[%livingentities%] (ha(s|ve) not|do[es]n't have) %itemtypes% in off[(-| )]hand", "[%livingentities%] (is not|isn't) holding %itemtypes% in off[(-| )]hand");
 		} else {
-			Skript.registerCondition(CondItemInHand.class,
-					"[%livingentities%] ha(s|ve) %itemtypes% in hand", "[%livingentities%] (is|are) holding %itemtypes% in hand",
-					"[%livingentities%] (ha(s|ve) not|do[es]n't have) %itemtypes%", "[%livingentities%] (is not|isn't) holding %itemtypes%");
+			Skript.registerCondition(CondItemInHand.class, "[%livingentities%] ha(s|ve) %itemtypes% in hand", "[%livingentities%] (is|are) holding %itemtypes% in hand", "[%livingentities%] (ha(s|ve) not|do[es]n't have) %itemtypes%", "[%livingentities%] (is not|isn't) holding %itemtypes%");
 		}
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<LivingEntity> entities;
 	@SuppressWarnings("null")
 	Expression<ItemType> types;
 	boolean offTool;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		entities = (Expression<LivingEntity>) vars[0];
 		types = (Expression<ItemType>) vars[1];
 		if (Skript.isRunningMinecraft(1, 9)) {
@@ -79,13 +73,15 @@ public class CondItemInHand extends Condition {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		return entities.check(e, new Checker<LivingEntity>() {
+
 			@Override
 			public boolean check(final LivingEntity en) {
 				return types.check(e, new Checker<ItemType>() {
+
 					@SuppressWarnings("deprecation")
 					@Override
 					public boolean check(final ItemType type) {
@@ -98,10 +94,10 @@ public class CondItemInHand extends Condition {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return entities.toString(e, debug) + " " + (entities.isSingle() ? "is" : "are") + " holding " + types.toString(e, debug) + (offTool ? " in off-hand" : "");
 	}
-	
+
 }

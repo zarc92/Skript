@@ -35,18 +35,19 @@ import ch.njol.skript.doc.Since;
 @Examples("player is not sprinting")
 @Since("1.4.4")
 public class CondIsSprinting extends PropertyCondition<Player> {
+
 	static {
 		register(CondIsSprinting.class, "sprinting", "players");
 	}
-	
+
 	@Override
 	public boolean check(final Player p) {
 		return p.isSprinting();
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "sprinting";
 	}
-	
+
 }

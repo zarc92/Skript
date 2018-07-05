@@ -47,40 +47,35 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Last Spawned Entity")
-@Description("Holds the entity that was spawned most recently with the <a href='../effects/#EffSpawn'>spawn effect</a>, drop with the <a href='../effects/#EffDrop'>drop effect</a> or shot with the <a href='../effects/#EffShoot'>shoot effect</a>. " +
-		"Please note that even though you can spawn multiple mobs simultaneously (e.g. with 'spawn 5 creepers'), only the last spawned mob is saved and can be used. " +
-		"If you spawn an entity, shoot a projectile and drop a item you can however access all them together.")
-@Examples({"spawn a priest",
-		"set {%spawned priest%.healer} to true",
-		"shoot an arrow from the last spawned entity",
-		"ignite the shot projectile",
-		"drop a diamond sword",
-		"push last dropped item upwards"})
+@Description("Holds the entity that was spawned most recently with the <a href='../effects/#EffSpawn'>spawn effect</a>, drop with the <a href='../effects/#EffDrop'>drop effect</a> or shot with the <a href='../effects/#EffShoot'>shoot effect</a>. " + "Please note that even though you can spawn multiple mobs simultaneously (e.g. with 'spawn 5 creepers'), only the last spawned mob is saved and can be used. " + "If you spawn an entity, shoot a projectile and drop a item you can however access all them together.")
+@Examples({"spawn a priest", "set {%spawned priest%.healer} to true", "shoot an arrow from the last spawned entity", "ignite the shot projectile", "drop a diamond sword", "push last dropped item upwards"})
 @Since("1.3 (spawned entity), 2.0 (shot entity), 2.2-dev26 (dropped item)")
 public class ExprLastSpawnedEntity extends SimpleExpression<Entity> {
+
 	static {
 		Skript.registerExpression(ExprLastSpawnedEntity.class, Entity.class, ExpressionType.SIMPLE, "[the] [last[ly]] (0¦spawned|1¦shot) %*entitydata%", "[the] [last[ly]] dropped (2¦item)");
 	}
-	
+
 	int from;
 	@SuppressWarnings("null")
 	private EntityData<?> type;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		if (parseResult.mark == 2) // It's just to make an extra expression for item only
 			type = EntityData.fromClass(Item.class);
-		else 
+		else
 			type = ((Literal<EntityData<?>>) exprs[0]).getSingle();
 		from = parseResult.mark;
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Entity[] get(final Event e) {
-		final Entity en = from == 0 ? EffSpawn.lastSpawned :  from == 1 ? EffShoot.lastSpawned : EffDrop.lastSpawned;
+		final Entity en = from == 0 ? EffSpawn.lastSpawned : from == 1 ? EffShoot.lastSpawned : EffDrop.lastSpawned;
 		if (en == null)
 			return null;
 		if (!type.isInstance(en))
@@ -89,20 +84,20 @@ public class ExprLastSpawnedEntity extends SimpleExpression<Entity> {
 		one[0] = en;
 		return one;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends Entity> getReturnType() {
 		return type.getType();
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the last " + (from == 1 ? "spawned" : from == 1 ? "shot" : "dropped") + " " + type;
 	}
-	
+
 }

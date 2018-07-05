@@ -39,11 +39,10 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @Name("Vectors - Rotate around XYZ")
 @Description("Rotates a vector around x, y, or z axis by some degrees")
-@Examples({"rotate {_v} around x-axis by 90",
-		"rotate {_v} around y-axis by 90",
-		"rotate {_v} around z-axis by 90"})
+@Examples({"rotate {_v} around x-axis by 90", "rotate {_v} around y-axis by 90", "rotate {_v} around z-axis by 90"})
 @Since("2.2-dev28")
-public class EffVectorRotateXYZ extends Effect{
+public class EffVectorRotateXYZ extends Effect {
+
 	static {
 		Skript.registerEffect(EffVectorRotateXYZ.class, "rotate %vectors% around (1¦x|2¦y|3¦z)(-| )axis by %number% [degrees]");
 	}
@@ -63,8 +62,8 @@ public class EffVectorRotateXYZ extends Effect{
 	@Override
 	@SuppressWarnings({"unchecked", "null"})
 	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-		vectors = (Expression<Vector>)expressions[0];
-		number = (Expression<Number>)expressions[1];
+		vectors = (Expression<Vector>) expressions[0];
+		number = (Expression<Number>) expressions[1];
 		mark = parseResult.mark;
 		return true;
 	}
@@ -73,7 +72,7 @@ public class EffVectorRotateXYZ extends Effect{
 	@SuppressWarnings("null")
 	protected void execute(Event event) {
 		Number n = number.getSingle(event);
-		if (n == null){
+		if (n == null) {
 			return;
 		}
 		switch (mark) {

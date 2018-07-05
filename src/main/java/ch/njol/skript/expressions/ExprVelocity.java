@@ -45,20 +45,21 @@ import ch.njol.util.Kleenean;
 @Examples({"set player's velocity to {_v}"})
 @Since("2.2-dev31")
 public class ExprVelocity extends SimplePropertyExpression<Entity, Vector> {
+
 	static {
 		register(ExprVelocity.class, Vector.class, "velocity", "entities");
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "velocity";
 	}
-	
+
 	@Override
 	public Class<Vector> getReturnType() {
 		return Vector.class;
 	}
-	
+
 	@Override
 	@SuppressWarnings("null")
 	public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
@@ -66,16 +67,17 @@ public class ExprVelocity extends SimplePropertyExpression<Entity, Vector> {
 			return new Class[] {Vector.class};
 		return null;
 	}
-	
+
 	@Override
 	@Nullable
 	public Vector convert(Entity e) {
 		return e.getVelocity();
 	}
-	
+
 	@Override
 	@SuppressWarnings("null")
-	public void change(final Event e, final @Nullable Object[] delta, final Changer.ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final Changer.ChangeMode mode)
+			throws UnsupportedOperationException {
 		for (final Entity ent : getExpr().getArray(e)) {
 			if (ent == null)
 				return;
@@ -91,7 +93,7 @@ public class ExprVelocity extends SimplePropertyExpression<Entity, Vector> {
 				case RESET:
 				case DELETE:
 					ent.setVelocity(new Vector());
-					break;	
+					break;
 				case SET:
 					ent.setVelocity((Vector) delta[0]);
 					break;

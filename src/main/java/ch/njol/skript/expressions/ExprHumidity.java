@@ -32,23 +32,23 @@ import org.bukkit.block.Block;
 @Since("2.2-dev35")
 public class ExprHumidity extends SimplePropertyExpression<Block, Double> {
 
-    static {
-        register(ExprHumidity.class, Double.class, "humidit(y|ies)", "blocks");
-    }
+	static {
+		register(ExprHumidity.class, Double.class, "humidit(y|ies)", "blocks");
+	}
 
-    @Override
-    public Double convert(Block block) {
-        return block.getHumidity();
-    }
+	@Override
+	public Double convert(Block block) {
+		return block.getHumidity();
+	}
 
-    @Override
-    protected String getPropertyName() {
-        return "humidity";
-    }
+	@Override
+	protected String getPropertyName() {
+		return "humidity";
+	}
 
-    @Override
-    public Class<? extends Double> getReturnType() {
-        return Double.class;
-    }
+	@Override
+	public Class<? extends Double> getReturnType() {
+		return Double.class;
+	}
 
 }

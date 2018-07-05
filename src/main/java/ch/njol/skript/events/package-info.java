@@ -26,4 +26,3 @@
 package ch.njol.skript.events;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-

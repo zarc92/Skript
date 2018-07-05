@@ -60,40 +60,35 @@ import ch.njol.util.coll.iterator.NonNullIterator;
  */
 @Name("Entities")
 @Description("all entities in all world, in a specific world or in a radius around a certain location, e.g. 'all players', 'all creepers in the player's world', or 'players in radius 100 of the player'.")
-@Examples({"kill all creepers in the player's world",
-		"send \"Psst!\" to all players witin 100 meters of the player",
-		"give a diamond to all ops",
-		"heal all tamed wolves in radius 2000 around {town center}"})
+@Examples({"kill all creepers in the player's world", "send \"Psst!\" to all players witin 100 meters of the player", "give a diamond to all ops", "heal all tamed wolves in radius 2000 around {town center}"})
 @Since("1.2.1")
 public class ExprEntities extends SimpleExpression<Entity> {
+
 	static {
-		Skript.registerExpression(ExprEntities.class, Entity.class, ExpressionType.PATTERN_MATCHES_EVERYTHING,
-				"[(all [[of] the]|the)] %*entitydatas% [(in|of) [world[s]] %-worlds%]",
-				"[(all [[of] the]|the)] entities of type[s] %entitydatas% [(in|of) [world[s]] %-worlds%]",
-				"[(all [[of] the]|the)] %*entitydatas% (within|[with]in radius) %number% [(block[s]|met(er|re)[s])] (of|around) %location%",
-				"[(all [[of] the]|the)] entities of type[s] %entitydatas% in radius %number% (of|around) %location%");
+		Skript.registerExpression(ExprEntities.class, Entity.class, ExpressionType.PATTERN_MATCHES_EVERYTHING, "[(all [[of] the]|the)] %*entitydatas% [(in|of) [world[s]] %-worlds%]", "[(all [[of] the]|the)] entities of type[s] %entitydatas% [(in|of) [world[s]] %-worlds%]", "[(all [[of] the]|the)] %*entitydatas% (within|[with]in radius) %number% [(block[s]|met(er|re)[s])] (of|around) %location%", "[(all [[of] the]|the)] entities of type[s] %entitydatas% in radius %number% (of|around) %location%");
 	}
-	
+
 	@SuppressWarnings("null")
 	Expression<? extends EntityData<?>> types;
-	
+
 	@Nullable
 	Expression<World> worlds;
-	
+
 	@Nullable
 	private Expression<Number> radius;
 	@Nullable
 	private Expression<Location> center;
 	@Nullable
 	private Expression<? extends Entity> centerEntity;
-	
+
 	Class<? extends Entity> returnType = Entity.class;
-	
+
 	private int matchedPattern;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		this.matchedPattern = matchedPattern;
 		types = (Expression<? extends EntityData<?>>) exprs[0];
 		if (matchedPattern % 2 == 0) {
@@ -120,17 +115,17 @@ public class ExprEntities extends SimpleExpression<Entity> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
 	}
-	
+
 	@Override
 	public Class<? extends Entity> getReturnType() {
 		return returnType;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Entity[] get(final Event e) {
@@ -146,7 +141,7 @@ public class ExprEntities extends SimpleExpression<Entity> {
 			return EntityData.getAll(types.getAll(e), returnType, worlds != null ? worlds.getArray(e) : null);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isLoopOf(final String s) {
@@ -168,7 +163,7 @@ public class ExprEntities extends SimpleExpression<Entity> {
 		}
 		return false;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	@Nullable
@@ -195,6 +190,7 @@ public class ExprEntities extends SimpleExpression<Entity> {
 			final double radiusSquared = d * d * Skript.EPSILON_MULT;
 			final EntityData<?>[] ts = types.getAll(e);
 			return new CheckedIterator<>(es.iterator(), new NullableChecker<Entity>() {
+
 				@Override
 				public boolean check(final @Nullable Entity e) {
 					if (e == null || e.getLocation().distanceSquared(l) > radiusSquared)
@@ -210,15 +206,15 @@ public class ExprEntities extends SimpleExpression<Entity> {
 			if (worlds == null && returnType == Player.class)
 				return super.iterator(e);
 			return new NonNullIterator<Entity>() {
-				
+
 				private final World[] ws = worlds == null ? Bukkit.getWorlds().toArray(new World[0]) : worlds.getArray(e);
 				private int w = -1;
-				
+
 				private final EntityData<?>[] ts = types.getAll(e);
-				
+
 				@Nullable
 				private Iterator<? extends Entity> curIter = null;
-				
+
 				@Override
 				@Nullable
 				protected Entity getNext() {
@@ -241,13 +237,11 @@ public class ExprEntities extends SimpleExpression<Entity> {
 			};
 		}
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
-		return "all entities of types " + types.toString(e, debug) +
-				(worlds != null ? " in " + worlds.toString(e, debug) :
-						radius != null && center != null ? " in radius " + radius.toString(e, debug) + " around " + center.toString(e, debug) : "");
+		return "all entities of types " + types.toString(e, debug) + (worlds != null ? " in " + worlds.toString(e, debug) : radius != null && center != null ? " in radius " + radius.toString(e, debug) + " around " + center.toString(e, debug) : "");
 	}
-	
+
 }

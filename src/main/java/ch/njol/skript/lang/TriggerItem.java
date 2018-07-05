@@ -36,22 +36,23 @@ import ch.njol.util.StringUtils;
  * @see Statement
  */
 public abstract class TriggerItem implements Debuggable {
-	
+
 	@Nullable
 	protected TriggerSection parent = null;
 	@Nullable
 	private TriggerItem next = null;
-	
+
 	protected TriggerItem() {}
-	
+
 	protected TriggerItem(final TriggerSection parent) {
 		this.parent = parent;
 	}
-	
+
 	/**
 	 * Executes this item and returns the next item to run.
 	 * <p>
-	 * Overriding classes must call {@link #debug(Event, boolean)}. If this method is overridden, {@link #run(Event)} is not used anymore and can be ignored.
+	 * Overriding classes must call {@link #debug(Event, boolean)}. If this method is overridden, {@link #run(Event)} is
+	 * not used anymore and can be ignored.
 	 * 
 	 * @param e
 	 * @return The next item to run or null to stop execution
@@ -67,7 +68,7 @@ public abstract class TriggerItem implements Debuggable {
 			return parent == null ? null : parent.getNext();
 		}
 	}
-	
+
 	/**
 	 * Executes this item.
 	 * 
@@ -75,7 +76,7 @@ public abstract class TriggerItem implements Debuggable {
 	 * @return True if the next item should be run, or false for the item following this item's parent.
 	 */
 	protected abstract boolean run(Event e);
-	
+
 	/**
 	 * @param start
 	 * @param e
@@ -87,7 +88,7 @@ public abstract class TriggerItem implements Debuggable {
 		try {
 			while (i != null)
 				i = i.walk(e);
-			
+
 			return true;
 		} catch (final StackOverflowError err) {
 			final Trigger t = start.getTrigger();
@@ -101,15 +102,15 @@ public abstract class TriggerItem implements Debuggable {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * how much to indent each level
 	 */
 	private final static String indent = "  ";
-	
+
 	@Nullable
 	private String indentation = null;
-	
+
 	public String getIndentation() {
 		String ind = indentation;
 		if (ind == null) {
@@ -121,30 +122,31 @@ public abstract class TriggerItem implements Debuggable {
 		}
 		return ind;
 	}
-	
+
 	protected final void debug(final Event e, final boolean run) {
 		if (!Skript.debug())
 			return;
 		Skript.debug(getIndentation() + (run ? "" : "-") + toString(e, true));
 	}
-	
+
 	@Override
 	public final String toString() {
 		return toString(null, false);
 	}
-	
+
 	public TriggerItem setParent(final @Nullable TriggerSection parent) {
 		this.parent = parent;
 		return this;
 	}
-	
+
 	@Nullable
 	public final TriggerSection getParent() {
 		return parent;
 	}
-	
+
 	/**
-	 * @return The trigger this item belongs to, or null if this is a stand-alone item (e.g. the effect of an effect command)
+	 * @return The trigger this item belongs to, or null if this is a stand-alone item (e.g. the effect of an effect
+	 *         command)
 	 */
 	@Nullable
 	public final Trigger getTrigger() {
@@ -155,15 +157,15 @@ public abstract class TriggerItem implements Debuggable {
 //			throw new IllegalStateException("TriggerItem without a Trigger detected!");
 		return (Trigger) i;
 	}
-	
+
 	public TriggerItem setNext(final @Nullable TriggerItem next) {
 		this.next = next;
 		return this;
 	}
-	
+
 	@Nullable
 	public TriggerItem getNext() {
 		return next;
 	}
-	
+
 }

@@ -42,24 +42,23 @@ import ch.njol.util.Kleenean;
  */
 @Name("Enchant/Disenchant")
 @Description("Enchant or disenchant an existing item")
-@Examples({"enchant the player's tool with sharpness 5",
-		"disenchant the player's tool"})
+@Examples({"enchant the player's tool with sharpness 5", "disenchant the player's tool"})
 @Since("2.0")
 public class EffEnchant extends Effect {
+
 	static {
-		Skript.registerEffect(EffEnchant.class,
-				"enchant %~itemstack% with %enchantmenttypes%",
-				"disenchant %~itemstack%");
+		Skript.registerEffect(EffEnchant.class, "enchant %~itemstack% with %enchantmenttypes%", "disenchant %~itemstack%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<ItemStack> item;
 	@Nullable
 	private Expression<EnchantmentType> enchs;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		item = (Expression<ItemStack>) exprs[0];
 		if (!ChangerUtils.acceptsChange(item, ChangeMode.SET, ItemStack.class)) {
 			Skript.error(item + " cannot be changed, thus it cannot be (dis)enchanted");
@@ -69,7 +68,7 @@ public class EffEnchant extends Effect {
 			enchs = (Expression<EnchantmentType>) exprs[1];
 		return true;
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		final ItemStack i = item.getSingle(e);
@@ -90,10 +89,10 @@ public class EffEnchant extends Effect {
 			item.change(e, new ItemStack[] {i}, ChangeMode.SET);
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return enchs == null ? "disenchant " + item.toString(e, debug) : "enchant " + item.toString(e, debug) + " with " + enchs;
 	}
-	
+
 }

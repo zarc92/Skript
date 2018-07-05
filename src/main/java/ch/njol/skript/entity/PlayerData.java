@@ -30,52 +30,53 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
  * @author Peter Güttinger
  */
 public class PlayerData extends EntityData<Player> {
+
 	static {
 		EntityData.register(PlayerData.class, "player", Player.class, 1, "non-op", "player", "op");
 	}
-	
+
 	// used by EntityData.getAll to efficiently get all players
 	int op = 0;
-	
+
 	@Override
 	protected boolean init(final Literal<?>[] exprs, final int matchedPattern, final ParseResult parseResult) {
 		op = matchedPattern - 1;
 		return true;
 	}
-	
+
 	@Override
 	protected boolean init(final @Nullable Class<? extends Player> c, final @Nullable Player e) {
 		op = e == null ? 0 : e.isOp() ? 1 : -1;
 		return true;
 	}
-	
+
 	@Override
 	public void set(final Player p) {
 		if (op != 0)
 			p.setOp(op == 1);
 	}
-	
+
 	@Override
 	protected boolean match(final Player p) {
 		return op == 0 || p.isOp() == (op == 1);
 	}
-	
+
 	@Override
 	public Class<? extends Player> getType() {
 		return Player.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Player spawn(final Location loc) {
 		return null;
 	}
-	
+
 	@Override
 	protected int hashCode_i() {
 		return op;
 	}
-	
+
 	@Override
 	protected boolean equals_i(final EntityData<?> obj) {
 		if (!(obj instanceof PlayerData))
@@ -83,7 +84,7 @@ public class PlayerData extends EntityData<Player> {
 		final PlayerData other = (PlayerData) obj;
 		return op == other.op;
 	}
-	
+
 //		return "" + op;
 	@Override
 	protected boolean deserialize(final String s) {
@@ -94,17 +95,17 @@ public class PlayerData extends EntityData<Player> {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean isSupertypeOf(final EntityData<?> e) {
 		if (e instanceof PlayerData)
 			return op == 0 || ((PlayerData) e).op == op;
 		return false;
 	}
-	
+
 	@Override
 	public EntityData getSuperType() {
 		return new PlayerData();
 	}
-	
+
 }

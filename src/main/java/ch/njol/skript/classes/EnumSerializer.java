@@ -30,13 +30,13 @@ import ch.njol.yggdrasil.Fields;
  * @author Peter Güttinger
  */
 public class EnumSerializer<T extends Enum<T>> extends Serializer<T> {
-	
+
 	private final Class<T> c;
-	
+
 	public EnumSerializer(final Class<T> c) {
 		this.c = c;
 	}
-	
+
 	@Override
 	@Deprecated
 	@Nullable
@@ -47,26 +47,26 @@ public class EnumSerializer<T extends Enum<T>> extends Serializer<T> {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public boolean mustSyncDeserialization() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean canBeInstantiated() {
 		assert false;
 		return false;
 	}
-	
+
 	@Override
 	public Fields serialize(final T t) {
 		throw new IllegalStateException(); // not used
 	}
-	
+
 	@Override
 	public void deserialize(final T o, final Fields f) {
 		assert false;
 	}
-	
+
 }

@@ -43,35 +43,37 @@ import ch.njol.util.Kleenean;
  */
 @Name("Is of Type")
 @Description("Checks whether an item of entity is of the given type. This is mostly useful for variables, as you can use the general 'is' condition otherwise (e.g. 'victim is a creeper').")
-@Examples({"tool is of type {*selected type}",
-		"victim is of type {villager type}"})
+@Examples({"tool is of type {*selected type}", "victim is of type {villager type}"})
 @Since("1.4")
 public class CondIsOfType extends Condition {
+
 	static {
-		Skript.registerCondition(CondIsOfType.class,
-				"%itemstacks/entities% (is|are) of type[s] %itemtypes/entitydatas%", "%itemstacks/entities% (isn't|is not|aren't|are not) of type[s] %itemtypes/entitydatas%");
+		Skript.registerCondition(CondIsOfType.class, "%itemstacks/entities% (is|are) of type[s] %itemtypes/entitydatas%", "%itemstacks/entities% (isn't|is not|aren't|are not) of type[s] %itemtypes/entitydatas%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> what;
 	@SuppressWarnings("null")
 	Expression<?> types;
-	
+
 	@SuppressWarnings("null")
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		what = exprs[0];
 		types = exprs[1];
 		setNegated(matchedPattern == 1);
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		return what.check(e, new Checker<Object>() {
+
 			@Override
 			public boolean check(final Object o1) {
 				return types.check(e, new Checker<Object>() {
+
 					@Override
 					public boolean check(final Object o2) {
 						if (o2 instanceof ItemType && o1 instanceof ItemType) {
@@ -88,10 +90,10 @@ public class CondIsOfType extends Condition {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return what.toString(e, debug) + (what.isSingle() ? " is " : " are ") + (isNegated() ? "not " : "") + "of type " + types.toString(e, debug);
 	}
-	
+
 }

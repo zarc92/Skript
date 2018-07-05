@@ -26,11 +26,11 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
  */
 @NonNullByDefault(false)
 public abstract class Math2 {
-	
+
 	public static int min(final int a, final int b, final int c) {
 		return a <= b ? (a <= c ? a : c) : (b <= c ? b : c);
 	}
-	
+
 	public static int min(final int... nums) {
 		if (nums == null || nums.length == 0) {
 			assert false;
@@ -43,11 +43,11 @@ public abstract class Math2 {
 		}
 		return min;
 	}
-	
+
 	public static int max(final int a, final int b, final int c) {
 		return a >= b ? (a >= c ? a : c) : (b >= c ? b : c);
 	}
-	
+
 	public static int max(final int... nums) {
 		if (nums == null || nums.length == 0) {
 			assert false;
@@ -60,11 +60,11 @@ public abstract class Math2 {
 		}
 		return max;
 	}
-	
+
 	public static double min(final double a, final double b, final double c) {
 		return a <= b ? (a <= c ? a : c) : (b <= c ? b : c);
 	}
-	
+
 	public static double min(final double... nums) {
 		if (nums == null || nums.length == 0) {
 			assert false;
@@ -77,11 +77,11 @@ public abstract class Math2 {
 		}
 		return min;
 	}
-	
+
 	public static double max(final double a, final double b, final double c) {
 		return a >= b ? (a >= c ? a : c) : (b >= c ? b : c);
 	}
-	
+
 	public static double max(final double... nums) {
 		if (nums == null || nums.length == 0) {
 			assert false;
@@ -94,7 +94,7 @@ public abstract class Math2 {
 		}
 		return max;
 	}
-	
+
 	/**
 	 * finds the smallest positive number (&ge;0) in the sequence
 	 * 
@@ -111,7 +111,7 @@ public abstract class Math2 {
 		}
 		return max;
 	}
-	
+
 	/**
 	 * Fits a number into the given interval. The method's behaviour when min > max is unspecified.
 	 * 
@@ -121,7 +121,7 @@ public abstract class Math2 {
 		assert min <= max : min + "," + x + "," + max;
 		return x <= min ? min : x >= max ? max : x;
 	}
-	
+
 	/**
 	 * Fits a number into the given interval. The method's behaviour when min > max is unspecified.
 	 * 
@@ -131,7 +131,7 @@ public abstract class Math2 {
 		assert min <= max : min + "," + x + "," + max;
 		return x <= min ? min : x >= max ? max : x;
 	}
-	
+
 	/**
 	 * Fits a number into the given interval. The method's behaviour when min > max is unspecified.
 	 * 
@@ -141,7 +141,7 @@ public abstract class Math2 {
 		assert min <= max : min + "," + x + "," + max;
 		return x <= min ? min : x >= max ? max : x;
 	}
-	
+
 	/**
 	 * Fits a number into the given interval. The method's behaviour when min > max is unspecified.
 	 * 
@@ -151,7 +151,7 @@ public abstract class Math2 {
 		assert min <= max : min + "," + x + "," + max;
 		return x <= min ? min : x >= max ? max : x;
 	}
-	
+
 	/**
 	 * Fits a number into the given interval. The method's behaviour when min > max is unspecified.
 	 * 
@@ -161,7 +161,7 @@ public abstract class Math2 {
 		assert min <= max : min + "," + x + "," + max;
 		return x <= min ? min : x >= max ? max : x;
 	}
-	
+
 	/**
 	 * Modulo that returns positive values even for negative arguments.
 	 * 
@@ -173,7 +173,7 @@ public abstract class Math2 {
 		final double r = d % m;
 		return r < 0 ? r + m : r;
 	}
-	
+
 	/**
 	 * Modulo that returns positive values even for negative arguments.
 	 * 
@@ -185,7 +185,7 @@ public abstract class Math2 {
 		final float r = d % m;
 		return r < 0 ? r + m : r;
 	}
-	
+
 	/**
 	 * Modulo that returns positive values even for negative arguments.
 	 * 
@@ -197,7 +197,7 @@ public abstract class Math2 {
 		final int r = d % m;
 		return r < 0 ? r + m : r % m;
 	}
-	
+
 	/**
 	 * Modulo that returns positive values even for negative arguments.
 	 * 
@@ -209,11 +209,12 @@ public abstract class Math2 {
 		final long r = d % m;
 		return r < 0 ? r + m : r % m;
 	}
-	
+
 	/**
 	 * Floors the given double and returns the result as a long.
 	 * <p>
-	 * This method can be up to 20 times faster than the default {@link Math#floor(double)} (both with and without casting to long).
+	 * This method can be up to 20 times faster than the default {@link Math#floor(double)} (both with and without
+	 * casting to long).
 	 */
 	public static long floor(final double d) {
 		final long l = (long) d;
@@ -223,11 +224,12 @@ public abstract class Math2 {
 			return Long.MIN_VALUE;
 		return d == l ? l : l - 1;
 	}
-	
+
 	/**
 	 * Ceils the given double and returns the result as a long.
 	 * <p>
-	 * This method can be up to 20 times faster than the default {@link Math#ceil(double)} (both with and without casting to long).
+	 * This method can be up to 20 times faster than the default {@link Math#ceil(double)} (both with and without
+	 * casting to long).
 	 */
 	public static long ceil(final double d) {
 		final long l = (long) d;
@@ -237,7 +239,7 @@ public abstract class Math2 {
 			return Long.MAX_VALUE;
 		return d == l ? l : l + 1;
 	}
-	
+
 	/**
 	 * Rounds the given double (where .5 is rounded up) and returns the result as a long.
 	 * <p>
@@ -250,7 +252,7 @@ public abstract class Math2 {
 			return (long) d;
 		return floor(d + 0.5);
 	}
-	
+
 	public static int floorI(final double d) {
 		final int i = (int) d;
 		if (!(d < 0)) // d >= 0 || d == NaN
@@ -259,7 +261,7 @@ public abstract class Math2 {
 			return Integer.MIN_VALUE;
 		return d == i ? i : i - 1;
 	}
-	
+
 	public static int ceilI(final double d) {
 		final int i = (int) d;
 		if (!(d > 0)) // d <= 0 || d == NaN
@@ -268,7 +270,7 @@ public abstract class Math2 {
 			return Integer.MAX_VALUE;
 		return d == i ? i : i + 1;
 	}
-	
+
 	public static int roundI(final double d) {
 		if (d == 0x1.fffffffffffffp-2) // greatest double value less than 0.5
 			return 0;
@@ -276,7 +278,7 @@ public abstract class Math2 {
 			return (int) d;
 		return floorI(d + 0.5);
 	}
-	
+
 	public static long floor(final float f) {
 		final long l = (long) f;
 		if (!(f < 0)) // f >= 0 || f == NaN
@@ -285,7 +287,7 @@ public abstract class Math2 {
 			return Long.MIN_VALUE;
 		return f == l ? l : l - 1;
 	}
-	
+
 	public static long ceil(final float f) {
 		final long l = (long) f;
 		if (!(f > 0)) // f <= 0 || f == NaN
@@ -294,7 +296,7 @@ public abstract class Math2 {
 			return Long.MAX_VALUE;
 		return f == l ? l : l + 1;
 	}
-	
+
 	/**
 	 * Rounds the given float (where .5 is rounded up) and returns the result as a long.
 	 * <p>
@@ -307,7 +309,7 @@ public abstract class Math2 {
 			return (long) f;
 		return floor(f + 0.5f);
 	}
-	
+
 	public static int floorI(final float f) {
 		final int i = (int) f;
 		if (!(f < 0)) // f >= 0 || f == NaN
@@ -316,7 +318,7 @@ public abstract class Math2 {
 			return Integer.MIN_VALUE;
 		return f == i ? i : i - 1;
 	}
-	
+
 	public static int ceilI(final float f) {
 		final int i = (int) f;
 		if (!(f > 0)) // f <= 0 || f == NaN
@@ -325,7 +327,7 @@ public abstract class Math2 {
 			return Integer.MAX_VALUE;
 		return f == i ? i : i + 1;
 	}
-	
+
 	/**
 	 * Rounds the given float (where .5 is rounded up) and returns the result as an int.
 	 * <p>
@@ -338,7 +340,7 @@ public abstract class Math2 {
 			return (int) f;
 		return floorI(f + 0.5f);
 	}
-	
+
 	/**
 	 * Gets the smallest power of two &ge;n. Returns {@link Integer#MIN_VALUE} if <tt>n > 2<sup>30</sup></tt>.
 	 */
@@ -357,7 +359,7 @@ public abstract class Math2 {
 			return n == h ? n : h << 1;
 		}
 	}
-	
+
 	/**
 	 * Gets the smallest power of two &ge;n. Returns {@link Long#MIN_VALUE} if <tt>n > 2<sup>62</sup></tt>.
 	 */
@@ -377,7 +379,7 @@ public abstract class Math2 {
 			return n == h ? n : h << 1;
 		}
 	}
-	
+
 	/**
 	 * @return The floating point part of d in the range [0, 1)
 	 */
@@ -385,7 +387,7 @@ public abstract class Math2 {
 		final double r = mod(d, 1);
 		return r == 1 ? 0 : r;
 	}
-	
+
 	/**
 	 * @return The floating point part of f in the range [0, 1)
 	 */
@@ -393,53 +395,55 @@ public abstract class Math2 {
 		final float r = mod(f, 1);
 		return r == 1 ? 0 : r;
 	}
-	
+
 	/**
 	 * @return -1 if i is negative, 0 if i is 0, or 1 if i is positive
 	 */
 	public static int sign(final byte i) {
 		return (i >> 7) | (-i >>> 7);
 	}
-	
+
 	/**
 	 * @return -1 if i is negative, 0 if i is 0, or 1 if i is positive
 	 */
 	public static int sign(final short i) {
 		return (i >> 15) | (-i >>> 15);
 	}
-	
+
 	/**
 	 * @return -1 if i is negative, 0 if i is 0, or 1 if i is positive
 	 */
 	public static int sign(final int i) {
 		return (i >> 31) | (-i >>> 31);
 	}
-	
+
 	/**
 	 * @return -1 if i is negative, 0 if i is 0, or 1 if i is positive
 	 */
 	public static int sign(final long i) {
 		return (int) (i >> 63) | (int) (-i >>> 63);
 	}
-	
+
 	/**
 	 * @return -1 if f is negative, 0 if f is +0, -0 or NaN, or 1 if f is positive
 	 */
 	public static int sign(final float f) {
 		return f > 0 ? 1 : f < 0 ? -1 : 0;
 	}
-	
+
 	/**
 	 * @return -1 if d is negative, 0 if d is +0, -0 or NaN, or 1 if d is positive
 	 */
 	public static int sign(final double d) {
 		return d > 0 ? 1 : d < 0 ? -1 : 0;
 	}
-	
+
 	/**
-	 * Performs a hermite interpolation between the given values, or returns 0 or 1 respectively if the value is out of range.
+	 * Performs a hermite interpolation between the given values, or returns 0 or 1 respectively if the value is out of
+	 * range.
 	 * <p>
-	 * Specifically this method returns <tt>d * d * (3 - 2 * d)</tt>, where <tt>d = {@link #fit(double, double, double) fit}(0, (x - x1) / (x2 - x1), 1)</tt>. This is very similar
+	 * Specifically this method returns <tt>d * d * (3 - 2 * d)</tt>, where
+	 * <tt>d = {@link #fit(double, double, double) fit}(0, (x - x1) / (x2 - x1), 1)</tt>. This is very similar
 	 * to <tt>0.5 - 0.5 * cos(PI * d)</tt>.
 	 * <p>
 	 * This function is essentially equal to GLSL's smoothstep, but with a different argument order.
@@ -453,5 +457,5 @@ public abstract class Math2 {
 		final double d = fit(0, (x - x1) / (x2 - x1), 1);
 		return d * d * (3 - 2 * d);
 	}
-	
+
 }

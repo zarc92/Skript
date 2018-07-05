@@ -57,12 +57,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 public class Documentation {
-	
+
 	public static void generate() {
 		if (!generate)
 			return;
 		try {
-			final PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(new File(Skript.getInstance().getDataFolder(), "doc.sql")), StandardCharsets.UTF_8));
+			final PrintWriter pw = new PrintWriter(new OutputStreamWriter(
+					new FileOutputStream(new File(Skript.getInstance().getDataFolder(), "doc.sql")),
+					StandardCharsets.UTF_8));
 			asSql(pw);
 			pw.flush();
 			pw.close();
@@ -70,21 +72,14 @@ public class Documentation {
 			e.printStackTrace();
 		}
 	}
-	
-	public final static boolean generate = Skript.testing() && new File(Skript.getInstance().getDataFolder(), "generate-doc").exists(); // don't generate the documentation on normal servers
-	
+
+	public final static boolean generate = Skript.testing() && new File(Skript.getInstance().getDataFolder(),
+			"generate-doc").exists(); // don't generate the documentation on normal servers
+
 	private static void asSql(final PrintWriter pw) {
 		pw.println("-- syntax elements");
 //		pw.println("DROP TABLE IF EXISTS syntax_elements;");
-		pw.println("CREATE TABLE IF NOT EXISTS syntax_elements (" +
-				"id VARCHAR(20) NOT NULL PRIMARY KEY," +
-				"name VARCHAR(100) NOT NULL," +
-				"type ENUM('condition','effect','expression','event') NOT NULL," +
-				"patterns VARCHAR(2000) NOT NULL," +
-				"description VARCHAR(2000) NOT NULL," +
-				"examples VARCHAR(2000) NOT NULL," +
-				"since VARCHAR(100) NOT NULL" +
-				");");
+		pw.println("CREATE TABLE IF NOT EXISTS syntax_elements (" + "id VARCHAR(20) NOT NULL PRIMARY KEY," + "name VARCHAR(100) NOT NULL," + "type ENUM('condition','effect','expression','event') NOT NULL," + "patterns VARCHAR(2000) NOT NULL," + "description VARCHAR(2000) NOT NULL," + "examples VARCHAR(2000) NOT NULL," + "since VARCHAR(100) NOT NULL" + ");");
 		pw.println("UPDATE syntax_elements SET patterns='';");
 		pw.println();
 		pw.println("-- expressions");
@@ -110,99 +105,83 @@ public class Documentation {
 			assert info != null;
 			insertEvent(pw, info);
 		}
-		
+
 		pw.println();
 		pw.println();
 		pw.println("-- classes");
 //		pw.println("DROP TABLE IF EXISTS classes;");
-		pw.println("CREATE TABLE IF NOT EXISTS classes (" +
-				"id VARCHAR(20) NOT NULL PRIMARY KEY," +
-				"name VARCHAR(100) NOT NULL," +
-				"description VARCHAR(2000) NOT NULL," +
-				"patterns VARCHAR(2000) NOT NULL," +
-				"`usage` VARCHAR(2000) NOT NULL," +
-				"examples VARCHAR(2000) NOT NULL," +
-				"since VARCHAR(100) NOT NULL" +
-				");");
+		pw.println("CREATE TABLE IF NOT EXISTS classes (" + "id VARCHAR(20) NOT NULL PRIMARY KEY," + "name VARCHAR(100) NOT NULL," + "description VARCHAR(2000) NOT NULL," + "patterns VARCHAR(2000) NOT NULL," + "`usage` VARCHAR(2000) NOT NULL," + "examples VARCHAR(2000) NOT NULL," + "since VARCHAR(100) NOT NULL" + ");");
 		pw.println("UPDATE classes SET patterns='';");
 		pw.println();
 		for (final ClassInfo<?> info : Classes.getClassInfos()) {
 			assert info != null;
 			insertClass(pw, info);
 		}
-		
+
 		pw.println();
 		pw.println();
 		pw.println("-- functions");
-		pw.println("CREATE TABLE IF NOT EXISTS functions (" +
-				"name VARCHAR(100) NOT NULL," +
-				"parameters VARCHAR(2000) NOT NULL," +
-				"description VARCHAR(2000) NOT NULL," +
-				"examples VARCHAR(2000) NOT NULL," +
-				"since VARCHAR(100) NOT NULL" +
-				");");
+		pw.println("CREATE TABLE IF NOT EXISTS functions (" + "name VARCHAR(100) NOT NULL," + "parameters VARCHAR(2000) NOT NULL," + "description VARCHAR(2000) NOT NULL," + "examples VARCHAR(2000) NOT NULL," + "since VARCHAR(100) NOT NULL" + ");");
 		for (final JavaFunction<?> func : Functions.getJavaFunctions()) {
 			assert func != null;
 			insertFunction(pw, func);
 		}
 	}
-	
+
 	private static String convertRegex(final String regex) {
 		if (StringUtils.containsAny(regex, ".[]\\*+"))
 			Skript.error("Regex '" + regex + "' contains unconverted Regex syntax");
-		return escapeHTML("" + regex
-				.replaceAll("\\((.+?)\\)\\?", "[$1]")
-				.replaceAll("(.)\\?", "[$1]"));
+		return escapeHTML("" + regex.replaceAll("\\((.+?)\\)\\?", "[$1]").replaceAll("(.)\\?", "[$1]"));
 	}
-	
+
 	private static String cleanPatterns(final String patterns) {
-		final String s = StringUtils.replaceAll("" +
-				escapeHTML(patterns) // escape HTML
+		final String s = StringUtils.replaceAll("" + escapeHTML(patterns) // escape HTML
 				.replaceAll("(?<=[\\(\\|])[-0-9]+?¦", "") // remove marks
 				.replace("()", "") // remove empty mark setting groups (mark¦)
 				.replaceAll("\\(([^|]+?)\\|\\)", "[$1]") // replace (mark¦x|) groups with [x]
 				.replaceAll("\\(\\|([^|]+?)\\)", "[$1]") // dito
 				.replaceAll("\\((.+?)\\|\\)", "[($1)]") // replace (a|b|) with [(a|b)]
 				.replaceAll("\\(\\|(.+?)\\)", "[($1)]") // dito
-		, "(?<!\\\\)%(.+?)(?<!\\\\)%", new Callback<String, Matcher>() { // link & fancy types
-			@Override
-			public String run(final Matcher m) {
-				String s = m.group(1);
-				if (s.startsWith("-"))
-					s = s.substring(1);
-				String flag = "";
-				if (s.startsWith("*") || s.startsWith("~")) {
-					flag = s.substring(0, 1);
-					s = s.substring(1);
-				}
-				final int a = s.indexOf("@");
-				if (a != -1)
-					s = s.substring(0, a);
-				final StringBuilder b = new StringBuilder("%");
-				b.append(flag);
-				boolean first = true;
-				for (final String c : s.split("/")) {
-					assert c != null;
-					if (!first)
-						b.append("/");
-					first = false;
-					final NonNullPair<String, Boolean> p = Utils.getEnglishPlural(c);
-					final ClassInfo<?> ci = Classes.getClassInfoNoError(p.getFirst());
-					if (ci != null && ci.getDocName() != null && ci.getDocName() != ClassInfo.NO_DOC) {
-						b.append("<a href='../classes/#").append(p.getFirst()).append("'>").append(ci.getName().toString(p.getSecond())).append("</a>");
-					} else {
-						b.append(c);
-						if (ci != null && ci.getDocName() != ClassInfo.NO_DOC)
-							Skript.warning("Used class " + p.getFirst() + " has no docName/name defined");
+				, "(?<!\\\\)%(.+?)(?<!\\\\)%", new Callback<String, Matcher>() { // link & fancy types
+
+					@Override
+					public String run(final Matcher m) {
+						String s = m.group(1);
+						if (s.startsWith("-"))
+							s = s.substring(1);
+						String flag = "";
+						if (s.startsWith("*") || s.startsWith("~")) {
+							flag = s.substring(0, 1);
+							s = s.substring(1);
+						}
+						final int a = s.indexOf("@");
+						if (a != -1)
+							s = s.substring(0, a);
+						final StringBuilder b = new StringBuilder("%");
+						b.append(flag);
+						boolean first = true;
+						for (final String c : s.split("/")) {
+							assert c != null;
+							if (!first)
+								b.append("/");
+							first = false;
+							final NonNullPair<String, Boolean> p = Utils.getEnglishPlural(c);
+							final ClassInfo<?> ci = Classes.getClassInfoNoError(p.getFirst());
+							if (ci != null && ci.getDocName() != null && ci.getDocName() != ClassInfo.NO_DOC) {
+								b.append("<a href='../classes/#").append(p.getFirst()).append("'>").append(ci.getName().toString(p.getSecond())).append("</a>");
+							} else {
+								b.append(c);
+								if (ci != null && ci.getDocName() != ClassInfo.NO_DOC)
+									Skript.warning("Used class " + p.getFirst() + " has no docName/name defined");
+							}
+						}
+						return "" + b.append("%").toString();
 					}
-				}
-				return "" + b.append("%").toString();
-			}
-		});
+				});
 		assert s != null : patterns;
 		return s;
 	}
-	
+
 	private static void insertSyntaxElement(final PrintWriter pw, final SyntaxElementInfo<?> info, final String type) {
 		if (info.c.getAnnotation(NoDoc.class) != null)
 			return;
@@ -217,18 +196,9 @@ public class Documentation {
 			return;
 		}
 		final String patterns = cleanPatterns(StringUtils.join(info.patterns, "\n", 0, info.c == CondCompare.class ? 8 : info.patterns.length));
-		insertOnDuplicateKeyUpdate(pw, "syntax_elements",
-				"id, name, type, patterns, description, examples, since",
-				"patterns = TRIM(LEADING '\n' FROM CONCAT(patterns, '\n', '" + escapeSQL(patterns) + "'))",
-				escapeHTML("" + info.c.getSimpleName()),
-				escapeHTML(info.c.getAnnotation(Name.class).value()),
-				type,
-				patterns,
-				desc,
-				escapeHTML(StringUtils.join(info.c.getAnnotation(Examples.class).value(), "\n")),
-				since);
+		insertOnDuplicateKeyUpdate(pw, "syntax_elements", "id, name, type, patterns, description, examples, since", "patterns = TRIM(LEADING '\n' FROM CONCAT(patterns, '\n', '" + escapeSQL(patterns) + "'))", escapeHTML("" + info.c.getSimpleName()), escapeHTML(info.c.getAnnotation(Name.class).value()), type, patterns, desc, escapeHTML(StringUtils.join(info.c.getAnnotation(Examples.class).value(), "\n")), since);
 	}
-	
+
 	private static void insertEvent(final PrintWriter pw, final SkriptEventInfo<?> info) {
 		if (info.getDescription() == SkriptEventInfo.NO_DOC)
 			return;
@@ -249,18 +219,9 @@ public class Documentation {
 			return;
 		}
 		final String patterns = cleanPatterns(info.getName().startsWith("On ") ? "[on] " + StringUtils.join(info.patterns, "\n[on] ") : StringUtils.join(info.patterns, "\n"));
-		insertOnDuplicateKeyUpdate(pw, "syntax_elements",
-				"id, name, type, patterns, description, examples, since",
-				"patterns = '" + escapeSQL(patterns) + "'",
-				escapeHTML(info.getId()),
-				escapeHTML(info.getName()),
-				"event",
-				patterns,
-				desc,
-				escapeHTML(StringUtils.join(info.getExamples(), "\n")),
-				since);
+		insertOnDuplicateKeyUpdate(pw, "syntax_elements", "id, name, type, patterns, description, examples, since", "patterns = '" + escapeSQL(patterns) + "'", escapeHTML(info.getId()), escapeHTML(info.getName()), "event", patterns, desc, escapeHTML(StringUtils.join(info.getExamples(), "\n")), since);
 	}
-	
+
 	private static void insertClass(final PrintWriter pw, final ClassInfo<?> info) {
 		if (info.getDocName() == ClassInfo.NO_DOC)
 			return;
@@ -276,18 +237,9 @@ public class Documentation {
 			return;
 		}
 		final String patterns = info.getUserInputPatterns() == null ? "" : convertRegex(StringUtils.join(info.getUserInputPatterns(), "\n"));
-		insertOnDuplicateKeyUpdate(pw, "classes",
-				"id, name, description, patterns, `usage`, examples, since",
-				"patterns = TRIM(LEADING '\n' FROM CONCAT(patterns, '\n', '" + escapeSQL(patterns) + "'))",
-				escapeHTML(info.getCodeName()),
-				escapeHTML(info.getDocName()),
-				desc,
-				patterns,
-				usage,
-				escapeHTML(StringUtils.join(info.getExamples(), "\n")),
-				since);
+		insertOnDuplicateKeyUpdate(pw, "classes", "id, name, description, patterns, `usage`, examples, since", "patterns = TRIM(LEADING '\n' FROM CONCAT(patterns, '\n', '" + escapeSQL(patterns) + "'))", escapeHTML(info.getCodeName()), escapeHTML(info.getDocName()), desc, patterns, usage, escapeHTML(StringUtils.join(info.getExamples(), "\n")), since);
 	}
-	
+
 	private static void insertFunction(final PrintWriter pw, final JavaFunction<?> func) {
 		final StringBuilder params = new StringBuilder();
 		for (final Parameter<?> p : func.getParameters()) {
@@ -301,34 +253,31 @@ public class Documentation {
 			Skript.warning("Function " + func.getName() + "'s description or 'since' is invalid");
 			return;
 		}
-		replaceInto(pw, "functions", "name, parameters, description, examples, since",
-				escapeHTML(func.getName()),
-				escapeHTML(params.toString()),
-				desc,
-				escapeHTML(StringUtils.join(func.getExamples(), "\n")),
-				since);
+		replaceInto(pw, "functions", "name, parameters, description, examples, since", escapeHTML(func.getName()), escapeHTML(params.toString()), desc, escapeHTML(StringUtils.join(func.getExamples(), "\n")), since);
 	}
-	
-	private static void insertOnDuplicateKeyUpdate(final PrintWriter pw, final String table, final String fields, final String update, final String... values) {
+
+	private static void insertOnDuplicateKeyUpdate(final PrintWriter pw, final String table, final String fields,
+			final String update, final String... values) {
 		for (int i = 0; i < values.length; i++)
 			values[i] = escapeSQL("" + values[i]);
 		pw.println("INSERT INTO " + table + " (" + fields + ") VALUES ('" + StringUtils.join(values, "','") + "') ON DUPLICATE KEY UPDATE " + update + ";");
 	}
-	
-	private static void replaceInto(final PrintWriter pw, final String table, final String fields, final String... values) {
+
+	private static void replaceInto(final PrintWriter pw, final String table, final String fields,
+			final String... values) {
 		for (int i = 0; i < values.length; i++)
 			values[i] = escapeSQL("" + values[i]);
 		pw.println("REPLACE INTO " + table + " (" + fields + ") VALUES ('" + StringUtils.join(values, "','") + "');");
 	}
-	
+
 	private static ArrayList<Pattern> validation = new ArrayList<>();
 	static {
 		validation.add(Pattern.compile("<" + "(?!a href='|/a>|br ?/|/?(i|b|u|code|pre|ul|li|em)>)"));
 		validation.add(Pattern.compile("(?<!</a|'|br ?/|/?(i|b|u|code|pre|ul|li|em))" + ">"));
 	}
-	
+
 	private final static String[] urls = {"expressions", "effects", "conditions"};
-	
+
 	@Nullable
 	private static String validateHTML(@Nullable String html, final String baseURL) {
 		if (html == null) {
@@ -374,11 +323,11 @@ public class Documentation {
 		}
 		return html;
 	}
-	
+
 	private static String escapeSQL(final String s) {
 		return "" + s.replace("'", "\\'").replace("\"", "\\\"");
 	}
-	
+
 	public static String escapeHTML(final @Nullable String s) {
 		if (s == null) {
 			assert false;
@@ -386,5 +335,5 @@ public class Documentation {
 		}
 		return "" + s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;");
 	}
-	
+
 }

@@ -50,23 +50,24 @@ import ch.njol.util.Kleenean;
  */
 @Name("Skull")
 @Description("Gets a skull item representing a player or an entity.")
-@Examples({"give the victim's skull to the attacker",
-		"set the block at the entity to the entity's skull"})
+@Examples({"give the victim's skull to the attacker", "set the block at the entity to the entity's skull"})
 @Since("2.0")
 public class ExprSkull extends SimplePropertyExpression<Object, ItemType> {
+
 	static {
 		register(ExprSkull.class, ItemType.class, "skull", "offlineplayers/entities/entitydatas");
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		if (!Skript.isRunningMinecraft(1, 4, 5)) {
 			Skript.error("Skulls are only available in Bukkit 1.4.5+");
 			return false;
 		}
 		return super.init(exprs, matchedPattern, isDelayed, parseResult);
 	}
-	
+
 	@Override
 	@Nullable
 	public ItemType convert(final Object o) {
@@ -95,15 +96,15 @@ public class ExprSkull extends SimplePropertyExpression<Object, ItemType> {
 		}
 		return i;
 	}
-	
+
 	@Override
 	public Class<? extends ItemType> getReturnType() {
 		return ItemType.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "skull";
 	}
-	
+
 }

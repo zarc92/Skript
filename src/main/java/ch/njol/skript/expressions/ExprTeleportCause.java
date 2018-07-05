@@ -37,18 +37,18 @@ import ch.njol.skript.lang.ExpressionType;
 @Examples("teleport cause is nether portal, end portal or end gateway")
 @Since("2.2-dev35")
 public class ExprTeleportCause extends EventValueExpression<TeleportCause> {
-	
+
 	static {
 		Skript.registerExpression(ExprTeleportCause.class, TeleportCause.class, ExpressionType.SIMPLE, "[the] teleport (cause|reason|type)");
 	}
-	
+
 	public ExprTeleportCause() {
 		super(TeleportCause.class);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the teleport cause";
 	}
-	
+
 }

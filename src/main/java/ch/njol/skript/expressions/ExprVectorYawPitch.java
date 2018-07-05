@@ -41,18 +41,12 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @Name("Vectors - Yaw and pitch")
 @Description("Gets or sets the yaw or pitch value of a vector")
-@Examples({"set {_v} to vector -1, 1, 1",
-		"send \"%vector yaw of {_v}%, %vector pitch of {_v}%\"",
-		"add 45 to vector yaw of {_v}",
-		"subtract 45 from vector pitch of {_v}",
-		"send \"%vector yaw of {_v}%, %vector pitch of {_v}%\"",
-		"set vector yaw of {_v} to -45",
-		"set vector pitch of {_v} to 45",
-		"send \"%vector yaw of {_v}%, %vector pitch of {_v}%\"",})
+@Examples({"set {_v} to vector -1, 1, 1", "send \"%vector yaw of {_v}%, %vector pitch of {_v}%\"", "add 45 to vector yaw of {_v}", "subtract 45 from vector pitch of {_v}", "send \"%vector yaw of {_v}%, %vector pitch of {_v}%\"", "set vector yaw of {_v} to -45", "set vector pitch of {_v} to 45", "send \"%vector yaw of {_v}%, %vector pitch of {_v}%\"",})
 @Since("2.2-dev28")
 public class ExprVectorYawPitch extends SimplePropertyExpression<Vector, Number> {
+
 	static {
-		Skript.registerExpression(ExprVectorYawPitch.class, Number.class, ExpressionType.PROPERTY,"vector (0¦yaw|1¦pitch) of %vector%");
+		Skript.registerExpression(ExprVectorYawPitch.class, Number.class, ExpressionType.PROPERTY, "vector (0¦yaw|1¦pitch) of %vector%");
 	}
 
 	private int mark;
@@ -85,7 +79,8 @@ public class ExprVectorYawPitch extends SimplePropertyExpression<Vector, Number>
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		super.init(exprs, matchedPattern, isDelayed, parseResult);
 		mark = parseResult.mark;
 		return true;
@@ -95,7 +90,7 @@ public class ExprVectorYawPitch extends SimplePropertyExpression<Vector, Number>
 	@SuppressWarnings("null")
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
 		if ((mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE) && getExpr().isSingle() && Changer.ChangerUtils.acceptsChange(getExpr(), Changer.ChangeMode.SET, Vector.class))
-			return new Class[] { Number.class };
+			return new Class[] {Number.class};
 		return null;
 	}
 
@@ -103,7 +98,7 @@ public class ExprVectorYawPitch extends SimplePropertyExpression<Vector, Number>
 	@SuppressWarnings("null")
 	public void change(Event e, final @Nullable Object[] delta, Changer.ChangeMode mode) {
 		Vector v = getExpr().getSingle(e);
-		if (v == null){
+		if (v == null) {
 			return;
 		}
 		float n = ((Number) delta[0]).floatValue();
@@ -114,22 +109,22 @@ public class ExprVectorYawPitch extends SimplePropertyExpression<Vector, Number>
 				n = -n;
 				//$FALL-THROUGH$
 			case ADD:
-				if (mark == 0){
+				if (mark == 0) {
 					yaw += n;
-				} else if (mark == 1){
+				} else if (mark == 1) {
 					pitch -= n; // Negative because of minecraft's / skript's upside down pitch
 				}
 				v = VectorMath.fromYawAndPitch(yaw, pitch);
-				getExpr().change(e, new Vector[]{v}, Changer.ChangeMode.SET);
+				getExpr().change(e, new Vector[] {v}, Changer.ChangeMode.SET);
 				break;
 			case SET:
-				if (mark == 0){
+				if (mark == 0) {
 					yaw = VectorMath.fromSkriptYaw(n);
-				} else if (mark == 1){
+				} else if (mark == 1) {
 					pitch = VectorMath.fromSkriptPitch(n);
 				}
 				v = VectorMath.fromYawAndPitch(yaw, pitch);
-				getExpr().change(e, new Vector[]{v}, Changer.ChangeMode.SET);
+				getExpr().change(e, new Vector[] {v}, Changer.ChangeMode.SET);
 				break;
 			case REMOVE_ALL:
 			case DELETE:

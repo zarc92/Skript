@@ -38,17 +38,15 @@ import ch.njol.util.coll.CollectionUtils;
  * @author Peter Güttinger
  */
 @Name("Data Value")
-@Description({"The data value of an item.",
-		"You usually don't need this expression as you can check and set items with aliases easily, " +
-				"but this expression can e.g. be used to \"add 1 to data of &lt;item&gt;\", e.g. for cycling through all wool colours."})
+@Description({"The data value of an item.", "You usually don't need this expression as you can check and set items with aliases easily, " + "but this expression can e.g. be used to \"add 1 to data of &lt;item&gt;\", e.g. for cycling through all wool colours."})
 @Examples({"add 1 to the data value of the clicked block"})
 @Since("1.2")
 public class ExprDurability extends SimplePropertyExpression<Object, Short> {
-	
+
 	static {
 		register(ExprDurability.class, Short.class, "((data|damage)[s] [value[s]]|durabilit(y|ies))", "itemstacks/slots");
 	}
-	
+
 	@Override
 	@Nullable
 	public Short convert(final Object o) {
@@ -59,17 +57,17 @@ public class ExprDurability extends SimplePropertyExpression<Object, Short> {
 			return ((ItemStack) o).getDurability();
 		}
 	}
-	
+
 	@Override
 	public String getPropertyName() {
 		return "data";
 	}
-	
+
 	@Override
 	public Class<Short> getReturnType() {
 		return Short.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -79,7 +77,7 @@ public class ExprDurability extends SimplePropertyExpression<Object, Short> {
 			return CollectionUtils.array(Number.class);
 		return null;
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		int a = delta == null ? 0 : ((Number) delta[0]).intValue();
@@ -114,5 +112,5 @@ public class ExprDurability extends SimplePropertyExpression<Object, Short> {
 				getExpr().change(e, new ItemType[] {new ItemType(i)}, ChangeMode.SET);
 		}
 	}
-	
+
 }

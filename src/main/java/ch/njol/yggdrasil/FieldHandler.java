@@ -25,7 +25,7 @@ import java.lang.reflect.Field;
 import ch.njol.yggdrasil.Fields.FieldContext;
 
 public interface FieldHandler {
-	
+
 	/**
 	 * Called when a loaded field doesn't exist.
 	 * 
@@ -34,7 +34,7 @@ public interface FieldHandler {
 	 * @return Whether this Handler handled the request
 	 */
 	boolean excessiveField(Object o, FieldContext field) throws StreamCorruptedException;
-	
+
 	/**
 	 * Called if a field was not found in the stream.
 	 * 
@@ -43,7 +43,7 @@ public interface FieldHandler {
 	 * @return Whether this Handler handled the request
 	 */
 	boolean missingField(Object o, Field field) throws StreamCorruptedException;
-	
+
 	/**
 	 * Called when a loaded value is not compatible with the type of a field.
 	 * 

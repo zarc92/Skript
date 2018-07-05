@@ -38,15 +38,14 @@ import ch.njol.skript.util.slot.Slot;
 
 @Name("Hotbar Slot")
 @Description({"The slot number of the currently selected hotbar slot."})
-@Examples({"message \"%player's current hotbar slot%\"",
-            "set player's selected hotbar slot to slot 4 of player"})
+@Examples({"message \"%player's current hotbar slot%\"", "set player's selected hotbar slot to slot 4 of player"})
 @Since("2.2-dev36")
 public class ExprHotbarSlot extends SimplePropertyExpression<Player, Slot> {
 
 	static {
 		register(ExprHotbarSlot.class, Slot.class, "[([currently] selected|current)] hotbar slot", "players");
 	}
-	
+
 	@Override
 	@Nullable
 	public Slot convert(Player p) {
@@ -54,17 +53,17 @@ public class ExprHotbarSlot extends SimplePropertyExpression<Player, Slot> {
 		assert invi != null;
 		return new InventorySlot(invi, invi.getHeldItemSlot());
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "hotbar slot";
 	}
-	
+
 	@Override
 	public Class<? extends Slot> getReturnType() {
 		return Slot.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
@@ -72,21 +71,21 @@ public class ExprHotbarSlot extends SimplePropertyExpression<Player, Slot> {
 			return new Class[] {Slot.class};
 		return null;
 	}
-	
+
 	@Override
 	public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
 		assert delta != null;
 		Slot slot = (Slot) delta[0];
 		if (!(slot instanceof InventorySlot))
 			return; // Only inventory slots can be hotbar slots
-		
+
 		int index = ((InventorySlot) slot).getIndex();
 		if (index > 8) // Only slots in hotbar can be current hotbar slot
 			return;
-		
+
 		for (Player p : getExpr().getArray(e)) {
 			p.getInventory().setHeldItemSlot(index);
 		}
 	}
-	
+
 }

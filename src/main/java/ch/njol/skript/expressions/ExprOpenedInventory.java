@@ -40,8 +40,7 @@ import ch.njol.skript.util.Time;
 import ch.njol.util.Kleenean;
 
 @Name("Opened Inventory")
-@Description({"Return the currently opened inventory of a player.",
-	"If no inventory is open, it returns the own player's crafting inventory."})
+@Description({"Return the currently opened inventory of a player.", "If no inventory is open, it returns the own player's crafting inventory."})
 @Examples({"set slot 1 of player's current inventory to diamond sword"})
 @Since("2.2-dev24, 2.2-dev35 (Just 'current inventory' works in player events)")
 public class ExprOpenedInventory extends PropertyExpression<Player, Inventory> {
@@ -57,7 +56,8 @@ public class ExprOpenedInventory extends PropertyExpression<Player, Inventory> {
 
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<Player>) exprs[0]);
 		return true;
 	}
@@ -65,6 +65,7 @@ public class ExprOpenedInventory extends PropertyExpression<Player, Inventory> {
 	@Override
 	protected Inventory[] get(Event event, Player[] source) {
 		return get(source, new Getter<Inventory, Player>() {
+
 			@SuppressWarnings("null")
 			@Override
 			public Inventory get(final Player player) {
@@ -77,5 +78,5 @@ public class ExprOpenedInventory extends PropertyExpression<Player, Inventory> {
 	public String toString(@Nullable Event event, boolean debug) {
 		return "current inventory" + (getExpr().isDefault() ? "" : " of " + getExpr().toString(event, debug));
 	}
-	
+
 }

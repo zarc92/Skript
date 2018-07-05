@@ -57,9 +57,10 @@ public class ExprEnchantments extends SimpleExpression<EnchantmentType> {
 	@SuppressWarnings("null")
 	private Expression<ItemType> items;
 
-	@SuppressWarnings({"null","unchecked"})
+	@SuppressWarnings({"null", "unchecked"})
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		items = (Expression<ItemType>) exprs[0];
 		return true;
 	}
@@ -78,7 +79,7 @@ public class ExprEnchantments extends SimpleExpression<EnchantmentType> {
 			if (enchants == null)
 				continue;
 			for (Entry<Enchantment, Integer> enchant : enchants.entrySet())
-					enchantments.add(new EnchantmentType(enchant.getKey(), enchant.getValue()));
+				enchantments.add(new EnchantmentType(enchant.getKey(), enchant.getValue()));
 
 		}
 		return enchantments.toArray(new EnchantmentType[enchantments.size()]);
@@ -89,7 +90,6 @@ public class ExprEnchantments extends SimpleExpression<EnchantmentType> {
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
 		return CollectionUtils.array(EnchantmentType[].class, Enchantment[].class);
 	}
-
 
 	// TODO: improve changer once aliases rework is done
 	@Override
@@ -107,7 +107,7 @@ public class ExprEnchantments extends SimpleExpression<EnchantmentType> {
 					enchantments.put((Enchantment) enchant, -1);
 				}
 			}
-			if (mode == Changer.ChangeMode.SET ||mode == Changer.ChangeMode.ADD)
+			if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.ADD)
 				enchantments.replaceAll((enchant, level) -> level == -1 ? 1 : level);
 		}
 		switch (mode) {

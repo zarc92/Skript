@@ -41,48 +41,45 @@ import ch.njol.util.Kleenean;
  */
 @Name("Poison/Cure")
 @Description("Poison or cure a creature.")
-@Examples({"poison the player",
-		"poison the victim for 20 seconds",
-		"cure the player from poison"})
+@Examples({"poison the player", "poison the victim for 20 seconds", "cure the player from poison"})
 @Since("1.3.2")
 public class EffPoison extends Effect {
+
 	static {
-		Skript.registerEffect(EffPoison.class,
-				"poison %livingentities% [for %-timespan%]",
-				"(cure|unpoison) %livingentities% [(from|of) poison]");
+		Skript.registerEffect(EffPoison.class, "poison %livingentities% [for %-timespan%]", "(cure|unpoison) %livingentities% [(from|of) poison]");
 	}
-	
+
 	private final static int DEFAULT_DURATION = 15 * 20; // 15 seconds on hard difficulty, same as EffPotion
-	
+
 	@SuppressWarnings("null")
 	private Expression<LivingEntity> entites;
 	@Nullable
 	private Expression<Timespan> duration;
-	
+
 	private boolean cure;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		entites = (Expression<LivingEntity>) exprs[0];
 		if (matchedPattern == 0)
 			duration = (Expression<Timespan>) exprs[1];
 		cure = matchedPattern == 1;
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "poison " + entites.toString(e, debug);
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		for (final LivingEntity le : entites.getArray(e)) {
 			if (!cure) {
 				Timespan dur;
-				int d = (int) (duration != null && (dur = duration.getSingle(e)) != null ? 
-						(dur.getTicks_i() >= Integer.MAX_VALUE ? Integer.MAX_VALUE : dur.getTicks_i()) : DEFAULT_DURATION);
+				int d = (int) (duration != null && (dur = duration.getSingle(e)) != null ? (dur.getTicks_i() >= Integer.MAX_VALUE ? Integer.MAX_VALUE : dur.getTicks_i()) : DEFAULT_DURATION);
 				if (le.hasPotionEffect(PotionEffectType.POISON)) {
 					for (final PotionEffect pe : le.getActivePotionEffects()) {
 						if (pe.getType() != PotionEffectType.POISON)
@@ -96,5 +93,5 @@ public class EffPoison extends Effect {
 			}
 		}
 	}
-	
+
 }

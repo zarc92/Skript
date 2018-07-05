@@ -39,27 +39,27 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
 @Examples({"set gravity of player off"})
 @Since("2.2-dev21")
 public class ExprGravity extends SimplePropertyExpression<Entity, Boolean> {
-	
+
 	static {
 		if (Skript.isRunningMinecraft(1, 10))
 			register(ExprGravity.class, Boolean.class, "gravity", "entities");
 	}
-	
+
 	@Override
 	public Boolean convert(final Entity e) {
 		return e.hasGravity();
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "gravity";
 	}
-	
+
 	@Override
 	public Class<Boolean> getReturnType() {
 		return Boolean.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -67,9 +67,10 @@ public class ExprGravity extends SimplePropertyExpression<Entity, Boolean> {
 			return new Class[] {Boolean.class};
 		return null;
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		for (final Entity entity : getExpr().getArray(e))
 			entity.setGravity(delta == null ? true : (Boolean) delta[0]);
 	}

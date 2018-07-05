@@ -39,7 +39,7 @@ public class BungeeConverter {
 	@SuppressWarnings("null")
 	public static BaseComponent convert(MessageComponent origin) {
 		BaseComponent base = new TextComponent(origin.text);
-		
+
 		base.setBold(origin.bold);
 		base.setItalic(origin.italic);
 		base.setUnderlined(origin.underlined);
@@ -55,13 +55,14 @@ public class BungeeConverter {
 		if (HAS_INSERTION_SUPPORT) {
 			base.setInsertion(origin.insertion);
 		}
-		
+
 		if (origin.clickEvent != null)
-			base.setClickEvent(new ClickEvent(ClickEvent.Action.valueOf(origin.clickEvent.action.spigotName), origin.clickEvent.value));
+			base.setClickEvent(new ClickEvent(ClickEvent.Action.valueOf(origin.clickEvent.action.spigotName),
+					origin.clickEvent.value));
 		if (origin.hoverEvent != null)
 			base.setHoverEvent(new HoverEvent(HoverEvent.Action.valueOf(origin.hoverEvent.action.spigotName),
 					new BaseComponent[] {new TextComponent(origin.hoverEvent.value)})); // WAIT WHAT?!?
-		
+
 		return base;
 	}
 
@@ -75,7 +76,7 @@ public class BungeeConverter {
 		for (int i = 0; i < origins.length; i++) {
 			bases[i] = convert(origins[i]);
 		}
-		
+
 		return bases;
 	}
 }

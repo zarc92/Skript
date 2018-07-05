@@ -30,7 +30,7 @@ public class VectorMath {
 	public static final double PI = Math.PI;
 	public static final double HALF_PI = PI / 2;
 	public static final double DEG_TO_RAD = PI / 180;
-	public static final double RAD_TO_DEG =  180 / PI;
+	public static final double RAD_TO_DEG = 180 / PI;
 
 	public static Vector fromSphericalCoordinates(double radius, double theta, double phi) {
 		double r = Math.abs(radius);
@@ -59,11 +59,11 @@ public class VectorMath {
 		double z = Math.sin(yaw * DEG_TO_RAD);
 		x *= div;
 		z *= div;
-		return new Vector(x,y,z);
+		return new Vector(x, y, z);
 	}
 
 	public static float getYaw(Vector vector) {
-		if (((Double) vector.getX()).equals((double) 0) && ((Double) vector.getZ()).equals((double) 0)){
+		if (((Double) vector.getX()).equals((double) 0) && ((Double) vector.getZ()).equals((double) 0)) {
 			return 0;
 		}
 		return (float) (Math.atan2(vector.getZ(), vector.getX()) * RAD_TO_DEG);
@@ -124,9 +124,12 @@ public class VectorMath {
 		double ax = a.getX();
 		double ay = a.getY();
 		double az = a.getZ();
-		Vector rotx = new Vector(cos+ax*ax*(1-cos), ax*ay*(1-cos)-az*sin, ax*az*(1-cos)+ay*sin);
-		Vector roty = new Vector(ay*ax*(1-cos)+az*sin, cos+ay*ay*(1-cos), ay*az*(1-cos)-ax*sin);
-		Vector rotz = new Vector(az*ax*(1-cos)-ay*sin, az*ay*(1-cos)+ax*sin, cos+az*az*(1-cos));
+		Vector rotx = new Vector(cos + ax * ax * (1 - cos), ax * ay * (1 - cos) - az * sin,
+				ax * az * (1 - cos) + ay * sin);
+		Vector roty = new Vector(ay * ax * (1 - cos) + az * sin, cos + ay * ay * (1 - cos),
+				ay * az * (1 - cos) - ax * sin);
+		Vector rotz = new Vector(az * ax * (1 - cos) - ay * sin, az * ay * (1 - cos) + ax * sin,
+				cos + az * az * (1 - cos));
 		double x = rotx.dot(vector);
 		double y = roty.dot(vector);
 		double z = rotz.dot(vector);
@@ -134,51 +137,51 @@ public class VectorMath {
 		return vector;
 	}
 
-	public static float notchYaw(float yaw){
+	public static float notchYaw(float yaw) {
 		float y = yaw - 90;
-		if (y < -180){
+		if (y < -180) {
 			y += 360;
 		}
 		return y;
 	}
 
-	public static float notchPitch(float pitch){
+	public static float notchPitch(float pitch) {
 		return -pitch;
 	}
 
-	public static float fromNotchYaw(float notchYaw){
+	public static float fromNotchYaw(float notchYaw) {
 		float y = notchYaw + 90;
-		if (y > 180){
+		if (y > 180) {
 			y -= 360;
 		}
 		return y;
 	}
 
-	public static float fromNotchPitch(float notchPitch){
+	public static float fromNotchPitch(float notchPitch) {
 		return -notchPitch;
 	}
 
-	public static float skriptYaw(float yaw){
+	public static float skriptYaw(float yaw) {
 		float y = yaw - 90;
-		if (y < 0){
+		if (y < 0) {
 			y += 360;
 		}
 		return y;
 	}
 
-	public static float skriptPitch(float pitch){
+	public static float skriptPitch(float pitch) {
 		return -pitch;
 	}
 
-	public static float fromSkriptYaw(float yaw){
+	public static float fromSkriptYaw(float yaw) {
 		float y = yaw + 90;
-		if (y > 360){
+		if (y > 360) {
 			y -= 360;
 		}
 		return y;
 	}
 
-	public static float fromSkriptPitch(float pitch){
+	public static float fromSkriptPitch(float pitch) {
 		return -pitch;
 	}
 

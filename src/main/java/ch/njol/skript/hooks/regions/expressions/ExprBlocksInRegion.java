@@ -46,27 +46,26 @@ import ch.njol.util.coll.iterator.EmptyIterator;
  * @author Peter Güttinger
  */
 @Name("Blocks in Region")
-@Description({"All blocks in a <a href='../classes/#region'>region</a>.",
-		"This expression requires a supported regions plugin to be installed."})
-@Examples({"loop all blocks in the region {arena.%{faction.%player%}%}:",
-		"	clear the loop-block"})
+@Description({"All blocks in a <a href='../classes/#region'>region</a>.", "This expression requires a supported regions plugin to be installed."})
+@Examples({"loop all blocks in the region {arena.%{faction.%player%}%}:", "	clear the loop-block"})
 @Since("2.1")
 public class ExprBlocksInRegion extends SimpleExpression<Block> {
+
 	static {
-		Skript.registerExpression(ExprBlocksInRegion.class, Block.class, ExpressionType.COMBINED,
-				"[(all|the)] blocks (in|of) [[the] region[s]] %regions%");
+		Skript.registerExpression(ExprBlocksInRegion.class, Block.class, ExpressionType.COMBINED, "[(all|the)] blocks (in|of) [[the] region[s]] %regions%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Region> regions;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		regions = (Expression<Region>) exprs[0];
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected Block[] get(final Event e) {
@@ -76,7 +75,7 @@ public class ExprBlocksInRegion extends SimpleExpression<Block> {
 			r.add(iter.next());
 		return r.toArray(new Block[r.size()]);
 	}
-	
+
 	@Override
 	@NonNull
 	public Iterator<Block> iterator(final Event e) {
@@ -84,9 +83,10 @@ public class ExprBlocksInRegion extends SimpleExpression<Block> {
 		if (rs.length == 0)
 			return EmptyIterator.get();
 		return new Iterator<Block>() {
+
 			private Iterator<Block> current = rs[0].getBlocks();
 			private final Iterator<Region> iter = new ArrayIterator<>(rs, 1);
-			
+
 			@Override
 			public boolean hasNext() {
 				while (!current.hasNext() && iter.hasNext()) {
@@ -96,7 +96,7 @@ public class ExprBlocksInRegion extends SimpleExpression<Block> {
 				}
 				return current.hasNext();
 			}
-			
+
 			@SuppressWarnings("null")
 			@Override
 			public Block next() {
@@ -104,27 +104,27 @@ public class ExprBlocksInRegion extends SimpleExpression<Block> {
 					throw new NoSuchElementException();
 				return current.next();
 			}
-			
+
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
 	}
-	
+
 	@Override
 	public Class<? extends Block> getReturnType() {
 		return Block.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "all blocks in " + regions.toString(e, debug);
 	}
-	
+
 }

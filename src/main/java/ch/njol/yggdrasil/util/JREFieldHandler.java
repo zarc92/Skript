@@ -36,7 +36,7 @@ import ch.njol.yggdrasil.YggdrasilException;
  * @author Peter Güttinger
  */
 public class JREFieldHandler implements FieldHandler {
-	
+
 	/**
 	 * Not used
 	 */
@@ -44,7 +44,7 @@ public class JREFieldHandler implements FieldHandler {
 	public boolean excessiveField(final Object o, final FieldContext field) {
 		return false;
 	}
-	
+
 	/**
 	 * Not used
 	 */
@@ -52,7 +52,7 @@ public class JREFieldHandler implements FieldHandler {
 	public boolean missingField(final Object o, final Field field) throws StreamCorruptedException {
 		return false;
 	}
-	
+
 	/**
 	 * Converts collection types and non-primitive arrays
 	 * 
@@ -60,7 +60,8 @@ public class JREFieldHandler implements FieldHandler {
 	 */
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
-	public boolean incompatibleField(final Object o, final Field f, final FieldContext field) throws StreamCorruptedException {
+	public boolean incompatibleField(final Object o, final Field f, final FieldContext field)
+			throws StreamCorruptedException {
 		Object value = field.getObject();
 		if (value instanceof Object[])
 			value = Arrays.asList(value);
@@ -114,5 +115,5 @@ public class JREFieldHandler implements FieldHandler {
 		}
 		return false;
 	}
-	
+
 }

@@ -50,7 +50,8 @@ import ch.njol.util.Math2;
 import ch.njol.util.StringUtils;
 
 /**
- * TODO make a 'line %number% of %text%' expression and figure out how to deal with signs (4 lines, delete = empty, etc...)
+ * TODO make a 'line %number% of %text%' expression and figure out how to deal with signs (4 lines, delete = empty,
+ * etc...)
  * 
  * @author joeuguce99
  */
@@ -59,37 +60,36 @@ import ch.njol.util.StringUtils;
 @Examples("set the 1st line of the item's lore to \"<orange>Excalibur 2.0\"")
 @Since("2.1")
 public class ExprLore extends SimpleExpression<String> {
+
 	static {
 		try {
 			ItemMeta.class.getName();
-			
-			Skript.registerExpression(ExprLore.class, String.class, ExpressionType.PROPERTY,
-					"[the] lore of %itemstack/itemtype%", "%itemstack/itemtype%'[s] lore",
-					"[the] line %number% of [the] lore of %itemstack/itemtype%", "[the] line %number% of %itemstack/itemtype%'[s] lore",
-					"[the] %number%(st|nd|rd|th) line of [the] lore of %itemstack/itemtype%", "[the] %number%(st|nd|rd|th) line of %itemstack/itemtype%'[s] lore");
-			
+
+			Skript.registerExpression(ExprLore.class, String.class, ExpressionType.PROPERTY, "[the] lore of %itemstack/itemtype%", "%itemstack/itemtype%'[s] lore", "[the] line %number% of [the] lore of %itemstack/itemtype%", "[the] line %number% of %itemstack/itemtype%'[s] lore", "[the] %number%(st|nd|rd|th) line of [the] lore of %itemstack/itemtype%", "[the] %number%(st|nd|rd|th) line of %itemstack/itemtype%'[s] lore");
+
 		} catch (final NoClassDefFoundError e) {}
 	}
-	
+
 	@Nullable
 	private Expression<Number> line;
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> item;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		line = exprs.length > 1 ? (Expression<Number>) exprs[0] : null;
 		item = exprs[exprs.length - 1];
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@Override
 	@Nullable
 	protected String[] get(final Event e) {
@@ -110,12 +110,12 @@ public class ExprLore extends SimpleExpression<String> {
 			return new String[0];
 		return new String[] {lore.get(l)};
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return (line != null ? "the line " + line.toString(e, debug) + " of " : "") + "the lore of " + item.toString(e, debug);
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -133,10 +133,11 @@ public class ExprLore extends SimpleExpression<String> {
 				return null;
 		}
 	}
-	
+
 	// TODO test (especially remove)
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		final Object i = item.getSingle(e);
 		if (i == null || i instanceof ItemStack && ((ItemStack) i).getType() == Material.AIR)
 			return;
@@ -213,14 +214,15 @@ public class ExprLore extends SimpleExpression<String> {
 		if (ChangerUtils.acceptsChange(item, ChangeMode.SET, i.getClass())) {
 			item.change(e, i instanceof ItemStack ? new ItemStack[] {(ItemStack) i} : new ItemType[] {(ItemType) i}, ChangeMode.SET);
 		} else {
-			item.change(e, i instanceof ItemStack ? new ItemType[] {new ItemType((ItemStack) i)} : new ItemStack[] {((ItemType) i).getRandom()}, ChangeMode.SET);
+			item.change(e, i instanceof ItemStack ? new ItemType[] {new ItemType(
+					(ItemStack) i)} : new ItemStack[] {((ItemType) i).getRandom()}, ChangeMode.SET);
 		}
 		return;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 }

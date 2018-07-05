@@ -36,22 +36,24 @@ import ch.njol.util.Kleenean;
  */
 @NoDoc
 public class LitAt extends SimpleLiteral<Direction> {
+
 	static {
 		Skript.registerExpression(LitAt.class, Direction.class, ExpressionType.SIMPLE, "at");
 	}
-	
+
 	public LitAt() {
 		super(Direction.ZERO, true);
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "at";
 	}
-	
+
 }

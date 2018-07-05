@@ -35,8 +35,8 @@ import ch.njol.util.coll.CollectionUtils;
 @Description("The exhaustion of a player. This is mainly used to determine the rate of hunger depletion.")
 @Examples("set exhaustion of all players to 1")
 @Since("2.2-dev35")
-public class ExprExhaustion extends SimplePropertyExpression<Player, Number>{
-	
+public class ExprExhaustion extends SimplePropertyExpression<Player, Number> {
+
 	static {
 		register(ExprExhaustion.class, Number.class, "exhaustion", "players");
 	}
@@ -56,17 +56,17 @@ public class ExprExhaustion extends SimplePropertyExpression<Player, Number>{
 	public Number convert(Player player) {
 		return player.getExhaustion();
 	}
-	
+
 	@Nullable
 	@Override
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
 		return CollectionUtils.array(Number.class);
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public void change(Event event, @Nullable Object[] delta, Changer.ChangeMode mode) {
-		float exhaustion = ((Number)delta[0]).floatValue();
+		float exhaustion = ((Number) delta[0]).floatValue();
 		switch (mode) {
 			case ADD:
 				for (Player player : getExpr().getArray(event))
@@ -78,7 +78,7 @@ public class ExprExhaustion extends SimplePropertyExpression<Player, Number>{
 				break;
 			case SET:
 				for (Player player : getExpr().getArray(event))
-					player.setExhaustion(((Number)delta[0]).floatValue());
+					player.setExhaustion(((Number) delta[0]).floatValue());
 				break;
 			case DELETE:
 			case REMOVE_ALL:

@@ -29,17 +29,17 @@ import ch.njol.util.Setter;
  * @author Peter Güttinger
  */
 public class ParsedEntryValidator<T> extends EntryValidator {
-	
+
 	private final Parser<? extends T> parser;
 	private final Setter<T> setter;
-	
+
 	public ParsedEntryValidator(final Parser<? extends T> parser, final Setter<T> setter) {
 		assert parser != null;
 		assert setter != null;
 		this.parser = parser;
 		this.setter = setter;
 	}
-	
+
 	@Override
 	public boolean validate(final Node node) {
 		if (!super.validate(node))
@@ -50,5 +50,5 @@ public class ParsedEntryValidator<T> extends EntryValidator {
 		setter.set(t);
 		return true;
 	}
-	
+
 }

@@ -48,6 +48,7 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 	final static HashMap<String, Long> parseValues = new HashMap<>();
 	static {
 		Language.addListener(new LanguageChangeListener() {
+
 			@Override
 			public void onLanguageChange() {
 				for (int i = 0; i < names.length; i++) {
@@ -57,7 +58,7 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 			}
 		});
 	}
-	
+
 	@Nullable
 	public static Timespan parse(final String s) {
 		if (s.isEmpty())
@@ -68,22 +69,22 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 		if (s.matches("^\\d+:\\d\\d(:\\d\\d)?(\\.\\d{1,4})?$")) { // MM:SS[.ms] or HH:MM:SS[.ms]
 			final String[] ss = s.split("[:.]");
 			final long[] times = {1000L * 60L * 60L, 1000L * 60L, 1000L, 1L}; // h, m, s, ms
-			
+
 			final int offset = ss.length == 3 && !s.contains(".") || ss.length == 4 ? 0 : 1;
 			for (int i = 0; i < ss.length; i++) {
-				t += times[offset + i] * Utils.parseLong("" + ss[i]);	
+				t += times[offset + i] * Utils.parseLong("" + ss[i]);
 			}
 		} else {
 			final String[] subs = s.toLowerCase().split("\\s+");
 			for (int i = 0; i < subs.length; i++) {
 				String sub = subs[i];
-				
+
 				if (sub.equals(GeneralWords.and.toString())) {
 					if (i == 0 || i == subs.length - 1)
 						return null;
 					continue;
 				}
-				
+
 				double amount = 1;
 				if (Noun.isIndefiniteArticle(sub)) {
 					if (i == subs.length - 1)
@@ -96,7 +97,7 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 					amount = Double.parseDouble(sub);
 					sub = subs[++i];
 				}
-				
+
 				if (CollectionUtils.contains(Language.getList("time.real"), sub)) {
 					if (i == subs.length - 1 || isMinecraftTimeSet && minecraftTime)
 						return null;
@@ -107,38 +108,38 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 					minecraftTime = true;
 					sub = subs[++i];
 				}
-				
+
 				if (sub.endsWith(","))
 					sub = sub.substring(0, sub.length() - 1);
-				
+
 				final Long d = parseValues.get(sub.toLowerCase());
 				if (d == null)
 					return null;
-				
+
 				if (minecraftTime && d != times[0]) // times[0] == tick
 					amount /= 72f;
-				
+
 				t += Math.round(amount * d);
-				
+
 				isMinecraftTimeSet = true;
-				
+
 			}
 		}
 		return new Timespan(t);
 	}
-	
+
 	private final long millis;
-	
+
 	public Timespan() {
 		millis = 0;
 	}
-	
+
 	public Timespan(final long millis) {
 		if (millis < 0)
 			throw new IllegalArgumentException("millis must be >= 0");
 		this.millis = millis;
 	}
-	
+
 	/**
 	 * @deprecated Use fromTicks_i(long ticks) instead. Since this method limits timespan to 50 * Integer.MAX_VALUE.
 	 * @addon I only keep this to allow for older addons to still work. / Mirre
@@ -147,19 +148,19 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 	public static Timespan fromTicks(final int ticks) {
 		return new Timespan(ticks * 50L);
 	}
-	
+
 	public static Timespan fromTicks_i(final long ticks) {
 		return new Timespan(ticks * 50L);
 	}
-	
+
 	public long getMilliSeconds() {
 		return millis;
 	}
-	
+
 	public long getTicks_i() {
 		return Math.round((millis / 50.0));
 	}
-	
+
 	/**
 	 * @deprecated Use getTicks_i() instead. Since this method limits timespan to Integer.MAX_VALUE.
 	 * @addon I only keep this to allow for older addons to still work. / Mirre
@@ -169,28 +170,25 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 	public int getTicks() {
 		return Math.round((millis >= Float.MAX_VALUE ? Float.MAX_VALUE : millis) / 50f);
 	}
-	
+
 	@Override
 	public String toString() {
 		return toString(millis);
 	}
-	
+
 	public String toString(final int flags) {
 		return toString(millis, flags);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	final static NonNullPair<Noun, Long>[] simpleValues = new NonNullPair[] {
-			new NonNullPair<>(m_day,  1000L * 60 * 60 * 24),
-			new NonNullPair<>(m_hour, 1000L * 60 * 60),
-			new NonNullPair<>(m_minute, 1000L * 60),
-			new NonNullPair<>(m_second, 1000L)
-	};
-	
+	final static NonNullPair<Noun, Long>[] simpleValues = new NonNullPair[] {new NonNullPair<>(m_day,
+			1000L * 60 * 60 * 24), new NonNullPair<>(m_hour,
+					1000L * 60 * 60), new NonNullPair<>(m_minute, 1000L * 60), new NonNullPair<>(m_second, 1000L)};
+
 	public static String toString(final long millis) {
 		return toString(millis, 0);
 	}
-	
+
 	@SuppressWarnings("null")
 	public static String toString(final long millis, final int flags) {
 		for (int i = 0; i < simpleValues.length - 1; i++) {
@@ -205,25 +203,25 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 		}
 		return toString(1. * millis / simpleValues[simpleValues.length - 1].getSecond(), simpleValues[simpleValues.length - 1], flags);
 	}
-	
+
 	private static String toString(final double amount, final NonNullPair<Noun, Long> p, final int flags) {
 		return p.getFirst().withAmount(amount, flags);
 	}
-	
+
 	@Override
 	public int compareTo(final @Nullable Timespan o) {
 		final long d = o == null ? millis : millis - o.millis;
 		return d > 0 ? 1 : d < 0 ? -1 : 0;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (millis/Integer.MAX_VALUE);
+		result = prime * result + (int) (millis / Integer.MAX_VALUE);
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(final @Nullable Object obj) {
 		if (this == obj)
@@ -237,5 +235,5 @@ public class Timespan implements YggdrasilSerializable, Comparable<Timespan> { /
 			return false;
 		return true;
 	}
-	
+
 }

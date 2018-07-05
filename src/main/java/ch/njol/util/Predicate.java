@@ -23,10 +23,8 @@ import javax.annotation.Nullable;
 
 /**
  * @author Peter G�ttinger
- *
  */
 public interface Predicate<T> {
-	
+
 	boolean test(@Nullable T paramT);
 }
-

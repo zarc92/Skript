@@ -38,9 +38,7 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @Name("Player Weather")
 @Description("The weather for a player.")
-@Examples({"set weather of arg-player to rainy",
-		"reset player's weather",
-		"if arg-player's weather is rainy"})
+@Examples({"set weather of arg-player to rainy", "reset player's weather", "if arg-player's weather is rainy"})
 @Since("2.2-dev34")
 public class ExprPlayerWeather extends SimplePropertyExpression<Player, WeatherType> {
 
@@ -57,7 +55,7 @@ public class ExprPlayerWeather extends SimplePropertyExpression<Player, WeatherT
 	public WeatherType convert(Player player) {
 		return WeatherType.fromPlayer(player);
 	}
-	
+
 	@Override
 	public Class<WeatherType> getReturnType() {
 		return WeatherType.class;

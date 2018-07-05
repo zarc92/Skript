@@ -46,17 +46,19 @@ import ch.njol.util.coll.CollectionUtils;
 @Since("1.0")
 @Events("damage")
 public class ExprHealth extends PropertyExpression<LivingEntity, Double> {
+
 	static {
 		register(ExprHealth.class, Double.class, "health", "livingentities");
 	}
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<LivingEntity>) vars[0]);
 		return true;
 	}
-	
+
 	@Override
 	protected Double[] get(final Event e, final LivingEntity[] source) {
 //		if (e instanceof EntityDamageEvent && getTime() > 0 && entities.getSource() instanceof ExprAttacked && !Delay.isDelayed(e)) {
@@ -68,6 +70,7 @@ public class ExprHealth extends PropertyExpression<LivingEntity, Double> {
 //			});
 //		}
 		return get(source, new Getter<Double, LivingEntity>() {
+
 			@SuppressWarnings("null")
 			@Override
 			public Double get(final LivingEntity entity) {
@@ -75,12 +78,12 @@ public class ExprHealth extends PropertyExpression<LivingEntity, Double> {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the health of " + getExpr().toString(e, debug);
 	}
-	
+
 //	@Override
 //	public Class<?>[] acceptChange() {
 //		return Skript.array(Number.class);
@@ -96,7 +99,7 @@ public class ExprHealth extends PropertyExpression<LivingEntity, Double> {
 //			}
 //		});
 //	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -105,7 +108,7 @@ public class ExprHealth extends PropertyExpression<LivingEntity, Double> {
 			return null;
 		return CollectionUtils.array(Number.class);
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		double d = delta == null ? 0 : ((Number) delta[0]).doubleValue();
@@ -136,12 +139,12 @@ public class ExprHealth extends PropertyExpression<LivingEntity, Double> {
 				assert false;
 		}
 	}
-	
+
 	@Override
 	public Class<Double> getReturnType() {
 		return Double.class;
 	}
-	
+
 //	@Override
 //	public boolean setTime(final int time) {
 //		if (time > 0 && !delayed && entities.getSource() instanceof ExprAttacked) {

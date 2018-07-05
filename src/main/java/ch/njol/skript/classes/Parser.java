@@ -36,28 +36,30 @@ import ch.njol.skript.util.StringMode;
  * @see Classes#toString(Object)
  */
 public abstract class Parser<T> {
-	
+
 	/**
 	 * Parses the input. This method may print an error prior to returning null if the input couldn't be parsed.
 	 * <p>
-	 * Remember to override {@link #canParse(ParseContext)} if this parser doesn't parse at all (i.e. you only use it's toString methods) or only parses for certain contexts.
+	 * Remember to override {@link #canParse(ParseContext)} if this parser doesn't parse at all (i.e. you only use it's
+	 * toString methods) or only parses for certain contexts.
 	 * 
 	 * @param s The String to parse. This string is already trim()med.
 	 * @param context Context of parsing, may not be null
-	 * @param pi Parser instance. Use {@link ParserInstance#submitErrorLog(ch.njol.skript.log.ParseLogHandler)} for your parse log handlers.
-	 * In case other methods (especially in SkriptParser) need that, just pass it to them.
+	 * @param pi Parser instance. Use {@link ParserInstance#submitErrorLog(ch.njol.skript.log.ParseLogHandler)} for your
+	 *            parse log handlers.
+	 *            In case other methods (especially in SkriptParser) need that, just pass it to them.
 	 * @return The parsed input or null if the input is invalid for this parser.
 	 */
 	@Nullable
 	public T parse(String s, ParseContext context, ParserInstance pi) {
 		return parse(s, context); // For old code/simple code
 	}
-	
+
 	/**
 	 * Parses the input. This method may print an error prior to returning null if the input couldn't be parsed.
 	 * <p>
-	 * Remember to override {@link #canParse(ParseContext)} if this parser doesn't parse at all (i.e. you only use it's toString methods) or only parses for certain contexts.
-	 * 
+	 * Remember to override {@link #canParse(ParseContext)} if this parser doesn't parse at all (i.e. you only use it's
+	 * toString methods) or only parses for certain contexts.
 	 * Note that this method does not provide {@link ParserInstance}; you won't be able to use logging in multithreaded
 	 * parsing environment.
 	 * 
@@ -69,14 +71,15 @@ public abstract class Parser<T> {
 	public T parse(String s, ParseContext context) {
 		throw new UnsupportedOperationException("Parsing not implemented (remember to override parse method)");
 	}
-	
+
 	/**
-	 * @return Whether {@link #parse(String, ParseContext)} can actually return something other that null for the given context
+	 * @return Whether {@link #parse(String, ParseContext)} can actually return something other that null for the given
+	 *         context
 	 */
 	public boolean canParse(final ParseContext context) {
 		return true;
 	}
-	
+
 	/**
 	 * Returns a string representation of the given object to be used in messages.
 	 * 
@@ -85,7 +88,7 @@ public abstract class Parser<T> {
 	 * @see #getDebugMessage(Object)
 	 */
 	public abstract String toString(T o, int flags);
-	
+
 	/**
 	 * Gets a string representation of this object for the given mode
 	 * 
@@ -107,12 +110,12 @@ public abstract class Parser<T> {
 		assert false;
 		return "";
 	}
-	
+
 	// not used anymore
 	public String toCommandString(final T o) {
 		return toString(o, 0);
 	}
-	
+
 	/**
 	 * Returns an object's string representation in a variable name.
 	 * 
@@ -120,20 +123,23 @@ public abstract class Parser<T> {
 	 * @return The given object's representation in a variable name.
 	 */
 	public abstract String toVariableNameString(final T o);
-	
+
 	/**
-	 * Returns a pattern that matches all possible outputs of {@link #toVariableNameString(Object)}. This is used to test for variable conflicts.
+	 * Returns a pattern that matches all possible outputs of {@link #toVariableNameString(Object)}. This is used to
+	 * test for variable conflicts.
 	 * <p>
-	 * This pattern is inserted directly into another pattern, i.e. without any surrounding parantheses, and the pattern is compiled without any checks, thus an invalid pattern
+	 * This pattern is inserted directly into another pattern, i.e. without any surrounding parantheses, and the pattern
+	 * is compiled without any checks, thus an invalid pattern
 	 * will crash Skript.
 	 * 
 	 * @return A valid Regex pattern string matching all possible return values of {@link #toVariableNameString(Object)}
 	 */
 	public abstract String getVariableNamePattern();
-	
+
 	/**
 	 * Returns a string representation of the given object to be used for debugging.<br>
-	 * The Parser of 'Block' for example returns the block's type in toString, while this method also returns the coordinates of the block.<br>
+	 * The Parser of 'Block' for example returns the block's type in toString, while this method also returns the
+	 * coordinates of the block.<br>
 	 * The default implementation of this method returns {@link #toString(Object, int) toString}(o, 0).
 	 * 
 	 * @param o
@@ -142,5 +148,5 @@ public abstract class Parser<T> {
 	public String getDebugMessage(final T o) {
 		return toString(o, 0);
 	}
-	
+
 }

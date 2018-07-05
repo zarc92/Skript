@@ -46,9 +46,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Name("Filter")
-@Description("Filters a list based on a condition. " +
-		"For example, if you ran 'broadcast \"something\" and \"something else\" where [string input is \"something\"]" +
-		"only \"something\" would be broadcast as it is the only string that matched the condition.")
+@Description("Filters a list based on a condition. " + "For example, if you ran 'broadcast \"something\" and \"something else\" where [string input is \"something\"]" + "only \"something\" would be broadcast as it is the only string that matched the condition.")
 @Examples("send \"congrats on being staff!\" to all players where [player input has permission \"staff\"]")
 @Since("2.2-dev36")
 @SuppressWarnings({"null", "unchecked"})
@@ -57,8 +55,7 @@ public class ExprFilter extends SimpleExpression<Object> {
 	private static ExprFilter parsing;
 
 	static {
-		Skript.registerExpression(ExprFilter.class, Object.class, ExpressionType.COMBINED,
-				"%objects% (where|that match) \\[<.+>\\]");
+		Skript.registerExpression(ExprFilter.class, Object.class, ExpressionType.COMBINED, "%objects% (where|that match) \\[<.+>\\]");
 	}
 
 	private Object current;
@@ -67,13 +64,13 @@ public class ExprFilter extends SimpleExpression<Object> {
 	private String rawCond;
 	private Expression<Object> objects;
 
-
 	public static ExprFilter getParsing() {
 		return parsing;
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		try {
 			parsing = this;
 			objects = LiteralUtils.defendExpression(exprs[0]);
@@ -143,17 +140,14 @@ public class ExprFilter extends SimpleExpression<Object> {
 	}
 
 	@Name("Filter Input")
-	@Description("Represents the input in a filter expression. " +
-			"For example, if you ran 'broadcast \"something\" and \"something else\" where [string input is \"something\"]" +
-			"the condition would be checked twice, using \"something\" and \"something else\" as the inputs.")
+	@Description("Represents the input in a filter expression. " + "For example, if you ran 'broadcast \"something\" and \"something else\" where [string input is \"something\"]" + "the condition would be checked twice, using \"something\" and \"something else\" as the inputs.")
 	@Examples("send \"congrats on being staff!\" to all players where [player input has permission \"staff\"]")
 	@Since("2.2-dev36")
 	@SuppressWarnings({"null", "unchecked"})
 	public static class ExprInput<T> extends SimpleExpression<T> {
 
 		static {
-			Skript.registerExpression(ExprInput.class, Object.class, ExpressionType.COMBINED,
-					"[%-classinfo%] input");
+			Skript.registerExpression(ExprInput.class, Object.class, ExpressionType.COMBINED, "[%-classinfo%] input");
 		}
 
 		private ExprInput<?> source;
@@ -176,7 +170,8 @@ public class ExprFilter extends SimpleExpression<Object> {
 		}
 
 		@Override
-		public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+		public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+				SkriptParser.ParseResult parseResult) {
 			if (ExprFilter.getParsing() == null || !(exprs[0] == null || exprs[0] instanceof Literal)) {
 				return false;
 			}
@@ -193,7 +188,7 @@ public class ExprFilter extends SimpleExpression<Object> {
 				return null;
 			}
 			try {
-				return Converters.convertStrictly(new Object[]{current}, superType);
+				return Converters.convertStrictly(new Object[] {current}, superType);
 			} catch (ClassCastException e1) {
 				return (T[]) Array.newInstance(superType, 0);
 			}

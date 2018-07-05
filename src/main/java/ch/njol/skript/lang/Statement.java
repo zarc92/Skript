@@ -37,7 +37,7 @@ import ch.njol.skript.log.SkriptLogger;
  * @see Effect
  */
 public abstract class Statement extends TriggerItem implements SyntaxElement {
-	
+
 	@SuppressWarnings({"rawtypes", "unchecked", "null"})
 	@Nullable
 	public static Statement parse(final String s, final String defaultError) {
@@ -65,5 +65,5 @@ public abstract class Statement extends TriggerItem implements SyntaxElement {
 	 */
 	@SuppressWarnings("null")
 	protected ParserInstance pi;
-	
+
 }

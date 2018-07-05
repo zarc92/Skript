@@ -44,33 +44,32 @@ import ch.njol.util.Kleenean;
 @Examples("the moved blocks")
 @Since("2.2-dev27")
 public class ExprPushedBlocks extends SimpleExpression<Block> {
-	
+
 	static {
 		Skript.registerExpression(ExprPushedBlocks.class, Block.class, ExpressionType.SIMPLE, "[the] moved blocks");
 	}
-	
+
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (!ScriptLoader.isCurrentEvent(BlockPistonExtendEvent.class, BlockPistonRetractEvent.class)) {
 			Skript.error("The moved blocks are only usable in piston extend and retract events", ErrorQuality.SEMANTIC_ERROR);
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Block[] get(Event e) {
-		return (e instanceof BlockPistonExtendEvent) ? ((BlockPistonExtendEvent) e).getBlocks().toArray(new Block[0])
-				: ((BlockPistonRetractEvent) e).getBlocks().toArray(new Block[0]);
+		return (e instanceof BlockPistonExtendEvent) ? ((BlockPistonExtendEvent) e).getBlocks().toArray(new Block[0]) : ((BlockPistonRetractEvent) e).getBlocks().toArray(new Block[0]);
 	}
-	
+
 	@Override
 	public Class<? extends Block> getReturnType() {
 		return Block.class;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
@@ -80,5 +79,5 @@ public class ExprPushedBlocks extends SimpleExpression<Block> {
 	public String toString(@Nullable Event e, boolean debug) {
 		return "moved blocks";
 	}
-	
+
 }

@@ -27,12 +27,11 @@ import java.lang.annotation.Target;
 
 /**
  * Provides the version of plugin when was the annotated element added.
- * 
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Since {
-	
+
 	String value();
 }

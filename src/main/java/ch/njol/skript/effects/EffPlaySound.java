@@ -88,7 +88,7 @@ public class EffPlaySound extends Effect {
 
 			try {
 				soundEnum = Sound.valueOf(s.toUpperCase(Locale.ENGLISH));
-			} catch(IllegalArgumentException e1) {}
+			} catch (IllegalArgumentException e1) {}
 
 			if (players != null) {
 				if (soundEnum == null) {
@@ -118,12 +118,12 @@ public class EffPlaySound extends Effect {
 		}
 
 	}
-	
+
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
 		if (e != null)
 			return "play sound " + sound.getSingle(e);
 		return "play sound";
 	}
-	
+
 }

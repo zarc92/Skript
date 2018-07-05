@@ -61,13 +61,13 @@ import ch.njol.skript.util.Version;
  * Skript's new updater, which uses Github API.
  */
 public class Updater {
-	
-	public static final String RELEASES_URL  = "https://api.github.com/repos/SkriptLang/Skript/releases";
-	
+
+	public static final String RELEASES_URL = "https://api.github.com/repos/SkriptLang/Skript/releases";
+
 	@Nullable
 	private static Gson gson;
 	private static boolean gsonUnavailable;
-	
+
 	static {
 		// Only initialize GSON if available
 		if (Skript.classExists("com.google.gson.Gson"))
@@ -75,13 +75,13 @@ public class Updater {
 		else
 			gsonUnavailable = true;
 	}
-	
+
 	final static AtomicReference<String> error = new AtomicReference<>();
 	public static volatile UpdateState state = UpdateState.NOT_STARTED;
-	
+
 	public final static List<ResponseEntry> infos = new ArrayList<>();
 	public final static AtomicReference<ResponseEntry> latest = new AtomicReference<>();
-	
+
 	// must be down here as they reference 'error' and 'latest' which are defined above
 	public final static Message m_not_started = new Message("updater.not started");
 	public final static Message m_checking = new Message("updater.checking");
@@ -89,86 +89,90 @@ public class Updater {
 	public final static FormattedMessage m_check_error = new FormattedMessage("updater.check error", error);
 	public final static Message m_running_latest_version = new Message("updater.running latest version");
 	public final static Message m_running_latest_version_beta = new Message("updater.running latest version (beta)");
-	public final static FormattedMessage m_update_available = new FormattedMessage("updater.update available", latest, Skript.getVersion());
+	public final static FormattedMessage m_update_available = new FormattedMessage("updater.update available", latest,
+			Skript.getVersion());
 	public final static FormattedMessage m_downloading = new FormattedMessage("updater.downloading", latest);
 	public final static Message m_download_in_progress = new Message("updater.download in progress");
 	public final static FormattedMessage m_download_error = new FormattedMessage("updater.download error", error);
 	public final static FormattedMessage m_downloaded = new FormattedMessage("updater.downloaded", latest);
 	public final static Message m_internal_error = new Message("updater.internal error");
 	public final static Message m_custom_version = new Message("updater.custom version");
-	
+
 	@Nullable
 	static Task checkerTask;
-	
+
 	public final static AtomicReference<CommandSender> executor = new AtomicReference<>();
-	
+
 	public enum UpdateState {
-		
+
 		NOT_STARTED,
-		
+
 		CHECKING,
-		
+
 		RUNNING_LATEST,
-		
+
 		RUNNING_CUSTOM,
-		
+
 		UPDATE_AVAILABLE,
-		
+
 		DOWNLOADING,
-		
+
 		DOWNLOADED,
-		
+
 		ERROR
 	}
-	
+
 	/**
 	 * Github API response for GSON deserialization.
 	 */
 	@NonNullByDefault(value = false)
 	public class ResponseEntry {
+
 		public String url;
-	    public String assets_url;
-	    public String upload_url;
-	    public String html_url;
-	    public int id;
-	    public String tag_name;
-	    public String target_commitish;
-	    public String name;
-	    public boolean draft;
-	    
-	    public boolean prerelease;
-	    public String created_at;
-	    public String published_at;
-	    
-	    public class AssetsEntry {
-	    	public int size;
-	    	public int download_count;
-	    	public String browser_download_url;
-	    }
-	    
-	    public List<AssetsEntry> assets;
-	    public String body; // Description of release
-	    
-	    @Override
-	    public String toString() {
-	    	return tag_name;
-	    }
-	    
-	    public class Author {
-	    	public String login;
-	    	public int id;
-	    }
-	    
-	    public Author author;
+		public String assets_url;
+		public String upload_url;
+		public String html_url;
+		public int id;
+		public String tag_name;
+		public String target_commitish;
+		public String name;
+		public boolean draft;
+
+		public boolean prerelease;
+		public String created_at;
+		public String published_at;
+
+		public class AssetsEntry {
+
+			public int size;
+			public int download_count;
+			public String browser_download_url;
+		}
+
+		public List<AssetsEntry> assets;
+		public String body; // Description of release
+
+		@Override
+		public String toString() {
+			return tag_name;
+		}
+
+		public class Author {
+
+			public String login;
+			public int id;
+		}
+
+		public Author author;
 	}
-	
+
 	@SuppressWarnings("null")
 	public static void start() {
 		Skript.debug("Initializing updater");
-		
+
 		if (gsonUnavailable) // Something wrong with GSON...
 			return;
-		
+
 		long period;
 		if (SkriptConfig.checkForNewVersion.value())
 			period = SkriptConfig.updateCheckInterval.value().getTicks_i();
@@ -179,7 +183,7 @@ public class Updater {
 		Skript.info("Starting updater thread");
 		checkerTask.setNextExecution(0); // Execute it now!
 	}
-	
+
 	public static List<ResponseEntry> deserialize(String str) {
 		assert str != null : "Cannot deserialize null string";
 		@SuppressWarnings("serial")
@@ -187,12 +191,12 @@ public class Updater {
 		assert gson != null;
 		List<ResponseEntry> responses = gson.fromJson(str, listType);
 		assert responses != null;
-		
+
 		return responses;
 	}
-	
+
 	public static class CheckerTask extends Task {
-		
+
 		/**
 		 * @param plugin
 		 * @param delay
@@ -207,7 +211,7 @@ public class Updater {
 		}
 
 		private CommandSender sender;
-		
+
 		public String tryLoadReleases(URL url) throws IOException, SocketTimeoutException {
 			//Skript.debug("Trying to load releases from " + url + "...");
 			try (Scanner scan = new Scanner(url.openStream(), "UTF-8")) {
@@ -218,7 +222,7 @@ public class Updater {
 			}
 			//Skript.debug("Closing scanner NOW!");
 		}
-		
+
 		public boolean performUpdate(List<ResponseEntry> releases) {
 			ResponseEntry current = null;
 			String ver = Skript.getInstance().getDescription().getVersion();
@@ -241,18 +245,18 @@ public class Updater {
 				state = UpdateState.RUNNING_LATEST;
 				return false;
 			}
-			
+
 			latest.set(update);
 			infos.clear();
 			infos.addAll(releases);
 			return true;
 		}
-		
+
 		@Override
 		public void run() {
 			//Skript.debug("Beginning update checking");
 			state = UpdateState.CHECKING;
-			
+
 			URL url = null;
 			try {
 				url = new URL(RELEASES_URL); // Create URL
@@ -262,7 +266,7 @@ public class Updater {
 				return;
 			}
 			assert url != null;
-			
+
 			int maxTries = SkriptConfig.updaterDownloadTries.value();
 			int tries = 0;
 			String response = null;
@@ -276,7 +280,7 @@ public class Updater {
 					error.set(ExceptionUtils.toString(e));
 					Skript.info(sender, "" + m_check_error);
 				}
-				
+
 				tries++;
 				if (tries >= maxTries && response == null) {
 					error.set("Can't reach update server");
@@ -286,14 +290,14 @@ public class Updater {
 				}
 			}
 			assert response != null;
-			
+
 			List<ResponseEntry> entries = deserialize(response);
-			
+
 			if (performUpdate(entries)) { // Check if we're running latest release...
 				state = UpdateState.UPDATE_AVAILABLE;
 				infos.addAll(entries);
 				latest.set(entries.get(0));
-				
+
 				Skript.info(sender, "" + m_update_available);
 				if (SkriptConfig.automaticallyDownloadNewVersion.value()) {
 					// TODO automatic downloading
@@ -306,7 +310,7 @@ public class Updater {
 					case RUNNING_CUSTOM:
 						Skript.info(sender, "" + m_custom_version);
 						break;
-						//$CASES-OMITTED$
+					//$CASES-OMITTED$
 					default:
 						Skript.error(sender, "" + m_internal_error);
 						Thread.dumpStack();
@@ -314,9 +318,9 @@ public class Updater {
 			}
 		}
 	}
-	
+
 	public static class DownloaderTask extends Task {
-		
+
 		/**
 		 * @param plugin
 		 * @param delay
@@ -331,7 +335,7 @@ public class Updater {
 		}
 
 		private CommandSender sender;
-		
+
 		@Override
 		public void run() {
 			ResponseEntry update = latest.get();
@@ -344,13 +348,13 @@ public class Updater {
 				return;
 			}
 			assert url != null;
-			
+
 			// Validate new release (only bensku can make auto-updateable releases for security reasons)
 			if (update.author.id != 4330456) {
 				Skript.exception("Unauthorized Skript release! Author " + update.author.login + " (" + update.author.id + ") is not recognized.");
 				return;
 			}
-			
+
 			// Attempt to open connection on new jar
 			int maxTries = SkriptConfig.updaterDownloadTries.value();
 			int tries = 0;
@@ -365,8 +369,7 @@ public class Updater {
 					error.set(ExceptionUtils.toString(e));
 					Skript.info(sender, "" + m_check_error);
 				}
-				
-				
+
 				tries++;
 				if (tries >= maxTries && ch == null) {
 					error.set("Can't reach update server");
@@ -376,7 +379,7 @@ public class Updater {
 				}
 			}
 			assert ch != null;
-			
+
 			// Attempt to transfer data from network to file
 			try {
 				FileChannel file = FileChannel.open(Paths.get("skript-update.jar"), StandardOpenOption.CREATE);
@@ -386,7 +389,7 @@ public class Updater {
 				error.set(ExceptionUtils.toString(e));
 				Skript.info(sender, "" + m_check_error);
 			}
-			
+
 			// Close connection, no matter what
 			try {
 				ch.close();

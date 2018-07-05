@@ -56,13 +56,14 @@ import ch.njol.skript.util.slot.Slot;
  */
 @SuppressWarnings("rawtypes")
 public class DefaultConverters {
-	
+
 	public DefaultConverters() {}
-	
+
 	static {
-		
+
 		// OfflinePlayer - PlayerInventory
 		Converters.registerConverter(OfflinePlayer.class, PlayerInventory.class, new Converter<OfflinePlayer, PlayerInventory>() {
+
 			@Override
 			@Nullable
 			public PlayerInventory convert(final OfflinePlayer p) {
@@ -73,16 +74,18 @@ public class DefaultConverters {
 		}, Converter.NO_COMMAND_ARGUMENTS);
 		// OfflinePlayer - Player
 		Converters.registerConverter(OfflinePlayer.class, Player.class, new Converter<OfflinePlayer, Player>() {
+
 			@Override
 			@Nullable
 			public Player convert(final OfflinePlayer p) {
 				return p.getPlayer();
 			}
 		}, Converter.NO_COMMAND_ARGUMENTS);
-		
+
 		// TODO improve handling of interfaces
 		// CommandSender - Player
 		Converters.registerConverter(CommandSender.class, Player.class, new Converter<CommandSender, Player>() {
+
 			@Override
 			@Nullable
 			public Player convert(final CommandSender s) {
@@ -93,6 +96,7 @@ public class DefaultConverters {
 		});
 		// Entity - Player
 		Converters.registerConverter(Entity.class, Player.class, new Converter<Entity, Player>() {
+
 			@Override
 			@Nullable
 			public Player convert(final Entity e) {
@@ -103,6 +107,7 @@ public class DefaultConverters {
 		});
 		// Entity - LivingEntity // Entity->Player is used if this doesn't exist
 		Converters.registerConverter(Entity.class, LivingEntity.class, new Converter<Entity, LivingEntity>() {
+
 			@Override
 			@Nullable
 			public LivingEntity convert(final Entity e) {
@@ -111,9 +116,10 @@ public class DefaultConverters {
 				return null;
 			}
 		});
-		
+
 		// Block - Inventory
 		Converters.registerConverter(Block.class, Inventory.class, new Converter<Block, Inventory>() {
+
 			@Override
 			@Nullable
 			public Inventory convert(final Block b) {
@@ -122,9 +128,10 @@ public class DefaultConverters {
 				return null;
 			}
 		}, Converter.NO_COMMAND_ARGUMENTS);
-		
+
 		// Entity - Inventory
 		Converters.registerConverter(Entity.class, Inventory.class, new Converter<Entity, Inventory>() {
+
 			@Override
 			@Nullable
 			public Inventory convert(final Entity e) {
@@ -133,16 +140,17 @@ public class DefaultConverters {
 				return null;
 			}
 		}, Converter.NO_COMMAND_ARGUMENTS);
-		
+
 		// Block - ItemStack
 		Converters.registerConverter(Block.class, ItemStack.class, new Converter<Block, ItemStack>() {
+
 			@SuppressWarnings("deprecation")
 			@Override
 			public ItemStack convert(final Block b) {
 				return new ItemStack(b.getTypeId(), 1, b.getData());
 			}
 		}, Converter.NO_LEFT_CHAINING | Converter.NO_COMMAND_ARGUMENTS);
-		
+
 		// Location - Block
 //		Converters.registerConverter(Location.class, Block.class, new Converter<Location, Block>() {
 //			@Override
@@ -151,15 +159,17 @@ public class DefaultConverters {
 //			}
 //		});
 		Converters.registerConverter(Block.class, Location.class, new Converter<Block, Location>() {
+
 			@Override
 			@Nullable
 			public Location convert(final Block b) {
 				return BlockUtils.getLocation(b);
 			}
 		}, Converter.NO_COMMAND_ARGUMENTS);
-		
+
 		// Entity - Location
 		Converters.registerConverter(Entity.class, Location.class, new Converter<Entity, Location>() {
+
 			@Override
 			@Nullable
 			public Location convert(final Entity e) {
@@ -168,6 +178,7 @@ public class DefaultConverters {
 		}, Converter.NO_COMMAND_ARGUMENTS);
 		// Entity - EntityData
 		Converters.registerConverter(Entity.class, EntityData.class, new Converter<Entity, EntityData>() {
+
 			@Override
 			public EntityData convert(final Entity e) {
 				return EntityData.fromEntity(e);
@@ -175,12 +186,13 @@ public class DefaultConverters {
 		}, Converter.NO_COMMAND_ARGUMENTS | Converter.NO_RIGHT_CHAINING);
 		// EntityData - EntityType
 		Converters.registerConverter(EntityData.class, EntityType.class, new Converter<EntityData, EntityType>() {
+
 			@Override
 			public EntityType convert(final EntityData data) {
 				return new EntityType(data, -1);
 			}
 		});
-		
+
 		// Location - World
 //		Skript.registerConverter(Location.class, World.class, new Converter<Location, World>() {
 //			private final static long serialVersionUID = 3270661123492313649L;
@@ -192,9 +204,10 @@ public class DefaultConverters {
 //				return l.getWorld();
 //			}
 //		});
-		
+
 		// ItemType - ItemStack
 		Converters.registerConverter(ItemType.class, ItemStack.class, new Converter<ItemType, ItemStack>() {
+
 			@Override
 			@Nullable
 			public ItemStack convert(final ItemType i) {
@@ -202,26 +215,29 @@ public class DefaultConverters {
 			}
 		});
 		Converters.registerConverter(ItemStack.class, ItemType.class, new Converter<ItemStack, ItemType>() {
+
 			@Override
 			public ItemType convert(final ItemStack i) {
 				return new ItemType(i);
 			}
 		});
-		
+
 		// Experience - XpOrbData
 		Converters.registerConverter(Experience.class, XpOrbData.class, new Converter<Experience, XpOrbData>() {
+
 			@Override
 			public XpOrbData convert(final Experience e) {
 				return new XpOrbData(e.getXP());
 			}
 		});
 		Converters.registerConverter(XpOrbData.class, Experience.class, new Converter<XpOrbData, Experience>() {
+
 			@Override
 			public Experience convert(final XpOrbData e) {
 				return new Experience(e.getExperience());
 			}
 		});
-		
+
 //		// Item - ItemStack
 //		Converters.registerConverter(Item.class, ItemStack.class, new Converter<Item, ItemStack>() {
 //			@Override
@@ -229,9 +245,10 @@ public class DefaultConverters {
 //				return i.getItemStack();
 //			}
 //		});
-		
+
 		// Slot - ItemStack
 		Converters.registerConverter(Slot.class, ItemStack.class, new Converter<Slot, ItemStack>() {
+
 			@Override
 			public ItemStack convert(final Slot s) {
 				final ItemStack i = s.getItem();
@@ -249,9 +266,10 @@ public class DefaultConverters {
 //				return s.getInventory();
 //			}
 //		});
-		
+
 		// Block - InventoryHolder
 		Converters.registerConverter(Block.class, InventoryHolder.class, new Converter<Block, InventoryHolder>() {
+
 			@Override
 			@Nullable
 			public InventoryHolder convert(final Block b) {
@@ -273,7 +291,7 @@ public class DefaultConverters {
 //				return null;
 //			}
 //		});
-		
+
 //		// World - Time
 //		Skript.registerConverter(World.class, Time.class, new Converter<World, Time>() {
 //			@Override
@@ -283,15 +301,16 @@ public class DefaultConverters {
 //				return new Time((int) w.getTime());
 //			}
 //		});
-		
+
 		// Enchantment - EnchantmentType
 		Converters.registerConverter(Enchantment.class, EnchantmentType.class, new Converter<Enchantment, EnchantmentType>() {
+
 			@Override
 			public EnchantmentType convert(final Enchantment e) {
 				return new EnchantmentType(e, -1);
 			}
 		});
-		
+
 //		// Entity - String (UUID) // Very slow, thus disabled for now
 //		Converters.registerConverter(String.class, Entity.class, new Converter<String, Entity>() {
 //
@@ -308,7 +327,7 @@ public class DefaultConverters {
 //			}
 //			
 //		});
-		
+
 		// Number - Vector; DISABLED due to performance problems
 //		Converters.registerConverter(Number.class, Vector.class, new Converter<Number, Vector>() {
 //			@Override
@@ -320,11 +339,12 @@ public class DefaultConverters {
 
 		// Vector - Direction
 		Converters.registerConverter(Vector.class, Direction.class, new Converter<Vector, Direction>() {
+
 			@Override
 			@Nullable
 			public Direction convert(Vector vector) {
 				return new Direction(vector);
 			}
-});
+		});
 	}
 }

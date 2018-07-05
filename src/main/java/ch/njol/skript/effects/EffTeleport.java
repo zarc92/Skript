@@ -45,27 +45,28 @@ import ch.njol.util.Kleenean;
  */
 @Name("Teleport")
 @Description("Teleport an entity to a specific location.")
-@Examples({"teleport the player to {homes.%player%}",
-		"teleport the attacker to the victim"})
+@Examples({"teleport the player to {homes.%player%}", "teleport the attacker to the victim"})
 @Since("1.0")
 public class EffTeleport extends Effect {
+
 	static {
 		Skript.registerEffect(EffTeleport.class, "teleport %entities% (to|%direction%) %location%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Entity> entities;
 	@SuppressWarnings("null")
 	private Expression<Location> location;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		entities = (Expression<Entity>) exprs[0];
 		location = Direction.combine((Expression<? extends Direction>) exprs[1], (Expression<? extends Location>) exprs[2]);
 		return true;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void execute(final Event e) {
@@ -96,20 +97,19 @@ public class EffTeleport extends Effect {
 			}
 		}
 	}
-	
+
 	/**
 	 * @param yaw Notch-yaw
 	 * @param pitch Notch-pitch
 	 * @return Whether the given pitch and yaw represent a cartesian coordinate direction
 	 */
 	private static boolean ignoreDirection(final float yaw, final float pitch) {
-		return (pitch == 0 || Math.abs(pitch - 90) < Skript.EPSILON || Math.abs(pitch + 90) < Skript.EPSILON)
-				&& (yaw == 0 || Math.abs(Math.sin(Math.toRadians(yaw))) < Skript.EPSILON || Math.abs(Math.cos(Math.toRadians(yaw))) < Skript.EPSILON);
+		return (pitch == 0 || Math.abs(pitch - 90) < Skript.EPSILON || Math.abs(pitch + 90) < Skript.EPSILON) && (yaw == 0 || Math.abs(Math.sin(Math.toRadians(yaw))) < Skript.EPSILON || Math.abs(Math.cos(Math.toRadians(yaw))) < Skript.EPSILON);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "teleport " + entities.toString(e, debug) + " to " + location.toString(e, debug);
 	}
-	
+
 }

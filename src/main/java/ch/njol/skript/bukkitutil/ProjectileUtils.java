@@ -34,8 +34,9 @@ import ch.njol.skript.Skript;
  */
 @SuppressWarnings("null")
 public abstract class ProjectileUtils {
+
 	private ProjectileUtils() {}
-	
+
 	private static Method getShooter, setShooter;
 	static {
 		try {
@@ -51,7 +52,7 @@ public abstract class ProjectileUtils {
 			Skript.exception(e, "security manager present");
 		}
 	}
-	
+
 	@Nullable
 	public static Object getShooter(final @Nullable Projectile p) {
 		if (p == null)
@@ -66,7 +67,7 @@ public abstract class ProjectileUtils {
 			return null;
 		}
 	}
-	
+
 	public static void setShooter(final Projectile p, final @Nullable Object shooter) {
 		try {
 			setShooter.invoke(p, shooter);
@@ -78,5 +79,5 @@ public abstract class ProjectileUtils {
 			Skript.exception(e);
 		}
 	}
-	
+
 }

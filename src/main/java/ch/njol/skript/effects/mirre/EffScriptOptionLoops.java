@@ -38,21 +38,20 @@ import ch.njol.util.Kleenean;
 
 @Name("Loop Version")
 @Description("Changes loops to emulate given Skript version's behaviour.")
-@Examples({"use old loops",
-		"use new loops"})
+@Examples({"use old loops", "use new loops"})
 @Since("<i>unknown</i> (2.2)")
 public class EffScriptOptionLoops extends Effect {
 
 	//use (1¦old|2¦new|1¦2.1.2|2¦2.2) loops
-	
-	static{
+
+	static {
 		Skript.registerEffect(EffScriptOptionLoops.class, "use[s] (1¦old|2¦new|1¦2.1.2|2¦2.2) loops");
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-		if(!ScriptLoader.isCurrentEvent(ScriptEvent.class) || isDelayed == Kleenean.TRUE){
+		if (!ScriptLoader.isCurrentEvent(ScriptEvent.class) || isDelayed == Kleenean.TRUE) {
 			Skript.error("Current event is not Script Event or you have a delay before the script option. Defaulting to 2.2 loops.", ErrorQuality.SEMANTIC_ERROR);
 			ScriptOptions.getInstance().setUsesNewLoops(ScriptLoader.currentScript.getFile(), true);
 			return false;
@@ -70,7 +69,7 @@ public class EffScriptOptionLoops extends Effect {
 	@SuppressWarnings("null")
 	@Override
 	protected void execute(Event e) {
-		
+
 	}
-	
+
 }

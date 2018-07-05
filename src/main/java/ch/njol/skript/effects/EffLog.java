@@ -49,21 +49,21 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Log")
-@Description({"Writes text into a .log file. Skript will write these files to /plugins/Skript/logs.",
-		"NB: Using 'server.log' as the log file will write to the default server log. Omitting the log file altogether will log the message as '[Skript] [&lt;script&gt;.sk] &lt;message&gt;' in the server log."})
-@Examples({"on place of TNT:",
-		"	log \"%player% placed TNT in %world% at %location of block%\" to \"tnt/placement.log\""})
+@Description({"Writes text into a .log file. Skript will write these files to /plugins/Skript/logs.", "NB: Using 'server.log' as the log file will write to the default server log. Omitting the log file altogether will log the message as '[Skript] [&lt;script&gt;.sk] &lt;message&gt;' in the server log."})
+@Examples({"on place of TNT:", "	log \"%player% placed TNT in %world% at %location of block%\" to \"tnt/placement.log\""})
 @Since("2.0")
 public class EffLog extends Effect {
+
 	static {
 		Skript.registerEffect(EffLog.class, "log %strings% [(to|in) [file[s]] %-strings%]");
 	}
-	
+
 	private final static File logsFolder = new File(Skript.getInstance().getDataFolder(), "logs");
-	
+
 	final static HashMap<String, PrintWriter> writers = new HashMap<>();
 	static {
 		Skript.closeOnDisable(new Closeable() {
+
 			@Override
 			public void close() {
 				for (final PrintWriter pw : writers.values())
@@ -71,20 +71,21 @@ public class EffLog extends Effect {
 			}
 		});
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<String> messages;
 	@Nullable
 	private Expression<String> files;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		messages = (Expression<String>) exprs[0];
 		files = (Expression<String>) exprs[1];
 		return true;
 	}
-	
+
 	@SuppressWarnings("resource")
 	@Override
 	protected void execute(final Event e) {
@@ -120,7 +121,7 @@ public class EffLog extends Effect {
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "log " + messages.toString(e, debug) + (files != null ? " to " + files.toString(e, debug) : "");

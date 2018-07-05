@@ -45,30 +45,28 @@ import ch.njol.util.StringUtils;
  * @author Peter Güttinger
  */
 @Name("Creature/Entity/Player/Projectile/Villager/Powered Creeper/etc.")
-@Description({"The entity involved in an event (an entity is a player, a creature or an inanimate object like ignited TNT, a dropped item or an arrow).",
-		"You can use the specific type of the entity that's involved in the event, e.g. in a 'death of a creeper' event you can use 'the creeper' instead of 'the entity'."})
-@Examples({"give a diamond sword of sharpness 3 to the player",
-		"kill the creeper",
-		"kill all powered creepers in the wolf's world",
-		"projectile is an arrow"})
+@Description({"The entity involved in an event (an entity is a player, a creature or an inanimate object like ignited TNT, a dropped item or an arrow).", "You can use the specific type of the entity that's involved in the event, e.g. in a 'death of a creeper' event you can use 'the creeper' instead of 'the entity'."})
+@Examples({"give a diamond sword of sharpness 3 to the player", "kill the creeper", "kill all powered creepers in the wolf's world", "projectile is an arrow"})
 @Since("1.0")
 public class ExprEntity extends SimpleExpression<Entity> {
+
 	static {
 		Skript.registerExpression(ExprEntity.class, Entity.class, ExpressionType.PATTERN_MATCHES_EVERYTHING, "[the] [event-]<.+>");
 	}
-	
+
 	@SuppressWarnings("null")
 	private EntityData<?> type;
-	
+
 	@SuppressWarnings("null")
 	private EventValueExpression<Entity> entity;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		final RetainingLogHandler log = SkriptLogger.startRetainingLog();
 		try {
 			if (!StringUtils.startsWithIgnoreCase(parseResult.expr, "the ") && !StringUtils.startsWithIgnoreCase(parseResult.expr, "event-")) {
-				
+
 				String s = parseResult.regexes.get(0).group();
 				final ItemType item = Aliases.parseItemType("" + s);
 				log.clear();
@@ -76,13 +74,13 @@ public class ExprEntity extends SimpleExpression<Entity> {
 					log.printLog();
 					return false;
 				}
-				
+
 				//if(!StringUtils.startsWithIgnoreCase(parseResult.expr, "the event-") && !s.equalsIgnoreCase("player") && !s.equalsIgnoreCase("entity")){
 				//	return false;
 				//}
-				
+
 			}
-			
+
 			final EntityData<?> type = EntityData.parseWithoutIndefiniteArticle("" + parseResult.regexes.get(0).group());
 			log.clear();
 			log.printLog();
@@ -95,17 +93,17 @@ public class ExprEntity extends SimpleExpression<Entity> {
 		entity = new EventValueExpression<>(type.getType());
 		return entity.init();
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends Entity> getReturnType() {
 		return type.getType();
 	}
-	
+
 	@Override
 	@Nullable
 	protected Entity[] get(final Event e) {
@@ -114,10 +112,10 @@ public class ExprEntity extends SimpleExpression<Entity> {
 			return es;
 		return null;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the " + type;
 	}
-	
+
 }

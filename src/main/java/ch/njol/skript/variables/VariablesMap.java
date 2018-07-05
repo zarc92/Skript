@@ -33,8 +33,9 @@ import ch.njol.skript.util.Utils;
 import ch.njol.util.StringUtils;
 
 final class VariablesMap {
-	
+
 	final static Comparator<String> variableNameComparator = new Comparator<String>() {
+
 		@Override
 		public int compare(final @Nullable String s1, final @Nullable String s2) {
 			if (s1 == null)
@@ -46,7 +47,8 @@ final class VariablesMap {
 				final char c1 = s1.charAt(i), c2 = s2.charAt(j);
 				if ('0' <= c1 && c1 <= '9' && '0' <= c2 && c2 <= '9') { // TODO negative numbers? what about {blah-%number%}? // '-' < '0'
 					final int i2 = StringUtils.findLastDigit(s1, i), j2 = StringUtils.findLastDigit(s2, j);
-					final long n1 = Utils.parseLong("" + s1.substring(i, i2)), n2 = Utils.parseLong("" + s2.substring(j, j2));
+					final long n1 = Utils.parseLong("" + s1.substring(i, i2)),
+							n2 = Utils.parseLong("" + s2.substring(j, j2));
 					if (n1 > n2)
 						return 1;
 					if (n1 < n2)
@@ -69,17 +71,18 @@ final class VariablesMap {
 			return 0;
 		}
 	};
-	
+
 	final HashMap<String, Object> hashMap = new HashMap<>();
 	final TreeMap<String, Object> treeMap = new TreeMap<>();
-	
+
 	/**
 	 * Returns the internal value of the requested variable.
 	 * <p>
 	 * <b>Do not modify the returned value!</b>
 	 * 
 	 * @param name
-	 * @return an Object for a normal Variable or a Map<String, Object> for a list variable, or null if the variable is not set.
+	 * @return an Object for a normal Variable or a Map<String, Object> for a list variable, or null if the variable is
+	 *         not set.
 	 */
 	@SuppressWarnings("unchecked")
 	@Nullable
@@ -108,7 +111,7 @@ final class VariablesMap {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Sets a variable.
 	 * 
@@ -176,7 +179,7 @@ final class VariablesMap {
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	void deleteFromHashMap(final String parent, final TreeMap<String, Object> current) {
 		for (final Entry<String, Object> e : current.entrySet()) {
@@ -189,5 +192,5 @@ final class VariablesMap {
 			}
 		}
 	}
-	
+
 }

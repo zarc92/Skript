@@ -58,33 +58,30 @@ import ch.njol.util.coll.CollectionUtils;
  */
 @SuppressWarnings("unchecked")
 public class EvtClick extends SkriptEvent {
-	
+
 	final static boolean twoHanded = Skript.isRunningMinecraft(1, 9);
-	
+
 	/**
 	 * Click types.
 	 */
 	private final static int RIGHT = 1, LEFT = 2, ANY = RIGHT | LEFT;
-	
+
 	/**
 	 * If we used "holding" somewhere there, we must check if either hand
 	 * contains the tool.
 	 */
 	private final static int HOLDING = 4;
-	
+
 	static {
 		/*
 		 * On 1.9 and above, handling entity click events is a mess, because
 		 * just listening for one event is enough.
-		 * 
 		 * PlayerInteractEntityEvent
 		 * Good: when it is fired, you can cancel it
 		 * Bad: not fired for armor stands, at all
-		 * 
 		 * PlayerInteractAtEntityEvent
 		 * Good: catches clicks on armor stands
 		 * Bad: cannot be cancelled if entity is item frame or villager (!)
-		 * 
 		 * Just use both? Well, not so simple, as in many cases both are
 		 * called. To make matters worse, handling both events sometimes
 		 * causes PlayerInteractAtEntityEvent to be called TWICE.
@@ -94,32 +91,22 @@ public class EvtClick extends SkriptEvent {
 			eventTypes = CollectionUtils.array(PlayerInteractEvent.class, PlayerInteractAtEntityEvent.class, PlayerInteractEntityEvent.class);
 		else
 			eventTypes = CollectionUtils.array(PlayerInteractEvent.class, PlayerInteractEntityEvent.class);
-		
-		Skript.registerEvent("Click", EvtClick.class, eventTypes,
-				"[(" + RIGHT + "¦right|" + LEFT + "¦left)(| |-)][mouse(| |-)]click[ing] [on %-entitydata/itemtype%] [(with|using|" + HOLDING + "¦holding) %itemtype%]",
-				"[(" + RIGHT + "¦right|" + LEFT + "¦left)(| |-)][mouse(| |-)]click[ing] (with|using|" + HOLDING + "¦holding) %itemtype% on %entitydata/itemtype%")
-				.description("Called when a user clicks on a block, an entity or air with or without an item in their hand.",
-						"Please note that rightclick events with an empty hand while not looking at a block are not sent to the server, so there's no way to detect them.")
-				.examples("on click",
-						"on rightclick holding a fishing rod",
-						"on leftclick on a stone or obsidian",
-						"on rightclick on a creeper",
-						"on click with a sword")
-				.since("1.0");
+
+		Skript.registerEvent("Click", EvtClick.class, eventTypes, "[(" + RIGHT + "¦right|" + LEFT + "¦left)(| |-)][mouse(| |-)]click[ing] [on %-entitydata/itemtype%] [(with|using|" + HOLDING + "¦holding) %itemtype%]", "[(" + RIGHT + "¦right|" + LEFT + "¦left)(| |-)][mouse(| |-)]click[ing] (with|using|" + HOLDING + "¦holding) %itemtype% on %entitydata/itemtype%").description("Called when a user clicks on a block, an entity or air with or without an item in their hand.", "Please note that rightclick events with an empty hand while not looking at a block are not sent to the server, so there's no way to detect them.").examples("on click", "on rightclick holding a fishing rod", "on leftclick on a stone or obsidian", "on rightclick on a creeper", "on click with a sword").since("1.0");
 	}
-	
+
 	@Nullable
 	private Literal<?> types = null;
 	@Nullable
 	private Literal<ItemType> tools;
-	
+
 	private int click = ANY;
 	boolean isHolding = false;
-	
+
 	// Entity event spaghetti handling
 	@Nullable
 	private Object lastInteractAtEvent;
-	
+
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
 		click = parser.mark == 0 ? ANY : parser.mark;
@@ -136,15 +123,15 @@ public class EvtClick extends SkriptEvent {
 		isHolding = (parser.mark & HOLDING) != 0; // Check if third-least significant byte is 1
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		final Block block;
 		final Entity entity;
-		
+
 		if (e instanceof PlayerInteractEntityEvent) {
 			PlayerInteractEntityEvent clickEvent = ((PlayerInteractEntityEvent) e);
-			
+
 			// Usually, don't handle these events
 			if (clickEvent instanceof PlayerInteractAtEntityEvent) {
 				// But armor stands are an exception
@@ -153,16 +140,16 @@ public class EvtClick extends SkriptEvent {
 				if (!(clicked instanceof ArmorStand))
 					return false;
 			}
-			
+
 			// Guard against PlayerInteractAtEvent being called twice
 			if (lastInteractAtEvent == e) // Intentional identity comparison
 				return false; // Don't handle same event twice
 			lastInteractAtEvent = e; // We're first event, second must not pass
-			
+
 			if (twoHanded) {
 				//ItemStack mainHand = clickEvent.getPlayer().getInventory().getItemInMainHand();
 				//ItemStack offHand = clickEvent.getPlayer().getInventory().getItemInOffHand();
-				
+
 				Player player = clickEvent.getPlayer();
 				assert player != null;
 				boolean useOffHand = checkUseOffHand(player, click, null, clickEvent.getRightClicked());
@@ -172,7 +159,7 @@ public class EvtClick extends SkriptEvent {
 					return false;
 				}
 			}
-			
+
 			if (click == LEFT || types == null) // types == null  will be handled by the PlayerInteractEvent that is fired as well
 				return false;
 			entity = clickEvent.getRightClicked();
@@ -182,7 +169,7 @@ public class EvtClick extends SkriptEvent {
 			if (twoHanded) {
 				//ItemStack mainHand = clickEvent.getPlayer().getInventory().getItemInMainHand();
 				//ItemStack offHand = clickEvent.getPlayer().getInventory().getItemInOffHand();
-				
+
 				Player player = clickEvent.getPlayer();
 				assert player != null;
 				boolean useOffHand = checkUseOffHand(player, click, clickEvent.getClickedBlock(), null);
@@ -192,7 +179,7 @@ public class EvtClick extends SkriptEvent {
 					return false;
 				}
 			}
-			
+
 			final Action a = clickEvent.getAction();
 			final int click;
 			switch (a) {
@@ -216,8 +203,9 @@ public class EvtClick extends SkriptEvent {
 			assert false;
 			return false;
 		}
-		
+
 		if (e instanceof PlayerInteractEvent && tools != null && !tools.check(e, new Checker<ItemType>() {
+
 			@Override
 			public boolean check(final ItemType t) {
 				if (isHolding && twoHanded) {
@@ -230,9 +218,10 @@ public class EvtClick extends SkriptEvent {
 		})) {
 			return false;
 		}
-		
+
 		if (types != null) {
 			return types.check(e, new Checker<Object>() {
+
 				@Override
 				public boolean check(final Object o) {
 					if (entity != null) {
@@ -245,28 +234,30 @@ public class EvtClick extends SkriptEvent {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return (click == LEFT ? "left" : click == RIGHT ? "right" : "") + "click" + (types != null ? " on " + types.toString(e, debug) : "") + (tools != null ? " holding " + tools.toString(e, debug) : "");
 	}
-	
-	public static boolean checkUseOffHand(Player player, int clickType, @Nullable Block block, @Nullable Entity entity) {
-		if (clickType != RIGHT) return false; // Attacking with off hand is not possible
-		
+
+	public static boolean checkUseOffHand(Player player, int clickType, @Nullable Block block,
+			@Nullable Entity entity) {
+		if (clickType != RIGHT)
+			return false; // Attacking with off hand is not possible
+
 		boolean mainUsable = false; // Usable item
 		boolean offUsable = false;
 		ItemStack mainHand = player.getInventory().getItemInMainHand();
 		ItemStack offHand = player.getInventory().getItemInOffHand();
-		
+
 		Material mainMat = mainHand.getType();
 		Material offMat = offHand.getType();
 		assert mainMat != null;
 		assert offMat != null;
-		
+
 		//Skript.info("block is " + block);
 		//Skript.info("entity is " + entity);
-		
+
 		switch (offHand.getType()) {
 			case BOW:
 			case EGG:
@@ -292,16 +283,16 @@ public class EvtClick extends SkriptEvent {
 			case MONSTER_EGG:
 				offUsable = true;
 				break;
-				//$CASES-OMITTED$
+			//$CASES-OMITTED$
 			default:
 				offUsable = false;
 		}
-		
+
 		// Seriously? Empty hand -> block in hand, since id of AIR < 256 :O
 		if ((offMat.isBlock() && offMat != Material.AIR) || PlayerUtils.canEat(player, offMat)) {
 			offUsable = true;
 		}
-		
+
 		switch (mainHand.getType()) {
 			case BOW:
 			case EGG:
@@ -329,16 +320,16 @@ public class EvtClick extends SkriptEvent {
 			case WRITTEN_BOOK:
 				mainUsable = true;
 				break;
-				//$CASES-OMITTED$
+			//$CASES-OMITTED$
 			default:
 				mainUsable = false;
 		}
-		
+
 		// Seriously? Empty hand -> block in hand, since id of AIR < 256 :O
 		if ((mainMat.isBlock() && mainMat != Material.AIR) || PlayerUtils.canEat(player, mainMat)) {
 			mainUsable = true;
 		}
-		
+
 		boolean blockUsable = false;
 		boolean mainOnly = false;
 		if (block != null) {
@@ -384,7 +375,7 @@ public class EvtClick extends SkriptEvent {
 				case CAKE_BLOCK:
 					mainOnly = true;
 					break;
-					//$CASES-OMITTED$
+				//$CASES-OMITTED$
 				default:
 					blockUsable = false;
 			}
@@ -393,24 +384,26 @@ public class EvtClick extends SkriptEvent {
 				case ITEM_FRAME:
 					mainOnly = true;
 					break;
-					//$CASES-OMITTED$
+				//$CASES-OMITTED$
 				default:
 					mainOnly = false;
 			}
-			
+
 			if (entity instanceof Vehicle)
 				mainOnly = true;
 		}
-		
+
 		boolean isSneaking = player.isSneaking();
 		//boolean blockInMain = mainHand.getType().isBlock() && mainHand.getType() != Material.AIR;
 		//boolean blockInOff = offHand.getType().isBlock() && offHand.getType() != Material.AIR;
-		
+
 		if (blockUsable) { // Special behavior
 			if (isSneaking) {
 				//Skript.info("Is sneaking on usable block!");
-				if (offHand.getType() != Material.AIR) return false;
-				if (mainHand.getType() != Material.AIR) return true;
+				if (offHand.getType() != Material.AIR)
+					return false;
+				if (mainHand.getType() != Material.AIR)
+					return true;
 				//Skript.info("Sneak checks didn't pass.");
 			} else { // When not sneaking, main hand is ALWAYS used
 				return false;
@@ -418,19 +411,23 @@ public class EvtClick extends SkriptEvent {
 		} else if (mainOnly) {
 			return false;
 		}
-		
+
 		//Skript.info("Check for usable items...");
-		if (mainUsable) return false;
-		if (offUsable) return true;
+		if (mainUsable)
+			return false;
+		if (offUsable)
+			return true;
 		//Skript.info("No hand has usable item");
-		
+
 		// Still not returned?
-		if (mainHand.getType() != Material.AIR) return false;
+		if (mainHand.getType() != Material.AIR)
+			return false;
 		//Skript.info("Main hand is not item.");
-		if (offHand.getType() != Material.AIR) return true;
-		
+		if (offHand.getType() != Material.AIR)
+			return true;
+
 		//Skript.info("Final return!");
 		return false; // Both hands are AIR material!
 	}
-	
+
 }

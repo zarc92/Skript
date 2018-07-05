@@ -50,32 +50,31 @@ import ch.njol.util.Kleenean;
  */
 @Name("Equip")
 @Description("Equips a player with some given armor. This will replace any armor that the player is wearing.")
-@Examples({"equip player with diamond helmet",
-		"equip player with all diamond armor"})
+@Examples({"equip player with diamond helmet", "equip player with all diamond armor"})
 @Since("1.0")
 public class EffEquip extends Effect implements Testable {
+
 	static {
-		Skript.registerEffect(EffEquip.class,
-				"equip [%livingentity%] with %itemtypes%",
-				"make %livingentity% wear %itemtypes%");
+		Skript.registerEffect(EffEquip.class, "equip [%livingentity%] with %itemtypes%", "make %livingentity% wear %itemtypes%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<LivingEntity> entities;
 	@SuppressWarnings("null")
 	private Expression<ItemType> types;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		entities = (Expression<LivingEntity>) vars[0];
 		types = (Expression<ItemType>) vars[1];
 		return true;
 	}
-	
+
 	private final static boolean supportsHorses = Skript.classExists("org.bukkit.entity.Horse");
 	private final static boolean newHorses = Skript.classExists("org.bukkit.entity.AbstractHorse");
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void execute(final Event e) {
@@ -163,7 +162,7 @@ public class EffEquip extends Effect implements Testable {
 				PlayerUtils.updateInventory((Player) en);
 		}
 	}
-	
+
 	@Override
 	public boolean test(final Event e) {
 //		final Iterable<Player> ps = players.getArray(e);
@@ -174,10 +173,10 @@ public class EffEquip extends Effect implements Testable {
 //		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "equip " + entities.toString(e, debug) + " with " + types.toString(e, debug);
 	}
-	
+
 }

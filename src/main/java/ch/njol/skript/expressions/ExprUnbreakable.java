@@ -50,25 +50,27 @@ import ch.njol.util.Kleenean;
 @Examples("unbreakable iron sword #Creates unbreakable iron sword")
 @Since("2.2-dev13b")
 public class ExprUnbreakable extends PropertyExpression<ItemType, ItemType> {
-	
+
 	static {
 		Skript.registerExpression(ExprUnbreakable.class, ItemType.class, ExpressionType.PROPERTY, "unbreakable %itemtypes%");
 	}
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		setExpr((Expression<? extends ItemType>) exprs[0]);
 		return true;
 	}
-	
+
 	@Override
 	protected ItemType[] get(final Event e, final ItemType[] source) {
 		return get(source, new Converter<ItemType, ItemType>() {
+
 			@Override
 			public ItemType convert(final ItemType i) {
 				ItemType clone = i.clone();
-				
+
 				Object meta = clone.getItemMeta();
 				if (meta == null) {
 					ItemStack random = clone.getRandom(); // Should not happen, but...
@@ -80,10 +82,10 @@ public class ExprUnbreakable extends PropertyExpression<ItemType, ItemType> {
 					Skript.error("Unknown item meta type, can't make item unbreakable!");
 					return clone;
 				}
-				
+
 				((ItemMeta) meta).spigot().setUnbreakable(true);
 				clone.setItemMeta(meta);
-				
+
 				return clone;
 			}
 		});

@@ -47,9 +47,7 @@ import java.util.List;
  */
 @Name("Inventory")
 @Description("The inventory of a block or player. You can usually omit this expression and can directly add or remove items to/from blocks or players.")
-@Examples({"add a plank to the player's inventory",
-		"clear the player's inventory",
-		"remove 5 wool from the inventory of the clicked block"})
+@Examples({"add a plank to the player's inventory", "clear the player's inventory", "remove 5 wool from the inventory of the clicked block"})
 @Since("1.0")
 public class ExprInventory extends SimpleExpression<Object> {
 
@@ -63,14 +61,14 @@ public class ExprInventory extends SimpleExpression<Object> {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		// if we're dealing with a loop of just this expression
 		Node n = SkriptLogger.getNode();
 		inLoop = n != null && ("loop " + parseResult.expr).equals(n.getKey());
 		holders = (Expression<InventoryHolder>) exprs[0];
 		return true;
 	}
-
 
 	@Override
 	protected Object[] get(Event e) {
@@ -85,34 +83,34 @@ public class ExprInventory extends SimpleExpression<Object> {
 			 * in inventory expression to not duplicate code
 			 */
 			ExprItemsIn expr = new ExprItemsIn();
-			expr.init(new Expression[] {
-					new SimpleExpression() {
-						@Override
-						protected Object[] get(Event e) {
-							return invArray;
-						}
+			expr.init(new Expression[] {new SimpleExpression() {
 
-						@Override
-						public boolean isSingle() {
-							return invArray.length == 1;
-						}
+				@Override
+				protected Object[] get(Event e) {
+					return invArray;
+				}
 
-						@Override
-						public Class<?> getReturnType() {
-							return Inventory.class;
-						}
+				@Override
+				public boolean isSingle() {
+					return invArray.length == 1;
+				}
 
-						@Override
-						public String toString(@Nullable Event e, boolean debug) {
-							return "loop of inventory expression";
-						}
+				@Override
+				public Class<?> getReturnType() {
+					return Inventory.class;
+				}
 
-						@Override
-						public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-							return true;
-						}
-					}
-			}, 0, Kleenean.FALSE, null);
+				@Override
+				public String toString(@Nullable Event e, boolean debug) {
+					return "loop of inventory expression";
+				}
+
+				@Override
+				public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+						SkriptParser.ParseResult parseResult) {
+					return true;
+				}
+			}}, 0, Kleenean.FALSE, null);
 			return expr.get(e);
 		}
 		return invArray;
@@ -127,10 +125,10 @@ public class ExprInventory extends SimpleExpression<Object> {
 	public Class<?> getReturnType() {
 		return inLoop ? Slot.class : Inventory.class;
 	}
-	
+
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
 		return "inventor" + (holders.isSingle() ? "y" : "ies") + " of " + holders.toString(e, debug);
 	}
-	
+
 }

@@ -41,29 +41,28 @@ import org.eclipse.jdt.annotation.Nullable;
 @Description("Rotates a vector around another vector")
 @Examples({"rotate {_v} around vector 1, 0, 0 by 90"})
 @Since("2.2-dev28")
-public class EffVectorRotateAroundAnother extends Effect{
+public class EffVectorRotateAroundAnother extends Effect {
+
 	static {
 		Skript.registerEffect(EffVectorRotateAroundAnother.class, "rotate %vectors% around %vector% by %number% [degrees]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Vector> first, second;
 	@SuppressWarnings("null")
 	private Expression<Number> number;
 
-	
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
 		return "rotate " + first.toString(e, debug) + " around " + second.toString(e, debug);
 	}
 
-	
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
 	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-		first = (Expression<Vector>)expressions[0];
-		second = (Expression<Vector>)expressions[1];
-		number = (Expression<Number>)expressions[2];
+		first = (Expression<Vector>) expressions[0];
+		second = (Expression<Vector>) expressions[1];
+		number = (Expression<Number>) expressions[2];
 		return true;
 	}
 
@@ -72,13 +71,12 @@ public class EffVectorRotateAroundAnother extends Effect{
 	protected void execute(Event event) {
 		Vector v2 = second.getSingle(event);
 		Number n = number.getSingle(event);
-		if (v2 == null || n == null ){
+		if (v2 == null || n == null) {
 			return;
 		}
 		for (Vector v1 : first.getArray(event)) {
 			VectorMath.rot(v1, v2, n.doubleValue());
 		}
 	}
-
 
 }

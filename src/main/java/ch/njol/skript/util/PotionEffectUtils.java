@@ -41,13 +41,13 @@ import ch.njol.skript.localization.LanguageChangeListener;
  */
 @SuppressWarnings("deprecation")
 public abstract class PotionEffectUtils {
-	
+
 	private PotionEffectUtils() {}
-	
+
 	final static Map<String, PotionEffectType> types = new HashMap<>();
-	
+
 	final static String[] names = new String[getMaxPotionId() + 1];
-	
+
 	// MCPC+ workaround
 	private static int getMaxPotionId() {
 		int i = 0;
@@ -57,9 +57,10 @@ public abstract class PotionEffectUtils {
 		}
 		return i;
 	}
-	
+
 	static {
 		Language.addListener(new LanguageChangeListener() {
+
 			@Override
 			public void onLanguageChange() {
 				types.clear();
@@ -75,27 +76,27 @@ public abstract class PotionEffectUtils {
 			}
 		});
 	}
-	
+
 	@Nullable
 	public static PotionEffectType parseType(final String s) {
 		return types.get(s.toLowerCase());
 	}
-	
+
 	@SuppressWarnings("null")
 	public static String toString(final PotionEffectType t) {
 		return names[t.getId()];
 	}
-	
+
 	// REMIND flags?
 	@SuppressWarnings("null")
 	public static String toString(final PotionEffectType t, final int flags) {
 		return names[t.getId()];
 	}
-	
+
 	public static String[] getNames() {
 		return names;
 	}
-	
+
 	public static short guessData(final ThrownPotion p) {
 		if (p.getEffects().size() == 1) {
 			final PotionEffect e = p.getEffects().iterator().next();
@@ -104,10 +105,11 @@ public abstract class PotionEffectUtils {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Checks if given string represents a known potion type and returns that type.
 	 * Unused currently, will be used soon (TM).
+	 * 
 	 * @param name Name of potion type
 	 * @return
 	 */
@@ -159,13 +161,14 @@ public abstract class PotionEffectUtils {
 			case "luck":
 				return PotionType.LUCK;
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Wrapper around deprecated API function, in case it gets removed.
 	 * Changing one method is easier that changing loads of them from different expressions.
+	 * 
 	 * @param effect Type.
 	 * @return Potion type.
 	 */
@@ -173,23 +176,27 @@ public abstract class PotionEffectUtils {
 	public static PotionType effectToType(PotionEffectType effect) {
 		return PotionType.getByEffect(effect);
 	}
-	
+
 	/**
 	 * Get potion string representation.
+	 * 
 	 * @param effect
 	 * @param extended
 	 * @param strong
 	 * @return
 	 */
 	public static String getPotionName(@Nullable PotionEffectType effect, boolean extended, boolean strong) {
-		if (effect == null) return "bottle of water"; 
-		
+		if (effect == null)
+			return "bottle of water";
+
 		String s = "";
-		if (extended) s += "extended";
-		else if (strong) s += "strong";
+		if (extended)
+			s += "extended";
+		else if (strong)
+			s += "strong";
 		s += " potion of ";
 		s += toString(effect);
-		
+
 		return s;
 	}
 }

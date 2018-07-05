@@ -36,16 +36,14 @@ import ch.njol.util.coll.CollectionUtils;
  */
 @SuppressWarnings("unchecked")
 public class EvtCommand extends SkriptEvent { // TODO condition to check whether a given command exists, & a conditon to check whether it's a custom skript command
+
 	static {
-		Skript.registerEvent("Command", EvtCommand.class, CollectionUtils.array(PlayerCommandPreprocessEvent.class, ServerCommandEvent.class), "command [%-string%]")
-				.description("Called when a player enters a command (not neccessarily a Skript command).")
-				.examples("on command", "on command \"/stop\"", "on command \"pm Njol \"")
-				.since("2.0");
+		Skript.registerEvent("Command", EvtCommand.class, CollectionUtils.array(PlayerCommandPreprocessEvent.class, ServerCommandEvent.class), "command [%-string%]").description("Called when a player enters a command (not neccessarily a Skript command).").examples("on command", "on command \"/stop\"", "on command \"pm Njol \"").since("2.0");
 	}
-	
+
 	@Nullable
 	private String command = null;
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
@@ -56,7 +54,7 @@ public class EvtCommand extends SkriptEvent { // TODO condition to check whether
 		}
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public boolean check(final Event e) {
@@ -69,13 +67,12 @@ public class EvtCommand extends SkriptEvent { // TODO condition to check whether
 		} else {
 			message = ((ServerCommandEvent) e).getCommand();
 		}
-		return StringUtils.startsWithIgnoreCase(message, command)
-				&& (command.contains(" ") || message.length() == command.length() || Character.isWhitespace(message.charAt(command.length()))); // if only the command is given, match that command only
+		return StringUtils.startsWithIgnoreCase(message, command) && (command.contains(" ") || message.length() == command.length() || Character.isWhitespace(message.charAt(command.length()))); // if only the command is given, match that command only
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "command" + (command != null ? " /" + command : "");
 	}
-	
+
 }

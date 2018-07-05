@@ -30,17 +30,17 @@ import ch.njol.util.NullableChecker;
  * @author Peter Güttinger
  */
 public class StoppableIterator<T> implements Iterator<T> {
-	
+
 	private final Iterator<T> iter;
 	private final NullableChecker<T> stopper;
-	
+
 	private final boolean returnLast;
 	@Nullable
 	private T current;
-	
+
 	private boolean stopped = false;
 	private boolean calledNext = false;
-	
+
 	/**
 	 * @param iter
 	 * @param stopper Called for every element. If it returns true the iteration is stopped.
@@ -55,7 +55,7 @@ public class StoppableIterator<T> implements Iterator<T> {
 		if (!returnLast && iter.hasNext())
 			current = iter.next();
 	}
-	
+
 	@Override
 	public boolean hasNext() {
 		final boolean cn = calledNext;
@@ -71,7 +71,7 @@ public class StoppableIterator<T> implements Iterator<T> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	public T next() {
@@ -85,14 +85,14 @@ public class StoppableIterator<T> implements Iterator<T> {
 			stop();
 		return t;
 	}
-	
+
 	@Override
 	public void remove() {
 		iter.remove();
 	}
-	
+
 	public void stop() {
 		stopped = true;
 	}
-	
+
 }

@@ -49,21 +49,21 @@ import ch.njol.util.Kleenean;
  */
 @Name("Attacked")
 @Description("The victim of a damage event, e.g. when a player attacks a zombie this expression represents the zombie.")
-@Examples({"on damage:",
-		"	victim is a creeper",
-		"	damage the attacked by 1 heart"})
+@Examples({"on damage:", "	victim is a creeper", "	damage the attacked by 1 heart"})
 @Since("1.3")
 @Events({"damage", "death"})
 public class ExprAttacked extends SimpleExpression<Entity> {
+
 	static {
 		Skript.registerExpression(ExprAttacked.class, Entity.class, ExpressionType.SIMPLE, "[the] (attacked|damaged|victim) [<(.+)>]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private EntityData<?> type;
 
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		if (!ScriptLoader.isCurrentEvent(EntityDamageEvent.class, EntityDeathEvent.class)) {
 			Skript.error("The expression 'victim' can only be used in a damage or death event", ErrorQuality.SEMANTIC_ERROR);
 			return false;
@@ -81,7 +81,7 @@ public class ExprAttacked extends SimpleExpression<Entity> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Entity[] get(final Event e) {
@@ -93,22 +93,22 @@ public class ExprAttacked extends SimpleExpression<Entity> {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Class<? extends Entity> getReturnType() {
 		return type.getType();
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		if (e == null)
 			return "the attacked " + type;
 		return Classes.getDebugMessage(getSingle(e));
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 }

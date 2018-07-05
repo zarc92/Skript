@@ -39,15 +39,15 @@ import ch.njol.skript.util.Container.ContainerType;
  * @author Peter Güttinger
  */
 public class Loop extends TriggerSection {
-	
+
 	private final Expression<?> expr;
-	
+
 	private transient Map<Event, Object> current = new WeakHashMap<>();
 	private transient Map<Event, Iterator<?>> currentIter = new WeakHashMap<>();
-	
+
 	@Nullable
 	private TriggerItem actualNext;
-	
+
 	@SuppressWarnings("unchecked")
 	public <T> Loop(final Expression<?> expr, final SectionNode node) {
 		assert expr != null;
@@ -55,7 +55,8 @@ public class Loop extends TriggerSection {
 		if (Container.class.isAssignableFrom(expr.getReturnType())) {
 			final ContainerType type = expr.getReturnType().getAnnotation(ContainerType.class);
 			if (type == null)
-				throw new SkriptAPIException(expr.getReturnType().getName() + " implements Container but is missing the required @ContainerType annotation");
+				throw new SkriptAPIException(
+						expr.getReturnType().getName() + " implements Container but is missing the required @ContainerType annotation");
 			this.expr = new ContainerExpression((Expression<? extends Container<?>>) expr, type.value());
 		} else {
 			this.expr = expr;
@@ -70,7 +71,7 @@ public class Loop extends TriggerSection {
 		}
 		super.setNext(this);
 	}
-	
+
 	@Override
 	@Nullable
 	protected TriggerItem walk(final Event e) {
@@ -94,30 +95,30 @@ public class Loop extends TriggerSection {
 			return walk(e, true);
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "loop " + expr.toString(e, debug);
 	}
-	
+
 	@Nullable
 	public Object getCurrent(final Event e) {
 		return current.get(e);
 	}
-	
+
 	public Expression<?> getLoopedExpression() {
 		return expr;
 	}
-	
+
 	@Override
 	public Loop setNext(final @Nullable TriggerItem next) {
 		actualNext = next;
 		return this;
 	}
-	
+
 	@Nullable
 	public TriggerItem getActualNext() {
 		return actualNext;
 	}
-	
+
 }

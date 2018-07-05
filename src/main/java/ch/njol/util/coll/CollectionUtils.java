@@ -36,13 +36,15 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- * Utils for collections and arrays. All methods will not print any errors for <tt>null</tt> collections/arrays, but will return false/-1/etc.
+ * Utils for collections and arrays. All methods will not print any errors for <tt>null</tt> collections/arrays, but
+ * will return false/-1/etc.
  * 
  * @author Peter Güttinger
  */
 public abstract class CollectionUtils {
+
 	private CollectionUtils() {}
-	
+
 	/**
 	 * Finds an object in an array using {@link Object#equals(Object)} (can find null elements).
 	 * 
@@ -59,7 +61,7 @@ public abstract class CollectionUtils {
 		}
 		return -1;
 	}
-	
+
 	public static <T> int lastIndexOf(final @Nullable T[] array, final @Nullable T t) {
 		if (array == null)
 			return -1;
@@ -69,7 +71,7 @@ public abstract class CollectionUtils {
 		}
 		return -1;
 	}
-	
+
 	public static <T> int indexOf(final @Nullable T[] array, final @Nullable T t, final int start, final int end) {
 		if (array == null)
 			return -1;
@@ -79,11 +81,11 @@ public abstract class CollectionUtils {
 		}
 		return -1;
 	}
-	
+
 	public static <T> boolean contains(final @Nullable T[] array, final @Nullable T o) {
 		return indexOf(array, o) != -1;
 	}
-	
+
 	public static <T> boolean containsAny(final @Nullable T[] array, final @Nullable T... os) {
 		if (array == null || os == null)
 			return false;
@@ -93,7 +95,7 @@ public abstract class CollectionUtils {
 		}
 		return false;
 	}
-	
+
 	public static <T> boolean containsAll(final @Nullable T[] array, final @Nullable T... os) {
 		if (array == null || os == null)
 			return false;
@@ -103,19 +105,19 @@ public abstract class CollectionUtils {
 		}
 		return true;
 	}
-	
+
 	public static int indexOf(final @Nullable int[] array, final int num) {
 		if (array == null)
 			return -1;
 		return indexOf(array, num, 0, array.length);
 	}
-	
+
 	public static int indexOf(final @Nullable int[] array, final int num, final int start) {
 		if (array == null)
 			return -1;
 		return indexOf(array, num, start, array.length);
 	}
-	
+
 	public static int indexOf(final @Nullable int[] array, final int num, final int start, final int end) {
 		if (array == null)
 			return -1;
@@ -125,11 +127,11 @@ public abstract class CollectionUtils {
 		}
 		return -1;
 	}
-	
+
 	public static boolean contains(final @Nullable int[] array, final int num) {
 		return indexOf(array, num) != -1;
 	}
-	
+
 	/**
 	 * finds a string in an array of strings (ignoring case).
 	 * 
@@ -148,11 +150,11 @@ public abstract class CollectionUtils {
 		}
 		return -1;
 	}
-	
+
 	public static boolean containsIgnoreCase(final @Nullable String[] array, final @Nullable String s) {
 		return indexOfIgnoreCase(array, s) != -1;
 	}
-	
+
 	/**
 	 * Finds an object in an iterable using {@link Object#equals(Object)}.
 	 * 
@@ -171,7 +173,7 @@ public abstract class CollectionUtils {
 		}
 		return -1;
 	}
-	
+
 	/**
 	 * Finds a string in a collection of strings (ignoring case).
 	 * 
@@ -190,7 +192,7 @@ public abstract class CollectionUtils {
 		}
 		return -1;
 	}
-	
+
 	/**
 	 * @param map
 	 * @param key
@@ -204,9 +206,10 @@ public abstract class CollectionUtils {
 			return new Pair<>(key, map.get(key));
 		return null;
 	}
-	
+
 	@Nullable
-	public static <U> Entry<String, U> containsKeyIgnoreCase(final @Nullable Map<String, U> map, final @Nullable String key) {
+	public static <U> Entry<String, U> containsKeyIgnoreCase(final @Nullable Map<String, U> map,
+			final @Nullable String key) {
 		if (key == null)
 			return containsKey(map, null);
 		if (map == null)
@@ -217,7 +220,7 @@ public abstract class CollectionUtils {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @param classes Array of classes
 	 * @param c The class to look for
@@ -234,7 +237,7 @@ public abstract class CollectionUtils {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param classes Array of classes
 	 * @param cs The classes to look for
@@ -253,30 +256,30 @@ public abstract class CollectionUtils {
 		}
 		return false;
 	}
-	
+
 	private final static Random random = new Random();
-	
+
 	@Nullable
 	public static <T> T getRandom(final @Nullable T[] os) {
 		if (os == null || os.length == 0)
 			return null;
 		return os[random.nextInt(os.length)];
 	}
-	
+
 	@Nullable
 	public static <T> T getRandom(final @Nullable T[] os, final int start) {
 		if (os == null || os.length == 0)
 			return null;
 		return os[random.nextInt(os.length - start) + start];
 	}
-	
+
 	@Nullable
 	public static <T> T getRandom(final @Nullable List<T> os) {
 		if (os == null || os.isEmpty())
 			return null;
 		return os.get(random.nextInt(os.size()));
 	}
-	
+
 	/**
 	 * @param set The set of elements
 	 * @param sub The set to test for being a subset of <tt>set</tt>
@@ -291,7 +294,7 @@ public abstract class CollectionUtils {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Gets the intersection of the given sets, i.e. a set that only contains elements that occur in all given sets.
 	 * 
@@ -312,7 +315,7 @@ public abstract class CollectionUtils {
 		}
 		return l;
 	}
-	
+
 	/**
 	 * Gets the union of the given sets, i.e. a set that contains all elements of the given sets.
 	 * 
@@ -333,7 +336,7 @@ public abstract class CollectionUtils {
 		}
 		return l;
 	}
-	
+
 	/**
 	 * Creates an array from the given objects. Useful for creating arrays of generic types.
 	 * <p>
@@ -346,7 +349,7 @@ public abstract class CollectionUtils {
 	public static <T> T[] array(final T... array) {
 		return array;
 	}
-	
+
 	/**
 	 * Creates a permutation of all integers in the interval [start, end]
 	 * 
@@ -369,7 +372,7 @@ public abstract class CollectionUtils {
 		}
 		return r;
 	}
-	
+
 	/**
 	 * Creates a permutation of all bytes in the interval [start, end]
 	 * 
@@ -392,19 +395,20 @@ public abstract class CollectionUtils {
 		}
 		return r;
 	}
-	
+
 	/**
 	 * Shorthand for <code>{@link permutation permutation}(0, length - 1)</code>
 	 */
 	public static int[] permutation(final int length) {
 		return permutation(0, length - 1);
 	}
-	
+
 	/**
 	 * Converts a collection of integers into a primitive int array.
 	 * 
 	 * @param ints The collection
-	 * @return An int[] containing the elements of the given collection in the order they were returned by the collection's iterator.
+	 * @return An int[] containing the elements of the given collection in the order they were returned by the
+	 *         collection's iterator.
 	 */
 	@SuppressWarnings("null")
 	public static int[] toArray(final @Nullable Collection<Integer> ints) {
@@ -420,7 +424,7 @@ public abstract class CollectionUtils {
 		}
 		return r;
 	}
-	
+
 	public static float[] toFloats(final @Nullable double[] doubles) {
 		if (doubles == null)
 			return new float[0];
@@ -437,5 +441,5 @@ public abstract class CollectionUtils {
 		}
 		return wrapped;
 	}
-	
+
 }

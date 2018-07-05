@@ -43,21 +43,21 @@ import ch.njol.util.coll.CollectionUtils;
  * @author Peter Güttinger
  */
 @Name("Vehicle")
-@Description({"The vehicle an entity is in, if any. This can actually be any entity, e.g. spider jockeys are skeletons that ride on a spider, so the spider is the 'vehicle' of the skeleton.",
-		"See also: <a href='#ExprPassenger'>passenger</a>"})
+@Description({"The vehicle an entity is in, if any. This can actually be any entity, e.g. spider jockeys are skeletons that ride on a spider, so the spider is the 'vehicle' of the skeleton.", "See also: <a href='#ExprPassenger'>passenger</a>"})
 @Examples({"vehicle of the player is a minecart"})
 @Since("2.0")
 public class ExprVehicle extends SimplePropertyExpression<Entity, Entity> {
-	
+
 	static final boolean hasMountEvents = Skript.classExists("org.spigotmc.event.entity.EntityMountEvent");
-	
+
 	static {
 		register(ExprVehicle.class, Entity.class, "vehicle[s]", "entities");
 	}
-	
+
 	@Override
 	protected Entity[] get(final Event e, final Entity[] source) {
 		return get(source, new Converter<Entity, Entity>() {
+
 			@Override
 			@Nullable
 			public Entity convert(final Entity p) {
@@ -79,24 +79,24 @@ public class ExprVehicle extends SimplePropertyExpression<Entity, Entity> {
 			}
 		});
 	}
-	
+
 	@Override
 	@Nullable
 	public Entity convert(final Entity e) {
 		assert false;
 		return e.getVehicle();
 	}
-	
+
 	@Override
 	public Class<? extends Entity> getReturnType() {
 		return Entity.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "vehicle";
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -105,7 +105,7 @@ public class ExprVehicle extends SimplePropertyExpression<Entity, Entity> {
 		}
 		return super.acceptChange(mode);
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		if (mode == ChangeMode.SET) {
@@ -135,11 +135,11 @@ public class ExprVehicle extends SimplePropertyExpression<Entity, Entity> {
 			super.change(e, delta, mode);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean setTime(final int time) {
 		return super.setTime(time, getExpr(), VehicleEnterEvent.class, VehicleExitEvent.class);
 	}
-	
+
 }

@@ -47,29 +47,28 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS")
 public class EvtAtTime extends SelfRegisteringSkriptEvent implements Comparable<EvtAtTime> {
+
 	static {
-		Skript.registerEvent("*At Time", EvtAtTime.class, ScheduledEvent.class, "at %time% [in %worlds%]")
-				.description("An event that occurs at a given <a href='../classes/#time'>minecraft time</a> in every world or only in specific worlds.")
-				.examples("at 18:00", "at 7am in \"world\"")
-				.since("1.3.4");
+		Skript.registerEvent("*At Time", EvtAtTime.class, ScheduledEvent.class, "at %time% [in %worlds%]").description("An event that occurs at a given <a href='../classes/#time'>minecraft time</a> in every world or only in specific worlds.").examples("at 18:00", "at 7am in \"world\"").since("1.3.4");
 	}
-	
+
 	private final static int CHECKPERIOD = 10;
-	
+
 	private final static class EvtAtInfo {
+
 		public EvtAtInfo() {}
-		
+
 		int lastTick; // as Bukkit's scheduler is inconsistent this saves the exact tick when the events were last checked
 		int currentIndex;
 		ArrayList<EvtAtTime> list = new ArrayList<>();
 	}
-	
+
 	final static HashMap<World, EvtAtInfo> triggers = new HashMap<>();
-	
+
 	@Nullable
 	private Trigger t;
 	int tick;
-	
+
 	@SuppressWarnings("null")
 	private transient World[] worlds;
 	/**
@@ -77,7 +76,7 @@ public class EvtAtTime extends SelfRegisteringSkriptEvent implements Comparable<
 	 */
 	@Nullable
 	private String[] worldNames = null;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
@@ -90,13 +89,14 @@ public class EvtAtTime extends SelfRegisteringSkriptEvent implements Comparable<
 		}
 		return true;
 	}
-	
+
 	private static int taskID = -1;
-	
+
 	private static void registerListener() {
 		if (taskID != -1)
 			return;
 		taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Skript.getInstance(), new Runnable() {
+
 			@SuppressWarnings("null")
 			@Override
 			public void run() {
@@ -131,7 +131,7 @@ public class EvtAtTime extends SelfRegisteringSkriptEvent implements Comparable<
 			}
 		}, 0, CHECKPERIOD);
 	}
-	
+
 	void execute(final World w) {
 		final Trigger t = this.t;
 		if (t == null) {
@@ -145,7 +145,7 @@ public class EvtAtTime extends SelfRegisteringSkriptEvent implements Comparable<
 		SkriptEventHandler.logTriggerEnd(t);
 		SkriptEventHandler.logEventEnd();
 	}
-	
+
 	@Override
 	public void register(final Trigger t) {
 		this.t = t;
@@ -160,7 +160,7 @@ public class EvtAtTime extends SelfRegisteringSkriptEvent implements Comparable<
 		}
 		registerListener();
 	}
-	
+
 	@Override
 	public void unregister(final Trigger t) {
 		assert t == this.t;
@@ -177,7 +177,7 @@ public class EvtAtTime extends SelfRegisteringSkriptEvent implements Comparable<
 		if (triggers.isEmpty())
 			unregisterAll();
 	}
-	
+
 	@Override
 	public void unregisterAll() {
 		if (taskID != -1)
@@ -186,15 +186,15 @@ public class EvtAtTime extends SelfRegisteringSkriptEvent implements Comparable<
 		taskID = -1;
 		triggers.clear();
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "at " + Time.toString(tick) + " in worlds " + Classes.toString(worlds, true);
 	}
-	
+
 	@Override
 	public int compareTo(final @Nullable EvtAtTime e) {
 		return e == null ? tick : tick - e.tick;
 	}
-	
+
 }

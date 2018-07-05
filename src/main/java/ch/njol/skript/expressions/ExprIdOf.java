@@ -53,15 +53,17 @@ import ch.njol.util.coll.iterator.SingleItemIterator;
 @Examples({"message \"the ID of %type of the clicked block% is %id of the clicked block%.\""})
 @Since("1.0")
 public class ExprIdOf extends PropertyExpression<ItemType, Integer> {
+
 	static {
 		Skript.registerExpression(ExprIdOf.class, Integer.class, ExpressionType.PROPERTY, "[the] id(1¦s|) of %itemtype%", "%itemtype%'[s] id(1¦s|)");
 	}
-	
+
 	private boolean single = false;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<ItemType>) vars[0]);
 		if (parser.mark != 1) {
 			single = true;
@@ -72,7 +74,7 @@ public class ExprIdOf extends PropertyExpression<ItemType, Integer> {
 		}
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected Integer[] get(final Event e, final ItemType[] source) {
@@ -90,14 +92,14 @@ public class ExprIdOf extends PropertyExpression<ItemType, Integer> {
 		}
 		return r.toArray(new Integer[r.size()]);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the id" + (single ? "" : "s") + " of " + getExpr().toString(e, debug);
 	}
-	
+
 	boolean changeItemStack;
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -118,7 +120,7 @@ public class ExprIdOf extends PropertyExpression<ItemType, Integer> {
 				return null;
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
@@ -157,7 +159,7 @@ public class ExprIdOf extends PropertyExpression<ItemType, Integer> {
 				getExpr().change(e, new ItemType[] {new ItemType(is)}, ChangeMode.SET);
 		}
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	@Nullable
@@ -174,8 +176,9 @@ public class ExprIdOf extends PropertyExpression<ItemType, Integer> {
 		if (iter == null || !iter.hasNext())
 			return null;
 		return new Iterator<Integer>() {
+
 			private Iterator<ItemData> current = iter.next().iterator();
-			
+
 			@Override
 			public boolean hasNext() {
 				while (iter.hasNext() && !current.hasNext()) {
@@ -183,29 +186,29 @@ public class ExprIdOf extends PropertyExpression<ItemType, Integer> {
 				}
 				return current.hasNext();
 			}
-			
+
 			@Override
 			public Integer next() {
 				if (!hasNext())
 					throw new NoSuchElementException();
 				return current.next().getId();
 			}
-			
+
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};
 	}
-	
+
 	@Override
 	public Class<Integer> getReturnType() {
 		return Integer.class;
 	}
-	
+
 	@Override
 	public boolean isLoopOf(final String s) {
 		return s.equalsIgnoreCase("id");
 	}
-	
+
 }

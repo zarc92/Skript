@@ -43,15 +43,14 @@ import ch.njol.util.coll.CollectionUtils;
  */
 @Name("Colour of")
 @Description("The <a href='../classes/#color'>colour</a> of an item, can also be used to colour chat messages with \"&lt;%colour of ...%&gt;this text is coloured!\".")
-@Examples({"on click on wool:",
-		"	message \"This wool block is <%colour of block%>%colour of block%<reset>!\"",
-		"	set the colour of the block to black"})
+@Examples({"on click on wool:", "	message \"This wool block is <%colour of block%>%colour of block%<reset>!\"", "	set the colour of the block to black"})
 @Since("1.2")
 public class ExprColorOf extends SimplePropertyExpression<Object, Color> {
+
 	static {
 		register(ExprColorOf.class, Color.class, "colo[u]r[s]", "itemstacks/entities");
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	@Nullable
@@ -66,17 +65,17 @@ public class ExprColorOf extends SimplePropertyExpression<Object, Color> {
 		}
 		return null;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "colour";
 	}
-	
+
 	@Override
 	public Class<Color> getReturnType() {
 		return Color.class;
 	}
-	
+
 	boolean changeItemStack = false;
 
 	@Override
@@ -94,17 +93,18 @@ public class ExprColorOf extends SimplePropertyExpression<Object, Color> {
 		}
 		return null;
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		assert mode == ChangeMode.SET;
 		assert delta != null;
-		
+
 		final Color c = (Color) delta[0];
 		final Object[] os = getExpr().getArray(e);
 		if (os.length == 0)
 			return;
-		
+
 		for (final Object o : os) {
 			if (o instanceof ItemStack || o instanceof Item) {
 				final ItemStack is = o instanceof ItemStack ? (ItemStack) o : ((Item) o).getItemStack();
@@ -113,7 +113,7 @@ public class ExprColorOf extends SimplePropertyExpression<Object, Color> {
 					((Colorable) d).setColor(c.getWoolColor());
 				else
 					continue;
-				
+
 				if (o instanceof ItemStack) {
 					if (changeItemStack)
 						getExpr().change(e, new ItemStack[] {is}, mode);
@@ -127,5 +127,5 @@ public class ExprColorOf extends SimplePropertyExpression<Object, Color> {
 			}
 		}
 	}
-	
+
 }

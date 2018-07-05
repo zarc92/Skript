@@ -49,6 +49,7 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 
 public class ExprVectorDotProduct extends SimpleExpression<Double> {
+
 	static {
 		Skript.registerExpression(ExprVectorDotProduct.class, Double.class, ExpressionType.SIMPLE, "%vector% dot %vector%");
 	}
@@ -74,8 +75,8 @@ public class ExprVectorDotProduct extends SimpleExpression<Double> {
 	@Override
 	@SuppressWarnings({"unchecked", "null"})
 	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-		first = (Expression<Vector>)expressions[0];
-		second = (Expression<Vector>)expressions[1];
+		first = (Expression<Vector>) expressions[0];
+		second = (Expression<Vector>) expressions[1];
 		return true;
 	}
 
@@ -87,6 +88,6 @@ public class ExprVectorDotProduct extends SimpleExpression<Double> {
 		if (v1 == null || v2 == null) {
 			return null;
 		}
-		return new Double[]{ v1.getX() * v2.getX() + v1.getY() * v2.getY() + v1.getZ() * v2.getZ()};
+		return new Double[] {v1.getX() * v2.getX() + v1.getY() * v2.getY() + v1.getZ() * v2.getZ()};
 	}
 }

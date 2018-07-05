@@ -38,10 +38,11 @@ import ch.njol.skript.util.slot.Slot;
 @Examples("player's inventory is empty")
 @Since("<i>unknown</i> (before 2.1)")
 public class CondIsEmpty extends PropertyCondition<Object> {
+
 	static {
 		register(CondIsEmpty.class, "empty", "inventories/slots/strings");
 	}
-	
+
 	@Override
 	public boolean check(final Object o) {
 		if (o instanceof String)
@@ -60,10 +61,10 @@ public class CondIsEmpty extends PropertyCondition<Object> {
 		}
 		return false;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "empty";
 	}
-	
+
 }

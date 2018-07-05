@@ -43,22 +43,22 @@ import ch.njol.util.Kleenean;
 @Description("Sorts given strings in alphabetical order.")
 @Examples({"set {_list::*} to alphabetically sorted {_list::*"})
 @Since("2.2-dev18b")
-public class ExprAlphabetList extends SimpleExpression<String>{
-	
-	static{
+public class ExprAlphabetList extends SimpleExpression<String> {
+
+	static {
 		Skript.registerExpression(ExprAlphabetList.class, String.class, ExpressionType.COMBINED, "alphabetically sorted %strings%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<String> texts;
-	
+
 	@SuppressWarnings({"null", "unchecked"})
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		texts = (Expression<String>) exprs[0];
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected String[] get(Event e) {
@@ -66,12 +66,12 @@ public class ExprAlphabetList extends SimpleExpression<String>{
 		Arrays.sort(sorted); // Now sorted
 		return sorted;
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
@@ -81,5 +81,5 @@ public class ExprAlphabetList extends SimpleExpression<String>{
 	public String toString(@Nullable Event e, boolean debug) {
 		return "alphabetically sorted strings: " + texts.toString(e, debug);
 	}
-	
+
 }

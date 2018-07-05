@@ -47,22 +47,22 @@ import ch.njol.util.StringUtils;
  * @author Peter Güttinger
  */
 public class Language {
-	
+
 	/**
 	 * Some flags
 	 */
 	public final static int F_PLURAL = 1, F_DEFINITE_ARTICLE = 2, F_INDEFINITE_ARTICLE = 4;
-	
+
 	/**
 	 * masks out article flags - useful if the article has been added already (e.g. by an adjective)
 	 */
 	public final static int NO_ARTICLE_MASK = ~(F_DEFINITE_ARTICLE | F_INDEFINITE_ARTICLE);
-	
+
 	/**
 	 * Name of the localised language
 	 */
 	private static String name = "english";
-	
+
 	final static HashMap<String, String> english = new HashMap<>();
 	/**
 	 * May be null.
@@ -70,13 +70,13 @@ public class Language {
 	@Nullable
 	static HashMap<String, String> localized = null;
 	static boolean useLocal = false;
-	
+
 	private static HashMap<Plugin, Version> langVersion = new HashMap<>();
-	
+
 	public static String getName() {
 		return useLocal ? name : "english";
 	}
-	
+
 	@Nullable
 	private static String get_i(final String key) {
 		if (useLocal && localized != null) {
@@ -89,9 +89,10 @@ public class Language {
 			missingEntryError(key);
 		return s;
 	}
-	
+
 	/**
-	 * Gets a string from the language file with the given key, or the english variant if the string is missing from the chosen language's file, or the key itself if the key does
+	 * Gets a string from the language file with the given key, or the english variant if the string is missing from the
+	 * chosen language's file, or the key itself if the key does
 	 * not exist.
 	 * 
 	 * @param key The message's key (case-insensitive)
@@ -101,7 +102,7 @@ public class Language {
 		final String s = get_i("" + key.toLowerCase(Locale.ENGLISH));
 		return s == null ? "" + key.toLowerCase(Locale.ENGLISH) : s;
 	}
-	
+
 	/**
 	 * Equal to {@link #get(String)}, but returns null instead of the key if the key cannot be found.
 	 * 
@@ -112,11 +113,11 @@ public class Language {
 	public static String get_(final String key) {
 		return get_i("" + key.toLowerCase(Locale.ENGLISH));
 	}
-	
+
 	public static void missingEntryError(final String key) {
 		Skript.error("Missing entry '" + key.toLowerCase(Locale.ENGLISH) + "' in the default english language file");
 	}
-	
+
 	/**
 	 * Gets a string and uses it as format in {@link String#format(String, Object...)}.
 	 * 
@@ -136,7 +137,7 @@ public class Language {
 			return key;
 		}
 	}
-	
+
 	/**
 	 * Gets a localized string surrounded by spaces, or a space if the string is empty
 	 * 
@@ -149,10 +150,10 @@ public class Language {
 			return " ";
 		return " " + s + " ";
 	}
-	
+
 	@SuppressWarnings("null")
 	private final static Pattern listSplitPattern = Pattern.compile("\\s*,\\s*");
-	
+
 	/**
 	 * Gets a list of strings.
 	 * 
@@ -167,7 +168,7 @@ public class Language {
 		assert r != null;
 		return r;
 	}
-	
+
 	/**
 	 * @param key
 	 * @return Whether the given key exists in the <b>english</b> language file.
@@ -175,7 +176,7 @@ public class Language {
 	public static boolean keyExists(final String key) {
 		return english.containsKey(key.toLowerCase(Locale.ENGLISH));
 	}
-	
+
 	public static void loadDefault(final SkriptAddon addon) {
 		if (addon.getLanguageFileDirectory() == null)
 			return;
@@ -201,7 +202,7 @@ public class Language {
 		for (final LanguageChangeListener l : listeners)
 			l.onLanguageChange();
 	}
-	
+
 	public static boolean load(String name) {
 		name = "" + name.toLowerCase();
 		if (name.equals("english"))
@@ -225,12 +226,13 @@ public class Language {
 		}
 		return true;
 	}
-	
+
 	private static boolean load(final SkriptAddon addon, final String name) {
 		if (addon.getLanguageFileDirectory() == null)
 			return false;
 		final HashMap<String, String> l = load(addon.plugin.getResource(addon.getLanguageFileDirectory() + "/" + name + ".lang"), name);
-		final File f = new File(addon.plugin.getDataFolder(), addon.getLanguageFileDirectory() + File.separator + name + ".lang");
+		final File f = new File(addon.plugin.getDataFolder(),
+				addon.getLanguageFileDirectory() + File.separator + name + ".lang");
 		try {
 			if (f.exists())
 				l.putAll(load(new FileInputStream(f), name));
@@ -260,7 +262,7 @@ public class Language {
 			assert false : addon + "; " + name;
 		return true;
 	}
-	
+
 	private static HashMap<String, String> load(final @Nullable InputStream in, final String name) {
 		if (in == null)
 			return new HashMap<>();
@@ -275,7 +277,7 @@ public class Language {
 			} catch (final IOException e) {}
 		}
 	}
-	
+
 	private static void validateLocalized() {
 		final HashMap<String, String> loc = localized;
 		if (loc == null) {
@@ -293,7 +295,7 @@ public class Language {
 		if (!s.isEmpty() && Skript.logHigh())
 			Skript.warning("The localized language file(s) has/ve superfluous entries: " + StringUtils.join(s, ", "));
 	}
-	
+
 	private static void removeIgnored(final Set<String> keys) {
 		final Iterator<String> i = keys.iterator();
 		while (i.hasNext()) {
@@ -301,28 +303,30 @@ public class Language {
 				i.remove();
 		}
 	}
-	
+
 	private final static List<LanguageChangeListener> listeners = new ArrayList<>();
-	
+
 	public static enum LanguageListenerPriority {
 		EARLIEST, NORMAL, LATEST;
 	}
-	
+
 	private final static int[] priorityStartIndices = new int[LanguageListenerPriority.values().length];
-	
+
 	/**
 	 * Registers a listener. The listener will immediately be called if a language has already been loaded.
 	 * <p>
-	 * The first call to a listener is guaranteed to be (pseudo-*)English even if another language is active, in which case the listener is called twice when registered.
+	 * The first call to a listener is guaranteed to be (pseudo-*)English even if another language is active, in which
+	 * case the listener is called twice when registered.
 	 * <p>
-	 * * Only this class will be English (i.e. no language listeners are notified) if the current language is not English.
+	 * * Only this class will be English (i.e. no language listeners are notified) if the current language is not
+	 * English.
 	 * 
 	 * @param l
 	 */
 	public static void addListener(final LanguageChangeListener l) {
 		addListener(l, LanguageListenerPriority.NORMAL);
 	}
-	
+
 	public static void addListener(final LanguageChangeListener l, final LanguageListenerPriority priority) {
 		assert priority != null;
 		listeners.add(priorityStartIndices[priority.ordinal()], l);
@@ -337,7 +341,7 @@ public class Language {
 			l.onLanguageChange();
 		}
 	}
-	
+
 	/**
 	 * Use this preferably like this:
 	 * 
@@ -368,9 +372,9 @@ public class Language {
 		}
 		return !b;
 	}
-	
+
 	public static boolean isUsingLocal() {
 		return useLocal;
 	}
-	
+
 }

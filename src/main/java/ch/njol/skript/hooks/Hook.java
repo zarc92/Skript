@@ -31,16 +31,16 @@ import ch.njol.skript.localization.ArgsMessage;
  * @author Peter Güttinger
  */
 public abstract class Hook<P extends Plugin> {
-	
+
 	private final static ArgsMessage m_hooked = new ArgsMessage("hooks.hooked"),
 			m_hook_error = new ArgsMessage("hooks.error");
-	
+
 	public final P plugin;
-	
+
 	public final P getPlugin() {
 		return plugin;
 	}
-	
+
 	@SuppressWarnings("null")
 	public Hook() throws IOException {
 		@SuppressWarnings("unchecked")
@@ -57,21 +57,21 @@ public abstract class Hook<P extends Plugin> {
 			Skript.info(m_hooked.toString(p.getName()));
 		return;
 	}
-	
+
 	protected void loadClasses() throws IOException {
 		Skript.getAddonInstance().loadClasses("" + getClass().getPackage().getName());
 	}
-	
+
 	/**
 	 * @return The hooked plugin's exact name
 	 */
 	public abstract String getName();
-	
+
 	/**
 	 * Called when the plugin has been successfully hooked
 	 */
 	protected boolean init() {
 		return true;
 	}
-	
+
 }

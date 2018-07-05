@@ -32,23 +32,23 @@ import org.bukkit.block.Block;
 @Since("2.2-dev35")
 public class ExprTemperature extends SimplePropertyExpression<Block, Double> {
 
-    static {
-        register(ExprTemperature.class, Double.class, "temperature[s]", "blocks");
-    }
+	static {
+		register(ExprTemperature.class, Double.class, "temperature[s]", "blocks");
+	}
 
-    @Override
-    public Double convert(Block block) {
-        return block.getTemperature();
-    }
+	@Override
+	public Double convert(Block block) {
+		return block.getTemperature();
+	}
 
-    @Override
-    protected String getPropertyName() {
-        return "temperature";
-    }
+	@Override
+	protected String getPropertyName() {
+		return "temperature";
+	}
 
-    @Override
-    public Class<? extends Double> getReturnType() {
-        return Double.class;
-    }
+	@Override
+	public Class<? extends Double> getReturnType() {
+		return Double.class;
+	}
 
 }

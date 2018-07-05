@@ -34,22 +34,25 @@ import ch.njol.skript.registrations.Converters;
  * @see Converter
  */
 public final class ChainedConverter<F, M, T> implements Converter<F, T> {
-	
+
 	private final Converter<? super F, ? extends M> first;
 	private final Converter<? super M, ? extends T> second;
-	
-	public ChainedConverter(final Converter<? super F, ? extends M> first, final Converter<? super M, ? extends T> second) {
+
+	public ChainedConverter(final Converter<? super F, ? extends M> first,
+			final Converter<? super M, ? extends T> second) {
 		assert first != null;
 		assert second != null;
 		this.first = first;
 		this.second = second;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static <F, M, T> ChainedConverter<F, M, T> newInstance(final Converter<? super F, ?> first, final Converter<?, ? extends T> second) {
-		return new ChainedConverter<>((Converter<? super F, ? extends M>) first, (Converter<? super M, ? extends T>) second);
+	public static <F, M, T> ChainedConverter<F, M, T> newInstance(final Converter<? super F, ?> first,
+			final Converter<?, ? extends T> second) {
+		return new ChainedConverter<>((Converter<? super F, ? extends M>) first,
+				(Converter<? super M, ? extends T>) second);
 	}
-	
+
 	@Override
 	@Nullable
 	public T convert(final F f) {
@@ -58,5 +61,5 @@ public final class ChainedConverter<F, M, T> implements Converter<F, T> {
 			return null;
 		return second.convert(m);
 	}
-	
+
 }

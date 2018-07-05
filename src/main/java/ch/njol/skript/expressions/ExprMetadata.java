@@ -44,20 +44,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Name("Metadata")
-@Description("Metadata is a way to store temporary data on entities, blocks and more that" +
-		"disappears after a server restart.")
-@Examples({"set metadata value \"healer\" of player to true",
-		"broadcast \"%metadata value \"\"healer\"\" of player%\"",
-		"clear metadata value \"healer\" of player"})
+@Description("Metadata is a way to store temporary data on entities, blocks and more that" + "disappears after a server restart.")
+@Examples({"set metadata value \"healer\" of player to true", "broadcast \"%metadata value \"\"healer\"\" of player%\"", "clear metadata value \"healer\" of player"})
 @Since("2.2-dev36")
 @SuppressWarnings({"unchecked", "null"})
 public class ExprMetadata<T> extends SimpleExpression<T> {
 
 	static {
-		Skript.registerExpression(ExprMetadata.class, Object.class, ExpressionType.PROPERTY,
-				"metadata [(value|tag)[s]] %strings% of %metadataholders%",
-				"%metadataholders%'[s] metadata [(value|tag)[s]] %string%"
-		);
+		Skript.registerExpression(ExprMetadata.class, Object.class, ExpressionType.PROPERTY, "metadata [(value|tag)[s]] %strings% of %metadataholders%", "%metadataholders%'[s] metadata [(value|tag)[s]] %string%");
 	}
 
 	private ExprMetadata<?> source;
@@ -81,7 +75,8 @@ public class ExprMetadata<T> extends SimpleExpression<T> {
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		holders = (Expression<Metadatable>) exprs[matchedPattern ^ 1];
 		values = (Expression<String>) exprs[matchedPattern];
 		return true;

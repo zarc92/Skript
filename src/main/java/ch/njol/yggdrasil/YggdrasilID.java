@@ -34,5 +34,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.FIELD})
 @Documented
 public @interface YggdrasilID {
+
 	String value();
 }

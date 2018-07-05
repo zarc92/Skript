@@ -41,27 +41,28 @@ import ch.njol.util.Kleenean;
  */
 @Name("Broadcast")
 @Description("Broadcasts a message to the server.")
-@Examples({"broadcast \"Welcome %player% to the server!\"",
-		"broadcast \"Woah! It's a message!\""})
+@Examples({"broadcast \"Welcome %player% to the server!\"", "broadcast \"Woah! It's a message!\""})
 @Since("1.0")
 public class EffBroadcast extends Effect {
+
 	static {
 		Skript.registerEffect(EffBroadcast.class, "broadcast %strings% [(to|in) %-worlds%]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<String> messages;
 	@Nullable
 	private Expression<World> worlds;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		messages = (Expression<String>) vars[0];
 		worlds = (Expression<World>) vars[1];
 		return true;
 	}
-	
+
 	@Override
 	public void execute(final Event e) {
 		for (final String m : messages.getArray(e)) {
@@ -81,11 +82,11 @@ public class EffBroadcast extends Effect {
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		final Expression<World> worlds = this.worlds;
 		return "broadcast " + messages.toString(e, debug) + (worlds == null ? "" : " to " + worlds.toString(e, debug));
 	}
-	
+
 }

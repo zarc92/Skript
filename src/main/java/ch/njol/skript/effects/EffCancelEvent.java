@@ -47,21 +47,20 @@ import ch.njol.util.Kleenean;
  */
 @Name("Cancel Event")
 @Description("Cancels the event (e.g. prevent blocks from being placed, or damage being taken).")
-@Examples({"on damage:",
-		"	victim is a player",
-		"	victim has the permission \"skript.god\"",
-		"	cancel the event"})
+@Examples({"on damage:", "	victim is a player", "	victim has the permission \"skript.god\"", "	cancel the event"})
 @Since("1.0")
 public class EffCancelEvent extends Effect {
+
 	static {
 		Skript.registerEffect(EffCancelEvent.class, "cancel [the] event", "uncancel [the] event");
 	}
-	
+
 	private boolean cancel;
-	
+
 	@SuppressWarnings("null")
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		if (isDelayed == Kleenean.TRUE) {
 			Skript.error("Can't cancel an event anymore after is has already passed", ErrorQuality.SEMANTIC_ERROR);
 			return false;
@@ -80,7 +79,7 @@ public class EffCancelEvent extends Effect {
 			Skript.error(Utils.A(ScriptLoader.getCurrentEventName()) + " event cannot be cancelled", ErrorQuality.SEMANTIC_ERROR);
 		return false;
 	}
-	
+
 	@Override
 	public void execute(final Event e) {
 		if (e instanceof Cancellable)
@@ -94,10 +93,10 @@ public class EffCancelEvent extends Effect {
 			PlayerUtils.updateInventory(((PlayerDropItemEvent) e).getPlayer());
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return (cancel ? "" : "un") + "cancel event";
 	}
-	
+
 }

@@ -24,5 +24,4 @@ package ch.njol.skript.util;
  * is used to register the "visualeffect" type on Bukkit builds
  * without org.bukkit.Particle
  */
-public class VisualEffectDummy {
-}
+public class VisualEffectDummy {}

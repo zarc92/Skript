@@ -32,33 +32,34 @@ import ch.njol.skript.util.Utils;
  * @author Peter Güttinger
  */
 public class LiteralList<T> extends ExpressionList<T> implements Literal<T> {
-	
+
 	public LiteralList(final Literal<? extends T>[] literals, final Class<T> returnType, final boolean and) {
 		super(literals, returnType, and);
 	}
-	
-	public LiteralList(final Literal<? extends T>[] literals, final Class<T> returnType, final boolean and, final LiteralList<?> source) {
+
+	public LiteralList(final Literal<? extends T>[] literals, final Class<T> returnType, final boolean and,
+			final LiteralList<?> source) {
 		super(literals, returnType, and, source);
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public T[] getArray() {
 		return getArray(null);
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public T getSingle() {
 		return getSingle(null);
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public T[] getAll() {
 		return getAll(null);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -72,12 +73,12 @@ public class LiteralList<T> extends ExpressionList<T> implements Literal<T> {
 		}
 		return new LiteralList<>(exprs, (Class<R>) Utils.getSuperType(classes), and, this);
 	}
-	
+
 	@Override
 	public Literal<? extends T>[] getExpressions() {
 		return (Literal<? extends T>[]) super.getExpressions();
 	}
-	
+
 	@Override
 	public Expression<T> simplify() {
 		boolean isSimpleList = true;
@@ -92,5 +93,5 @@ public class LiteralList<T> extends ExpressionList<T> implements Literal<T> {
 		}
 		return this;
 	}
-	
+
 }

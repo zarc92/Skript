@@ -45,25 +45,23 @@ import ch.njol.util.Kleenean;
  */
 @Name("Sign Text")
 @Description("A line of text on a sign. Can be changed, but remember that there is a 16 character limit per line (including colour codes that use 2 characters each).")
-@Examples({"on rightclick on sign:",
-		"	line 2 of the clicked block is \"[Heal]\":",
-		"		heal the player",
-		"	set line 3 to \"%player%\""})
+@Examples({"on rightclick on sign:", "	line 2 of the clicked block is \"[Heal]\":", "		heal the player", "	set line 3 to \"%player%\""})
 @Since("1.3")
 public class ExprSignText extends SimpleExpression<String> {
+
 	static {
-		Skript.registerExpression(ExprSignText.class, String.class, ExpressionType.PROPERTY,
-				"[the] line %number% [of %block%]", "[the] (1¦1st|1¦first|2¦2nd|2¦second|3¦3rd|3¦third|4¦4th|4¦fourth) line [of %block%]");
+		Skript.registerExpression(ExprSignText.class, String.class, ExpressionType.PROPERTY, "[the] line %number% [of %block%]", "[the] (1¦1st|1¦first|2¦2nd|2¦second|3¦3rd|3¦third|4¦4th|4¦fourth) line [of %block%]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Number> line;
 	@SuppressWarnings("null")
 	private Expression<Block> block;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		if (matchedPattern == 0)
 			line = (Expression<Number>) exprs[0];
 		else
@@ -71,17 +69,17 @@ public class ExprSignText extends SimpleExpression<String> {
 		block = (Expression<Block>) exprs[exprs.length - 1];
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@Override
 	@Nullable
 	protected String[] get(final Event e) {
@@ -101,12 +99,12 @@ public class ExprSignText extends SimpleExpression<String> {
 			return new String[0];
 		return new String[] {((Sign) b.getState()).getLine(line)};
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "line " + line.toString(e, debug) + " of " + block.toString(e, debug);
 	}
-	
+
 	// TODO allow add, remove, and remove all (see ExprLore)
 	@Override
 	@Nullable
@@ -115,12 +113,13 @@ public class ExprSignText extends SimpleExpression<String> {
 			return new Class[] {String.class};
 		return null;
 	}
-	
+
 	static boolean hasUpdateBooleanBoolean = true;
-	
+
 	@SuppressWarnings("incomplete-switch")
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		final Number l = line.getSingle(e);
 		if (l == null)
 			return;
@@ -165,10 +164,10 @@ public class ExprSignText extends SimpleExpression<String> {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean setTime(final int time) {
 		return super.setTime(time, SignChangeEvent.class, block);
 	}
-	
+
 }

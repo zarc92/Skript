@@ -38,19 +38,19 @@ import edu.umd.cs.findbugs.ba.bcp.New;
  */
 @Name("Type of")
 @Description("The type of a block/item or entity. The type of an item is only it's id and data value, i.e. it ignores the amount, enchantments etc., and the type of an entity is e.g. 'wolf' or 'player'.")
-@Examples({"on rightclick on an entity:",
-		"	message \"This is a %type of clicked entity%!\""})
+@Examples({"on rightclick on an entity:", "	message \"This is a %type of clicked entity%!\""})
 @Since("1.4")
 public class ExprTypeOf extends SimplePropertyExpression<Object, Object> {
+
 	static {
 		register(ExprTypeOf.class, Object.class, "type", "entitydatas/itemstacks/inventories");
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "type";
 	}
-	
+
 	@Override
 	@Nullable
 	public Object convert(final Object o) {
@@ -64,13 +64,12 @@ public class ExprTypeOf extends SimplePropertyExpression<Object, Object> {
 		assert false;
 		return null;
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
-		return EntityData.class.isAssignableFrom(getExpr().getReturnType()) ? EntityData.class
-				: ItemStack.class.isAssignableFrom(getExpr().getReturnType()) ? ItemStack.class : Object.class;
+		return EntityData.class.isAssignableFrom(getExpr().getReturnType()) ? EntityData.class : ItemStack.class.isAssignableFrom(getExpr().getReturnType()) ? ItemStack.class : Object.class;
 	}
-	
+
 	@Override
 	@Nullable
 	protected <R> ConvertedExpression<Object, ? extends R> getConvertedExpr(final Class<R>... to) {

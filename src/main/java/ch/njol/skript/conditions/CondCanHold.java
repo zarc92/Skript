@@ -43,24 +43,23 @@ import ch.njol.util.Kleenean;
  */
 @Name("Can Hold")
 @Description("Tests whether a player or a chest can hold the given item.")
-@Examples({"block can hold 200 cobblestone",
-		"player has enough space for 64 feathers"})
+@Examples({"block can hold 200 cobblestone", "player has enough space for 64 feathers"})
 @Since("1.0")
 public class CondCanHold extends Condition {
+
 	static {
-		Skript.registerCondition(CondCanHold.class,
-				"%inventories% (can hold|ha(s|ve) [enough] space (for|to hold)) %itemtypes%",
-				"%inventories% (can(no|')t hold|(ha(s|ve) not|ha(s|ve)n't|do[es]n't have) [enough] space (for|to hold)) %itemtypes%");
+		Skript.registerCondition(CondCanHold.class, "%inventories% (can hold|ha(s|ve) [enough] space (for|to hold)) %itemtypes%", "%inventories% (can(no|')t hold|(ha(s|ve) not|ha(s|ve)n't|do[es]n't have) [enough] space (for|to hold)) %itemtypes%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Inventory> invis;
 	@SuppressWarnings("null")
 	Expression<ItemType> items;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		invis = (Expression<Inventory>) vars[0];
 		items = (Expression<ItemType>) vars[1];
 		if (items instanceof Literal) {
@@ -75,14 +74,16 @@ public class CondCanHold extends Condition {
 		setNegated(matchedPattern == 1);
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		return invis.check(e, new Checker<Inventory>() {
+
 			@Override
 			public boolean check(final Inventory invi) {
 				if (!items.getAnd()) {
 					return items.check(e, new Checker<ItemType>() {
+
 						@Override
 						public boolean check(final ItemType t) {
 							return t.getItem().hasSpace(invi);
@@ -91,6 +92,7 @@ public class CondCanHold extends Condition {
 				}
 				final ItemStack[] buf = ItemType.getStorageContents(invi);
 				return items.check(e, new Checker<ItemType>() {
+
 					@Override
 					public boolean check(final ItemType t) {
 						return t.getItem().addTo(buf);
@@ -99,10 +101,10 @@ public class CondCanHold extends Condition {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return invis.toString(e, debug) + " can" + (isNegated() ? "'t" : "") + " hold " + items.toString(e, debug);
 	}
-	
+
 }

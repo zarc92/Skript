@@ -55,67 +55,45 @@ import ch.njol.util.Kleenean;
  */
 @Name("Change: Set/Add/Remove/Delete/Reset")
 @Description("A very general effect that can change many <a href='../expressions'>expressions</a>. Many expressions can only be set and/or deleted, while some can have things added to or removed from them.")
-@Examples({"# set:",
-		"Set the player's display name to \"<red>%name of player%\"",
-		"set the block above the victim to lava",
-		"# add:",
-		"add 2 to the player's health # preferably use '<a href='#heal'>heal</a>' for this",
-		"add argument to {blacklist::*}",
-		"give a diamond pickaxe of efficiency 5 to the player",
-		"increase the data value of the clicked block by 1",
-		"# remove:",
-		"remove 2 pickaxes from the victim",
-		"subtract 2.5 from {points.%player%}",
-		"# remove all:",
-		"remove every iron tool from the player",
-		"remove all minecarts from {entitylist::*}",
-		"# delete:",
-		"delete the block below the player",
-		"clear drops",
-		"delete {variable}",
-		"# reset:",
-		"reset walk speed of player",
-		"reset chunk at the targeted block"})
+@Examples({"# set:", "Set the player's display name to \"<red>%name of player%\"", "set the block above the victim to lava", "# add:", "add 2 to the player's health # preferably use '<a href='#heal'>heal</a>' for this", "add argument to {blacklist::*}", "give a diamond pickaxe of efficiency 5 to the player", "increase the data value of the clicked block by 1", "# remove:", "remove 2 pickaxes from the victim", "subtract 2.5 from {points.%player%}", "# remove all:", "remove every iron tool from the player", "remove all minecarts from {entitylist::*}", "# delete:", "delete the block below the player", "clear drops", "delete {variable}", "# reset:", "reset walk speed of player", "reset chunk at the targeted block"})
 @Since("1.0 (set, add, remove, delete), 2.0 (remove all)")
 public class EffChange extends Effect {
-	private static Patterns<ChangeMode> patterns = new Patterns<>(new Object[][] {
-			{"(add|give) %objects% to %~objects%", ChangeMode.ADD},
-			{"increase %~objects% by %objects%", ChangeMode.ADD},
-			{"give %~objects% %objects%", ChangeMode.ADD},
-			
-			{"set %~objects% to %objects%", ChangeMode.SET},
-			
-			{"remove (all|every) %objects% from %~objects%", ChangeMode.REMOVE_ALL},
-			
-			{"(remove|subtract) %objects% from %~objects%", ChangeMode.REMOVE},
-			{"reduce %~objects% by %objects%", ChangeMode.REMOVE},
-			
-			{"(delete|clear) %~objects%", ChangeMode.DELETE},
-			
-			{"reset %~objects%", ChangeMode.RESET}
-	});
-	
+
+	private static Patterns<ChangeMode> patterns = new Patterns<>(
+			new Object[][] {{"(add|give) %objects% to %~objects%", ChangeMode.ADD}, {"increase %~objects% by %objects%", ChangeMode.ADD}, {"give %~objects% %objects%", ChangeMode.ADD},
+
+					{"set %~objects% to %objects%", ChangeMode.SET},
+
+					{"remove (all|every) %objects% from %~objects%", ChangeMode.REMOVE_ALL},
+
+					{"(remove|subtract) %objects% from %~objects%", ChangeMode.REMOVE}, {"reduce %~objects% by %objects%", ChangeMode.REMOVE},
+
+					{"(delete|clear) %~objects%", ChangeMode.DELETE},
+
+					{"reset %~objects%", ChangeMode.RESET}});
+
 	static {
 		Skript.registerEffect(EffChange.class, patterns.getPatterns());
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> changed;
 	@Nullable
 	private Expression<?> changer = null;
-	
+
 	@SuppressWarnings("null")
 	private ChangeMode mode;
-	
+
 	private boolean single;
-	
+
 //	private Changer<?, ?> c = null;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		mode = patterns.getInfo(matchedPattern);
-		
+
 		switch (mode) {
 			case ADD:
 				if (matchedPattern == 0) {
@@ -149,7 +127,7 @@ public class EffChange extends Effect {
 			case RESET:
 				changed = exprs[0];
 		}
-		
+
 		final CountingLogHandler h = SkriptLogger.startLogHandler(new CountingLogHandler(Level.SEVERE));
 		final Class<?>[] rs;
 		final String what;
@@ -192,12 +170,12 @@ public class EffChange extends Effect {
 			}
 			return false;
 		}
-		
+
 		final Class<?>[] rs2 = new Class<?>[rs.length];
 		for (int i = 0; i < rs.length; i++)
 			rs2[i] = rs[i].isArray() ? rs[i].getComponentType() : rs[i];
 		final boolean allSingle = Arrays.equals(rs, rs2);
-		
+
 		Expression<?> ch = changer;
 		if (ch != null) {
 			Expression<?> v = null;
@@ -234,7 +212,7 @@ public class EffChange extends Effect {
 			} finally {
 				log.stop();
 			}
-			
+
 			Class<?> x = Utils.getSuperType(rs2);
 			single = allSingle;
 			for (int i = 0; i < rs.length; i++) {
@@ -246,7 +224,7 @@ public class EffChange extends Effect {
 			}
 			assert x != null;
 			changer = ch = v;
-			
+
 			if (!ch.isSingle() && single) {
 				if (mode == ChangeMode.SET)
 					Skript.error(changed + " can only be set to one " + Classes.getSuperClassInfo(x).getName() + ", not more", ErrorQuality.SEMANTIC_ERROR);
@@ -254,7 +232,7 @@ public class EffChange extends Effect {
 					Skript.error("only one " + Classes.getSuperClassInfo(x).getName() + " can be " + (mode == ChangeMode.ADD ? "added to" : "removed from") + " " + changed + ", not more", ErrorQuality.SEMANTIC_ERROR);
 				return false;
 			}
-			
+
 			if (changed instanceof Variable) {
 				Variable<?> var = (Variable<?>) changed;
 				if (var.isLocal() && var.getName().isSimple()) { // Emit a type hint if possible
@@ -268,7 +246,7 @@ public class EffChange extends Effect {
 		}
 		return true;
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		final Expression<?> changer = this.changer;
@@ -284,7 +262,7 @@ public class EffChange extends Effect {
 //			}
 //		}, mode);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		final Expression<?> changer = this.changer;
@@ -309,5 +287,5 @@ public class EffChange extends Effect {
 		assert false;
 		return "";
 	}
-	
+
 }

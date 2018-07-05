@@ -44,18 +44,20 @@ import ch.njol.util.Kleenean;
 @Examples({"!heal me", "!kick myself", "!give a diamond axe to me"})
 @Since("2.1.1")
 public class ExprMe extends SimpleExpression<CommandSender> {
+
 	static {
 		Skript.registerExpression(ExprMe.class, CommandSender.class, ExpressionType.SIMPLE, "me", "my[self]");
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		if (!ScriptLoader.isCurrentEvent(EffectCommandEvent.class)) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected CommandSender[] get(final Event e) {
@@ -63,20 +65,20 @@ public class ExprMe extends SimpleExpression<CommandSender> {
 			return new CommandSender[] {((EffectCommandEvent) e).getSender()};
 		return new CommandSender[0];
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends CommandSender> getReturnType() {
 		return CommandSender.class;
 	}
-	
+
 	@Override
 	public String toString(@Nullable final Event e, final boolean debug) {
 		return "me";
 	}
-	
+
 }

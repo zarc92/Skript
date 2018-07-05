@@ -40,11 +40,10 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @Name("Vectors - Spherical shape")
 @Description("Forms a 'spherical shaped' vector using yaw and pitch to manipulate the current point")
-@Examples({"loop 360 times:",
-		"	set {_v} to spherical vector radius 1, yaw loop-value, pitch loop-value",
-		"set {_v} to spherical vector radius 1, yaw 45, pitch 90"})
+@Examples({"loop 360 times:", "	set {_v} to spherical vector radius 1, yaw loop-value, pitch loop-value", "set {_v} to spherical vector radius 1, yaw 45, pitch 90"})
 @Since("2.2-dev28")
 public class ExprVectorSpherical extends SimpleExpression<Vector> {
+
 	static {
 		Skript.registerExpression(ExprVectorSpherical.class, Vector.class, ExpressionType.SIMPLE, "[new] spherical vector [(from|with)] [radius] %number%, [yaw] %number%(,| and) [pitch] %number%");
 	}
@@ -85,6 +84,6 @@ public class ExprVectorSpherical extends SimpleExpression<Vector> {
 		if (r == null || y == null || p == null) {
 			return null;
 		}
-		return new Vector[]{ VectorMath.fromSphericalCoordinates(r.doubleValue(), VectorMath.fromSkriptYaw(y.floatValue()), p.floatValue() + 90)};
+		return new Vector[] {VectorMath.fromSphericalCoordinates(r.doubleValue(), VectorMath.fromSkriptYaw(y.floatValue()), p.floatValue() + 90)};
 	}
 }

@@ -33,11 +33,11 @@ import ch.njol.util.Kleenean;
 public class ExprFunctionCall<T> extends SimpleExpression<T> {
 
 	private final FunctionReference<T> function;
-	
+
 	public ExprFunctionCall(final FunctionReference<T> function) {
 		this.function = function;
 	}
-	
+
 	@Override
 	@Nullable
 	protected T[] get(final Event e) {
@@ -45,26 +45,27 @@ public class ExprFunctionCall<T> extends SimpleExpression<T> {
 		function.resetReturnValue();
 		return returnValue;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return function.isSingle();
 	}
-	
+
 	@Override
 	public Class<? extends T> getReturnType() {
 		return function.getReturnType();
 	}
-	
+
 	@Override
 	public String toString(@Nullable final Event e, final boolean debug) {
 		return function.toString(e, debug);
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		assert false;
 		return false;
 	}
-	
+
 }

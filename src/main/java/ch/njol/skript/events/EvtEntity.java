@@ -42,25 +42,15 @@ import ch.njol.util.StringUtils;
  */
 @SuppressWarnings("unchecked")
 public final class EvtEntity extends SkriptEvent {
+
 	static {
-		Skript.registerEvent("Death", EvtEntity.class, EntityDeathEvent.class, "death [of %entitydatas%]")
-				.description("Called when a living entity (including players) dies.")
-				.examples("on death",
-						"on death of player",
-						"on death of a wither or ender dragon:",
-						"	broadcast \"A %entity% has been slain in %world%!\"")
-				.since("1.0");
-		Skript.registerEvent("Spawn", EvtEntity.class, CreatureSpawnEvent.class, "spawn[ing] [of %entitydatas%]")
-				.description("Called when an creature spawns.")
-				.examples("on spawn of a zombie",
-						"on spawn of an ender dragon:",
-						"	broadcast \"A dragon has been sighted in %world%!\"")
-				.since("1.0");
+		Skript.registerEvent("Death", EvtEntity.class, EntityDeathEvent.class, "death [of %entitydatas%]").description("Called when a living entity (including players) dies.").examples("on death", "on death of player", "on death of a wither or ender dragon:", "	broadcast \"A %entity% has been slain in %world%!\"").since("1.0");
+		Skript.registerEvent("Spawn", EvtEntity.class, CreatureSpawnEvent.class, "spawn[ing] [of %entitydatas%]").description("Called when an creature spawns.").examples("on spawn of a zombie", "on spawn of an ender dragon:", "	broadcast \"A dragon has been sighted in %world%!\"").since("1.0");
 	}
-	
+
 	@Nullable
 	private EntityData<?>[] types;
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
@@ -84,7 +74,7 @@ public final class EvtEntity extends SkriptEvent {
 		}
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public boolean check(final Event e) {
@@ -97,10 +87,10 @@ public final class EvtEntity extends SkriptEvent {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "death/spawn" + (types != null ? " of " + Classes.toString(types, false) : "");
 	}
-	
+
 }

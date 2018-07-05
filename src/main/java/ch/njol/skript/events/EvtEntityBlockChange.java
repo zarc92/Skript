@@ -37,53 +37,52 @@ import ch.njol.util.Checker;
  * @author Peter Güttinger
  */
 public class EvtEntityBlockChange extends SkriptEvent {
+
 	static {
-		Skript.registerEvent("Enderman/Sheep/Silverfish", EvtEntityBlockChange.class, EntityChangeBlockEvent.class, ChangeEvent.patterns)
-				.description("Called when an enderman places or picks up a block, a sheep eats grass or a silverfish boops into/out of a block respectively.")
-				.examples("")
-				.since("");
+		Skript.registerEvent("Enderman/Sheep/Silverfish", EvtEntityBlockChange.class, EntityChangeBlockEvent.class, ChangeEvent.patterns).description("Called when an enderman places or picks up a block, a sheep eats grass or a silverfish boops into/out of a block respectively.").examples("").since("");
 	}
-	
+
 	private static enum ChangeEvent {
 		ENDERMAN_PLACE("enderman place", new Checker<EntityChangeBlockEvent>() {
+
 			@Override
 			public boolean check(final EntityChangeBlockEvent e) {
 				return e.getEntity() instanceof Enderman && e.getTo() != Material.AIR;
 			}
-		}),
-		ENDERMAN_PICKUP("enderman pickup", new Checker<EntityChangeBlockEvent>() {
+		}), ENDERMAN_PICKUP("enderman pickup", new Checker<EntityChangeBlockEvent>() {
+
 			@Override
 			public boolean check(final EntityChangeBlockEvent e) {
 				return e.getEntity() instanceof Enderman && e.getTo() == Material.AIR;
 			}
-		}),
-		SHEEP_EAT("sheep eat", new Checker<EntityChangeBlockEvent>() {
+		}), SHEEP_EAT("sheep eat", new Checker<EntityChangeBlockEvent>() {
+
 			@Override
 			public boolean check(final EntityChangeBlockEvent e) {
 				return e.getEntity() instanceof Sheep;
 			}
-		}),
-		SILVERFISH_ENTER("silverfish enter", new Checker<EntityChangeBlockEvent>() {
+		}), SILVERFISH_ENTER("silverfish enter", new Checker<EntityChangeBlockEvent>() {
+
 			@Override
 			public boolean check(final EntityChangeBlockEvent e) {
 				return e.getEntity() instanceof Silverfish && e.getTo() == Material.MONSTER_EGGS;
 			}
-		}),
-		SILVERFISH_EXIT("silverfish exit", new Checker<EntityChangeBlockEvent>() {
+		}), SILVERFISH_EXIT("silverfish exit", new Checker<EntityChangeBlockEvent>() {
+
 			@Override
 			public boolean check(final EntityChangeBlockEvent e) {
 				return e.getEntity() instanceof Silverfish && e.getTo() != Material.MONSTER_EGGS;
 			}
 		});
-		
+
 		private final String pattern;
 		final Checker<EntityChangeBlockEvent> checker;
-		
+
 		private ChangeEvent(final String pattern, final Checker<EntityChangeBlockEvent> c) {
 			this.pattern = pattern;
 			checker = c;
 		}
-		
+
 		static String[] patterns;
 		static {
 			patterns = new String[ChangeEvent.values().length];
@@ -92,27 +91,27 @@ public class EvtEntityBlockChange extends SkriptEvent {
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("null")
 	private ChangeEvent event;
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
 		event = ChangeEvent.values()[matchedPattern];
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		if (!(e instanceof EntityChangeBlockEvent))
 			return false;
 		return event.checker.check((EntityChangeBlockEvent) e);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "" + event.name().replace('_', ' ').toLowerCase();
 	}
-	
+
 }

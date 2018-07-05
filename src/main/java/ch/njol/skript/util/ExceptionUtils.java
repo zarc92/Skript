@@ -27,10 +27,11 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.localization.Language;
 
 public abstract class ExceptionUtils {
+
 	private ExceptionUtils() {}
-	
+
 	private final static String IO_NODE = "io exceptions";
-	
+
 	@Nullable
 	public static String toString(final IOException e) {
 		if (Language.keyExists(IO_NODE + "." + e.getClass().getSimpleName())) {
@@ -40,5 +41,5 @@ public abstract class ExceptionUtils {
 			e.printStackTrace();
 		return e.getLocalizedMessage();
 	}
-	
+
 }

@@ -26,25 +26,26 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Peter Güttinger
  */
 public abstract class SoundUtils {
+
 	private SoundUtils() {}
-	
+
 	static {
 		assert false;
 	}
-	
+
 	private final static EnumUtils<Sound> util = new EnumUtils<>(Sound.class, "sounds");
-	
+
 	@Nullable
 	public static Sound parse(final String s) {
 		return util.parse(s);
 	}
-	
+
 	public static String toString(final Sound s, final int flags) {
 		return util.toString(s, flags);
 	}
-	
+
 	public static String getAllNames() {
 		return util.getAllNames();
 	}
-	
+
 }

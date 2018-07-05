@@ -47,31 +47,27 @@ import ch.njol.util.StringUtils;
  */
 @Name("Contains")
 @Description("Checks whether an inventory contains the given item, a text contains another piece of text, or a list of objects (e.g. a {list variable::*}) contains another object.")
-@Examples({"block contains 20 cobblestone",
-		"player has 4 flint and 2 iron ingots"})
+@Examples({"block contains 20 cobblestone", "player has 4 flint and 2 iron ingots"})
 @Since("1.0")
 public class CondContains extends Condition {
+
 	static {
-		Skript.registerCondition(CondContains.class,
-				"%inventories% ha(s|ve) %itemtypes% [in [(the[ir]|his|her|its)] inventory]",
-				"%inventories/strings/objects% contain[s] %itemtypes/strings/objects%",
-				"%inventories% do[es](n't| not) have %itemtypes% [in [(the[ir]|his|her|its)] inventory]",
-				"%inventories/strings/objects% do[es](n't| not) contain %itemtypes/strings/objects%");
+		Skript.registerCondition(CondContains.class, "%inventories% ha(s|ve) %itemtypes% [in [(the[ir]|his|her|its)] inventory]", "%inventories/strings/objects% contain[s] %itemtypes/strings/objects%", "%inventories% do[es](n't| not) have %itemtypes% [in [(the[ir]|his|her|its)] inventory]", "%inventories/strings/objects% do[es](n't| not) contain %itemtypes/strings/objects%");
 	}
-	
+
 	@SuppressWarnings("null")
 	Expression<?> containers;
 	@SuppressWarnings("null")
 	Expression<?> items;
-	
+
 	@SuppressWarnings({"unchecked", "null", "unused"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		containers = exprs[0].getConvertedExpression(Object.class);
 		if (containers == null)
 			return false;
-		if (!(containers instanceof Variable) && !String.class.isAssignableFrom(containers.getReturnType()) && !Inventory.class.isAssignableFrom(containers.getReturnType())
-				&& !containers.getReturnType().equals(Object.class)) {
+		if (!(containers instanceof Variable) && !String.class.isAssignableFrom(containers.getReturnType()) && !Inventory.class.isAssignableFrom(containers.getReturnType()) && !containers.getReturnType().equals(Object.class)) {
 			final ParseLogHandler h = SkriptLogger.startParseLogHandler();
 			try {
 				Expression<?> c = containers.getConvertedExpression(String.class);
@@ -93,17 +89,19 @@ public class CondContains extends Condition {
 		setNegated(matchedPattern >= 2);
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		boolean caseSensitive = SkriptConfig.caseSensitive.value();
-		
+
 		return containers.check(e, new Checker<Object>() {
+
 			@Override
 			public boolean check(final Object container) {
 				if (containers instanceof Variable && !containers.isSingle()) { // List variable
 					Object[] all = containers.getAll(e); // Compare all items to all entries in list
 					return items.check(e, new Checker<Object>() {
+
 						@Override
 						public boolean check(final Object item) {
 							for (Object o : all) {
@@ -117,6 +115,7 @@ public class CondContains extends Condition {
 					if (container instanceof Inventory) {
 						final Inventory invi = (Inventory) container;
 						return items.check(e, new Checker<Object>() {
+
 							@Override
 							public boolean check(final Object type) {
 								return type instanceof ItemType && ((ItemType) type).isContainedIn(invi);
@@ -125,6 +124,7 @@ public class CondContains extends Condition {
 					} else if (container instanceof String) {
 						final String s = (String) container;
 						return items.check(e, new Checker<Object>() {
+
 							@Override
 							public boolean check(final Object type) {
 								if (type instanceof Variable) {
@@ -141,7 +141,7 @@ public class CondContains extends Condition {
 						if (val instanceof String) {
 							final String s = (String) val;
 							return items.check(e, new Checker<Object>() {
-	
+
 								@Override
 								public boolean check(final Object type) {
 									if (type instanceof Variable) {
@@ -152,7 +152,7 @@ public class CondContains extends Condition {
 									}
 									return type instanceof String && StringUtils.contains(s, (String) type, caseSensitive);
 								}
-								
+
 							});
 						}
 						// TODO support similar odd contains checks for inventories
@@ -162,10 +162,10 @@ public class CondContains extends Condition {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return containers.toString(e, debug) + (isNegated() ? " doesn't contain " : " contains ") + items.toString(e, debug);
 	}
-	
+
 }

@@ -61,19 +61,19 @@ import ch.njol.util.Setter;
  */
 @SuppressWarnings("deprecation")
 public abstract class Aliases {
-	
+
 	private final static boolean newPotions = Skript.isRunningMinecraft(1, 9);
-	
+
 	/**
 	 * Note to self: never use this, use {@link #getAlias_i(String)} instead.
 	 */
 	private final static HashMap<String, ItemType> aliases_english = new HashMap<>(10000);
 	private final static HashMap<String, ItemType> aliases_localised = new HashMap<>(1000);
-	
+
 	private static HashMap<String, ItemType> getAliases() {
 		return Language.isUsingLocal() ? aliases_localised : aliases_english;
 	}
-	
+
 	@Nullable
 	private static ItemType getAlias_i(final String s) {
 		final ItemType t = ScriptLoader.getScriptAliases().get(s);
@@ -81,14 +81,15 @@ public abstract class Aliases {
 			return t;
 		return getAliases().get(s);
 	}
-	
+
 	private final static HashMap<Integer, MaterialName> materialNames_english = new HashMap<>(Material.values().length);
-	private final static HashMap<Integer, MaterialName> materialNames_localised = new HashMap<>(Material.values().length);
-	
+	private final static HashMap<Integer, MaterialName> materialNames_localised = new HashMap<>(
+			Material.values().length);
+
 	private static HashMap<Integer, MaterialName> getMaterialNames() {
 		return Language.isUsingLocal() ? materialNames_localised : materialNames_english;
 	}
-	
+
 	static String itemSingular = "item";
 	static String itemPlural = "items";
 	@Nullable
@@ -97,14 +98,14 @@ public abstract class Aliases {
 	static String blockPlural = "blocks";
 	@Nullable
 	static String blockGender = null;
-	
+
 	// this is not an alias!
 	private final static ItemType everything = new ItemType();
 	static {
 		everything.setAll(true);
 		everything.add(new ItemData());
 	}
-	
+
 	private final static Message m_brackets_error = new Message("aliases.brackets error");
 	private final static ArgsMessage m_invalid_brackets = new ArgsMessage("aliases.invalid brackets");
 	private final static ArgsMessage m_empty_alias = new ArgsMessage("aliases.empty alias");
@@ -121,16 +122,19 @@ public abstract class Aliases {
 	private final static ArgsMessage m_invalid_section = new ArgsMessage("aliases.invalid section");
 	private final static ArgsMessage m_section_not_found = new ArgsMessage("aliases.section not found");
 	private final static ArgsMessage m_not_a_section = new ArgsMessage("aliases.not a section");
-	private final static Message m_unexpected_non_variation_section = new Message("aliases.unexpected non-variation section");
+	private final static Message m_unexpected_non_variation_section = new Message(
+			"aliases.unexpected non-variation section");
 	private final static Message m_unexpected_section = new Message("aliases.unexpected section");
 	private final static ArgsMessage m_loaded_x_aliases_from = new ArgsMessage("aliases.loaded x aliases from");
 	private final static ArgsMessage m_loaded_x_aliases = new ArgsMessage("aliases.loaded x aliases");
-	
+
 	final static class Variations extends HashMap<String, HashMap<String, ItemType>> {
+
 		private final static long serialVersionUID = -139481665727386819L;
 	}
-	
-	private static int nextBracket(final String s, final char closingBracket, final char openingBracket, final int start) {
+
+	private static int nextBracket(final String s, final char closingBracket, final char openingBracket,
+			final int start) {
 		int n = 0;
 		assert s.charAt(start) == openingBracket;
 		for (int i = start + 1; i < s.length(); i++) {
@@ -147,9 +151,10 @@ public abstract class Aliases {
 		Skript.error(m_invalid_brackets.toString(openingBracket + "" + closingBracket));
 		return -1;
 	}
-	
+
 	/**
-	 * Concatenates parts of an alias's name. This currently 'lowercases' the first character of any part if there's no space in front of it. It also replaces double spaces with a
+	 * Concatenates parts of an alias's name. This currently 'lowercases' the first character of any part if there's no
+	 * space in front of it. It also replaces double spaces with a
 	 * single one and trims the resulting string.
 	 * 
 	 * @param parts
@@ -173,20 +178,21 @@ public abstract class Aliases {
 		}
 		return "" + b.toString().replace("  ", " ").trim();
 	}
-	
+
 	/**
 	 * @param name Mixedcase string with no whitespace besides spaces and no double spaces.
 	 * @param value The alias's value, used for {variations}
 	 * @param variations
 	 * @return A map containing all parsed aliases
 	 */
-	static LinkedHashMap<String, ItemType> getAliases(final String name, final ItemType value, final Variations variations) {
+	static LinkedHashMap<String, ItemType> getAliases(final String name, final ItemType value,
+			final Variations variations) {
 		final LinkedHashMap<String, ItemType> r = new LinkedHashMap<>(); // LinkedHashMap to preserve order for item names
-		
+
 		if ((name.contains("potion") || name.contains("water bottle") || name.contains("bottle of water")) && newPotions) { // 1.9 new potions hack
 			return r;
 		}
-		
+
 		for (int i = 0; i < name.length(); i++) {
 			final char c = name.charAt(i);
 			if ("[({".indexOf(c) != -1) {
@@ -226,9 +232,9 @@ public abstract class Aliases {
 				return r;
 			}
 		}
-		
+
 		// variations and <any>/<block>/etc. are replaced last because they replace genders
-		
+
 		int i = name.indexOf('{');
 		if (i != -1) {
 			final int end = name.indexOf('}', i + 1);
@@ -269,7 +275,7 @@ public abstract class Aliases {
 			}
 			return r;
 		}
-		
+
 		i = name.indexOf('<');
 		if (i != -1) {
 			final int end = name.indexOf('>', i + 1);
@@ -283,12 +289,7 @@ public abstract class Aliases {
 					r.putAll(getAliases(s, value, variations));
 					return r;
 				} else {
-					final String[][] os = {
-							{"item", itemSingular, itemPlural, itemGender},
-							{"block", blockSingular, blockPlural, blockGender},
-							{"item/block", itemSingular, itemPlural, itemGender, blockSingular, blockPlural, blockGender},
-							{"block/item", blockSingular, blockPlural, blockGender, itemSingular, itemPlural, itemGender},
-					};
+					final String[][] os = {{"item", itemSingular, itemPlural, itemGender}, {"block", blockSingular, blockPlural, blockGender}, {"item/block", itemSingular, itemPlural, itemGender, blockSingular, blockPlural, blockGender}, {"block/item", blockSingular, blockPlural, blockGender, itemSingular, itemPlural, itemGender},};
 					for (final String[] o : os) {
 						if (x.equalsIgnoreCase(o[0])) {
 							for (int j = 1; j < o.length; j += 3) {
@@ -305,15 +306,15 @@ public abstract class Aliases {
 				}
 			}
 		}
-		
+
 		r.put(name, value);
 		r.remove("");
 		return r;
 	}
-	
+
 	@SuppressWarnings("null")
 	private final static Pattern numberWordPattern = Pattern.compile("\\d+\\s+.+");
-	
+
 	/**
 	 * Parses & adds new aliases
 	 * 
@@ -390,12 +391,12 @@ public abstract class Aliases {
 			}
 			aliases.put(lcs, alias);
 			aliases.put(lcp, alias);
-			
+
 			//if (logSpam()) // over 10k aliases in the default aliases.sk as of MC 1.5
 			//	info("added alias " + s + " for " + e.getValue());
-			
+
 			final HashMap<Integer, MaterialName> materialNames = getMaterialNames();
-			
+
 			if (alias.getTypes().size() == 1) {
 				final ItemData d = alias.getTypes().get(0);
 				MaterialName n = materialNames.get(Integer.valueOf(d.getId()));
@@ -406,19 +407,23 @@ public abstract class Aliases {
 							n.plural = p.getSecond();
 						}
 					} else {
-						materialNames.put(Integer.valueOf(d.getId()), new MaterialName(d.getId(), p.getFirst(), p.getSecond(), g.getSecond()));
+						materialNames.put(Integer.valueOf(d.getId()), new MaterialName(d.getId(), p.getFirst(),
+								p.getSecond(), g.getSecond()));
 					}
 				} else {
 					if (n == null)
-						materialNames.put(Integer.valueOf(d.getId()), n = new MaterialName(d.getId(), "" + d.getId(), "" + d.getId(), g.getSecond()));
-					@SuppressWarnings("null") final NonNullPair<Short, Short> data = new NonNullPair<>(Short.valueOf(d.dataMin), Short.valueOf(d.dataMax));
+						materialNames.put(Integer.valueOf(d.getId()), n = new MaterialName(d.getId(), "" + d.getId(),
+								"" + d.getId(), g.getSecond()));
+					@SuppressWarnings("null")
+					final NonNullPair<Short, Short> data = new NonNullPair<>(Short.valueOf(d.dataMin),
+							Short.valueOf(d.dataMax));
 					n.names.put(data, p);
 				}
 			}
 		}
 		return as.size();
 	}
-	
+
 	/**
 	 * Gets the custom name of of a material, or the default if none is set.
 	 * 
@@ -429,11 +434,11 @@ public abstract class Aliases {
 	public static String getMaterialName(final int id, final short data, final boolean plural) {
 		return getMaterialName(id, data, data, plural);
 	}
-	
+
 	public static String getDebugMaterialName(final int id, final short data, final boolean plural) {
 		return getDebugMaterialName(id, data, data, plural);
 	}
-	
+
 	public static String getMaterialName(final int id, final short dataMin, final short dataMax, final boolean plural) {
 		final MaterialName n = getMaterialNames().get(Integer.valueOf(id));
 		if (n == null) {
@@ -441,15 +446,16 @@ public abstract class Aliases {
 		}
 		return n.toString(dataMin, dataMax, plural);
 	}
-	
-	public static String getDebugMaterialName(final int id, final short dataMin, final short dataMax, final boolean plural) {
+
+	public static String getDebugMaterialName(final int id, final short dataMin, final short dataMax,
+			final boolean plural) {
 		final MaterialName n = getMaterialNames().get(Integer.valueOf(id));
 		if (n == null) {
 			return "" + id + ":" + dataMin + (dataMax == dataMin ? "" : "-" + dataMax);
 		}
 		return n.getDebugName(dataMin, dataMax, plural);
 	}
-	
+
 	/**
 	 * @return The ietm's gender or -1 if no name is found
 	 */
@@ -459,7 +465,7 @@ public abstract class Aliases {
 			return n.gender;
 		return -1;
 	}
-	
+
 	/**
 	 * @return how many ids are missing an alias, including the 'any id' (-1)
 	 */
@@ -469,14 +475,17 @@ public abstract class Aliases {
 		final StringBuilder missing = new StringBuilder(m_missing_aliases + " ");
 		for (final Material m : Material.values()) {
 			if (materialNames.get(Integer.valueOf(m.getId())) == null) {
-				materialNames.put(Integer.valueOf(m.getId()), new MaterialName(m.getId(), "" + m.toString().toLowerCase().replace('_', ' '), "" + m.toString().toLowerCase().replace('_', ' '), 0));
+				materialNames.put(Integer.valueOf(m.getId()), new MaterialName(m.getId(),
+						"" + m.toString().toLowerCase().replace('_', ' '),
+						"" + m.toString().toLowerCase().replace('_', ' '), 0));
 				missing.append(m.getId() + ", ");
 				r++;
 			}
 		}
 		final MaterialName m = materialNames.get(Integer.valueOf(-1));
 		if (m == null) {
-			materialNames.put(Integer.valueOf(-1), new MaterialName(-1, Language.get("aliases.anything"), Language.get("aliases.anything"), 0));
+			materialNames.put(Integer.valueOf(-1), new MaterialName(-1, Language.get("aliases.anything"),
+					Language.get("aliases.anything"), 0));
 			missing.append("<any>, ");
 			r++;
 		}
@@ -484,7 +493,7 @@ public abstract class Aliases {
 			Skript.warning("" + missing.substring(0, missing.length() - 2));
 		return r;
 	}
-	
+
 	/**
 	 * Parses an ItemType to be used as an alias, i.e. it doesn't parse 'all'/'every' and the amount.
 	 * 
@@ -499,24 +508,27 @@ public abstract class Aliases {
 		}
 		if (s.equals("*"))
 			return everything;
-		
+
 		final ItemType t = new ItemType();
-		
+
 		final String[] types = s.split("\\s*,\\s*");
 		for (final String type : types) {
 			if (type == null || parseType(type, t, true) == null)
 				return null;
 		}
-		
+
 		return t;
 	}
-	
+
 	private final static RegexMessage p_any = new RegexMessage("aliases.any", "", " (.+)", Pattern.CASE_INSENSITIVE);
 	private final static Message m_any = new Message("aliases.any-skp");
-	private final static RegexMessage p_every = new RegexMessage("aliases.every", "", " (.+)", Pattern.CASE_INSENSITIVE);
-	private final static RegexMessage p_of_every = new RegexMessage("aliases.of every", "(\\d+) ", " (.+)", Pattern.CASE_INSENSITIVE);
-	private final static RegexMessage p_of = new RegexMessage("aliases.of", "(\\d+) (?:", " )?(.+)", Pattern.CASE_INSENSITIVE);
-	
+	private final static RegexMessage p_every = new RegexMessage("aliases.every", "", " (.+)",
+			Pattern.CASE_INSENSITIVE);
+	private final static RegexMessage p_of_every = new RegexMessage("aliases.of every", "(\\d+) ", " (.+)",
+			Pattern.CASE_INSENSITIVE);
+	private final static RegexMessage p_of = new RegexMessage("aliases.of", "(\\d+) (?:", " )?(.+)",
+			Pattern.CASE_INSENSITIVE);
+
 	/**
 	 * Parses an ItemType.
 	 * <p>
@@ -530,9 +542,9 @@ public abstract class Aliases {
 		if (s.isEmpty())
 			return null;
 		s = "" + s.trim();
-		
+
 		final ItemType t = new ItemType();
-		
+
 		Matcher m;
 		if ((m = p_of_every.matcher(s)).matches()) {
 			t.setAmount(Utils.parseInt("" + m.group(1)));
@@ -550,7 +562,7 @@ public abstract class Aliases {
 			if (s.length() != l) // had indefinite article
 				t.setAmount(1);
 		}
-		
+
 		final String lc = s.toLowerCase();
 		final String of = Language.getSpaced("enchantments.of").toLowerCase();
 		int c = -1;
@@ -576,20 +588,21 @@ public abstract class Aliases {
 			t2.addEnchantments(enchantments);
 			return t2;
 		}
-		
+
 		if (parseType(s, t, false) == null)
 			return null;
-		
+
 		if (t.numTypes() == 0)
 			return null;
-		
+
 		return t;
 	}
-	
+
 	/**
 	 * Prints errors.
 	 * 
-	 * @param s The string holding the type, can be either a number or an alias, plus an optional data part. Case does not matter.
+	 * @param s The string holding the type, can be either a number or an alias, plus an optional data part. Case does
+	 *            not matter.
 	 * @param t The ItemType to add the parsed ItemData(s) to (i.e. this ItemType will be modified)
 	 * @param isAlias Whether this type is parsed for an alias.
 	 * @return The given item type or null if the input couldn't be parsed.
@@ -626,10 +639,7 @@ public abstract class Aliases {
 				d = d.intersection(data);
 			}
 			if (!isAlias && d != null) {
-				Skript.warning("Using an ID instead of an alias is discouraged and will likely not be supported in future versions of Skript anymore. " +
-						(d.toString().equals(type) ?
-								"Please create an alias for '" + type + (type.equals(s) ? "" : " or '" + s + "'") + "' (" + Material.getMaterial(d.getId()).name() + ") in aliases-english.sk or the script's aliases section and use that instead." :
-								"Please replace '" + s + "' with e.g. '" + d.toString(true, false) + "'."));
+				Skript.warning("Using an ID instead of an alias is discouraged and will likely not be supported in future versions of Skript anymore. " + (d.toString().equals(type) ? "Please create an alias for '" + type + (type.equals(s) ? "" : " or '" + s + "'") + "' (" + Material.getMaterial(d.getId()).name() + ") in aliases-english.sk or the script's aliases section and use that instead." : "Please replace '" + s + "' with e.g. '" + d.toString(true, false) + "'."));
 			}
 			t.add(d);
 			return t;
@@ -658,7 +668,7 @@ public abstract class Aliases {
 			Skript.error(m_invalid_item_type.toString(s));
 		return null;
 	}
-	
+
 	/**
 	 * Gets an alias from the aliases defined in the config.
 	 * 
@@ -706,7 +716,7 @@ public abstract class Aliases {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets the data part of an item data
 	 * 
@@ -736,26 +746,27 @@ public abstract class Aliases {
 		}
 		return t;
 	}
-	
+
 	public static void clear() {
 		aliases_english.clear();
 		aliases_localised.clear();
 		materialNames_english.clear();
 		materialNames_localised.clear();
 	}
-	
+
 	public static void load() {
-		
+
 		final boolean wasLocal = Language.isUsingLocal();
 		try {
 			for (int l = 0; l < 2; l++) {
 				Language.setUseLocal(l == 1);
 				if (l == 1 && !Language.isUsingLocal())
 					break;
-				
+
 				final Config aliasConfig;
 				try {
-					final File file = new File(Skript.getInstance().getDataFolder(), "aliases-" + Language.getName() + ".sk");
+					final File file = new File(Skript.getInstance().getDataFolder(),
+							"aliases-" + Language.getName() + ".sk");
 					if (!file.exists()) {
 						Skript.error("Could not find the " + Language.getName() + " aliases file " + file.getName());
 					}
@@ -764,40 +775,38 @@ public abstract class Aliases {
 					Skript.error("Could not load the " + Language.getName() + " aliases config: " + e.getLocalizedMessage());
 					return;
 				}
-				
+
 				final ArrayList<String> aliasNodes = new ArrayList<>();
-				
-				aliasConfig.validate(
-						new SectionValidator()
-								.addEntry("aliases", new Setter<String>() {
-									@Override
-									public void set(final String s) {
-										for (final String n : s.split(","))
-											aliasNodes.add(n.trim());
-									}
-								}, false)
-								.addEntry("item", new Setter<String>() {
-									@Override
-									public void set(final String s) {
-										final NonNullPair<String, Integer> g = Noun.stripGender(s, "item");
-										itemGender = Noun.getGenderID(g.getSecond());
-										final NonNullPair<String, String> p = Noun.getPlural(g.getFirst());
-										itemSingular = "" + p.getFirst().toLowerCase();
-										itemPlural = "" + p.getSecond().toLowerCase();
-									}
-								}, false)
-								.addEntry("block", new Setter<String>() {
-									@Override
-									public void set(final String s) {
-										final NonNullPair<String, Integer> g = Noun.stripGender(s, "block");
-										blockGender = Noun.getGenderID(g.getSecond());
-										final NonNullPair<String, String> p = Noun.getPlural(g.getFirst());
-										blockSingular = "" + p.getFirst().toLowerCase();
-										blockPlural = "" + p.getSecond().toLowerCase();
-									}
-								}, false)
-								.setAllowUndefinedSections(true));
-				
+
+				aliasConfig.validate(new SectionValidator().addEntry("aliases", new Setter<String>() {
+
+					@Override
+					public void set(final String s) {
+						for (final String n : s.split(","))
+							aliasNodes.add(n.trim());
+					}
+				}, false).addEntry("item", new Setter<String>() {
+
+					@Override
+					public void set(final String s) {
+						final NonNullPair<String, Integer> g = Noun.stripGender(s, "item");
+						itemGender = Noun.getGenderID(g.getSecond());
+						final NonNullPair<String, String> p = Noun.getPlural(g.getFirst());
+						itemSingular = "" + p.getFirst().toLowerCase();
+						itemPlural = "" + p.getSecond().toLowerCase();
+					}
+				}, false).addEntry("block", new Setter<String>() {
+
+					@Override
+					public void set(final String s) {
+						final NonNullPair<String, Integer> g = Noun.stripGender(s, "block");
+						blockGender = Noun.getGenderID(g.getSecond());
+						final NonNullPair<String, String> p = Noun.getPlural(g.getFirst());
+						blockSingular = "" + p.getFirst().toLowerCase();
+						blockPlural = "" + p.getSecond().toLowerCase();
+					}
+				}, false).setAllowUndefinedSections(true));
+
 				for (final Node node : aliasConfig.getMainNode()) {
 					if (node instanceof SectionNode) {
 						if (!aliasNodes.contains(node.getKey())) {
@@ -805,7 +814,7 @@ public abstract class Aliases {
 						}
 					}
 				}
-				
+
 				final Variations variations = new Variations();
 				int num = 0;
 				for (final String an : aliasNodes) {
@@ -854,20 +863,20 @@ public abstract class Aliases {
 					num += i;
 				}
 				SkriptLogger.setNode(null);
-				
+
 				if (Skript.logNormal())
 					Skript.info(m_loaded_x_aliases.toString(num));
-				
+
 				addMissingMaterialNames();
-				
+
 //			if (!SkriptConfig.keepConfigsLoaded.value())
 //				aliasConfig = null;
-				
+
 			}
 		} finally {
 			Language.setUseLocal(wasLocal);
 		}
-		
+
 	}
-	
+
 }

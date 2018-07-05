@@ -32,13 +32,13 @@ import ch.njol.skript.registrations.Comparators;
  * @see DefaultComparators
  */
 public interface Comparator<T1, T2> {
-	
+
 	/**
 	 * represents a relation between two objects.
 	 */
 	enum Relation {
 		EQUAL, NOT_EQUAL, GREATER, GREATER_OR_EQUAL, SMALLER, SMALLER_OR_EQUAL;
-		
+
 		/**
 		 * Returns EQUAL for true or NOT_EQUAL for false
 		 * 
@@ -48,9 +48,10 @@ public interface Comparator<T1, T2> {
 		public static Relation get(final boolean b) {
 			return b ? Relation.EQUAL : Relation.NOT_EQUAL;
 		}
-		
+
 		/**
-		 * Gets a Relation from a difference: If i is 0, EQUAL is returned, if i is greater than 0, GREATER is returned, otherwise SMALLER.
+		 * Gets a Relation from a difference: If i is 0, EQUAL is returned, if i is greater than 0, GREATER is returned,
+		 * otherwise SMALLER.
 		 * 
 		 * @param i
 		 * @return <tt>i == 0 ? Relation.EQUAL : i > 0 ? Relation.GREATER : Relation.SMALLER</tt>
@@ -58,9 +59,10 @@ public interface Comparator<T1, T2> {
 		public static Relation get(final int i) {
 			return i == 0 ? Relation.EQUAL : i > 0 ? Relation.GREATER : Relation.SMALLER;
 		}
-		
+
 		/**
-		 * Gets a Relation from a difference: If d is 0, EQUAL is returned, if d is greater than 0, GREATER is returned, otherwise SMALLER.
+		 * Gets a Relation from a difference: If d is 0, EQUAL is returned, if d is greater than 0, GREATER is returned,
+		 * otherwise SMALLER.
 		 * 
 		 * @param d
 		 * @return <tt>d == 0 ? Relation.EQUAL : d > 0 ? Relation.GREATER : Relation.SMALLER</tt>
@@ -68,13 +70,15 @@ public interface Comparator<T1, T2> {
 		public static Relation get(final double d) {
 			return d == 0 ? Relation.EQUAL : d > 0 ? Relation.GREATER : Relation.SMALLER;
 		}
-		
+
 		/**
-		 * Test whether this relation is fulfilled if another is, i.e. if the parameter relation fulfils <code>X rel Y</code>, then this relation fulfils <code>X rel Y</code> as
+		 * Test whether this relation is fulfilled if another is, i.e. if the parameter relation fulfils
+		 * <code>X rel Y</code>, then this relation fulfils <code>X rel Y</code> as
 		 * well.
 		 * 
 		 * @param other
-		 * @return Whether this relation is part of the given relation, e.g. <code>GREATER_OR_EQUAL.is(EQUAL)</code> returns true.
+		 * @return Whether this relation is part of the given relation, e.g. <code>GREATER_OR_EQUAL.is(EQUAL)</code>
+		 *         returns true.
 		 */
 		public boolean is(final Relation other) {
 			if (other == this)
@@ -96,7 +100,7 @@ public interface Comparator<T1, T2> {
 			assert false;
 			return false;
 		}
-		
+
 		/**
 		 * Returns this relation's string representation, which is similar to "equal to" or "greater than".
 		 */
@@ -119,9 +123,10 @@ public interface Comparator<T1, T2> {
 			assert false;
 			return "";
 		}
-		
+
 		/**
-		 * Gets the inverse of this relation, i.e if this relation fulfils <code>X rel Y</code>, then the returned relation fulfils <code>!(X rel Y)</code>.
+		 * Gets the inverse of this relation, i.e if this relation fulfils <code>X rel Y</code>, then the returned
+		 * relation fulfils <code>!(X rel Y)</code>.
 		 * 
 		 * @return !this
 		 */
@@ -143,9 +148,10 @@ public interface Comparator<T1, T2> {
 			assert false;
 			return NOT_EQUAL;
 		}
-		
+
 		/**
-		 * Gets the relation which has switched arguments, i.e. if this relation fulfils <code>X rel Y</code>, then the returned relation fulfils <code>Y rel X</code>.
+		 * Gets the relation which has switched arguments, i.e. if this relation fulfils <code>X rel Y</code>, then the
+		 * returned relation fulfils <code>Y rel X</code>.
 		 * 
 		 * @return siht
 		 */
@@ -167,11 +173,11 @@ public interface Comparator<T1, T2> {
 			assert false;
 			return NOT_EQUAL;
 		}
-		
+
 		public boolean isEqualOrInverse() {
 			return this == Relation.EQUAL || this == Relation.NOT_EQUAL;
 		}
-		
+
 		public int getRelation() {
 			switch (this) {
 				case EQUAL:
@@ -188,7 +194,7 @@ public interface Comparator<T1, T2> {
 			return 0;
 		}
 	}
-	
+
 	/**
 	 * holds information about a comparator.
 	 * 
@@ -196,44 +202,46 @@ public interface Comparator<T1, T2> {
 	 * @param <T2> dito
 	 */
 	class ComparatorInfo<T1, T2> {
-		
+
 		public Class<T1> c1;
 		public Class<T2> c2;
 		public Comparator<T1, T2> c;
-		
+
 		public ComparatorInfo(final Class<T1> c1, final Class<T2> c2, final Comparator<T1, T2> c) {
 			this.c1 = c1;
 			this.c2 = c2;
 			this.c = c;
 		}
-		
+
 		public Class<?> getType(final boolean first) {
 			return first ? c1 : c2;
 		}
-		
+
 	}
-	
+
 	Comparator<?, ?> equalsComparator = new Comparator<Object, Object>() {
+
 		@Override
 		public Relation compare(final Object o1, final Object o2) {
 			return Relation.get(o1.equals(o2));
 		}
-		
+
 		@Override
 		public boolean supportsOrdering() {
 			return false;
 		}
 	};
-	
+
 	/**
-	 * Compares the given objects which may not be null. Returning GREATER/SMALLER means that the first parameter is greater/smaller.
+	 * Compares the given objects which may not be null. Returning GREATER/SMALLER means that the first parameter is
+	 * greater/smaller.
 	 * 
 	 * @param o1 Non-null object
 	 * @param o2 Non-null object
 	 * @return the relation of the objects. Should neither return GREATER_OR_EQUAL nor SMALLER_OR_EQUAL.
 	 */
 	Relation compare(T1 o1, T2 o2);
-	
+
 	/**
 	 * @return whether this comparator supports ordering of elements or not.
 	 */

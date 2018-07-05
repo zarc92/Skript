@@ -46,21 +46,23 @@ import ch.njol.util.coll.CollectionUtils;
  * @author Peter Güttinger
  */
 public class FallingBlockData extends EntityData<FallingBlock> {
+
 	static {
 		EntityData.register(FallingBlockData.class, "falling block", FallingBlock.class, "falling block");
 	}
-	
+
 	private final static Message m_not_a_block_error = new Message("entities.falling block.not a block error");
 	private final static Adjective m_adjective = new Adjective("entities.falling block.adjective");
-	
+
 	@Nullable
 	private ItemType[] types = null;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected boolean init(final Literal<?>[] exprs, final int matchedPattern, final ParseResult parseResult) {
 		if (exprs.length > 0 && exprs[0] != null) {
 			if ((types = Converters.convert(((Literal<ItemType>) exprs[0]).getAll(), ItemType.class, new Converter<ItemType, ItemType>() {
+
 				@Override
 				@Nullable
 				public ItemType convert(ItemType t) {
@@ -85,7 +87,7 @@ public class FallingBlockData extends EntityData<FallingBlock> {
 		}
 		return true;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected boolean init(final @Nullable Class<? extends FallingBlock> c, final @Nullable FallingBlock e) {
@@ -93,7 +95,7 @@ public class FallingBlockData extends EntityData<FallingBlock> {
 			types = new ItemType[] {new ItemType(e.getBlockId(), e.getBlockData())};
 		return true;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected boolean match(final FallingBlock entity) {
@@ -106,7 +108,7 @@ public class FallingBlockData extends EntityData<FallingBlock> {
 		}
 		return true;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
 	@Nullable
@@ -120,17 +122,17 @@ public class FallingBlockData extends EntityData<FallingBlock> {
 		}
 		return loc.getWorld().spawnFallingBlock(loc, i.getType(), (byte) i.getDurability());
 	}
-	
+
 	@Override
 	public void set(final FallingBlock entity) {
 		assert false;
 	}
-	
+
 	@Override
 	public Class<? extends FallingBlock> getType() {
 		return FallingBlock.class;
 	}
-	
+
 	@Override
 	public boolean isSupertypeOf(final EntityData<?> e) {
 		if (!(e instanceof FallingBlockData))
@@ -143,12 +145,12 @@ public class FallingBlockData extends EntityData<FallingBlock> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public EntityData getSuperType() {
 		return new FallingBlockData();
 	}
-	
+
 	@Override
 	public String toString(final int flags) {
 		final ItemType[] types = this.types;
@@ -161,7 +163,7 @@ public class FallingBlockData extends EntityData<FallingBlock> {
 		b.append(Classes.toString(types, flags & Language.NO_ARTICLE_MASK, false));
 		return "" + b.toString();
 	}
-	
+
 //		return ItemType.serialize(types);
 	@Override
 	@Deprecated
@@ -171,17 +173,17 @@ public class FallingBlockData extends EntityData<FallingBlock> {
 		types = ItemType.deserialize(s);
 		return types != null;
 	}
-	
+
 	@Override
 	protected boolean equals_i(final EntityData<?> obj) {
 		if (!(obj instanceof FallingBlockData))
 			return false;
 		return Arrays.equals(types, ((FallingBlockData) obj).types);
 	}
-	
+
 	@Override
 	protected int hashCode_i() {
 		return Arrays.hashCode(types);
 	}
-	
+
 }

@@ -51,36 +51,38 @@ import ch.njol.skript.util.Version;
 import ch.njol.util.NotifyingReference;
 
 /**
- * TODO use a database (SQLite) instead and only load a limited amount of variables into RAM - e.g. 2 GB (configurable). If more variables are available they will be loaded when
+ * TODO use a database (SQLite) instead and only load a limited amount of variables into RAM - e.g. 2 GB (configurable).
+ * If more variables are available they will be loaded when
  * accessed. (rem: print a warning when Skript starts)
  * rem: store null variables (in memory) to prevent looking up the same variables over and over again
  * 
  * @author Peter Güttinger
  */
 public class FlatFileStorage extends VariablesStorage {
-	
+
 	@SuppressWarnings("null")
 	public final static Charset UTF_8 = Charset.forName("UTF-8");
-	
+
 	/**
-	 * A Lock on this object must be acquired after connectionLock (if that lock is used) (and thus also after {@link Variables#getReadLock()}).
+	 * A Lock on this object must be acquired after connectionLock (if that lock is used) (and thus also after
+	 * {@link Variables#getReadLock()}).
 	 */
 	private final NotifyingReference<PrintWriter> changesWriter = new NotifyingReference<>();
-	
+
 	private volatile boolean loaded = false;
-	
+
 	final AtomicInteger changes = new AtomicInteger(0);
 	private final int REQUIRED_CHANGES_FOR_RESAVE = 1000;
-	
+
 	@Nullable
 	private Task saveTask;
-	
+
 	private boolean loadError = false;
-	
+
 	protected FlatFileStorage(final String name) {
 		super(name);
 	}
-	
+
 	/**
 	 * Doesn'ts lock the connection as required by {@link Variables#variableLoaded(String, Object, VariablesStorage)}.
 	 */
@@ -88,18 +90,18 @@ public class FlatFileStorage extends VariablesStorage {
 	@Override
 	protected boolean load_i(final SectionNode n) {
 		SkriptLogger.setNode(null);
-		
+
 		IOException ioEx = null;
 		int unsuccessful = 0;
 		final StringBuilder invalid = new StringBuilder();
-		
+
 		Version varVersion = Skript.getVersion(); // will be set later
-		
+
 		final Version v2_0_beta3 = new Version(2, 0, "beta 3");
 		boolean update2_0_beta3 = false;
 		final Version v2_1 = new Version(2, 1);
 		boolean update2_1 = false;
-		
+
 		try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(file), UTF_8))) {
 			String line = null;
 			int lineNum = 0;
@@ -150,13 +152,13 @@ public class FlatFileStorage extends VariablesStorage {
 			loadError = true;
 			ioEx = e;
 		}
-		
+
 		final File file = this.file;
 		if (file == null) {
 			assert false : this;
 			return false;
 		}
-		
+
 		if (ioEx != null || unsuccessful > 0 || update2_1) {
 			if (unsuccessful > 0) {
 				Skript.error(unsuccessful + " variable" + (unsuccessful == 1 ? "" : "s") + " could not be loaded!");
@@ -177,15 +179,16 @@ public class FlatFileStorage extends VariablesStorage {
 				Skript.error("Could not backup " + file.getName() + ": " + ex.getMessage());
 			}
 		}
-		
+
 		if (update2_1) {
 			saveVariables(false);
 			Skript.info(file.getName() + " successfully updated.");
 		}
-		
+
 		connect();
-		
+
 		saveTask = new Task(Skript.getInstance(), 5 * 60 * 20, 5 * 60 * 20, true) {
+
 			@Override
 			public void run() {
 				if (changes.get() >= REQUIRED_CHANGES_FOR_RESAVE) {
@@ -199,25 +202,25 @@ public class FlatFileStorage extends VariablesStorage {
 				}
 			}
 		};
-		
+
 		return ioEx == null;
 	}
-	
+
 	@Override
 	protected void allLoaded() {
 		// no transaction support
 	}
-	
+
 	@Override
 	protected boolean requiresFile() {
 		return true;
 	}
-	
+
 	@Override
 	protected File getFile(final String file) {
 		return new File(file);
 	}
-	
+
 	static String encode(final byte[] data) {
 		final char[] r = new char[data.length * 2];
 		for (int i = 0; i < data.length; i++) {
@@ -226,7 +229,7 @@ public class FlatFileStorage extends VariablesStorage {
 		}
 		return new String(r);
 	}
-	
+
 	static byte[] decode(final String hex) {
 		final byte[] r = new byte[hex.length() / 2];
 		for (int i = 0; i < r.length; i++) {
@@ -234,10 +237,10 @@ public class FlatFileStorage extends VariablesStorage {
 		}
 		return r;
 	}
-	
+
 	@SuppressWarnings("null")
 	private final static Pattern csv = Pattern.compile("(?<=^|,)\\s*([^\",]*|\"([^\"]|\"\")*\")\\s*(,|$)");
-	
+
 	@Nullable
 	static String[] splitCSV(final String line) {
 		final Matcher m = csv.matcher(line);
@@ -257,7 +260,7 @@ public class FlatFileStorage extends VariablesStorage {
 			return null;
 		return r.toArray(new String[r.size()]);
 	}
-	
+
 	@SuppressWarnings("resource")
 	@Override
 	protected boolean save(final String name, final @Nullable String type, final @Nullable byte[] value) {
@@ -280,13 +283,13 @@ public class FlatFileStorage extends VariablesStorage {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Use with find()
 	 */
 	@SuppressWarnings("null")
 	private final static Pattern containsWhitespace = Pattern.compile("\\s");
-	
+
 	private static void writeCSV(final PrintWriter pw, final String... values) {
 		assert values.length == 3; // name, type, value
 		for (int i = 0; i < values.length; i++) {
@@ -299,7 +302,7 @@ public class FlatFileStorage extends VariablesStorage {
 		}
 		pw.println();
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	protected final void disconnect() {
@@ -314,7 +317,7 @@ public class FlatFileStorage extends VariablesStorage {
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("unused")
 	@Override
 	protected final boolean connect() {
@@ -333,14 +336,14 @@ public class FlatFileStorage extends VariablesStorage {
 			}
 		}
 	}
-	
+
 	@Override
 	public void close() {
 		clearChangesQueue();
 		super.close();
 		saveVariables(true); // also closes the writer
 	}
-	
+
 	/**
 	 * Completely rewrites the while file
 	 * 
@@ -401,7 +404,7 @@ public class FlatFileStorage extends VariablesStorage {
 			Variables.getReadLock().unlock();
 		}
 	}
-	
+
 	/**
 	 * Saves the variables.
 	 * <p>
@@ -434,5 +437,5 @@ public class FlatFileStorage extends VariablesStorage {
 			}
 		}
 	}
-	
+
 }

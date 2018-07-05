@@ -41,6 +41,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @Examples({"set {_v} to random vector"})
 @Since("2.2-dev28")
 public class ExprVectorRandom extends SimpleExpression<Vector> {
+
 	static {
 		Skript.registerExpression(ExprVectorRandom.class, Vector.class, ExpressionType.SIMPLE, "random vector");
 	}

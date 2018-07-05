@@ -30,10 +30,10 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 public class Patterns<T> {
-	
+
 	private final String[] patterns;
 	private final Object[] ts;
-	
+
 	/**
 	 * @param info An array which must be like {{String, T}, {String, T}, ...}
 	 */
@@ -47,13 +47,14 @@ public class Patterns<T> {
 			ts[i] = info[i][1];
 		}
 	}
-	
+
 	public String[] getPatterns() {
 		return patterns;
 	}
-	
+
 	/**
-	 * @param matchedPattern The pattern to get the data to as given in {@link SyntaxElement#init(Expression[], int, Kleenean, ParseResult)}
+	 * @param matchedPattern The pattern to get the data to as given in
+	 *            {@link SyntaxElement#init(Expression[], int, Kleenean, ParseResult)}
 	 * @return The info associated with the matched pattern
 	 * @throws ClassCastException If the item in the source array is not of the requested type
 	 */
@@ -61,5 +62,5 @@ public class Patterns<T> {
 	public T getInfo(final int matchedPattern) {
 		return (T) ts[matchedPattern];
 	}
-	
+
 }

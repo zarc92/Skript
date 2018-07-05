@@ -33,31 +33,32 @@ import org.bukkit.event.HandlerList;
  */
 public class PreScriptLoadEvent extends Event {
 
-    private Config script;
+	private Config script;
 
-    public PreScriptLoadEvent(Config script) {
-        Validate.notNull(script);
-        this.script = script;
-    }
+	public PreScriptLoadEvent(Config script) {
+		Validate.notNull(script);
+		this.script = script;
+	}
 
-    private static HandlerList handlers = new HandlerList();
+	private static HandlerList handlers = new HandlerList();
 
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+	@Override
+	public HandlerList getHandlers() {
+		return handlers;
+	}
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
 
-    /**
-     * This is usually, but may not be, the same
-     * as {@link ScriptLoader#currentScript}
-     * @return The {@link Config} of the loading script
-     */
-    public Config getScript() {
-        return script;
-    }
+	/**
+	 * This is usually, but may not be, the same
+	 * as {@link ScriptLoader#currentScript}
+	 * 
+	 * @return The {@link Config} of the loading script
+	 */
+	public Config getScript() {
+		return script;
+	}
 
 }

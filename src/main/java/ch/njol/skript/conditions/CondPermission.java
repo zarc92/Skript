@@ -39,37 +39,37 @@ import ch.njol.util.Kleenean;
  */
 @Name("Has Permission")
 @Description("Test whether a player has a certain permission.")
-@Examples({"player has permission \"skript.tree\"",
-		"victim has the permission \"admin\":",
-		"	send \"You're attacking an admin!\" to attacker"})
+@Examples({"player has permission \"skript.tree\"", "victim has the permission \"admin\":", "	send \"You're attacking an admin!\" to attacker"})
 @Since("1.0")
 public class CondPermission extends Condition {
+
 	static {
-		Skript.registerCondition(CondPermission.class,
-				"[%commandsenders%] (do[es]n't|don't|do[es] not) have [the] permission[s] %strings%",
-				"[%commandsenders%] ha(s|ve) [the] permission[s] %strings%");
+		Skript.registerCondition(CondPermission.class, "[%commandsenders%] (do[es]n't|don't|do[es] not) have [the] permission[s] %strings%", "[%commandsenders%] ha(s|ve) [the] permission[s] %strings%");
 	}
-	
+
 	@SuppressWarnings("null")
 	Expression<String> permissions;
 	@SuppressWarnings("null")
 	private Expression<CommandSender> senders;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		senders = (Expression<CommandSender>) vars[0];
 		permissions = (Expression<String>) vars[1];
 		setNegated(matchedPattern == 0);
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		return senders.check(e, new Checker<CommandSender>() {
+
 			@Override
 			public boolean check(final CommandSender s) {
 				return permissions.check(e, new Checker<String>() {
+
 					@Override
 					public boolean check(final String perm) {
 						if (s.hasPermission(perm))
@@ -87,10 +87,10 @@ public class CondPermission extends Condition {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return senders.toString(e, debug) + " " + (isNegated() ? "doesn't have" : "has") + " the permission " + permissions.toString(e, debug);
 	}
-	
+
 }

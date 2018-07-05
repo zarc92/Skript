@@ -44,19 +44,10 @@ import ch.njol.util.Kleenean;
 @Since("INSERT VERSION")
 public class EffSendBlockChange extends Effect {
 
-	private static final boolean SUPPORTED =
-			Skript.methodExists(
-					Player.class,
-					"sendBlockChange",
-					Location.class,
-					Material.class,
-					byte.class
-			);
+	private static final boolean SUPPORTED = Skript.methodExists(Player.class, "sendBlockChange", Location.class, Material.class, byte.class);
 
 	static {
-		Skript.registerEffect(EffSendBlockChange.class,
-				"make %players% see %blocks% as %itemstack%"
-		);
+		Skript.registerEffect(EffSendBlockChange.class, "make %players% see %blocks% as %itemstack%");
 	}
 
 	@SuppressWarnings("null")
@@ -82,22 +73,15 @@ public class EffSendBlockChange extends Effect {
 
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
-		return String.format(
-				"make %s see %s as %s",
-				players.toString(e, debug),
-				blocks.toString(e, debug),
-				as.toString(e, debug)
-		);
+		return String.format("make %s see %s as %s", players.toString(e, debug), blocks.toString(e, debug), as.toString(e, debug));
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		if (!SUPPORTED) {
-			Skript.error("The send block change effect is not supported on this version. " +
-					"If Spigot has added a replacement method without magic values " +
-					"please open an issue at https://github.com/SkriptLang/Skript/issues " +
-					"and support will be added for it.");
+			Skript.error("The send block change effect is not supported on this version. " + "If Spigot has added a replacement method without magic values " + "please open an issue at https://github.com/SkriptLang/Skript/issues " + "and support will be added for it.");
 			return false;
 		}
 		players = (Expression<Player>) exprs[0];

@@ -34,27 +34,26 @@ import ch.njol.util.Checker;
  * @author Peter Güttinger
  */
 public final class EvtGameMode extends SkriptEvent {
+
 	static {
-		Skript.registerEvent("Gamemode Change", EvtGameMode.class, PlayerGameModeChangeEvent.class, "game[ ]mode change [to %gamemode%]")
-				.description("Called when a player's <a href='../classes/#gamemode'>gamemode</a> changes.")
-				.examples("on gamemode change", "on gamemode change to adventure")
-				.since("1.0");
+		Skript.registerEvent("Gamemode Change", EvtGameMode.class, PlayerGameModeChangeEvent.class, "game[ ]mode change [to %gamemode%]").description("Called when a player's <a href='../classes/#gamemode'>gamemode</a> changes.").examples("on gamemode change", "on gamemode change to adventure").since("1.0");
 	}
-	
+
 	@Nullable
 	private Literal<GameMode> mode;
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
 		mode = (Literal<GameMode>) args[0];
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		if (mode != null) {
 			return mode.check(e, new Checker<GameMode>() {
+
 				@Override
 				public boolean check(final GameMode m) {
 					return ((PlayerGameModeChangeEvent) e).getNewGameMode().equals(m);
@@ -63,10 +62,10 @@ public final class EvtGameMode extends SkriptEvent {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "gamemode change" + (mode != null ? " to " + mode.toString().toLowerCase() : "");
 	}
-	
+
 }

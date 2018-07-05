@@ -37,6 +37,7 @@ import org.bukkit.util.Vector;
 @Examples({"send \"%squared length of vector 1, 2, 3%\""})
 @Since("2.2-dev28")
 public class ExprVectorSquaredLength extends SimplePropertyExpression<Vector, Double> {
+
 	static {
 		Skript.registerExpression(ExprVectorSquaredLength.class, Double.class, ExpressionType.SIMPLE, "squared length of %vector%", "%vector%['s] squared length");
 	}
@@ -44,7 +45,8 @@ public class ExprVectorSquaredLength extends SimplePropertyExpression<Vector, Do
 	@SuppressWarnings({"null", "unused"})
 	@Override
 	public Double convert(Vector vector) {
-		if (vector == null) return null;
+		if (vector == null)
+			return null;
 		return vector.lengthSquared();
 	}
 

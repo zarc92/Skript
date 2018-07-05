@@ -41,81 +41,81 @@ import ch.njol.util.coll.CollectionUtils;
 @Examples("log \"%player%: %location of player%, %player's yaw%, %player's pitch%\" to \"playerlocs.log\"")
 @Since("2.0")
 public class ExprYawPitch extends SimplePropertyExpression<Location, Number> {
-	
+
 	public static boolean randomSK = true;
-	
+
 	static {
 		register(ExprYawPitch.class, Number.class, "(0¦yaw|1¦pitch)", "locations");
 	}
-	
+
 	private boolean yaw;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		yaw = parseResult.mark == 0;
 		return super.init(exprs, matchedPattern, isDelayed, parseResult);
 	}
-	
+
 	@Override
 	public Number convert(final Location l) {
 		return yaw ? convertToPositive(l.getYaw()) : l.getPitch();
 	}
-	
+
 	@Override
 	public Class<? extends Number> getReturnType() {
 		return Number.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return yaw ? "yaw" : "pitch";
 	}
-	
+
 	@SuppressWarnings({"null"})
-		@Override
-		public Class<?>[] acceptChange(final ChangeMode mode) {
-			if (mode == ChangeMode.SET || mode == ChangeMode.ADD || mode == ChangeMode.REMOVE)
-				return CollectionUtils.array(Number.class);
-			return null;
-		}
-	
-		@SuppressWarnings({"incomplete-switch", "null"})
-		@Override
-		public void change(Event e, Object[] delta, ChangeMode mode) {
-			Location l = getExpr().getSingle(e);
-			if(delta[0] == null || l == null)
-				return;
-			float f = ((Number) delta[0]).floatValue();
-			switch (mode) {
-				case SET:
-					if (yaw)
-						l.setYaw(convertToPositive(f));
-					else
-						l.setPitch(f);
-					break;
-				case ADD:
-					if (yaw)
-						l.setYaw(convertToPositive(l.getYaw()) + f);
-					else
-						l.setPitch(l.getPitch() + f);
-					break;
-				case REMOVE:
-					if (yaw)
-						l.setYaw(convertToPositive(l.getYaw()) - f);
-					else
-						l.setPitch(l.getPitch() - f);
-					break;
+	@Override
+	public Class<?>[] acceptChange(final ChangeMode mode) {
+		if (mode == ChangeMode.SET || mode == ChangeMode.ADD || mode == ChangeMode.REMOVE)
+			return CollectionUtils.array(Number.class);
+		return null;
+	}
+
+	@SuppressWarnings({"incomplete-switch", "null"})
+	@Override
+	public void change(Event e, Object[] delta, ChangeMode mode) {
+		Location l = getExpr().getSingle(e);
+		if (delta[0] == null || l == null)
+			return;
+		float f = ((Number) delta[0]).floatValue();
+		switch (mode) {
+			case SET:
+				if (yaw)
+					l.setYaw(convertToPositive(f));
+				else
+					l.setPitch(f);
+				break;
+			case ADD:
+				if (yaw)
+					l.setYaw(convertToPositive(l.getYaw()) + f);
+				else
+					l.setPitch(l.getPitch() + f);
+				break;
+			case REMOVE:
+				if (yaw)
+					l.setYaw(convertToPositive(l.getYaw()) - f);
+				else
+					l.setPitch(l.getPitch() - f);
+				break;
 			default:
 				break;
-			}
 		}
-	
-	
-		//Some random method decided to use for converting to positive values.
-		public float convertToPositive(float f) {
-			if (f != 0 && f * -1 == Math.abs(f))
-				return 360 + f;
-			return f;
-		}	
-	
+	}
+
+	//Some random method decided to use for converting to positive values.
+	public float convertToPositive(float f) {
+		if (f != 0 && f * -1 == Math.abs(f))
+			return 360 + f;
+		return f;
+	}
+
 }

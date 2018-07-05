@@ -36,34 +36,33 @@ import org.eclipse.jdt.annotation.Nullable;
 
 @Name("Book Author")
 @Description("The author of a book")
-@Examples({"on book sign:",
-			"	message \"Book Title: %author of event-item%\""})
+@Examples({"on book sign:", "	message \"Book Title: %author of event-item%\""})
 @Since("2.2-dev31")
 public class ExprBookAuthor extends SimplePropertyExpression<ItemStack, String> {
-	
+
 	static {
 		register(ExprBookAuthor.class, String.class, "[book] (author|writer|publisher)", "itemstack");
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "author";
 	}
-	
+
 	@Nullable
 	@Override
 	public String convert(ItemStack itemStack) {
-		if (itemStack.getType() != Material.BOOK_AND_QUILL && itemStack.getType() != Material.WRITTEN_BOOK){
+		if (itemStack.getType() != Material.BOOK_AND_QUILL && itemStack.getType() != Material.WRITTEN_BOOK) {
 			return null;
 		}
 		return ((BookMeta) itemStack.getItemMeta()).getAuthor();
 	}
-	
+
 	@Override
 	public Class<? extends String> getReturnType() {
 		return String.class;
 	}
-	
+
 	@Nullable
 	@Override
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
@@ -71,15 +70,15 @@ public class ExprBookAuthor extends SimplePropertyExpression<ItemStack, String> 
 			return CollectionUtils.array(String.class);
 		return null;
 	}
-	
+
 	@Override
 	public void change(Event e, @Nullable Object[] delta, Changer.ChangeMode mode) {
 		ItemStack itemStack = getExpr().getSingle(e);
-		if (itemStack == null || (itemStack.getType() != Material.WRITTEN_BOOK && itemStack.getType() != Material.BOOK_AND_QUILL)){
+		if (itemStack == null || (itemStack.getType() != Material.WRITTEN_BOOK && itemStack.getType() != Material.BOOK_AND_QUILL)) {
 			return;
 		}
 		BookMeta bookMeta = (BookMeta) itemStack.getItemMeta();
-		switch (mode){
+		switch (mode) {
 			case SET:
 				bookMeta.setAuthor(delta == null ? "" : (String) delta[0]);
 				break;
@@ -87,7 +86,7 @@ public class ExprBookAuthor extends SimplePropertyExpression<ItemStack, String> 
 			case DELETE:
 				bookMeta.setAuthor("");
 				break;
-				//$CASES-OMITTED$
+			//$CASES-OMITTED$
 			default:
 				assert false;
 		}

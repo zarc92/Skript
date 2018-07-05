@@ -39,46 +39,44 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
  */
 @Name("Max Health")
 @Description("The maximum health of an entity, e.g. 10 for a player")
-@Examples({"on join:",
-		"	set the maximum health of the player to 100",
-		"spawn a giant",
-		"set the last spawned entity's max health to 1000"})
+@Examples({"on join:", "	set the maximum health of the player to 100", "spawn a giant", "set the last spawned entity's max health to 1000"})
 @Since("2.0")
 @Events({"damage", "death"})
 public class ExprMaxHealth extends SimplePropertyExpression<LivingEntity, Double> {
+
 	static {
 		register(ExprMaxHealth.class, Double.class, "max[imum] health", "livingentities");
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public Double convert(final LivingEntity e) {
 		return HealthUtils.getMaxHealth(e);
 	}
-	
+
 	@Override
 	public Class<? extends Double> getReturnType() {
 		return Double.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "max health";
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
-		if(!Skript.isRunningMinecraft(1, 5, 2)) {
+		if (!Skript.isRunningMinecraft(1, 5, 2)) {
 			Skript.error("The max health of an entity can only be changed in Minecraft 1.6 and later");
 			return null;
 		}
-		
+
 		if (mode != ChangeMode.DELETE && mode != ChangeMode.REMOVE_ALL)
 			return new Class[] {Number.class};
 		return null;
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		double d = delta == null ? 0 : ((Number) delta[0]).doubleValue();
@@ -100,9 +98,9 @@ public class ExprMaxHealth extends SimplePropertyExpression<LivingEntity, Double
 				case DELETE:
 				case REMOVE_ALL:
 					assert false;
-					
+
 			}
 		}
 	}
-	
+
 }

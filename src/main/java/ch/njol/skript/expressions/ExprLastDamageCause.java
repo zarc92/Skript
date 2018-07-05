@@ -41,44 +41,45 @@ import ch.njol.util.coll.CollectionUtils;
 
 /**
  * @author bensku
- *
  */
 @Name("Last Damage Cause")
 @Description("Cause of last damage done to an entity")
 @Examples({"set last damage cause of event-entity to fire tick"})
 @Since("2.2-Fixes-V10")
-public class ExprLastDamageCause extends PropertyExpression<LivingEntity, DamageCause>{
-	
+public class ExprLastDamageCause extends PropertyExpression<LivingEntity, DamageCause> {
+
 	static {
 		register(ExprLastDamageCause.class, DamageCause.class, "last damage (cause|reason|type)", "livingentities");
 	}
-	
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		setExpr((Expression<LivingEntity>) vars[0]);
 		return true;
 	}
-	
+
 	@Override
 	protected DamageCause[] get(final Event e, final LivingEntity[] source) {
 		return get(source, new Getter<DamageCause, LivingEntity>() {
+
 			@SuppressWarnings("null")
 			@Override
 			public DamageCause get(final LivingEntity entity) {
 				EntityDamageEvent dmgEvt = entity.getLastDamageCause();
-				if (dmgEvt == null) return DamageCause.CUSTOM;
+				if (dmgEvt == null)
+					return DamageCause.CUSTOM;
 				return dmgEvt.getCause();
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the damage cause " + getExpr().toString(e, debug);
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -86,7 +87,7 @@ public class ExprLastDamageCause extends PropertyExpression<LivingEntity, Damage
 			return null;
 		return CollectionUtils.array(DamageCause.class);
 	}
-	
+
 	@Override
 	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) {
 		DamageCause d = delta == null ? DamageCause.CUSTOM : (DamageCause) delta[0];
@@ -113,12 +114,12 @@ public class ExprLastDamageCause extends PropertyExpression<LivingEntity, Damage
 			case REMOVE_ALL:
 				assert false;
 				break;
-				//$CASES-OMITTED$
+			//$CASES-OMITTED$
 			default:
 				break;
 		}
 	}
-	
+
 	@Override
 	public Class<DamageCause> getReturnType() {
 		return DamageCause.class;

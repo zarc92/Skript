@@ -83,9 +83,10 @@ import ch.njol.util.Validate;
  * @author Peter Güttinger
  */
 public class ScriptCommand implements CommandExecutor {
+
 	public final static Message m_executable_by_players = new Message("commands.executable by players");
 	public final static Message m_executable_by_console = new Message("commands.executable by console");
-	
+
 	final String name;
 	private final String label;
 	private final List<String> aliases;
@@ -102,16 +103,16 @@ public class ScriptCommand implements CommandExecutor {
 	final String usage;
 
 	final Trigger trigger;
-	
+
 	private final String pattern;
 	private final List<Argument<?>> arguments;
-	
+
 	public final static int PLAYERS = 0x1, CONSOLE = 0x2, BOTH = PLAYERS | CONSOLE;
 	final int executableBy;
-	
+
 	private transient PluginCommand bukkitCommand;
 
-	private Map<UUID,Date> lastUsageMap = new HashMap<>();
+	private Map<UUID, Date> lastUsageMap = new HashMap<>();
 
 	/**
 	 * Creates a new SkriptCommand.
@@ -127,23 +128,20 @@ public class ScriptCommand implements CommandExecutor {
 	 * @param items trigger to execute
 	 */
 	public ScriptCommand(final File script, final String name, final String pattern, final List<Argument<?>> arguments,
-						 final String description, final String usage, final ArrayList<String> aliases,
-						 final String permission, @Nullable final VariableString permissionMessage, @Nullable final Timespan cooldown,
-						 @Nullable final VariableString cooldownMessage, final String cooldownBypass,
-						 @Nullable VariableString cooldownStorage, final int executableBy, final List<TriggerItem> items) {
+			final String description, final String usage, final ArrayList<String> aliases, final String permission,
+			@Nullable final VariableString permissionMessage, @Nullable final Timespan cooldown,
+			@Nullable final VariableString cooldownMessage, final String cooldownBypass,
+			@Nullable VariableString cooldownStorage, final int executableBy, final List<TriggerItem> items) {
 		Validate.notNull(name, pattern, arguments, description, usage, aliases, items);
 		this.name = name;
 		label = "" + name.toLowerCase();
 		this.permission = permission;
 		assert permissionMessage != null;
-		this.permissionMessage = permissionMessage == null ?
-				VariableString.newInstance(Language.get("commands.no permission message"))
-				: permissionMessage;
+		this.permissionMessage = permissionMessage == null ? VariableString.newInstance(Language.get("commands.no permission message")) : permissionMessage;
 
 		this.cooldown = cooldown;
-		this.cooldownMessage = cooldownMessage == null
-				? new SimpleLiteral<>(Language.get("commands.cooldown message"),false)
-				: cooldownMessage;
+		this.cooldownMessage = cooldownMessage == null ? new SimpleLiteral<>(Language.get("commands.cooldown message"),
+				false) : cooldownMessage;
 		this.cooldownBypass = cooldownBypass;
 		this.cooldownStorage = cooldownStorage;
 
@@ -154,20 +152,20 @@ public class ScriptCommand implements CommandExecutor {
 		}
 		this.aliases = aliases;
 		activeAliases = new ArrayList<>(aliases);
-		
+
 		this.description = Utils.replaceEnglishChatStyles(description);
 		this.usage = Utils.replaceEnglishChatStyles(usage);
-		
+
 		this.executableBy = executableBy;
-		
+
 		this.pattern = pattern;
 		this.arguments = arguments;
-		
+
 		trigger = new Trigger(script, "command /" + name, new SimpleEvent(), items);
-		
+
 		bukkitCommand = setupBukkitCommand();
 	}
-	
+
 	private PluginCommand setupBukkitCommand() {
 		try {
 			final Constructor<PluginCommand> c = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
@@ -188,15 +186,16 @@ public class ScriptCommand implements CommandExecutor {
 			throw new EmptyStacktraceException();
 		}
 	}
-	
+
 	@Override
-	public boolean onCommand(final @Nullable CommandSender sender, final @Nullable Command command, final @Nullable String label, final @Nullable String[] args) {
+	public boolean onCommand(final @Nullable CommandSender sender, final @Nullable Command command,
+			final @Nullable String label, final @Nullable String[] args) {
 		if (sender == null || label == null || args == null)
 			return false;
 		execute(sender, label, StringUtils.join(args, " "));
 		return true;
 	}
-	
+
 	public boolean execute(final CommandSender sender, final String commandLabel, final String rest) {
 		if (sender instanceof Player) {
 			if ((executableBy & PLAYERS) == 0) {
@@ -214,8 +213,7 @@ public class ScriptCommand implements CommandExecutor {
 
 		if (!permission.isEmpty() && !sender.hasPermission(permission)) {
 			if (sender instanceof Player) {
-				List<MessageComponent> components =
-						permissionMessage.getMessageComponents(event);
+				List<MessageComponent> components = permissionMessage.getMessageComponents(event);
 				((Player) sender).spigot().sendMessage(BungeeConverter.convert(components));
 			} else {
 				sender.sendMessage(permissionMessage.getSingle(event));
@@ -223,7 +221,7 @@ public class ScriptCommand implements CommandExecutor {
 			return false;
 		}
 
-		cooldownCheck : {
+		cooldownCheck: {
 			if (sender instanceof Player && cooldown != null) {
 				Player player = ((Player) sender);
 				UUID uuid = player.getUniqueId();
@@ -236,8 +234,8 @@ public class ScriptCommand implements CommandExecutor {
 
 				if (getLastUsage(uuid, event) != null) {
 					if (getRemainingMilliseconds(uuid, event) <= 0) {
-                        if (!SkriptConfig.keepLastUsageDates.value()) {
-                        	setLastUsage(uuid, event, null);
+						if (!SkriptConfig.keepLastUsageDates.value()) {
+							setLastUsage(uuid, event, null);
 						}
 					} else {
 						sender.sendMessage(cooldownMessage.getSingle(event));
@@ -255,6 +253,7 @@ public class ScriptCommand implements CommandExecutor {
 		} else {
 			// must not wait for the command to complete as some plugins call commands in such a way that the server will deadlock
 			Bukkit.getScheduler().scheduleSyncDelayedTask(Skript.getInstance(), new Runnable() {
+
 				@Override
 				public void run() {
 					execute2(event, sender, commandLabel, rest);
@@ -268,7 +267,8 @@ public class ScriptCommand implements CommandExecutor {
 		return true; // Skript prints its own error message anyway
 	}
 
-	boolean execute2(final ScriptCommandEvent event, final CommandSender sender, final String commandLabel, final String rest) {
+	boolean execute2(final ScriptCommandEvent event, final CommandSender sender, final String commandLabel,
+			final String rest) {
 		final ParseLogHandler log = SkriptLogger.startParseLogHandler();
 		try {
 			final boolean ok = SkriptParser.parseArguments(rest, ScriptCommand.this, event);
@@ -286,25 +286,25 @@ public class ScriptCommand implements CommandExecutor {
 		} finally {
 			log.stop();
 		}
-		
+
 		if (Skript.log(Verbosity.VERY_HIGH))
 			Skript.info("# /" + name + " " + rest);
 		final long startTrigger = System.nanoTime();
-		
+
 		if (!trigger.execute(event))
 			sender.sendMessage(Commands.m_internal_error.toString());
-		
+
 		if (Skript.log(Verbosity.VERY_HIGH))
 			Skript.info("# " + name + " took " + 1. * (System.nanoTime() - startTrigger) / 1000000. + " milliseconds");
 		return true;
 	}
-	
+
 	public void sendHelp(final CommandSender sender) {
 		if (!description.isEmpty())
 			sender.sendMessage(description);
 		sender.sendMessage(ChatColor.GOLD + "Usage" + ChatColor.RESET + ": " + usage);
 	}
-	
+
 	/**
 	 * Gets the arguments this command takes.
 	 * 
@@ -313,16 +313,17 @@ public class ScriptCommand implements CommandExecutor {
 	public List<Argument<?>> getArguments() {
 		return arguments;
 	}
-	
+
 	public String getPattern() {
 		return pattern;
 	}
-	
+
 	@Nullable
 	private transient Command overridden = null;
 	private transient Map<String, Command> overriddenAliases = new HashMap<>();
-	
-	public void register(final SimpleCommandMap commandMap, final Map<String, Command> knownCommands, final @Nullable Set<String> aliases) {
+
+	public void register(final SimpleCommandMap commandMap, final Map<String, Command> knownCommands,
+			final @Nullable Set<String> aliases) {
 		synchronized (commandMap) {
 			overriddenAliases.clear();
 			overridden = knownCommands.put(label, bukkitCommand);
@@ -343,8 +344,9 @@ public class ScriptCommand implements CommandExecutor {
 			commandMap.register("skript", bukkitCommand);
 		}
 	}
-	
-	public void unregister(final SimpleCommandMap commandMap, final Map<String, Command> knownCommands, final @Nullable Set<String> aliases) {
+
+	public void unregister(final SimpleCommandMap commandMap, final Map<String, Command> knownCommands,
+			final @Nullable Set<String> aliases) {
 		synchronized (commandMap) {
 			knownCommands.remove(label);
 			knownCommands.remove("skript:" + label);
@@ -371,9 +373,9 @@ public class ScriptCommand implements CommandExecutor {
 			overriddenAliases.clear();
 		}
 	}
-	
+
 	private transient Collection<HelpTopic> helps = new ArrayList<>();
-	
+
 	public void registerHelp() {
 		helps.clear();
 		final HelpMap help = Bukkit.getHelpMap();
@@ -386,7 +388,8 @@ public class ScriptCommand implements CommandExecutor {
 			try {
 				final Field topics = IndexHelpTopic.class.getDeclaredField("allTopics");
 				topics.setAccessible(true);
-				@SuppressWarnings("unchecked") final ArrayList<HelpTopic> as = new ArrayList<>((Collection<HelpTopic>) topics.get(aliases));
+				@SuppressWarnings("unchecked")
+				final ArrayList<HelpTopic> as = new ArrayList<>((Collection<HelpTopic>) topics.get(aliases));
 				for (final String alias : activeAliases) {
 					final HelpTopic at = new CommandAliasHelpTopic("/" + alias, "/" + getLabel(), help);
 					as.add(at);
@@ -399,7 +402,7 @@ public class ScriptCommand implements CommandExecutor {
 			}
 		}
 	}
-	
+
 	public void unregisterHelp() {
 		Bukkit.getHelpMap().getHelpTopics().removeAll(helps);
 		final HelpTopic aliases = Bukkit.getHelpMap().getHelpTopic("Aliases");
@@ -407,7 +410,8 @@ public class ScriptCommand implements CommandExecutor {
 			try {
 				final Field topics = IndexHelpTopic.class.getDeclaredField("allTopics");
 				topics.setAccessible(true);
-				@SuppressWarnings("unchecked") final ArrayList<HelpTopic> as = new ArrayList<>((Collection<HelpTopic>) topics.get(aliases));
+				@SuppressWarnings("unchecked")
+				final ArrayList<HelpTopic> as = new ArrayList<>((Collection<HelpTopic>) topics.get(aliases));
 				as.removeAll(helps);
 				topics.set(aliases, as);
 			} catch (final Exception e) {
@@ -416,11 +420,11 @@ public class ScriptCommand implements CommandExecutor {
 		}
 		helps.clear();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getLabel() {
 		return label;
 	}
@@ -466,10 +470,10 @@ public class ScriptCommand implements CommandExecutor {
 		} else {
 			// Use the map
 			if (date == null) {
-                lastUsageMap.remove(uuid);
-            } else {
-                lastUsageMap.put(uuid, date);
-            }
+				lastUsageMap.remove(uuid);
+			} else {
+				lastUsageMap.put(uuid, date);
+			}
 		}
 	}
 
@@ -515,18 +519,18 @@ public class ScriptCommand implements CommandExecutor {
 	public List<String> getAliases() {
 		return aliases;
 	}
-	
+
 	public List<String> getActiveAliases() {
 		return activeAliases;
 	}
-	
+
 	public PluginCommand getBukkitCommand() {
 		return bukkitCommand;
 	}
-	
+
 	@Nullable
 	public File getScript() {
 		return trigger.getScript();
 	}
-	
+
 }

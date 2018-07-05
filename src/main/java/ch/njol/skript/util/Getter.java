@@ -31,7 +31,7 @@ import ch.njol.skript.classes.Converter;
  * @author Peter Güttinger
  */
 public abstract class Getter<R, A> implements Converter<A, R> {
-	
+
 	/**
 	 * Gets a value from the given object.
 	 * 
@@ -40,7 +40,7 @@ public abstract class Getter<R, A> implements Converter<A, R> {
 	 */
 	@Nullable
 	public abstract R get(A arg);
-	
+
 	/**
 	 * Convenience method to make getter implement converter
 	 */
@@ -49,5 +49,5 @@ public abstract class Getter<R, A> implements Converter<A, R> {
 	public final R convert(final A a) {
 		return get(a);
 	}
-	
+
 }

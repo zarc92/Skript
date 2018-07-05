@@ -22,16 +22,17 @@ package ch.njol.yggdrasil;
 import org.eclipse.jdt.annotation.Nullable;
 
 public interface ClassResolver {
-	
+
 	/**
 	 * Resolves a class by its ID.
 	 * 
 	 * @param id The ID used when storing objects
-	 * @return The Class object that represents data with the given ID, or null if the ID does not belong to the implementor
+	 * @return The Class object that represents data with the given ID, or null if the ID does not belong to the
+	 *         implementor
 	 */
 	@Nullable
 	Class<?> getClass(String id);
-	
+
 	/**
 	 * Gets an ID for a Class. The ID is used to identify the type of a saved object.
 	 * <p>

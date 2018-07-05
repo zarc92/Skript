@@ -25,6 +25,6 @@ import ch.njol.skript.config.Node;
  * @author Peter Güttinger
  */
 public interface NodeValidator {
-	
+
 	boolean validate(Node node);
 }

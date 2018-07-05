@@ -37,27 +37,27 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
 @Examples({"set gliding of player to off"})
 @Since("2.2-dev21")
 public class ExprGlidingState extends SimplePropertyExpression<LivingEntity, Boolean> {
-	
+
 	static {
 		if (Skript.isRunningMinecraft(1, 9))
 			register(ExprGlidingState.class, Boolean.class, "(gliding|glider) [state]", "entities");
 	}
-	
+
 	@Override
 	public Boolean convert(final LivingEntity e) {
 		return e.isGliding();
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "gliding state";
 	}
-	
+
 	@Override
 	public Class<Boolean> getReturnType() {
 		return Boolean.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -65,9 +65,10 @@ public class ExprGlidingState extends SimplePropertyExpression<LivingEntity, Boo
 			return new Class[] {Boolean.class};
 		return null;
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		for (final LivingEntity entity : getExpr().getArray(e))
 			entity.setGliding(delta == null ? false : (Boolean) delta[0]);
 	}

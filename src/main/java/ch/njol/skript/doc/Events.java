@@ -35,6 +35,7 @@ import ch.njol.skript.lang.SkriptEventInfo;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Events {
+
 	/**
 	 * A list of {@link SkriptEventInfo#getName() name(s)} of {@link SkriptEvent events} this expression is useful for.
 	 */

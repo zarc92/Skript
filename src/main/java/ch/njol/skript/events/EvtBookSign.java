@@ -27,28 +27,25 @@ import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerEditBookEvent;
 import org.eclipse.jdt.annotation.Nullable;
 
-public class EvtBookSign extends SkriptEvent{
-	
+public class EvtBookSign extends SkriptEvent {
+
 	static {
-		Skript.registerEvent("Book Sign", EvtBookSign.class, PlayerEditBookEvent.class, "book sign[ing]")
-				.description("Called when a player signs a book")
-				.examples("")
-				.since("2.2-dev31");
+		Skript.registerEvent("Book Sign", EvtBookSign.class, PlayerEditBookEvent.class, "book sign[ing]").description("Called when a player signs a book").examples("").since("2.2-dev31");
 	}
-	
+
 	@Override
 	public boolean init(Literal<?>[] args, int matchedPattern, SkriptParser.ParseResult parseResult) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(Event e) {
-		if (!(e instanceof PlayerEditBookEvent)){
+		if (!(e instanceof PlayerEditBookEvent)) {
 			return false;
 		}
 		return ((PlayerEditBookEvent) e).isSigning();
 	}
-	
+
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
 		return "book sign";

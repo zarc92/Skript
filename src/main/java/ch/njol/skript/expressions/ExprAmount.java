@@ -40,21 +40,22 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Amount")
-@Description({"The amount of something.",
-		"Please note that <code>amount of &lt;items&gt;</code> will not return the number of items, but the number of stacks, e.g. 1 for a stack of 64 torches."})
+@Description({"The amount of something.", "Please note that <code>amount of &lt;items&gt;</code> will not return the number of items, but the number of stacks, e.g. 1 for a stack of 64 torches."})
 @Examples({"message \"There are %number of all players% players online!\""})
 @Since("1.0")
 public class ExprAmount extends SimpleExpression<Integer> {
+
 	static {
 		Skript.registerExpression(ExprAmount.class, Integer.class, ExpressionType.PROPERTY, "(amount|number|size) of %objects%");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> expr;
-	
+
 	@SuppressWarnings("null")
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		expr = exprs[0];
 		if (expr instanceof Literal)
 			return false;
@@ -64,25 +65,25 @@ public class ExprAmount extends SimpleExpression<Integer> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends Integer> getReturnType() {
 		return Integer.class;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "amount of " + expr.toString(e, debug);
 	}
-	
+
 	@Override
 	protected Integer[] get(final Event e) {
 		return new Integer[] {expr.getArray(e).length};
 	}
-	
+
 }

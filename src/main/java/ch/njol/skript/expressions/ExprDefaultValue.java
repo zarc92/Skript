@@ -46,8 +46,7 @@ import java.lang.reflect.Array;
 public class ExprDefaultValue<T> extends SimpleExpression<T> {
 
 	static {
-		Skript.registerExpression(ExprDefaultValue.class, Object.class, ExpressionType.COMBINED,
-				"%objects% (otherwise|?) %objects%");
+		Skript.registerExpression(ExprDefaultValue.class, Object.class, ExpressionType.COMBINED, "%objects% (otherwise|?) %objects%");
 	}
 
 	private final ExprDefaultValue<?> source;
@@ -74,7 +73,8 @@ public class ExprDefaultValue<T> extends SimpleExpression<T> {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		first = LiteralUtils.defendExpression(exprs[0]);
 		second = LiteralUtils.defendExpression(exprs[1]);
 		return LiteralUtils.canInitSafely(first, second);

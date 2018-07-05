@@ -44,33 +44,29 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Numbers")
-@Description({"All numbers between two given numbers, useful for looping.",
-		"Use 'numbers' if your start is not an integer and you want to keep the fractional part of the start number constant, or use 'integers' if you only want to loop integers.",
-		"An integer loop from 1 to a number x can also be written as 'loop x times'."})
-@Examples({"loop 5 times: # loops 1, 2, 3, 4, 5",
-		"loop numbers from 2.5 to 5.5: # loops 2.5, 3.5, 4.5, 5.5",
-		"loop integers from 2.9 to 5.1: # same as '3 to 5', i.e. loops 3, 4, 5"})
+@Description({"All numbers between two given numbers, useful for looping.", "Use 'numbers' if your start is not an integer and you want to keep the fractional part of the start number constant, or use 'integers' if you only want to loop integers.", "An integer loop from 1 to a number x can also be written as 'loop x times'."})
+@Examples({"loop 5 times: # loops 1, 2, 3, 4, 5", "loop numbers from 2.5 to 5.5: # loops 2.5, 3.5, 4.5, 5.5", "loop integers from 2.9 to 5.1: # same as '3 to 5', i.e. loops 3, 4, 5"})
 @Since("1.4.6")
 public class ExprNumbers extends SimpleExpression<Number> {
+
 	static {
-		Skript.registerExpression(ExprNumbers.class, Number.class, ExpressionType.COMBINED,
-				"[(all [[of] the]|the)] (numbers|1¦integers) (between|from) %number% (and|to) %number%",
-				"%number% times");
+		Skript.registerExpression(ExprNumbers.class, Number.class, ExpressionType.COMBINED, "[(all [[of] the]|the)] (numbers|1¦integers) (between|from) %number% (and|to) %number%", "%number% times");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<Number> start, end;
 	boolean integer;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		start = matchedPattern == 0 ? (Expression<Number>) exprs[0] : new SimpleLiteral<>(1, false);
 		end = (Expression<Number>) exprs[1 - matchedPattern];
 		integer = parseResult.mark == 1 || matchedPattern == 1;
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected Number[] get(final Event event) {
@@ -92,10 +88,11 @@ public class ExprNumbers extends SimpleExpression<Number> {
 			else
 				list.add(Double.valueOf(low + i));
 		}
-		if (reverse) Collections.reverse(list);
+		if (reverse)
+			Collections.reverse(list);
 		return list.toArray(new Number[list.size()]);
 	}
-	
+
 	@Override
 	@Nullable
 	public Iterator<Number> iterator(final Event event) {
@@ -110,13 +107,15 @@ public class ExprNumbers extends SimpleExpression<Number> {
 		}
 		final Number starting = s, finish = f;
 		return new Iterator<Number>() {
-			double i = integer ? Math.ceil(starting.doubleValue()) : starting.doubleValue(), max = integer ? Math.floor(finish.doubleValue()) : finish.doubleValue();
-			
+
+			double i = integer ? Math.ceil(starting.doubleValue()) : starting.doubleValue(),
+					max = integer ? Math.floor(finish.doubleValue()) : finish.doubleValue();
+
 			@Override
 			public boolean hasNext() {
 				return i <= max;
 			}
-			
+
 			@SuppressWarnings("null")
 			@Override
 			public Number next() {
@@ -127,29 +126,29 @@ public class ExprNumbers extends SimpleExpression<Number> {
 				else
 					return Double.valueOf(reverse ? max-- : i++);
 			}
-			
+
 			@Override
 			public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return (integer ? "integers" : "numbers") + " from " + start.toString(e, debug) + " to " + end.toString(e, debug);
 	}
-	
+
 	@Override
 	public boolean isLoopOf(final String s) {
 		return integer && (s.equalsIgnoreCase("integer") || s.equalsIgnoreCase("int"));
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return false;
 	}
-	
+
 	@Override
 	public Class<? extends Number> getReturnType() {
 		return integer ? Long.class : Double.class;

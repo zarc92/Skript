@@ -32,11 +32,11 @@ import ch.njol.skript.registrations.Classes;
 public class DroppedItemSlot extends Slot {
 
 	private Item entity;
-	
+
 	public DroppedItemSlot(Item item) {
 		this.entity = item;
 	}
-	
+
 	@Override
 	@Nullable
 	public ItemStack getItem() {
@@ -52,10 +52,10 @@ public class DroppedItemSlot extends Slot {
 	public boolean isSameSlot(Slot o) {
 		return o instanceof DroppedItemSlot && ((DroppedItemSlot) o).entity.equals(entity);
 	}
-	
+
 	@Override
 	public String toString(@Nullable Event e, boolean debug) {
 		return Classes.toString(getItem());
 	}
-	
+
 }

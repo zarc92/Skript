@@ -34,7 +34,6 @@ import org.bukkit.event.Event;
 import org.bukkit.util.Vector;
 import org.eclipse.jdt.annotation.Nullable;
 
-
 /**
  * @author bi0qaw
  */
@@ -43,6 +42,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @Examples({"set {_loc} to {_loc} ~ {_v}"})
 @Since("2.2-dev28")
 public class ExprLocationVectorOffset extends SimpleExpression<Location> {
+
 	static {
 		Skript.registerExpression(ExprLocationVectorOffset.class, Location.class, ExpressionType.SIMPLE, "%location%[ ]~[~][ ]%vectors%");
 	}

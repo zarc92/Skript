@@ -31,19 +31,19 @@ import org.eclipse.jdt.annotation.Nullable;
  * @author Peter Güttinger
  */
 public class RedirectingLogHandler extends LogHandler {
-	
+
 	@Nullable
 	private final CommandSender recipient;
-	
+
 	private final String prefix;
-	
+
 	private int numErrors = 0;
-	
+
 	public RedirectingLogHandler(final CommandSender recipient, final @Nullable String prefix) {
 		this.recipient = recipient == Bukkit.getConsoleSender() ? null : recipient;
 		this.prefix = prefix == null ? "" : prefix;
 	}
-	
+
 	@Override
 	public LogResult log(final LogEntry entry) {
 		if (recipient != null)
@@ -54,9 +54,9 @@ public class RedirectingLogHandler extends LogHandler {
 			numErrors++;
 		return LogResult.DO_NOT_LOG;
 	}
-	
+
 	public int numErrors() {
 		return numErrors;
 	}
-	
+
 }

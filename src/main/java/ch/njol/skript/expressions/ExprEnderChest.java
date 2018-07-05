@@ -37,24 +37,25 @@ import ch.njol.skript.expressions.base.SimplePropertyExpression;
 @Examples("open the player's ender chest to the player")
 @Since("2.0")
 public class ExprEnderChest extends SimplePropertyExpression<Player, Inventory> {
+
 	static {
 		register(ExprEnderChest.class, Inventory.class, "ender[ ]chest[s]", "players");
 	}
-	
+
 	@Override
 	@Nullable
 	public Inventory convert(final Player p) {
 		return p.getEnderChest();
 	}
-	
+
 	@Override
 	public Class<? extends Inventory> getReturnType() {
 		return Inventory.class;
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "ender chest";
 	}
-	
+
 }

@@ -42,6 +42,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @Examples({"set {_v} to vector between {_loc1} and {_loc2}"})
 @Since("2.2-dev28")
 public class ExprVectorBetweenLocations extends SimpleExpression<Vector> {
+
 	static {
 		Skript.registerExpression(ExprVectorBetweenLocations.class, Vector.class, ExpressionType.SIMPLE, "vector (from|between) %location% (to|and) %location%");
 	}
@@ -67,8 +68,8 @@ public class ExprVectorBetweenLocations extends SimpleExpression<Vector> {
 	@Override
 	@SuppressWarnings({"unchecked", "null"})
 	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-		from = (Expression<Location>)expressions[0];
-		to = (Expression<Location>)expressions[1];
+		from = (Expression<Location>) expressions[0];
+		to = (Expression<Location>) expressions[1];
 		return true;
 	}
 
@@ -77,9 +78,9 @@ public class ExprVectorBetweenLocations extends SimpleExpression<Vector> {
 	protected Vector[] get(Event event) {
 		Location l1 = from.getSingle(event);
 		Location l2 = to.getSingle(event);
-		if (l1 == null || l2 == null){
+		if (l1 == null || l2 == null) {
 			return null;
 		}
-		return new Vector[]{ new Vector(l2.getX() - l1.getX(), l2.getY() - l1.getY(), l2.getZ() - l1.getZ())};
+		return new Vector[] {new Vector(l2.getX() - l1.getX(), l2.getY() - l1.getY(), l2.getZ() - l1.getZ())};
 	}
 }

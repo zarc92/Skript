@@ -36,25 +36,26 @@ import ch.njol.util.Kleenean;
  * @see PropertyExpression#register(Class, Class, String, String)
  */
 public abstract class SimplePropertyExpression<F, T> extends PropertyExpression<F, T> implements Converter<F, T> {
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		setExpr((Expression<? extends F>) exprs[0]);
 		return true;
 	}
-	
+
 	protected abstract String getPropertyName();
-	
+
 	@Override
 	@Nullable
 	public abstract T convert(F f);
-	
+
 	@Override
 	protected T[] get(final Event e, final F[] source) {
 		return super.get(source, this);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the " + getPropertyName() + " of " + getExpr().toString(e, debug);

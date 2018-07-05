@@ -35,19 +35,19 @@ import ch.njol.skript.config.SectionNode;
  * @see Loop
  */
 public abstract class TriggerSection extends TriggerItem {
-	
+
 	@Nullable
 	private TriggerItem first = null;
 	@Nullable
 	protected TriggerItem last = null;
-	
+
 	/**
 	 * Reserved for new Trigger(...)
 	 */
 	protected TriggerSection(final List<TriggerItem> items) {
 		setTriggerItems(items);
 	}
-	
+
 	protected TriggerSection(final SectionNode node) {
 		ScriptLoader.currentSections.add(this);
 		try {
@@ -56,12 +56,12 @@ public abstract class TriggerSection extends TriggerItem {
 			ScriptLoader.currentSections.remove(ScriptLoader.currentSections.size() - 1);
 		}
 	}
-	
+
 	/**
 	 * Important when using this constructor: set the items with {@link #setTriggerItems(List)}!
 	 */
 	protected TriggerSection() {}
-	
+
 	/**
 	 * Remember to add this section to {@link ScriptLoader#currentSections} before parsing child elements!
 	 * 
@@ -76,14 +76,13 @@ public abstract class TriggerSection extends TriggerItem {
 	protected void setTriggerItems(final List<TriggerItem> items) {
 		if (!items.isEmpty()) {
 			first = items.get(0);
-			(last = items.get(items.size() - 1))
-					.setNext(getNext());
+			(last = items.get(items.size() - 1)).setNext(getNext());
 		}
 		for (final TriggerItem item : items) {
 			item.setParent(this);
 		}
 	}
-	
+
 	@Override
 	public TriggerSection setNext(final @Nullable TriggerItem next) {
 		super.setNext(next);
@@ -91,22 +90,22 @@ public abstract class TriggerSection extends TriggerItem {
 			last.setNext(next);
 		return this;
 	}
-	
+
 	@Override
 	public TriggerSection setParent(@Nullable final TriggerSection parent) {
 		super.setParent(parent);
 		return this;
 	}
-	
+
 	@Override
 	protected final boolean run(final Event e) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	@Nullable
 	protected abstract TriggerItem walk(Event e);
-	
+
 	@Nullable
 	protected final TriggerItem walk(final Event e, final boolean run) {
 		debug(e, run);
@@ -116,5 +115,5 @@ public abstract class TriggerSection extends TriggerItem {
 			return getNext();
 		}
 	}
-	
+
 }

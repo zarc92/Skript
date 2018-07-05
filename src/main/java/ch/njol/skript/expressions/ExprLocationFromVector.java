@@ -40,11 +40,10 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @Name("Vectors - Create location from vector")
 @Description("Creates a location from a vector in a world")
-@Examples({"set {_loc} to {_v} to location in world \"world\"",
-		"set {_loc} to {_v} to location in world \"world\" with yaw 45 and pitch 90",
-		"set {_loc} to location of {_v} in \"world\" with yaw 45 and pitch 90"})
+@Examples({"set {_loc} to {_v} to location in world \"world\"", "set {_loc} to {_v} to location in world \"world\" with yaw 45 and pitch 90", "set {_loc} to location of {_v} in \"world\" with yaw 45 and pitch 90"})
 @Since("2.2-dev28")
 public class ExprLocationFromVector extends SimpleExpression<Location> {
+
 	static {
 		// TODO fix slowdowns and enable again, for now nuked for greater good
 //		Skript.registerExpression(ExprLocationFromVector.class, Location.class, ExpressionType.SIMPLE,
@@ -77,11 +76,11 @@ public class ExprLocationFromVector extends SimpleExpression<Location> {
 		if (expressions.length > 3) {
 			yawpitch = true;
 		}
-		vector = (Expression<Vector>)expressions[0];
-		world = (Expression<World>)expressions[1];
+		vector = (Expression<Vector>) expressions[0];
+		world = (Expression<World>) expressions[1];
 		if (yawpitch) {
-			yaw = (Expression<Number>)expressions[2];
-			pitch = (Expression<Number>)expressions[3];
+			yaw = (Expression<Number>) expressions[2];
+			pitch = (Expression<Number>) expressions[3];
 		}
 		return true;
 	}
@@ -93,14 +92,13 @@ public class ExprLocationFromVector extends SimpleExpression<Location> {
 		World w = world.getSingle(event);
 		Number y = yaw != null ? yaw.getSingle(event) : null;
 		Number p = pitch != null ? pitch.getSingle(event) : null;
-		if (v == null || w == null){
+		if (v == null || w == null) {
 			return null;
 		}
-		if (y == null || p == null){
-			return new Location[]{ v.toLocation(w)};
-		}
-		else {
-			return new Location[]{v.toLocation(w, y.floatValue(), p.floatValue())};
+		if (y == null || p == null) {
+			return new Location[] {v.toLocation(w)};
+		} else {
+			return new Location[] {v.toLocation(w, y.floatValue(), p.floatValue())};
 		}
 	}
 

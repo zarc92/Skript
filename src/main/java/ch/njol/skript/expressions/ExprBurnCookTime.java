@@ -48,26 +48,21 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 
 @Name("Burn/Cook Time")
-@Description({"The time a furnace takes to burn an item in a <a href='events.html#fuel_burn'>fuel burn</a> event.",
-			"Can also be used to change the burn/cook time of a placed furnace."})
-@Examples({"on fuel burn:",
-		"	if fuel slot is coal:",
-		"		set burning time to 1 tick"})
+@Description({"The time a furnace takes to burn an item in a <a href='events.html#fuel_burn'>fuel burn</a> event.", "Can also be used to change the burn/cook time of a placed furnace."})
+@Examples({"on fuel burn:", "	if fuel slot is coal:", "		set burning time to 1 tick"})
 @Since("INSERT VERSION")
 public class ExprBurnCookTime extends PropertyExpression<Block, Timespan> {
 
 	static {
-		Skript.registerExpression(ExprBurnCookTime.class, Timespan.class, ExpressionType.PROPERTY,
-				"[the] burn[ing] time",
-				"[the] (burn|1¦cook)[ing] time of %blocks%",
-				"%blocks%'[s] (burn|1¦cook)[ing] time");
+		Skript.registerExpression(ExprBurnCookTime.class, Timespan.class, ExpressionType.PROPERTY, "[the] burn[ing] time", "[the] (burn|1¦cook)[ing] time of %blocks%", "%blocks%'[s] (burn|1¦cook)[ing] time");
 	}
 
 	private boolean cookTime;
 	private boolean isEvent;
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		cookTime = parseResult.mark == 1;
 		isEvent = matchedPattern == 0;
 		if (isEvent && !ScriptLoader.isCurrentEvent(FurnaceBurnEvent.class)) {
@@ -84,13 +79,10 @@ public class ExprBurnCookTime extends PropertyExpression<Block, Timespan> {
 		if (isEvent)
 			return CollectionUtils.array(Timespan.fromTicks_i(((FurnaceBurnEvent) e).getBurnTime()));
 		else
-			return Arrays.stream(source)
-					.filter(block -> block.getType() == Material.FURNACE || block.getType() == Material.BURNING_FURNACE)
-					.map(furnace -> {
-						Furnace state = (Furnace) furnace.getState();
-						return Timespan.fromTicks_i(cookTime ? state.getCookTime() : state.getBurnTime());
-					})
-					.toArray(Timespan[]::new);
+			return Arrays.stream(source).filter(block -> block.getType() == Material.FURNACE || block.getType() == Material.BURNING_FURNACE).map(furnace -> {
+				Furnace state = (Furnace) furnace.getState();
+				return Timespan.fromTicks_i(cookTime ? state.getCookTime() : state.getBurnTime());
+			}).toArray(Timespan[]::new);
 	}
 
 	@Override
@@ -106,9 +98,7 @@ public class ExprBurnCookTime extends PropertyExpression<Block, Timespan> {
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(Changer.ChangeMode mode) {
-		if (mode == Changer.ChangeMode.ADD
-			|| mode == Changer.ChangeMode.REMOVE
-			|| mode == Changer.ChangeMode.SET)
+		if (mode == Changer.ChangeMode.ADD || mode == Changer.ChangeMode.REMOVE || mode == Changer.ChangeMode.SET)
 			return CollectionUtils.array(Timespan.class);
 		return null;
 	}

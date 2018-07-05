@@ -30,29 +30,30 @@ import ch.njol.skript.log.ParseLogHandler;
 import ch.njol.skript.log.SkriptLogger;
 
 /**
- * An effect which is unconditionally executed when reached, and execution will usually continue with the next item of the trigger after this effect is executed (the stop effect
+ * An effect which is unconditionally executed when reached, and execution will usually continue with the next item of
+ * the trigger after this effect is executed (the stop effect
  * for example stops the trigger, i.e. nothing else will be executed after it)
  * 
  * @author Peter Güttinger
  * @see Skript#registerEffect(Class, String...)
  */
 public abstract class Effect extends Statement {
-	
+
 	protected Effect() {}
-	
+
 	/**
 	 * Executes this effect.
 	 * 
 	 * @param e
 	 */
 	protected abstract void execute(Event e);
-	
+
 	@Override
 	public final boolean run(final Event e) {
 		execute(e);
 		return true;
 	}
-	
+
 	@SuppressWarnings({"rawtypes", "unchecked", "null"})
 	@Nullable
 	public static Effect parse(final String s, final @Nullable String defaultError) {
@@ -73,5 +74,5 @@ public abstract class Effect extends Statement {
 		}
 		return (Effect) SkriptParser.parse(s, (Iterator) Skript.getEffects().iterator(), defaultError);
 	}
-	
+
 }

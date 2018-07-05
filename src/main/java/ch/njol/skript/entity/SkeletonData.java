@@ -33,11 +33,11 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
  */
 @SuppressWarnings("deprecation") // Until 1.12: use deprecated methods for compatibility
 public class SkeletonData extends EntityData<Skeleton> {
-	
+
 	private final static boolean hasWither = Skript.methodExists(Skeleton.class, "getSkeletonType");
 	private final static boolean hasStray = Skript.isRunningMinecraft(1, 10);
 	private final static boolean separateClasses = Skript.isRunningMinecraft(1, 11);
-	
+
 	static {
 		// Register nothing on 1.11+ (see SimpleEntityData instead)
 		if (!separateClasses) {
@@ -49,44 +49,44 @@ public class SkeletonData extends EntityData<Skeleton> {
 				EntityData.register(SkeletonData.class, "skeleton", Skeleton.class, "skeleton");
 		}
 	}
-	
+
 	private int type;
 	public static final int NORMAL = 0, WITHER = 1, STRAY = 2, LAST_INDEX = STRAY;
-	
+
 	public SkeletonData() {}
-	
+
 	public SkeletonData(final int type) {
 		if (type > LAST_INDEX)
 			throw new SkriptAPIException("Unsupported skeleton type " + type);
 		this.type = type;
 	}
-	
+
 	public boolean isWither() {
 		return type == WITHER;
 	}
-	
+
 	public boolean isStray() {
 		return type == STRAY;
 	}
-	
+
 	@Override
 	protected boolean init(final Literal<?>[] exprs, final int matchedPattern, final ParseResult parseResult) {
 		type = matchedPattern;
 		return true;
 	}
-	
+
 	@Override
 	protected boolean init(final @Nullable Class<? extends Skeleton> c, final @Nullable Skeleton e) {
 		if (e == null)
 			return true;
-		
+
 		if (hasWither && e.getSkeletonType() == SkeletonType.WITHER)
 			type = WITHER;
 		if (hasStray && e.getSkeletonType() == SkeletonType.STRAY)
 			type = STRAY;
 		return true;
 	}
-	
+
 //		return wither ? "1" : "0";
 	@Override
 	protected boolean deserialize(final String s) {
@@ -97,10 +97,10 @@ public class SkeletonData extends EntityData<Skeleton> {
 		} catch (NumberFormatException e) {
 			throw new SkriptAPIException("Cannot parse skeleton type " + s);
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public void set(final Skeleton e) {
 		switch (type) {
@@ -114,7 +114,7 @@ public class SkeletonData extends EntityData<Skeleton> {
 				e.setSkeletonType(SkeletonType.NORMAL);
 		}
 	}
-	
+
 	@Override
 	protected boolean match(final Skeleton e) {
 		switch (type) {
@@ -126,12 +126,12 @@ public class SkeletonData extends EntityData<Skeleton> {
 				return e.getSkeletonType() == SkeletonType.NORMAL;
 		}
 	}
-	
+
 	@Override
 	public Class<? extends Skeleton> getType() {
 		return Skeleton.class;
 	}
-	
+
 	@Override
 	protected boolean equals_i(final EntityData<?> obj) {
 		if (!(obj instanceof SkeletonData))
@@ -139,22 +139,22 @@ public class SkeletonData extends EntityData<Skeleton> {
 		final SkeletonData other = (SkeletonData) obj;
 		return other.type == type;
 	}
-	
+
 	@Override
 	protected int hashCode_i() {
 		return type;
 	}
-	
+
 	@Override
 	public boolean isSupertypeOf(final EntityData<?> e) {
 		if (e instanceof SkeletonData)
 			return ((SkeletonData) e).type == type;
 		return false;
 	}
-	
+
 	@Override
 	public EntityData getSuperType() {
 		return new SkeletonData(type);
 	}
-	
+
 }

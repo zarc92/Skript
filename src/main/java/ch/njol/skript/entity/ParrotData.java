@@ -31,19 +31,18 @@ import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 
 public class ParrotData extends EntityData<Parrot> {
-	
+
 	// Cached variants, values() copies array each time it is called
 	@SuppressWarnings("null") // If null, ParrotData is not registered
 	private static Object[] variants;
-	
+
 	static {
 		if (Skript.classExists("org.bukkit.entity.Parrot")) {
 			variants = Parrot.Variant.values();
-			EntityData.register(ParrotData.class, "parrot", Parrot.class, 0,
-					"parrot", "red parrot", "blue parrot", "green parrot", "cyan parrot", "gray parrot");
+			EntityData.register(ParrotData.class, "parrot", Parrot.class, 0, "parrot", "red parrot", "blue parrot", "green parrot", "cyan parrot", "gray parrot");
 		}
 	}
-	
+
 	/**
 	 * Parrot variant. To avoid literally crashing on MC<1.12,
 	 * we just map enum values to int.
@@ -118,5 +117,5 @@ public class ParrotData extends EntityData<Parrot> {
 		// True if e is parrot, and this is generic parrot OR if this and e are similar parrots
 		return e instanceof ParrotData && (variant == -1 || ((ParrotData) e).variant == variant);
 	}
-	
+
 }

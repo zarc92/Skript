@@ -27,27 +27,28 @@ import org.eclipse.jdt.annotation.Nullable;
 /**
  * An iterator that iterates over all elements of several iterables.
  * <p>
- * Elements are removable from this iterator if the source iterables support element removal, unless removal is blocked on creation.
+ * Elements are removable from this iterator if the source iterables support element removal, unless removal is blocked
+ * on creation.
  * 
  * @author Peter Güttinger
  */
 public class CombinedIterator<T> implements Iterator<T> {
-	
+
 	private final Iterator<? extends Iterable<T>> iterators;
 	private boolean removable;
-	
+
 	public CombinedIterator(final Iterator<? extends Iterable<T>> iterators) {
 		this(iterators, true);
 	}
-	
+
 	public CombinedIterator(final Iterator<? extends Iterable<T>> iterators, final boolean removable) {
 		this.iterators = iterators;
 		this.removable = removable;
 	}
-	
+
 	@Nullable
 	private Iterator<T> current = null;
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public boolean hasNext() {
@@ -56,13 +57,13 @@ public class CombinedIterator<T> implements Iterator<T> {
 		}
 		return current != null && current.hasNext();
 	}
-	
+
 	/**
 	 * The iterator that returned the last element (stored for possible removal of said element)
 	 */
 	@Nullable
 	private Iterator<T> last = null;
-	
+
 	@Nullable
 	@Override
 	public T next() {
@@ -73,7 +74,7 @@ public class CombinedIterator<T> implements Iterator<T> {
 		last = current;
 		return current.next();
 	}
-	
+
 	@Override
 	public void remove() {
 		if (!removable)
@@ -83,5 +84,5 @@ public class CombinedIterator<T> implements Iterator<T> {
 		else
 			throw new IllegalStateException();
 	}
-	
+
 }

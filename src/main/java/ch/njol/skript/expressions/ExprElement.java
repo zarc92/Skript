@@ -41,33 +41,33 @@ import java.util.Iterator;
  * @author Peter Güttinger
  */
 @Name("Element of")
-@Description({"The first, last or a random element of a set, e.g. a list variable.",
-		"See also: <a href='#ExprRandom'>random</a>"})
+@Description({"The first, last or a random element of a set, e.g. a list variable.", "See also: <a href='#ExprRandom'>random</a>"})
 @Examples("give a random element out of {free items::*} to the player")
 @Since("2.0")
 public class ExprElement extends SimpleExpression<Object> {
-	
+
 	static {
 		Skript.registerExpression(ExprElement.class, Object.class, ExpressionType.PROPERTY, "(-1¦[the] first|1¦[the] last|0¦[a] random|2¦%-number%(st|nd|rd|th)) element [out] of %objects%");
 	}
-	
+
 	private int element;
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> expr;
 
 	@Nullable
 	private Expression<Number> number;
-	
+
 	@SuppressWarnings("null")
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		expr = LiteralUtils.defendExpression(exprs[1]);
 		number = (Expression<Number>) exprs[0];
 		element = parseResult.mark;
 		return LiteralUtils.canInitSafely(expr);
 	}
-	
+
 	@Override
 	@Nullable
 	@SuppressWarnings("null")
@@ -99,20 +99,20 @@ public class ExprElement extends SimpleExpression<Object> {
 		r[0] = o;
 		return r;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public Class<? extends Object> getReturnType() {
 		return expr.getReturnType();
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return (element == 0 ? "a " : "the ") + (element == -1 ? "first" : element == 1 ? "last" : "random") + " element of " + expr.toString(e, debug);
 	}
-	
+
 }

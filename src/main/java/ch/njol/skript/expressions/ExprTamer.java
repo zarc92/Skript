@@ -42,35 +42,36 @@ import ch.njol.util.Kleenean;
 @Examples("")
 @Since("2.2-dev25")
 public class ExprTamer extends SimpleExpression<Player> {
-	
+
 	static {
 		Skript.registerExpression(ExprTamer.class, Player.class, ExpressionType.SIMPLE, "[the] tamer");
 	}
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		if (!ScriptLoader.isCurrentEvent(EntityTameEvent.class)) {
 			Skript.error("the expression 'tamer' may only be used in the entity tame event.");
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	protected Player[] get(final Event e) {
 		return new Player[] {((EntityTameEvent) e).getOwner() instanceof Player ? (Player) ((EntityTameEvent) e).getOwner() : null};
 	}
-	
+
 	@Override
 	public Class<? extends Player> getReturnType() {
 		return Player.class;
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "the tamer";

@@ -48,10 +48,11 @@ import ch.njol.util.Kleenean;
 public class ExprStringCase extends SimpleExpression<String> {
 
 	private final static int UPPER = 0, LOWER = 1;
-	
+
 	/**
 	 * Helper function which takes nullable string and
 	 * uses given mode to it.
+	 * 
 	 * @param str Original string.
 	 * @param mode See above, UPPER or LOWER.
 	 * @return Changed string.
@@ -67,18 +68,17 @@ public class ExprStringCase extends SimpleExpression<String> {
 		else
 			return str;
 	}
-	
+
 	static {
-		Skript.registerExpression(ExprStringCase.class, String.class, ExpressionType.SIMPLE,
-				"%string% in (0¦upper|1¦lower) case", "capitalized %string%");
+		Skript.registerExpression(ExprStringCase.class, String.class, ExpressionType.SIMPLE, "%string% in (0¦upper|1¦lower) case", "capitalized %string%");
 	}
-	
+
 	@Nullable
 	private Expression<String> origin;
 	@Nullable
 	private String literal;
 	private int mode;
-	
+
 	@SuppressWarnings({"unchecked"})
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
@@ -90,10 +90,10 @@ public class ExprStringCase extends SimpleExpression<String> {
 			mode = UPPER;
 		else
 			mode = parseResult.mark;
-		
+
 		return true;
 	}
-	
+
 	@Override
 	@Nullable
 	protected String[] get(Event e) {
@@ -104,10 +104,10 @@ public class ExprStringCase extends SimpleExpression<String> {
 			str = changeCase(origin.getSingle(e), mode);
 		else
 			str = "";
-		
+
 		return new String[] {str};
 	}
-	
+
 	@Override
 	public boolean isSingle() {
 		return true;
@@ -124,8 +124,8 @@ public class ExprStringCase extends SimpleExpression<String> {
 			return changeCase(literal, mode);
 		else if (origin != null && e != null)
 			return changeCase(origin.getSingle(e), mode);
-		
+
 		return "";
 	}
-	
+
 }

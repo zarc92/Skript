@@ -44,19 +44,14 @@ import ch.njol.util.Kleenean;
  */
 @Name("Damage/Heal/Repair")
 @Description("Damage/Heal/Repair an entity, or item stack.")
-@Examples({"damage player by 5 hearts",
-		"heal the player",
-		"repair tool of player"})
+@Examples({"damage player by 5 hearts", "heal the player", "repair tool of player"})
 @Since("1.0")
 public class EffHealth extends Effect {
-	
+
 	static {
-		Skript.registerEffect(EffHealth.class,
-				"damage %slots/livingentities/itemstack% by %number% [heart[s]][ with fake cause %-damagecause%]",
-				"heal %livingentities% [by %-number% [heart[s]]]",
-				"repair %slots/itemstack% [by %-number%]");
+		Skript.registerEffect(EffHealth.class, "damage %slots/livingentities/itemstack% by %number% [heart[s]][ with fake cause %-damagecause%]", "heal %livingentities% [by %-number% [heart[s]]]", "repair %slots/itemstack% [by %-number%]");
 	}
-	
+
 	@SuppressWarnings("null")
 	private Expression<?> damageables;
 	@Nullable
@@ -64,10 +59,11 @@ public class EffHealth extends Effect {
 	private boolean heal = false;
 	@Nullable
 	private Expression<DamageCause> dmgCause;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		damageables = vars[0];
 		if (ItemStack.class.isAssignableFrom(damageables.getReturnType())) {
 			if (!ChangerUtils.acceptsChange(damageables, ChangeMode.SET, ItemStack.class)) {
@@ -77,11 +73,12 @@ public class EffHealth extends Effect {
 		}
 		damage = (Expression<Number>) vars[1];
 		heal = (matchedPattern >= 1);
-		
-		if (vars.length >= 3) dmgCause = (Expression<DamageCause>) vars[2];
+
+		if (vars.length >= 3)
+			dmgCause = (Expression<DamageCause>) vars[2];
 		return true;
 	}
-	
+
 	@Override
 	public void execute(final Event e) {
 		double damage = 0;
@@ -123,10 +120,11 @@ public class EffHealth extends Effect {
 					HealthUtils.setHealth((LivingEntity) damageable, HealthUtils.getMaxHealth((LivingEntity) damageable));
 				} else {
 					HealthUtils.heal((LivingEntity) damageable, (heal ? 1 : -1) * damage);
-					
+
 					if (!heal) {
 						DamageCause cause = DamageCause.CUSTOM;
-						if (dmgCause != null) cause = dmgCause.getSingle(e);
+						if (dmgCause != null)
+							cause = dmgCause.getSingle(e);
 						assert cause != null;
 						HealthUtils.setDamageCause((LivingEntity) damageable, cause);
 					}
@@ -134,10 +132,10 @@ public class EffHealth extends Effect {
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return (heal ? "heal " : "damage ") + damageables.toString(e, debug) + (damage != null ? " by " + damage.toString(e, debug) : "");
 	}
-	
+
 }

@@ -26,4 +26,3 @@
 package ch.njol.skript.hooks;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-

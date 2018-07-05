@@ -26,4 +26,3 @@
 package ch.njol.skript.localization;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
-

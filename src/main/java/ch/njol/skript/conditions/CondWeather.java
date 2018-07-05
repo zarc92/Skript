@@ -41,32 +41,33 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Weather")
-@Description({"Checks whether the weather in a world is of a specific type.",
-		"<i>I welcome any ideas how to write this condition differently.</i>"})
-@Examples({"is thundering",
-		"is raining in \"world\" or \"world2\""})
+@Description({"Checks whether the weather in a world is of a specific type.", "<i>I welcome any ideas how to write this condition differently.</i>"})
+@Examples({"is thundering", "is raining in \"world\" or \"world2\""})
 @Since("1.0")
 public class CondWeather extends Condition {
+
 	static {
 		Skript.registerCondition(CondWeather.class, "is %weathertypes% [in %worlds%]");
 	}
-	
+
 	@SuppressWarnings("null")
 	Expression<WeatherType> weathers;
 	@SuppressWarnings("null")
 	private Expression<World> worlds;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
+	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parser) {
 		weathers = (Expression<WeatherType>) vars[0];
 		worlds = (Expression<World>) vars[1];
 		return true;
 	}
-	
+
 	@Override
 	public boolean check(final Event e) {
 		return worlds.check(e, new Checker<World>() {
+
 			@Override
 			public boolean check(final World w) {
 				final WeatherType t;
@@ -76,6 +77,7 @@ public class CondWeather extends Condition {
 					t = WeatherType.fromWorld(w);
 				}
 				return weathers.check(e, new Checker<WeatherType>() {
+
 					@Override
 					public boolean check(final WeatherType wt) {
 						return wt == t;
@@ -84,10 +86,10 @@ public class CondWeather extends Condition {
 			}
 		});
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "is " + weathers.toString(e, debug) + " in " + worlds.toString(e, debug);
 	}
-	
+
 }

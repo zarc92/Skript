@@ -40,33 +40,30 @@ import ch.njol.util.Kleenean;
  * @author Peter Güttinger
  */
 @Name("Open/Close Inventory")
-@Description({"Opens an inventory to a player. The player can then access and modify the inventory as if it was a chest that he just opened.",
-		"Please note that currently 'show' and 'open' have the same effect, but 'show' will eventually show an unmodifiable view of the inventory in the future."})
-@Examples({"show the victim's inventory to the player",
-		"open the player's inventory for the player"})
+@Description({"Opens an inventory to a player. The player can then access and modify the inventory as if it was a chest that he just opened.", "Please note that currently 'show' and 'open' have the same effect, but 'show' will eventually show an unmodifiable view of the inventory in the future."})
+@Examples({"show the victim's inventory to the player", "open the player's inventory for the player"})
 @Since("2.0, 2.1.1 (closing), 2.2-Fixes-V10 (anvil)")
 public class EffOpenInventory extends Effect {
-	
+
 	private final static int WORKBENCH = 0, CHEST = 1, ANVIL = 2;
-	
+
 	static {
-		Skript.registerEffect(EffOpenInventory.class,
-				"(0¦open|1¦show) ((20¦(crafting [table]|workbench)|40¦chest|60¦anvil) (view|window|inventory|)|%-inventory%) (to|for) %players%",
-				"close [the] inventory [view] (to|of|for) %players%", "close %players%'[s] inventory [view]");
+		Skript.registerEffect(EffOpenInventory.class, "(0¦open|1¦show) ((20¦(crafting [table]|workbench)|40¦chest|60¦anvil) (view|window|inventory|)|%-inventory%) (to|for) %players%", "close [the] inventory [view] (to|of|for) %players%", "close %players%'[s] inventory [view]");
 	}
-	
+
 	@Nullable
 	private Expression<Inventory> invi;
-	
+
 	boolean open;
 	private int invType;
-	
+
 	@SuppressWarnings("null")
 	private Expression<Player> players;
-	
+
 	@SuppressWarnings({"unchecked", "null"})
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		int openFlag = 0;
 		if (parseResult.mark >= 60) {
 			openFlag = parseResult.mark ^ 60;
@@ -80,7 +77,7 @@ public class EffOpenInventory extends Effect {
 		} else {
 			openFlag = parseResult.mark;
 		}
-		
+
 		open = matchedPattern == 0;
 		invi = open ? (Expression<Inventory>) exprs[0] : null;
 		players = (Expression<Player>) exprs[exprs.length - 1];
@@ -89,7 +86,7 @@ public class EffOpenInventory extends Effect {
 		}
 		return true;
 	}
-	
+
 	@Override
 	protected void execute(final Event e) {
 		if (invi != null) {
@@ -99,8 +96,8 @@ public class EffOpenInventory extends Effect {
 			for (final Player p : players.getArray(e)) {
 				try {
 					p.openInventory(i);
-				} catch (IllegalArgumentException ex){
-					Skript.error("You can't open a " +i.getType().name().toLowerCase().replaceAll("_", "") + " inventory to a player.");
+				} catch (IllegalArgumentException ex) {
+					Skript.error("You can't open a " + i.getType().name().toLowerCase().replaceAll("_", "") + " inventory to a player.");
 				}
 			}
 		} else {
@@ -121,10 +118,10 @@ public class EffOpenInventory extends Effect {
 			}
 		}
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return (open ? "open " + (invi != null ? invi.toString(e, debug) : "crafting table") + " to " : "close inventory view of ") + players.toString(e, debug);
 	}
-	
+
 }

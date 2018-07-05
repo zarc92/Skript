@@ -43,6 +43,7 @@ import org.eclipse.jdt.annotation.Nullable;
 @Examples({"set {_v} to vector from yaw 45 and pitch 45"})
 @Since("2.2-dev28")
 public class ExprVectorFromYawAndPitch extends SimpleExpression<Vector> {
+
 	static {
 		Skript.registerExpression(ExprVectorFromYawAndPitch.class, Vector.class, ExpressionType.SIMPLE, "[new] vector from yaw %number% and pitch %number%");
 	}
@@ -60,7 +61,7 @@ public class ExprVectorFromYawAndPitch extends SimpleExpression<Vector> {
 		}
 		float yaw = VectorMath.fromSkriptYaw(VectorMath.wrapAngleDeg(y.floatValue()));
 		float pitch = VectorMath.fromSkriptPitch(VectorMath.wrapAngleDeg(p.floatValue()));
-		return new Vector[]{ VectorMath.fromYawAndPitch(yaw, pitch)};
+		return new Vector[] {VectorMath.fromYawAndPitch(yaw, pitch)};
 	}
 
 	@Override

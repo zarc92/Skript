@@ -25,19 +25,20 @@ import ch.njol.skript.Skript;
 import ch.njol.util.NonNullPair;
 
 final class MaterialName {
+
 	String singular;
 	String plural;
 	int gender = 0;
 	private final int id;
 	final HashMap<NonNullPair<Short, Short>, NonNullPair<String, String>> names = new HashMap<>();
-	
+
 	public MaterialName(final int id, final String singular, final String plural, final int gender) {
 		this.id = id;
 		this.singular = singular;
 		this.plural = plural;
 		this.gender = gender;
 	}
-	
+
 	public String toString(final short dataMin, final short dataMax, final boolean p) {
 //		if (names == null)
 //			return p ? plural : singular;
@@ -52,11 +53,13 @@ final class MaterialName {
 			return p ? s.getSecond() : s.getFirst();
 		return p ? plural : singular;
 	}
-	
+
 	public String getDebugName(final short dataMin, final short dataMax, final boolean p) {
 //		if (names == null)
 //			return p ? plural : singular;
-		@SuppressWarnings("null") final NonNullPair<String, String> s = names.get(new NonNullPair<>(Short.valueOf(dataMin), Short.valueOf(dataMax)));
+		@SuppressWarnings("null")
+		final NonNullPair<String, String> s = names.get(new NonNullPair<>(Short.valueOf(dataMin),
+				Short.valueOf(dataMax)));
 		if (s != null)
 			return p ? s.getSecond() : s.getFirst();
 		if (dataMin == -1 && dataMax == -1 || dataMin == 0 && dataMax == 0)

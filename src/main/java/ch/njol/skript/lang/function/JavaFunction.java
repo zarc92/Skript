@@ -27,22 +27,23 @@ import ch.njol.skript.classes.ClassInfo;
  * @author Peter Güttinger
  */
 public abstract class JavaFunction<T> extends Function<T> {
-	
-	public JavaFunction(final String name, final Parameter<?>[] parameters, final ClassInfo<T> returnType, final boolean single) {
+
+	public JavaFunction(final String name, final Parameter<?>[] parameters, final ClassInfo<T> returnType,
+			final boolean single) {
 		super(name, parameters, returnType, single);
 	}
-	
+
 	@Override
 	@Nullable
 	public abstract T[] execute(FunctionEvent e, Object[][] params);
-	
+
 	@Nullable
 	private String[] description = null;
 	@Nullable
 	private String[] examples = null;
 	@Nullable
 	private String since = null;
-	
+
 	/**
 	 * Only used for Skript's documentation.
 	 * 
@@ -54,7 +55,7 @@ public abstract class JavaFunction<T> extends Function<T> {
 		this.description = description;
 		return this;
 	}
-	
+
 	/**
 	 * Only used for Skript's documentation.
 	 * 
@@ -66,7 +67,7 @@ public abstract class JavaFunction<T> extends Function<T> {
 		this.examples = examples;
 		return this;
 	}
-	
+
 	/**
 	 * Only used for Skript's documentation.
 	 * 
@@ -78,17 +79,17 @@ public abstract class JavaFunction<T> extends Function<T> {
 		this.since = since;
 		return this;
 	}
-	
+
 	@Nullable
 	public String[] getDescription() {
 		return description;
 	}
-	
+
 	@Nullable
 	public String[] getExamples() {
 		return examples;
 	}
-	
+
 	@Nullable
 	public String getSince() {
 		return since;

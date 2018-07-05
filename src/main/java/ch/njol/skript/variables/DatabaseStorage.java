@@ -48,7 +48,8 @@ import ch.njol.skript.util.Timespan;
 import ch.njol.util.SynchronizedReference;
 
 /**
- * TODO create a metadata table to store some properties (e.g. Skript version, Yggdrasil version) -- but what if some variables cannot be converted? move them to a different table?
+ * TODO create a metadata table to store some properties (e.g. Skript version, Yggdrasil version) -- but what if some
+ * variables cannot be converted? move them to a different table?
  * TODO create my own database connector or find a better one
  *
  * @author Peter Güttinger
@@ -64,13 +65,8 @@ public class DatabaseStorage extends VariablesStorage {
 	private final static String SELECT_ORDER = "name, type, value, rowid";
 
 	public static enum Type {
-		MYSQL("CREATE TABLE IF NOT EXISTS %s (" +
-				"rowid        BIGINT  NOT NULL  AUTO_INCREMENT  PRIMARY KEY," +
-				"name         VARCHAR(" + MAX_VARIABLE_NAME_LENGTH + ")  NOT NULL  UNIQUE," +
-				"type         VARCHAR(" + MAX_CLASS_CODENAME_LENGTH + ")," +
-				"value        BLOB(" + MAX_VALUE_SIZE + ")," +
-				"update_guid  CHAR(36)  NOT NULL" +
-				") CHARACTER SET ucs2 COLLATE ucs2_bin") {// MySQL treats UTF16 as 4 byte charset, resulting in a short max name length. UCS2 uses 2 bytes.
+		MYSQL("CREATE TABLE IF NOT EXISTS %s (" + "rowid        BIGINT  NOT NULL  AUTO_INCREMENT  PRIMARY KEY," + "name         VARCHAR(" + MAX_VARIABLE_NAME_LENGTH + ")  NOT NULL  UNIQUE," + "type         VARCHAR(" + MAX_CLASS_CODENAME_LENGTH + ")," + "value        BLOB(" + MAX_VALUE_SIZE + ")," + "update_guid  CHAR(36)  NOT NULL" + ") CHARACTER SET ucs2 COLLATE ucs2_bin") {// MySQL treats UTF16 as 4 byte charset, resulting in a short max name length. UCS2 uses 2 bytes.
+
 			@Override
 			@Nullable
 			protected Object initialise(final DatabaseStorage s, final SectionNode n) {
@@ -85,12 +81,8 @@ public class DatabaseStorage extends VariablesStorage {
 				return new MySQL(SkriptLogger.LOGGER, "[Skript]", host, port, database, user, password);
 			}
 		},
-		SQLITE("CREATE TABLE IF NOT EXISTS %s (" +
-				"name         VARCHAR(" + MAX_VARIABLE_NAME_LENGTH + ")  NOT NULL  PRIMARY KEY," +
-				"type         VARCHAR(" + MAX_CLASS_CODENAME_LENGTH + ")," +
-				"value        BLOB(" + MAX_VALUE_SIZE + ")," +
-				"update_guid  CHAR(36)  NOT NULL" +
-				")") {// SQLite uses Unicode exclusively
+		SQLITE("CREATE TABLE IF NOT EXISTS %s (" + "name         VARCHAR(" + MAX_VARIABLE_NAME_LENGTH + ")  NOT NULL  PRIMARY KEY," + "type         VARCHAR(" + MAX_CLASS_CODENAME_LENGTH + ")," + "value        BLOB(" + MAX_VALUE_SIZE + ")," + "update_guid  CHAR(36)  NOT NULL" + ")") {// SQLite uses Unicode exclusively
+
 			@Override
 			@Nullable
 			protected Object initialise(final DatabaseStorage s, final SectionNode config) {
@@ -100,7 +92,8 @@ public class DatabaseStorage extends VariablesStorage {
 				s.setTableName(config.get("table", "variables21"));
 				final String name = f.getName();
 				assert name.endsWith(".db");
-				return new SQLite(SkriptLogger.LOGGER, "[Skript]", f.getParent(), name.substring(0, name.length() - ".db".length()));
+				return new SQLite(SkriptLogger.LOGGER, "[Skript]", f.getParent(),
+						name.substring(0, name.length() - ".db".length()));
 			}
 		};
 
@@ -121,7 +114,7 @@ public class DatabaseStorage extends VariablesStorage {
 
 	@SuppressWarnings("null")
 	final SynchronizedReference<Database> db = new SynchronizedReference<>(null);
-	
+
 	private boolean monitor = false;
 	long monitor_interval;
 
@@ -148,18 +141,20 @@ public class DatabaseStorage extends VariablesStorage {
 
 	/**
 	 * Retrieve the create query with the tableName in it
+	 * 
 	 * @return the create query with the tableName in it (%s -> tableName)
 	 */
 	@Nullable
-	public String getFormattedCreateQuery(){
-		if (formattedCreateQuery == null){
+	public String getFormattedCreateQuery() {
+		if (formattedCreateQuery == null) {
 			formattedCreateQuery = String.format(type.createQuery, tableName);
 		}
 		return formattedCreateQuery;
 	}
 
 	/**
-	 * Doesn't lock the database for reading (it's not used anywhere else, and locking while loading will interfere with loaded variables being deleted by
+	 * Doesn't lock the database for reading (it's not used anywhere else, and locking while loading will interfere with
+	 * loaded variables being deleted by
 	 * {@link Variables#variableLoaded(String, Object, VariablesStorage)}).
 	 */
 	@Override
@@ -201,7 +196,7 @@ public class DatabaseStorage extends VariablesStorage {
 				final boolean hasOldTable = db.isTable(OLD_TABLE_NAME);
 				final boolean hadNewTable = db.isTable(getTableName());
 
-				if (getFormattedCreateQuery() == null){
+				if (getFormattedCreateQuery() == null) {
 					Skript.error("Could not create the variables table in the database. The query to create the variables table '" + tableName + "' in the database '" + databaseName + "' is null.");
 					return false;
 				}
@@ -209,15 +204,14 @@ public class DatabaseStorage extends VariablesStorage {
 				try {
 					db.query(getFormattedCreateQuery());
 				} catch (final SQLException e) {
-					Skript.error("Could not create the variables table '" + tableName + "' in the database '" + databaseName + "': " + e.getLocalizedMessage() + ". "
-							+ "Please create the table yourself using the following query: " + String.format(type.createQuery, tableName).replace(",", ", ").replaceAll("\\s+", " "));
+					Skript.error("Could not create the variables table '" + tableName + "' in the database '" + databaseName + "': " + e.getLocalizedMessage() + ". " + "Please create the table yourself using the following query: " + String.format(type.createQuery, tableName).replace(",", ", ").replaceAll("\\s+", " "));
 					return false;
 				}
 
 				if (!prepareQueries()) {
 					return false;
 				}
-				
+
 				// old
 				// Table name support was added after the verison that used the legacy database format
 				if (hasOldTable && !tableName.equals("variables")) {
@@ -262,9 +256,7 @@ public class DatabaseStorage extends VariablesStorage {
 					db.query("DELETE FROM old USING " + OLD_TABLE_NAME + " AS old, " + getTableName() + " AS new WHERE old.name = new.name");
 					try (ResultSet r = db.query("SELECT * FROM " + OLD_TABLE_NAME + " LIMIT 1")) {
 						if (r.next()) {// i.e. the old table is not empty
-							Skript.error("Could not successfully convert & transfer all variables to the new table in the database '" + databaseName + "'. "
-									+ "Variables that could not be transferred are left in the old table and Skript will reattempt to transfer them whenever it starts until the old table is empty or is manually deleted. "
-									+ "Please note that variables recreated by scripts will count as converted and will be removed from the old table on the next restart.");
+							Skript.error("Could not successfully convert & transfer all variables to the new table in the database '" + databaseName + "'. " + "Variables that could not be transferred are left in the old table and Skript will reattempt to transfer them whenever it starts until the old table is empty or is manually deleted. " + "Please note that variables recreated by scripts will count as converted and will be removed from the old table on the next restart.");
 						} else {
 							boolean error = false;
 							try {
@@ -289,6 +281,7 @@ public class DatabaseStorage extends VariablesStorage {
 
 			// periodically executes queries to keep the collection alive
 			Skript.newThread(new Runnable() {
+
 				@Override
 				public void run() {
 					while (!closed) {
@@ -316,6 +309,7 @@ public class DatabaseStorage extends VariablesStorage {
 
 		// start committing thread. Its first execution will also commit the first batch of changed variables.
 		Skript.newThread(new Runnable() {
+
 			@Override
 			public void run() {
 				long lastCommit;
@@ -339,6 +333,7 @@ public class DatabaseStorage extends VariablesStorage {
 
 		if (monitor) {
 			Skript.newThread(new Runnable() {
+
 				@Override
 				public void run() {
 					try { // variables were just downloaded, not need to check for modifications straight away
@@ -354,9 +349,7 @@ public class DatabaseStorage extends VariablesStorage {
 						final long now = System.currentTimeMillis();
 						if (next < now && lastWarning + WARING_INTERVAL * 1000 < now) {
 							// TODO don't print this message when Skript loads (because scripts are loaded after variables and take some time)
-							Skript.warning("Cannot load variables from the database fast enough (loading took " + ((now - next + monitor_interval) / 1000.) + "s, monitor interval = " + (monitor_interval / 1000.) + "s). " +
-									"Please increase your monitor interval or reduce usage of variables. " +
-									"(this warning will be repeated at most once every " + WARING_INTERVAL + " seconds)");
+							Skript.warning("Cannot load variables from the database fast enough (loading took " + ((now - next + monitor_interval) / 1000.) + "s, monitor interval = " + (monitor_interval / 1000.) + "s). " + "Please increase your monitor interval or reduce usage of variables. " + "(this warning will be repeated at most once every " + WARING_INTERVAL + " seconds)");
 							lastWarning = now;
 						}
 						while (System.currentTimeMillis() < next) {
@@ -570,6 +563,7 @@ public class DatabaseStorage extends VariablesStorage {
 
 			if (!closed) { // Skript may have been disabled in the meantime // TODO not fixed
 				new Task(Skript.getInstance(), (long) Math.ceil(2. * monitor_interval / 50) + 100, true) { // 2 times the interval + 5 seconds
+
 					@Override
 					public void run() {
 						try {
@@ -614,6 +608,7 @@ public class DatabaseStorage extends VariablesStorage {
 //		synchronized (syncDeserializing) {
 
 		final SQLException e = Task.callSync(new Callable<SQLException>() {
+
 			@Override
 			@Nullable
 			public SQLException call() throws Exception {
@@ -701,6 +696,7 @@ public class DatabaseStorage extends VariablesStorage {
 //		synchronized (oldSyncDeserializing) {
 
 		final VariablesStorage temp = new VariablesStorage(databaseName + " old variables table") {
+
 			@Override
 			protected boolean save(final String name, @Nullable final String type, @Nullable final byte[] value) {
 				assert type == null : name + "; " + type;
@@ -749,6 +745,7 @@ public class DatabaseStorage extends VariablesStorage {
 		};
 
 		final SQLException e = Task.callSync(new Callable<SQLException>() {
+
 			@SuppressWarnings("null")
 			@Override
 			@Nullable

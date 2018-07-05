@@ -47,8 +47,7 @@ import java.lang.reflect.Array;
 public class ExprTernary<T> extends SimpleExpression<T> {
 
 	static {
-		Skript.registerExpression(ExprTernary.class, Object.class, ExpressionType.COMBINED,
-				"%objects% if <.+>[,] (otherwise|else) %objects%");
+		Skript.registerExpression(ExprTernary.class, Object.class, ExpressionType.COMBINED, "%objects% if <.+>[,] (otherwise|else) %objects%");
 	}
 
 	private final ExprTernary<?> source;
@@ -78,7 +77,8 @@ public class ExprTernary<T> extends SimpleExpression<T> {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		ifTrue = LiteralUtils.defendExpression(exprs[0]);
 		ifFalse = LiteralUtils.defendExpression(exprs[1]);
 		if (ifFalse instanceof ExprTernary<?> || ifTrue instanceof ExprTernary<?>) {

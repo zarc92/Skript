@@ -54,36 +54,34 @@ import ch.njol.util.StringUtils;
  */
 public abstract class Functions {
 
-	private static final String INVALID_FUNCTION_DEFINITION =
-			"Invalid function definition. Please check for " +
-					"typos and make sure that the function's name " +
-					"only contains letters and underscores. " +
-					"Refer to the documentation for more information.";
+	private static final String INVALID_FUNCTION_DEFINITION = "Invalid function definition. Please check for " + "typos and make sure that the function's name " + "only contains letters and underscores. " + "Refer to the documentation for more information.";
 
 	private Functions() {}
-	
+
 	final static class FunctionData {
+
 		final Function<?> function;
-		
+
 		public FunctionData(final Function<?> function) {
 			this.function = function;
 		}
 	}
-	
+
 	@Nullable
 	public static ScriptFunction<?> currentFunction = null;
-	
+
 	final static Map<String, JavaFunction<?>> javaFunctions = new HashMap<>();
 	final static Map<String, FunctionData> functions = new ConcurrentHashMap<>();
 	final static Map<String, Signature<?>> javaSignatures = new HashMap<>();
 	final static Map<String, Signature<?>> signatures = new ConcurrentHashMap<>();
-	
+
 	final static List<FunctionReference<?>> postCheckNeeded = new ArrayList<>();
-	
+
 	static boolean callFunctionEvents = false;
-	
+
 	/**
 	 * Register a function written in Java.
+	 * 
 	 * @param function
 	 * @return The passed function
 	 */
@@ -100,21 +98,22 @@ public abstract class Functions {
 		signatures.put(function.name, sign);
 		return function;
 	}
-	
+
 	static void registerCaller(final FunctionReference<?> r) {
 		final Signature<?> sign = signatures.get(r.functionName);
 		assert sign != null;
 		sign.calls.add(r);
 	}
-	
+
 	public final static String functionNamePattern = "[\\p{IsAlphabetic}][\\p{IsAlphabetic}\\p{IsDigit}_]*";
-	
+
 	@SuppressWarnings("null")
 	private final static Pattern functionPattern = Pattern.compile("function (" + functionNamePattern + ")\\((.*)\\)(?: :: (.+))?", Pattern.CASE_INSENSITIVE),
 			paramPattern = Pattern.compile("\\s*(.+?)\\s*:(?=[^:]*$)\\s*(.+?)(?:\\s*=\\s*(.+))?\\s*");
-	
+
 	/**
 	 * Loads a function from given node.
+	 * 
 	 * @param node Section node.
 	 * @return Script function, or null if something went wrong.
 	 */
@@ -135,18 +134,20 @@ public abstract class Functions {
 		final List<Parameter<?>> params = sign.parameters;
 		final ClassInfo<?> c = sign.returnType;
 		final NonNullPair<String, Boolean> p = sign.info;
-		
+
 		if (Skript.debug() || node.debug())
 			Skript.debug("function " + name + "(" + StringUtils.join(params, ", ") + ")" + (c != null && p != null ? " :: " + Utils.toEnglishPlural(c.getCodeName(), p.getSecond()) : "") + ":");
-		
+
 		@SuppressWarnings("null")
-		final Function<?> f = new ScriptFunction<>(name, params.toArray(new Parameter[params.size()]), node, (ClassInfo<Object>) c, p == null ? false : !p.getSecond());
+		final Function<?> f = new ScriptFunction<>(name, params.toArray(new Parameter[params.size()]), node,
+				(ClassInfo<Object>) c, p == null ? false : !p.getSecond());
 //		functions.put(name, new FunctionData(f)); // in constructor
 		return f;
 	}
-	
+
 	/**
 	 * Loads the signature of function from given node.
+	 * 
 	 * @param script Script file name (<b>might</b> be used for some checks).
 	 * @param node Section node.
 	 * @return Signature of function, or null if something went wrong.
@@ -170,10 +171,10 @@ public abstract class Functions {
 				return signError("Invalid text/variables/parentheses in the arguments of this function");
 			if (i == args.length() || args.charAt(i) == ',') {
 				final String arg = args.substring(j, i);
-				
+
 				if (arg.isEmpty()) // Zero-argument function
 					break;
-				
+
 				// One ore more arguments for this function
 				final Matcher n = paramPattern.matcher(arg);
 				if (!n.matches())
@@ -190,13 +191,12 @@ public abstract class Functions {
 					c = Classes.getClassInfoFromUserInput(pl.getFirst());
 				if (c == null)
 					return signError("Cannot recognise the type '" + n.group(2) + "'");
-				String rParamName = paramName.endsWith("*") ? paramName.substring(0, paramName.length() - 3) +
-									(!pl.getSecond() ? "::1" : "") : paramName;
+				String rParamName = paramName.endsWith("*") ? paramName.substring(0, paramName.length() - 3) + (!pl.getSecond() ? "::1" : "") : paramName;
 				final Parameter<?> p = Parameter.newInstance(rParamName, c, !pl.getSecond(), n.group(3));
 				if (p == null)
 					return null;
 				params.add(p);
-				
+
 				j = i + 1;
 			}
 			if (i == args.length())
@@ -216,16 +216,18 @@ public abstract class Functions {
 				return signError("Cannot recognise the type '" + returnType + "'");
 			}
 		}
-		
+
 		@SuppressWarnings("unchecked")
-		Signature<?> sign = new Signature<>(script, name, params, (ClassInfo<Object>) c, p, p == null ? false : !p.getSecond());
+		Signature<?> sign = new Signature<>(script, name, params, (ClassInfo<Object>) c, p,
+				p == null ? false : !p.getSecond());
 		Functions.signatures.put(name, sign);
 		Skript.debug("Registered function signature: " + name);
 		return sign;
 	}
-	
+
 	/**
 	 * Creates an error and returns Function null.
+	 * 
 	 * @param error Error message.
 	 * @return Null.
 	 */
@@ -234,9 +236,10 @@ public abstract class Functions {
 		Skript.error(error);
 		return null;
 	}
-	
+
 	/**
 	 * Creates an error and returns Signature null.
+	 * 
 	 * @param error Error message.
 	 * @return Null.
 	 */
@@ -245,11 +248,12 @@ public abstract class Functions {
 		Skript.error(error);
 		return null;
 	}
-	
+
 	/**
 	 * Gets a function, if it exists. Note that even if function exists in scripts,
 	 * it might not have been parsed yet. If you want to check for existance,
 	 * then use {@link #getSignature(String)}.
+	 * 
 	 * @param name Name of function.
 	 * @return Function, or null if it does not exist.
 	 */
@@ -260,9 +264,10 @@ public abstract class Functions {
 			return null;
 		return d.function;
 	}
-	
+
 	/**
 	 * Gets a signature of function with given name
+	 * 
 	 * @param name Name of function.
 	 * @return Signature, or null if function does not exist.
 	 */
@@ -270,9 +275,9 @@ public abstract class Functions {
 	public static Signature<?> getSignature(final String name) {
 		return signatures.get(name);
 	}
-	
+
 	private final static Collection<FunctionReference<?>> toValidate = new ArrayList<>();
-	
+
 	/**
 	 * Remember to call {@link #validateFunctions()} after calling this
 	 * 
@@ -290,12 +295,12 @@ public abstract class Functions {
 					continue;
 				if (!script.equals(trigger.getScript())) // Is this trigger in correct script?
 					continue;
-				
+
 				iter.remove();
 				r++;
 				final Signature<?> sign = signatures.get(d.function.name);
 				assert sign != null; // Function must have signature
-				
+
 				final Iterator<FunctionReference<?>> it = sign.calls.iterator();
 				while (it.hasNext()) {
 					final FunctionReference<?> c = it.next();
@@ -308,13 +313,13 @@ public abstract class Functions {
 		}
 		return r;
 	}
-	
+
 	public static void validateFunctions() {
 		for (final FunctionReference<?> c : toValidate)
 			c.validateFunction(false);
 		toValidate.clear();
 	}
-	
+
 	/**
 	 * Clears all function calls and removes script functions.
 	 */
@@ -335,7 +340,7 @@ public abstract class Functions {
 		assert toValidate.isEmpty() : toValidate;
 		toValidate.clear();
 	}
-	
+
 	@SuppressWarnings("null")
 	public static Collection<JavaFunction<?>> getJavaFunctions() {
 		return javaFunctions.values();
@@ -343,12 +348,13 @@ public abstract class Functions {
 
 	/**
 	 * Puts a function directly to map. Usually no need to do so.
+	 * 
 	 * @param func
 	 */
 	public static void putFunction(Function<?> func) {
 		functions.put(func.name, new FunctionData(func));
 	}
-	
+
 	/**
 	 * Normally, function calls do not cause actual Bukkit events to be
 	 * called. If an addon requires such functionality, it should call this
@@ -364,7 +370,7 @@ public abstract class Functions {
 		if (addon == null) {
 			throw new SkriptAPIException("enabling function events requires addon instance");
 		}
-		
+
 		callFunctionEvents = true;
 	}
 }

@@ -36,8 +36,7 @@ import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
 
 @Name("TPS (ticks per second)")
-@Description("Returns the 3 most recent TPS readings, like the /tps command. " +
-			"This expression is only supported on some server software.")
+@Description("Returns the 3 most recent TPS readings, like the /tps command. " + "This expression is only supported on some server software.")
 @Examples("broadcast \"%tps%\"")
 @Since("2.2-dev36")
 public class ExprTPS extends SimpleExpression<Double> {
@@ -47,15 +46,12 @@ public class ExprTPS extends SimpleExpression<Double> {
 	private String expr = "tps";
 
 	static {
-		Skript.registerExpression(ExprTPS.class, Double.class, ExpressionType.SIMPLE,
-				"tps from [the] last ([1] minute|1[ ]m[inute])",
-				"tps from [the] last 5[ ]m[inutes]",
-				"tps from [the] last 15[ ]m[inutes]",
-				"[the] tps");
+		Skript.registerExpression(ExprTPS.class, Double.class, ExpressionType.SIMPLE, "tps from [the] last ([1] minute|1[ ]m[inute])", "tps from [the] last 5[ ]m[inutes]", "tps from [the] last 15[ ]m[inutes]", "[the] tps");
 	}
 
 	@Override
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed,
+			SkriptParser.ParseResult parseResult) {
 		if (!SUPPORTED) {
 			Skript.error("The TPS expression is not supported on this server software");
 			return false;
@@ -69,7 +65,7 @@ public class ExprTPS extends SimpleExpression<Double> {
 	protected Double[] get(Event e) {
 		double[] tps = Bukkit.getServer().getTPS();
 		if (index != 3) {
-			return new Double[] { tps[index] };
+			return new Double[] {tps[index]};
 		} else {
 			return CollectionUtils.wrap(tps);
 		}

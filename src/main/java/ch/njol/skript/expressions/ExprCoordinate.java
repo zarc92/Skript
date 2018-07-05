@@ -39,41 +39,42 @@ import ch.njol.util.Kleenean;
  */
 @Name("Coordinate")
 @Description("Represents a given coordinate of a location. ")
-@Examples({"player's y-coordinate is smaller than 40:",
-		"	message \"Watch out for lava!\""})
+@Examples({"player's y-coordinate is smaller than 40:", "	message \"Watch out for lava!\""})
 @Since("1.4.3")
 public class ExprCoordinate extends SimplePropertyExpression<Location, Double> {
+
 	static {
 		register(ExprCoordinate.class, Double.class, "(0¦x|1¦y|2¦z)(-| )(coord[inate]|pos[ition]|loc[ation])[s]", "locations");
 	}
-	
+
 	private final static char[] axes = {'x', 'y', 'z'};
-	
+
 	private int axis;
-	
+
 	@Override
-	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed, final ParseResult parseResult) {
+	public boolean init(final Expression<?>[] exprs, final int matchedPattern, final Kleenean isDelayed,
+			final ParseResult parseResult) {
 		super.init(exprs, matchedPattern, isDelayed, parseResult);
 		axis = parseResult.mark;
 		return true;
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public Double convert(final Location l) {
 		return axis == 0 ? l.getX() : axis == 1 ? l.getY() : l.getZ();
 	}
-	
+
 	@Override
 	protected String getPropertyName() {
 		return "the " + axes[axis] + "-coordinate";
 	}
-	
+
 	@Override
 	public Class<Double> getReturnType() {
 		return Double.class;
 	}
-	
+
 	@Override
 	@Nullable
 	public Class<?>[] acceptChange(final ChangeMode mode) {
@@ -81,9 +82,10 @@ public class ExprCoordinate extends SimplePropertyExpression<Location, Double> {
 			return new Class[] {Number.class};
 		return null;
 	}
-	
+
 	@Override
-	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode) throws UnsupportedOperationException {
+	public void change(final Event e, final @Nullable Object[] delta, final ChangeMode mode)
+			throws UnsupportedOperationException {
 		assert delta != null;
 		final Location l = getExpr().getSingle(e);
 		if (l == null)
@@ -119,5 +121,5 @@ public class ExprCoordinate extends SimplePropertyExpression<Location, Double> {
 				assert false;
 		}
 	}
-	
+
 }

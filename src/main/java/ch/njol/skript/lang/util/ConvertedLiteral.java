@@ -38,11 +38,12 @@ import ch.njol.util.coll.iterator.ArrayIterator;
  * @see SimpleLiteral
  */
 public class ConvertedLiteral<F, T> extends ConvertedExpression<F, T> implements Literal<T> {
-	
+
 	protected transient T[] data;
-	
+
 	public ConvertedLiteral(final Literal<F> source, final T[] data, final Class<T> to) {
 		super(source, to, new Converter<F, T>() {
+
 			@Override
 			@Nullable
 			public T convert(final F f) {
@@ -53,7 +54,7 @@ public class ConvertedLiteral<F, T> extends ConvertedExpression<F, T> implements
 		this.data = data;
 		assert data.length > 0;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
@@ -62,27 +63,27 @@ public class ConvertedLiteral<F, T> extends ConvertedExpression<F, T> implements
 			return (Literal<? extends R>) this;
 		return ((Literal<F>) source).getConvertedExpression(to);
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return Classes.toString(data, getAnd());
 	}
-	
+
 	@Override
 	public T[] getArray() {
 		return data;
 	}
-	
+
 	@Override
 	public T[] getAll() {
 		return data;
 	}
-	
+
 	@Override
 	public T[] getArray(final Event e) {
 		return getArray();
 	}
-	
+
 	@SuppressWarnings("null")
 	@Override
 	public T getSingle() {
@@ -90,26 +91,26 @@ public class ConvertedLiteral<F, T> extends ConvertedExpression<F, T> implements
 			throw new SkriptAPIException("Call to getSingle on a non-single expression");
 		return CollectionUtils.getRandom(data);
 	}
-	
+
 	@Override
 	public T getSingle(final Event e) {
 		return getSingle();
 	}
-	
+
 	@Override
 	@Nullable
 	public Iterator<T> iterator(final Event e) {
 		return new ArrayIterator<>(data);
 	}
-	
+
 	@Override
 	public boolean check(final Event e, final Checker<? super T> c) {
 		return SimpleExpression.check(data, c, false, getAnd());
 	}
-	
+
 	@Override
 	public boolean check(final Event e, final Checker<? super T> c, final boolean negated) {
 		return SimpleExpression.check(data, c, negated, getAnd());
 	}
-	
+
 }

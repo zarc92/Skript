@@ -30,14 +30,14 @@ import ch.njol.yggdrasil.YggdrasilSerializable.YggdrasilExtendedSerializable;
  * @author Peter Güttinger
  */
 public class YggdrasilSerializer<T extends YggdrasilSerializable> extends Serializer<T> {
-	
+
 	@Override
 	public Fields serialize(final T o) throws NotSerializableException {
 		if (o instanceof YggdrasilExtendedSerializable)
 			return ((YggdrasilExtendedSerializable) o).serialize();
 		return new Fields(o);
 	}
-	
+
 	@Override
 	public void deserialize(final T o, final Fields f) throws StreamCorruptedException, NotSerializableException {
 		if (o instanceof YggdrasilExtendedSerializable)
@@ -45,15 +45,15 @@ public class YggdrasilSerializer<T extends YggdrasilSerializable> extends Serial
 		else
 			f.setFields(o);
 	}
-	
+
 	@Override
 	public boolean mustSyncDeserialization() {
 		return false;
 	}
-	
+
 	@Override
 	public boolean canBeInstantiated() {
 		return true;
 	}
-	
+
 }
