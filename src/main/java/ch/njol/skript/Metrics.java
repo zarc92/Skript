@@ -27,6 +27,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.zip.GZIPOutputStream;
 
+// @formatter:off
+
 /**
  * bStats collects some data for plugin authors.
  *
