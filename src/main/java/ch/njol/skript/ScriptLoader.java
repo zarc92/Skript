@@ -42,7 +42,6 @@ import java.util.regex.Matcher;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
-import org.eclipse.jdt.annotation.NonNull;
 
 import ch.njol.skript.aliases.Aliases;
 import ch.njol.skript.aliases.ItemType;
@@ -62,6 +61,7 @@ import ch.njol.skript.lang.Conditional;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.Loop;
 import ch.njol.skript.lang.ParseContext;
+import ch.njol.skript.lang.Scope;
 import ch.njol.skript.lang.SelfRegisteringSkriptEvent;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptEventInfo;
@@ -86,6 +86,7 @@ import ch.njol.skript.log.RetainingLogHandler;
 import ch.njol.skript.log.SkriptLogger;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.registrations.Converters;
+import ch.njol.skript.scopes.base.SelfParsingScope;
 import ch.njol.skript.util.Date;
 import ch.njol.skript.util.ExceptionUtils;
 import ch.njol.skript.util.Task;
@@ -221,7 +222,6 @@ final public class ScriptLoader {
 		
 		/**
 		 * Copy constructor.
-		 * @param loadedscripts
 		 */
 		public ScriptInfo(ScriptInfo o) {
 			files = o.files;
@@ -954,7 +954,10 @@ final public class ScriptLoader {
 	
 	@SuppressWarnings("unchecked")
 	public static ArrayList<TriggerItem> loadItems(final SectionNode node) {
-		
+
+		if (node == null)
+			return null;
+
 		if (Skript.debug())
 			indentation += "    ";
 		
@@ -981,9 +984,16 @@ final public class ScriptLoader {
 				String name = replaceOptions("" + n.getKey());
 				if (!SkriptParser.validateLine(name))
 					continue;
+
 				TypeHints.enterScope(); // Begin conditional type hints
-				
-				if (StringUtils.startsWithIgnoreCase(name, "loop ")) {
+
+				Scope scope = Scope.parse(name, null);
+				if (scope != null) {
+					items.add(scope);
+					if (!(scope instanceof SelfParsingScope)) {
+						scope.setTriggerItems(ScriptLoader.loadItems((SectionNode) n));
+					}
+				} else if (StringUtils.startsWithIgnoreCase(name, "loop ")) {
 					final String l = "" + name.substring("loop ".length());
 					final RetainingLogHandler h = SkriptLogger.startRetainingLog();
 					Expression<?> loopedExpr;

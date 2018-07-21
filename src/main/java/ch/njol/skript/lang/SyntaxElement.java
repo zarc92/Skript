@@ -20,12 +20,13 @@
 package ch.njol.skript.lang;
 
 import ch.njol.skript.ScriptLoader;
-import ch.njol.skript.lang.parser.ParserInstance;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.parser.ParserInstance;
 import ch.njol.util.Kleenean;
 
 /**
- * Represents a general part of the syntax. Implementing classes/interfaces are {@link Expression} and {@link Statement}.
+ * Represents a general part of the syntax. Implementing classes/interfaces are
+ * {@link Expression}, {@link Statement} and {@link Scope}.
  * <p>
  * TODO find a better name for this
  * 

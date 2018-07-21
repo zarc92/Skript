@@ -33,6 +33,7 @@ import ch.njol.skript.config.SectionNode;
  * @author Peter Güttinger
  * @see Conditional
  * @see Loop
+ * @see Scope
  */
 public abstract class TriggerSection extends TriggerItem {
 	
@@ -40,7 +41,7 @@ public abstract class TriggerSection extends TriggerItem {
 	private TriggerItem first = null;
 	@Nullable
 	protected TriggerItem last = null;
-	
+
 	/**
 	 * Reserved for new Trigger(...)
 	 */
@@ -83,7 +84,17 @@ public abstract class TriggerSection extends TriggerItem {
 			item.setParent(this);
 		}
 	}
-	
+
+	@Nullable
+	public TriggerItem getFirst() {
+		return first;
+	}
+
+	@Nullable
+	public TriggerItem getLast() {
+		return last;
+	}
+
 	@Override
 	public TriggerSection setNext(final @Nullable TriggerItem next) {
 		super.setNext(next);

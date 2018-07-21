@@ -19,6 +19,11 @@
  */
 package ch.njol.skript.lang;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import ch.njol.util.Pair;
+
 /**
  * @author Peter Güttinger
  * @param <E> the syntax element this info is for
@@ -28,11 +33,24 @@ public class SyntaxElementInfo<E extends SyntaxElement> {
 	public final Class<E> c;
 	public final String[] patterns;
 	public final String originClassPath;
-	
-	public SyntaxElementInfo(final String[] patterns, final Class<E> c, final String originClassPath) throws IllegalArgumentException {
+	public final Map<String, Object> extraData;
+
+	@SuppressWarnings("unchecked")
+	public SyntaxElementInfo(final String[] patterns, final Class<E> c,
+							 final String originClassPath) throws IllegalArgumentException {
+		this(patterns, c, originClassPath, new Pair[0]);
+	}
+
+	public SyntaxElementInfo(final String[] patterns, final Class<E> c,
+							 final String originClassPath,
+							 Pair<String, Object>... extraData) throws IllegalArgumentException {
 		this.patterns = patterns;
 		this.c = c;
 		this.originClassPath = originClassPath;
+		this.extraData = new HashMap<>();
+		for (Pair<String, Object> pair : extraData) {
+			this.extraData.put(pair.getFirst(), pair.getSecond());
+		}
 		try {
 			c.getConstructor();
 //			if (!c.getDeclaredConstructor().isAccessible())

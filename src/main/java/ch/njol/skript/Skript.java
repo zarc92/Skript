@@ -26,9 +26,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,9 +35,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Scanner;
 import java.util.Set;
-import java.util.concurrent.Callable;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.logging.Filter;
@@ -51,7 +47,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-import ch.njol.skript.lang.Trigger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -89,11 +84,14 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionInfo;
 import ch.njol.skript.lang.ExpressionType;
+import ch.njol.skript.lang.Scope;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptEventInfo;
 import ch.njol.skript.lang.Statement;
 import ch.njol.skript.lang.SyntaxElementInfo;
+import ch.njol.skript.lang.Trigger;
 import ch.njol.skript.lang.TriggerItem;
+import ch.njol.skript.lang.TriggerSection;
 import ch.njol.skript.lang.VariableString;
 import ch.njol.skript.lang.function.Functions;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -357,7 +355,8 @@ public final class Skript extends JavaPlugin implements Listener {
 		ChatMessages.registerListeners();
 		
 		try {
-			getAddonInstance().loadClasses("ch.njol.skript", "conditions", "effects", "events", "expressions", "entity");
+			getAddonInstance().loadClasses("ch.njol.skript",
+					"conditions", "effects", "events", "expressions", "entity", "scopes");
 		} catch (final Exception e) {
 			exception(e, "Could not load required .class files: " + e.getLocalizedMessage());
 			setEnabled(false);
@@ -1008,6 +1007,7 @@ public final class Skript extends JavaPlugin implements Listener {
 	private final static Collection<SyntaxElementInfo<? extends Condition>> conditions = new ArrayList<>(50);
 	private final static Collection<SyntaxElementInfo<? extends Effect>> effects = new ArrayList<>(50);
 	private final static Collection<SyntaxElementInfo<? extends Statement>> statements = new ArrayList<>(100);
+	private final static Collection<SyntaxElementInfo<? extends Scope>> scopes = new ArrayList<>();
 	
 	/**
 	 * registers a {@link Condition}.
@@ -1036,6 +1036,42 @@ public final class Skript extends JavaPlugin implements Listener {
 		effects.add(info);
 		statements.add(info);
 	}
+
+	/**
+	 * Registers a new scope.
+	 *
+	 * @param name the name of this scope, e.g. 'switch'
+	 * @param scope the scope's class
+	 * @throws IllegalArgumentException if registration is closed
+	 */
+	public static <E extends Scope> void registerScope(final String name, final Class<E> scope,
+													   final String... patterns) throws IllegalArgumentException  {
+		registerScope(name, scope, null, patterns);
+	}
+
+
+	/**
+	 * Registers a new scope.
+	 *
+	 * @param name the name of this scope, e.g. 'switch'
+	 * @param scope the scope's class
+	 * @param allowedSections the sections allowed within this scope,
+	 *                           or null to accept everything (including trigger items).
+	 * @throws IllegalArgumentException if registration is closed
+	 */
+	public static <E extends Scope> void registerScope(final String name, final Class<E> scope,
+													   @Nullable Class<? extends TriggerSection>[] allowedSections,
+													   final String... patterns) throws IllegalArgumentException  {
+		checkAcceptRegistrations();
+		// TODO: actually enforce allowedSections
+		String originClassPath = Thread.currentThread().getStackTrace()[2].getClassName();
+		scopes.add(new SyntaxElementInfo<>(patterns, scope, originClassPath,
+					new Pair<>("allowed-sections", allowedSections)));
+	}
+
+	public static Collection<SyntaxElementInfo<? extends Scope>> getScopes() {
+		return scopes;
+	}
 	
 	public static Collection<SyntaxElementInfo<? extends Statement>> getStatements() {
 		return statements;
@@ -1049,8 +1085,7 @@ public final class Skript extends JavaPlugin implements Listener {
 		return effects;
 	}
 	
-	// ================ EXPRESSIONS ================
-	
+	// ================ EXPRESSIONS ==============
 	private final static List<ExpressionInfo<?, ?>> expressions = new ArrayList<>(100);
 	
 	private final static int[] expressionTypesStartIndices = new int[ExpressionType.values().length];
