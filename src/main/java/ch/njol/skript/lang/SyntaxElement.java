@@ -26,7 +26,7 @@ import ch.njol.util.Kleenean;
 
 /**
  * Represents a general part of the syntax. Implementing classes/interfaces are
- * {@link Expression}, {@link Statement} and {@link Scope}.
+ * {@link Expression}, {@link Statement} and {@link Section}.
  * <p>
  * TODO find a better name for this
  * 

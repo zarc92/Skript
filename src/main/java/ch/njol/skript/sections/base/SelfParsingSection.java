@@ -17,13 +17,23 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-/**
- * Contains the default expression of Skript.
- * 
- * @author Peter Güttinger
- */
-@NonNullByDefault
-package ch.njol.skript.scopes;
+package ch.njol.skript.sections.base;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
+import java.util.List;
 
+import org.eclipse.jdt.annotation.Nullable;
+
+import ch.njol.skript.lang.Section;
+import ch.njol.skript.lang.TriggerItem;
+
+public abstract class SelfParsingSection extends Section {
+
+	/**
+	 * Does nothing in order to enforce that a SelfParsingSection must
+	 * really be self parsing.
+	 */
+	public final void setTriggerItems(@Nullable final List<TriggerItem> items) {
+
+	}
+
+}

@@ -17,22 +17,13 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.scopes.base;
+/**
+ * Contains the default expression of Skript.
+ * 
+ * @author Peter Güttinger
+ */
+@NonNullByDefault
+package ch.njol.skript.sections;
 
-import java.util.List;
+import org.eclipse.jdt.annotation.NonNullByDefault;
 
-import org.eclipse.jdt.annotation.Nullable;
-
-import ch.njol.skript.lang.Scope;
-import ch.njol.skript.lang.TriggerItem;
-
-public abstract class SelfParsingScope extends Scope {
-
-	/**
-	 * Does nothing
-	 */
-	public final void setTriggerItems(@Nullable final List<TriggerItem> items) {
-
-	}
-
-}

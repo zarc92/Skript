@@ -61,7 +61,7 @@ import ch.njol.skript.lang.Conditional;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.Loop;
 import ch.njol.skript.lang.ParseContext;
-import ch.njol.skript.lang.Scope;
+import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.SelfRegisteringSkriptEvent;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptEventInfo;
@@ -86,7 +86,7 @@ import ch.njol.skript.log.RetainingLogHandler;
 import ch.njol.skript.log.SkriptLogger;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.registrations.Converters;
-import ch.njol.skript.scopes.base.SelfParsingScope;
+import ch.njol.skript.sections.base.SelfParsingSection;
 import ch.njol.skript.util.Date;
 import ch.njol.skript.util.ExceptionUtils;
 import ch.njol.skript.util.Task;
@@ -987,11 +987,11 @@ final public class ScriptLoader {
 
 				TypeHints.enterScope(); // Begin conditional type hints
 
-				Scope scope = Scope.parse(name, null);
-				if (scope != null) {
-					items.add(scope);
-					if (!(scope instanceof SelfParsingScope)) {
-						scope.setTriggerItems(ScriptLoader.loadItems((SectionNode) n));
+				Section section = Section.parse(name, null);
+				if (section != null) {
+					items.add(section);
+					if (!(section instanceof SelfParsingSection)) {
+						section.setTriggerItems(ScriptLoader.loadItems((SectionNode) n));
 					}
 				} else if (StringUtils.startsWithIgnoreCase(name, "loop ")) {
 					final String l = "" + name.substring("loop ".length());

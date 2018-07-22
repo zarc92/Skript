@@ -84,7 +84,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionInfo;
 import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.Scope;
+import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptEventInfo;
 import ch.njol.skript.lang.Statement;
@@ -356,7 +356,7 @@ public final class Skript extends JavaPlugin implements Listener {
 		
 		try {
 			getAddonInstance().loadClasses("ch.njol.skript",
-					"conditions", "effects", "events", "expressions", "entity", "scopes");
+					"conditions", "effects", "events", "expressions", "entity", "sections");
 		} catch (final Exception e) {
 			exception(e, "Could not load required .class files: " + e.getLocalizedMessage());
 			setEnabled(false);
@@ -1007,7 +1007,7 @@ public final class Skript extends JavaPlugin implements Listener {
 	private final static Collection<SyntaxElementInfo<? extends Condition>> conditions = new ArrayList<>(50);
 	private final static Collection<SyntaxElementInfo<? extends Effect>> effects = new ArrayList<>(50);
 	private final static Collection<SyntaxElementInfo<? extends Statement>> statements = new ArrayList<>(100);
-	private final static Collection<SyntaxElementInfo<? extends Scope>> scopes = new ArrayList<>();
+	private final static Collection<SyntaxElementInfo<? extends Section>> sections = new ArrayList<>();
 	
 	/**
 	 * registers a {@link Condition}.
@@ -1038,39 +1038,39 @@ public final class Skript extends JavaPlugin implements Listener {
 	}
 
 	/**
-	 * Registers a new scope.
+	 * Registers a new section.
 	 *
-	 * @param name the name of this scope, e.g. 'switch'
-	 * @param scope the scope's class
+	 * @param name the name of this section, e.g. 'switch' used for errors
+	 * @param section the section's class
 	 * @throws IllegalArgumentException if registration is closed
 	 */
-	public static <E extends Scope> void registerScope(final String name, final Class<E> scope,
-													   final String... patterns) throws IllegalArgumentException  {
-		registerScope(name, scope, null, patterns);
+	public static <E extends Section> void registerSection(final String name, final Class<E> section,
+														   final String... patterns) throws IllegalArgumentException  {
+		registerSection(name, section, null, patterns);
 	}
 
 
 	/**
-	 * Registers a new scope.
+	 * Registers a new section.
 	 *
-	 * @param name the name of this scope, e.g. 'switch'
-	 * @param scope the scope's class
-	 * @param allowedSections the sections allowed within this scope,
+	 * @param name the name of this section, e.g. 'switch' used for errors
+	 * @param section the section's class
+	 * @param allowedSections the sections allowed within this section,
 	 *                           or null to accept everything (including trigger items).
 	 * @throws IllegalArgumentException if registration is closed
 	 */
-	public static <E extends Scope> void registerScope(final String name, final Class<E> scope,
-													   @Nullable Class<? extends TriggerSection>[] allowedSections,
-													   final String... patterns) throws IllegalArgumentException  {
+	public static <E extends Section> void registerSection(final String name, final Class<E> section,
+														   @Nullable Class<? extends TriggerSection>[] allowedSections,
+														   final String... patterns) throws IllegalArgumentException  {
 		checkAcceptRegistrations();
 		// TODO: actually enforce allowedSections
 		String originClassPath = Thread.currentThread().getStackTrace()[2].getClassName();
-		scopes.add(new SyntaxElementInfo<>(patterns, scope, originClassPath,
-					new Pair<>("allowed-sections", allowedSections)));
+		sections.add(new SyntaxElementInfo<>(patterns, section, originClassPath,
+					new Pair<>("allowed-sections", allowedSections), new Pair<>("name", name)));
 	}
 
-	public static Collection<SyntaxElementInfo<? extends Scope>> getScopes() {
-		return scopes;
+	public static Collection<SyntaxElementInfo<? extends Section>> getSections() {
+		return sections;
 	}
 	
 	public static Collection<SyntaxElementInfo<? extends Statement>> getStatements() {
@@ -1086,6 +1086,7 @@ public final class Skript extends JavaPlugin implements Listener {
 	}
 	
 	// ================ EXPRESSIONS ==============
+
 	private final static List<ExpressionInfo<?, ?>> expressions = new ArrayList<>(100);
 	
 	private final static int[] expressionTypesStartIndices = new int[ExpressionType.values().length];

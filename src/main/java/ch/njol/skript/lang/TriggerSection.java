@@ -33,7 +33,7 @@ import ch.njol.skript.config.SectionNode;
  * @author Peter Güttinger
  * @see Conditional
  * @see Loop
- * @see Scope
+ * @see Section
  */
 public abstract class TriggerSection extends TriggerItem {
 	

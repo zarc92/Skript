@@ -22,6 +22,8 @@ package ch.njol.skript.lang;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 import ch.njol.util.Pair;
 
 /**
@@ -33,13 +35,9 @@ public class SyntaxElementInfo<E extends SyntaxElement> {
 	public final Class<E> c;
 	public final String[] patterns;
 	public final String originClassPath;
-	public final Map<String, Object> extraData;
 
-	@SuppressWarnings("unchecked")
-	public SyntaxElementInfo(final String[] patterns, final Class<E> c,
-							 final String originClassPath) throws IllegalArgumentException {
-		this(patterns, c, originClassPath, new Pair[0]);
-	}
+	@Nullable
+	private final Map<String, Object> extraData;
 
 	public SyntaxElementInfo(final String[] patterns, final Class<E> c,
 							 final String originClassPath,
@@ -47,8 +45,9 @@ public class SyntaxElementInfo<E extends SyntaxElement> {
 		this.patterns = patterns;
 		this.c = c;
 		this.originClassPath = originClassPath;
-		this.extraData = new HashMap<>();
+		this.extraData = extraData.length != 0 ? new HashMap<>() : null;
 		for (Pair<String, Object> pair : extraData) {
+			assert this.extraData != null;
 			this.extraData.put(pair.getFirst(), pair.getSecond());
 		}
 		try {
@@ -61,6 +60,21 @@ public class SyntaxElementInfo<E extends SyntaxElement> {
 		} catch (final SecurityException e) {
 			throw new IllegalStateException("Skript cannot run properly because a security manager is blocking it!");
 		}
+	}
+
+	/**
+	 * Gets some data from {@link SyntaxElementInfo#extraData}
+	 *
+	 * @throws ClassCastException if the grabbed data could not be casted to {@code T}
+	 */
+	@Nullable
+	@SuppressWarnings("unchecked")
+	public <T> T getData(String key) {
+		Map<String, Object> data = this.extraData;
+		if (data == null) {
+			return null;
+		}
+		return (T) data.get(key);
 	}
 	
 }

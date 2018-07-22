@@ -17,7 +17,7 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.scopes;
+package ch.njol.skript.sections;
 
 import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
@@ -25,16 +25,16 @@ import org.eclipse.jdt.annotation.Nullable;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Comparator;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.Scope;
+import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.registrations.Comparators;
 import ch.njol.skript.util.LiteralUtils;
 import ch.njol.util.Kleenean;
 
-public class ScopeSwitch extends Scope {
+public class SwitchSection extends Section {
 
 	static {
-		Skript.registerScope("switch", ScopeSwitch.class, "switch %objects%");
+		Skript.registerSection("switch", SwitchSection.class, "switch %objects%");
 	}
 
 	@SuppressWarnings("null")
@@ -64,10 +64,10 @@ public class ScopeSwitch extends Scope {
 		return LiteralUtils.canInitSafely(objectsToSwitch);
 	}
 
-	public static class ScopeCase extends Scope {
+	public static class CaseSection extends Section {
 
 		static {
-			Skript.registerScope("case", ScopeCase.class, "case %objects%");
+			Skript.registerSection("case", CaseSection.class, "case %objects%");
 		}
 
 		@SuppressWarnings("null")
@@ -76,7 +76,7 @@ public class ScopeSwitch extends Scope {
 		@Override
 		public boolean execute(Event e) {
 			Object[] objectsToMatch = this.objectsToMatch.getArray(e);
-			ScopeSwitch parent = (ScopeSwitch) getParent();
+			SwitchSection parent = (SwitchSection) getParent();
 			assert parent != null;
 			Object[] switchedValues = parent.getValues();
 			if (switchedValues.length != objectsToMatch.length)

@@ -27,12 +27,12 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
 
-public abstract class Scope extends TriggerSection implements SyntaxElement {
+public abstract class Section extends TriggerSection implements SyntaxElement {
 
 	@Nullable
 	@SuppressWarnings("unchecked")
-	public static Scope parse(String s, @Nullable String defaultError) {
-		return (Scope) SkriptParser.parse(s, (Iterator) Skript.getScopes().iterator(), defaultError);
+	public static Section parse(String s, @Nullable String defaultError) {
+		return (Section) SkriptParser.parse(s, (Iterator) Skript.getSections().iterator(), defaultError);
 	}
 
 	@Override
@@ -41,15 +41,15 @@ public abstract class Scope extends TriggerSection implements SyntaxElement {
 	}
 
 	/**
-	 * Run when the scope is reached
+	 * Run when the section is reached
 	 *
-	 * @return whether or not the code within the scope should run
+	 * @return whether or not the code within the section should run
 	 */
 	public abstract boolean execute(Event e);
 
 	@Nullable
 	@Override
-	protected TriggerItem walk(Event e) {
+	public TriggerItem walk(Event e) {
 		debug(e, true);
 		return walk(e, execute(e));
 	}
