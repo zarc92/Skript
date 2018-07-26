@@ -17,30 +17,25 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.sections.base;
-
-import java.util.List;
+package ch.njol.skript.lang.util;
 
 import org.eclipse.jdt.annotation.Nullable;
 
-import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.TriggerItem;
 
 /**
- * A section that parses it's own innards.
+ * An interface for {@link TriggerItem}s that "lie" about their next items,
+ * typically to repeat themselves.
  *
- * Note that when you parse the code within the section you should add and
- * remove it from {@link ch.njol.skript.ScriptLoader#currentSections} or
- * you may encounter some unexpected behavior.
+ * TODO: find a better name for this
+ *
+ * @see ch.njol.skript.sections.LoopSection
+ * @see ch.njol.skript.sections.WhileSection
+ * @see ch.njol.skript.sections.ConditionalSection
  */
-public abstract class SelfParsingSection extends Section {
+public interface LyingItem {
 
-	/**
-	 * Does nothing in order to enforce that a SelfParsingSection must
-	 * really be self parsing.
-	 */
-	public final void setTriggerItems(@Nullable final List<TriggerItem> items) {
-
-	}
+	@Nullable
+	TriggerItem getTrueNext();
 
 }

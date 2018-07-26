@@ -266,13 +266,23 @@ public class SectionNode extends Node implements Iterable<Node> {
 			return s.length() + " tab" + (s.length() == 1 ? "" : "s");
 		return "'" + s.replace("\t", "->").replace(' ', '_').replaceAll("\\s", "?") + "' [-> = tab, _ = space, ? = other whitespace]";
 	}
-	
+
+
+	private void mapStructure() {
+		for (int i = 0; i < nodes.size(); i++) {
+			if (i != nodes.size() - 1)
+				nodes.get(i).next = nodes.get(i + 1);
+			if (i != 0)
+				nodes.get(i).previous = nodes.get(i - 1);
+		}
+	}
+
 	private final SectionNode load_i(final ConfigReader r) throws IOException {
 		boolean indentationSet = false;
 		String fullLine;
 		while ((fullLine = r.readLine()) != null) {
 			SkriptLogger.setNode(this);
-			
+
 			final NonNullPair<String, String> line = Node.splitLine(fullLine);
 			String value = line.getFirst();
 			final String comment = line.getSecond();
@@ -302,6 +312,7 @@ public class SectionNode extends Node implements Iterable<Node> {
 								" or remove the colon at the end of the line if you don't want this line to start a section.");
 					}
 					r.reset();
+					mapStructure();
 					return this;
 				}
 			}
@@ -354,7 +365,9 @@ public class SectionNode extends Node implements Iterable<Node> {
 		}
 		
 		SkriptLogger.setNode(parent);
-		
+
+		mapStructure();
+
 		return this;
 	}
 	

@@ -17,30 +17,44 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.sections.base;
+package ch.njol.skript.lang.util;
 
-import java.util.List;
+import java.util.function.Consumer;
 
+import org.bukkit.event.Event;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.TriggerItem;
 
 /**
- * A section that parses it's own innards.
+ * A trigger item that executes a {@link Consumer} when it is reached.
  *
- * Note that when you parse the code within the section you should add and
- * remove it from {@link ch.njol.skript.ScriptLoader#currentSections} or
- * you may encounter some unexpected behavior.
+ * TODO: find a better name for this
  */
-public abstract class SelfParsingSection extends Section {
+public class FunctionalItem extends TriggerItem {
 
-	/**
-	 * Does nothing in order to enforce that a SelfParsingSection must
-	 * really be self parsing.
-	 */
-	public final void setTriggerItems(@Nullable final List<TriggerItem> items) {
+	private Consumer<Event> consumer;
+	private String stringForm;
 
+	public FunctionalItem(@NonNull Consumer<Event> consumer) {
+		this("functional trigger item", consumer);
+	}
+
+	public FunctionalItem(@NonNull String stringForm, @NonNull Consumer<Event> consumer) {
+		this.consumer = consumer;
+		this.stringForm = stringForm;
+	}
+
+	@Override
+	protected boolean run(Event e) {
+		consumer.accept(e);
+		return true;
+	}
+
+	@Override
+	public String toString(@Nullable Event e, boolean debug) {
+		return stringForm;
 	}
 
 }

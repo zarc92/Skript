@@ -19,38 +19,44 @@
  */
 package ch.njol.skript.sections;
 
+import java.util.stream.IntStream;
+
 import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.classes.Comparator;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.registrations.Comparators;
+import ch.njol.skript.registrations.SectionBuilder;
 import ch.njol.skript.util.LiteralUtils;
 import ch.njol.util.Kleenean;
 
 public class SwitchSection extends Section {
 
 	static {
-		Skript.registerSection("switch", SwitchSection.class, "switch %objects%");
+		SectionBuilder.create()
+				.name("switch")
+				.source(SwitchSection.class)
+				.children(CaseSection.class)
+				.patterns("switch %objects%")
+				.register();
 	}
 
 	@SuppressWarnings("null")
 	private Expression<Object> objectsToSwitch;
 
 	@SuppressWarnings("null")
-	private Object[] values;
+	private Object[] switchedValues;
 
 	@Override
 	public boolean execute(Event e) {
-		this.values = objectsToSwitch.getArray(e);
+		this.switchedValues = objectsToSwitch.getArray(e);
 		return true;
 	}
 
-	private Object[] getValues() {
-		return values;
+	private Object[] getSwitchedValues() {
+		return switchedValues;
 	}
 
 	@Override
@@ -67,7 +73,13 @@ public class SwitchSection extends Section {
 	public static class CaseSection extends Section {
 
 		static {
-			Skript.registerSection("case", CaseSection.class, "case %objects%");
+			SectionBuilder.create()
+					.name("case")
+					.source(CaseSection.class)
+					.parents(SwitchSection.class)
+					.illegalPlacementError("A case section may only be used inside a switch section")
+					.patterns("case %objects%")
+					.register();
 		}
 
 		@SuppressWarnings("null")
@@ -78,15 +90,10 @@ public class SwitchSection extends Section {
 			Object[] objectsToMatch = this.objectsToMatch.getArray(e);
 			SwitchSection parent = (SwitchSection) getParent();
 			assert parent != null;
-			Object[] switchedValues = parent.getValues();
-			if (switchedValues.length != objectsToMatch.length)
-				return false;
-			for (int i = 0; i < switchedValues.length; i++) {
-				if (Comparators.compare(switchedValues[i], objectsToMatch[i]) != Comparator.Relation.EQUAL) {
-					return false;
-				}
-			}
-			return true;
+			Object[] switchedValues = parent.getSwitchedValues();
+			return switchedValues.length == objectsToMatch.length
+					&& IntStream.range(0, switchedValues.length)
+						.allMatch(i -> Comparators.areEqual(switchedValues[i], objectsToMatch[i]));
 		}
 
 		@Override

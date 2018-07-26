@@ -28,17 +28,16 @@ import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.config.SectionNode;
 
 /**
- * Represents a section of a trigger, e.g. a conditional or a loop
+ * Represents a section of a trigger
  * 
  * @author Peter Güttinger
- * @see Conditional
- * @see Loop
+
  * @see Section
  */
 public abstract class TriggerSection extends TriggerItem {
 	
 	@Nullable
-	private TriggerItem first = null;
+	protected TriggerItem first = null;
 	@Nullable
 	protected TriggerItem last = null;
 

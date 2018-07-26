@@ -38,7 +38,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
+import java.util.stream.Stream;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
@@ -56,10 +58,6 @@ import ch.njol.skript.config.SectionNode;
 import ch.njol.skript.config.SimpleNode;
 import ch.njol.skript.effects.Delay;
 import ch.njol.skript.events.bukkit.PreScriptLoadEvent;
-import ch.njol.skript.lang.Condition;
-import ch.njol.skript.lang.Conditional;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.Loop;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.SelfRegisteringSkriptEvent;
@@ -67,10 +65,10 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptEventInfo;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.Statement;
+import ch.njol.skript.lang.SyntaxElementInfo;
 import ch.njol.skript.lang.Trigger;
 import ch.njol.skript.lang.TriggerItem;
 import ch.njol.skript.lang.TriggerSection;
-import ch.njol.skript.lang.While;
 import ch.njol.skript.lang.function.Function;
 import ch.njol.skript.lang.function.FunctionEvent;
 import ch.njol.skript.lang.function.Functions;
@@ -86,6 +84,7 @@ import ch.njol.skript.log.RetainingLogHandler;
 import ch.njol.skript.log.SkriptLogger;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.registrations.Converters;
+import ch.njol.skript.sections.LoopSection;
 import ch.njol.skript.sections.base.SelfParsingSection;
 import ch.njol.skript.util.Date;
 import ch.njol.skript.util.ExceptionUtils;
@@ -191,9 +190,11 @@ final public class ScriptLoader {
 		hasDelayBefore = Kleenean.FALSE;
 		TypeHints.clear(); // Local variables are local to event
 	}
-	
+
+	@Nullable
+	private static Section previousSection;
 	public static List<TriggerSection> currentSections = new ArrayList<>();
-	public static List<Loop> currentLoops = new ArrayList<>();
+	public static List<LoopSection> currentLoops = new ArrayList<>();
 	private final static Map<String, ItemType> currentAliases = new HashMap<>();
 	final static HashMap<String, String> currentOptions = new HashMap<>();
 		
@@ -951,7 +952,41 @@ final public class ScriptLoader {
 		assert r != null;
 		return r;
 	}
-	
+
+	private static boolean sectionIsAllowedHere(Section section, boolean printError) {
+		SyntaxElementInfo<? extends Section> info = Skript.getSectionInfos().get(section.getClass());
+		if (info == null) {
+			throw new IllegalArgumentException("Section has no info associated with it! Was it registered correctly?");
+		}
+		Section.Placement allowedPlacement = info.getData("allowed-placement");
+		Class<? extends TriggerSection>[] allowedParents = info.getData("parent-sections");
+
+		if (ArrayUtils.isEmpty(allowedParents)) {
+			return true;
+		}
+
+		if (allowedPlacement == Section.Placement.DIRECT_CHILD) {
+			TriggerSection directParent = CollectionUtils.getLast(currentSections);
+			if (directParent == null || Stream.of(allowedParents).noneMatch(p -> p == directParent.getClass())) {
+				if (printError) {
+					Skript.error(info.getData("placement-error"));
+				}
+				return false;
+			}
+			return true;
+		} else if (allowedPlacement == Section.Placement.CHILD) {
+			if (currentSections.stream().noneMatch(s -> ArrayUtils.contains(allowedParents, s.getClass()))) {
+				if (printError) {
+					Skript.error(info.getData("placement-error"));
+				}
+				return false;
+			}
+			return true;
+		}
+
+		return false;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static ArrayList<TriggerItem> loadItems(final SectionNode node) {
 
@@ -968,6 +1003,9 @@ final public class ScriptLoader {
 		for (final Node n : node) {
 			SkriptLogger.setNode(n);
 			if (n instanceof SimpleNode) {
+
+				previousSection = null;
+
 				final SimpleNode e = (SimpleNode) n;
 				final String s = replaceOptions("" + e.getKey());
 				if (!SkriptParser.validateLine(s))
@@ -987,96 +1025,44 @@ final public class ScriptLoader {
 
 				TypeHints.enterScope(); // Begin conditional type hints
 
-				Section section = Section.parse(name, null);
+				Section section = Section.parse(name, "Can't understand this section: " + name);
 				if (section != null) {
+
+					if (!sectionIsAllowedHere(section, true)) {
+						continue;
+					}
+
 					items.add(section);
+
+					// TODO: enforce child placement
 					if (!(section instanceof SelfParsingSection)) {
+						currentSections.add(section);
+						/*
+						 * Before parse must be called after adding the section to currentSections
+						 * but before parsing starts. After parse must be called after parsing,
+						 * but before this section is removed from currentSections. This allows
+						 * sections to do things with currentSections if they really need to.
+						 */
+						section.beforeParse();
 						section.setTriggerItems(ScriptLoader.loadItems((SectionNode) n));
+						// TODO: allow erroring to not add section here
+						section.afterParse();
+						currentSections.remove(currentSections.size() - 1);
 					}
-				} else if (StringUtils.startsWithIgnoreCase(name, "loop ")) {
-					final String l = "" + name.substring("loop ".length());
-					final RetainingLogHandler h = SkriptLogger.startRetainingLog();
-					Expression<?> loopedExpr;
-					try {
-						loopedExpr = new SkriptParser(l).parseExpression(Object.class);
-						if (loopedExpr != null)
-							loopedExpr = loopedExpr.getConvertedExpression(Object.class);
-						if (loopedExpr == null) {
-							h.printErrors("Can't understand this loop: '" + name + "'");
-							continue;
-						}
-						h.printLog();
-					} finally {
-						h.stop();
-					}
-					if (loopedExpr.isSingle()) {
-						Skript.error("Can't loop " + loopedExpr + " because it's only a single value");
-						continue;
-					}
-					if (Skript.debug() || n.debug())
-						Skript.debug(indentation + "loop " + loopedExpr.toString(null, true) + ":");
-					final Kleenean hadDelayBefore = hasDelayBefore;
-					items.add(new Loop(loopedExpr, (SectionNode) n));
-					if (hadDelayBefore != Kleenean.TRUE && hasDelayBefore != Kleenean.FALSE)
-						hasDelayBefore = Kleenean.UNKNOWN;
-				} else if (StringUtils.startsWithIgnoreCase(name, "while ")) {
-					final String l = "" + name.substring("while ".length());
-					final Condition c = Condition.parse(l, "Can't understand this condition: " + l);
-					if (c == null)
-						continue;
-					if (Skript.debug() || n.debug())
-						Skript.debug(indentation + "while " + c.toString(null, true) + ":");
-					final Kleenean hadDelayBefore = hasDelayBefore;
-					items.add(new While(c, (SectionNode) n));
-					if (hadDelayBefore != Kleenean.TRUE && hasDelayBefore != Kleenean.FALSE)
-						hasDelayBefore = Kleenean.UNKNOWN;
-				} else if (name.equalsIgnoreCase("else")) {
-					if (items.size() == 0 || !(items.get(items.size() - 1) instanceof Conditional) || ((Conditional) items.get(items.size() - 1)).hasElseClause()) {
-						Skript.error("'else' has to be placed just after an 'if' or 'else if' section");
-						continue;
-					}
-					if (Skript.debug() || n.debug())
-						Skript.debug(indentation + "else:");
-					final Kleenean hadDelayAfterLastIf = hasDelayBefore;
-					hasDelayBefore = hadDelayBeforeLastIf;
-					((Conditional) items.get(items.size() - 1)).loadElseClause((SectionNode) n);
-					hasDelayBefore = hadDelayBeforeLastIf.or(hadDelayAfterLastIf.and(hasDelayBefore));
-				} else if (StringUtils.startsWithIgnoreCase(name, "else if ")) {
-					if (items.size() == 0 || !(items.get(items.size() - 1) instanceof Conditional) || ((Conditional) items.get(items.size() - 1)).hasElseClause()) {
-						Skript.error("'else if' has to be placed just after another 'if' or 'else if' section");
-						continue;
-					}
-					name = "" + name.substring("else if ".length());
-					final Condition cond = Condition.parse(name, "can't understand this condition: '" + name + "'");
-					if (cond == null)
-						continue;
-					if (Skript.debug() || n.debug())
-						Skript.debug(indentation + "else if " + cond.toString(null, true));
-					final Kleenean hadDelayAfterLastIf = hasDelayBefore;
-					hasDelayBefore = hadDelayBeforeLastIf;
-					((Conditional) items.get(items.size() - 1)).loadElseIf(cond, (SectionNode) n);
-					hasDelayBefore = hadDelayBeforeLastIf.or(hadDelayAfterLastIf.and(hasDelayBefore.and(Kleenean.UNKNOWN)));
-				} else {
-					if (StringUtils.startsWithIgnoreCase(name, "if "))
-						name = "" + name.substring(3);
-					final Condition cond = Condition.parse(name, "can't understand this condition: '" + name + "'");
-					if (cond == null)
-						continue;
-					if (Skript.debug() || n.debug())
-						Skript.debug(indentation + cond.toString(null, true) + ":");
-					final Kleenean hadDelayBefore = hasDelayBefore;
-					hadDelayBeforeLastIf = hadDelayBefore;
-					items.add(new Conditional(cond, (SectionNode) n));
-					hasDelayBefore = hadDelayBefore.or(hasDelayBefore.and(Kleenean.UNKNOWN));
+
+					previousSection = section;
+
 				}
-				
 				// Destroy these conditional type hints
 				TypeHints.exitScope();
 			}
 		}
 		
-		for (int i = 0; i < items.size() - 1; i++)
+		for (int i = 0; i < items.size() - 1; i++) {
 			items.get(i).setNext(items.get(i + 1));
+			if (i != 0)
+				items.get(i).setPrevious(items.get(i - 1));
+		}
 		
 		SkriptLogger.setNode(node);
 		
@@ -1114,6 +1100,32 @@ final public class ScriptLoader {
 		} finally {
 			deleteCurrentEvent();
 		}
+	}
+
+	/**
+	 * Mostly useful for chaining multiple related sections.
+	 *
+	 * If there is a statement between two sections, this is null.
+	 * For example:
+	 * <code>
+	 *     on click:
+	 *     	section one:
+	 *     		broadcast "example"
+	 *     	section two:
+	 *     		# from here "section one" is the previous section
+	 *
+	 *     on break:
+	 *     	section one:
+	 *     		broadcast "example"
+	 *     	broadcast "separating effect"
+	 *     	section two:
+	 *     		# from here the previous section is null
+	 * </code>
+	 * Note that a void node (empty line/invalid line) will not reset this.
+	 */
+	@Nullable
+	public static Section getPreviousSection() {
+		return previousSection;
 	}
 	
 	public static int loadedScripts() {

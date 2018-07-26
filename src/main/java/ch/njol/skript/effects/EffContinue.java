@@ -32,10 +32,12 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.Loop;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.TriggerItem;
+import ch.njol.skript.sections.LoopSection;
+import ch.njol.skript.util.Utils;
 import ch.njol.util.Kleenean;
+import ch.njol.util.StringUtils;
 
 @Name("Continue")
 @Description("Skips the value currently being looped, moving on to the next value if it exists.")
@@ -47,11 +49,14 @@ import ch.njol.util.Kleenean;
 public class EffContinue extends Effect {
 
 	static {
-		Skript.registerEffect(EffContinue.class, "continue [loop]");
+		Skript.registerEffect(EffContinue.class,
+				"continue [loop]",
+				"continue loop <\\d+>"
+		);
 	}
 
 	@SuppressWarnings("null")
-	private Loop loop;
+	private LoopSection loop;
 
 	@Override
 	protected void execute(Event e) {
@@ -61,8 +66,9 @@ public class EffContinue extends Effect {
 	@Nullable
 	@Override
 	protected TriggerItem walk(Event e) {
-		TriggerItem.walk(loop, e);
-		return null;
+		TriggerItem last = loop.getLast();
+		assert last != null;
+		return last.getNext();
 	}
 
 	@Override
@@ -72,12 +78,27 @@ public class EffContinue extends Effect {
 
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-		List<Loop> loops = ScriptLoader.currentLoops;
+		List<LoopSection> loops = ScriptLoader.currentLoops;
+
 		if (loops.isEmpty()) {
 			Skript.error("Continue may only be used in loops");
 			return false;
 		}
-		loop = loops.get(loops.size() - 1); // the most recent loop
+
+		if (matchedPattern == 1 && loops.size() == 1) {
+			Skript.error("There is only one loop to continue, use 'continue loop' instead");
+			return false;
+		}
+
+		int selectedLoop = matchedPattern == 0 ? loops.size() - 1 : Utils.parseInt(parseResult.regexes.get(0).group());
+
+		try {
+			loop = loops.get(selectedLoop);
+		} catch (IndexOutOfBoundsException e) {
+			Skript.error("There is no " + StringUtils.fancyOrderNumber(selectedLoop) + " loop");
+			return false;
+		}
+
 		return true;
 	}
 

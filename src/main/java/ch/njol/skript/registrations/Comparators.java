@@ -68,7 +68,15 @@ public class Comparators {
 			return Relation.NOT_EQUAL;
 		return c.compare(o1, o2);
 	}
-	
+
+
+	/**
+	 * Shorthand for {@code Comparators.compare(thing, otherThing) == Relation.EQUAL}
+	 */
+	public static boolean areEqual(final @Nullable Object o1, final @Nullable Object o2) {
+		return compare(o1, o2) == Relation.EQUAL;
+	}
+
 	private final static java.util.Comparator<Object> javaComparator = new java.util.Comparator<Object>() {
 		@Override
 		public int compare(final @Nullable Object o1, final @Nullable Object o2) {

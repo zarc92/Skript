@@ -45,6 +45,13 @@ public abstract class Node {
 	
 	@Nullable
 	protected SectionNode parent;
+
+	@Nullable
+	protected Node previous;
+
+	@Nullable
+	protected Node next;
+
 	protected Config config;
 	
 //	protected Node() {
@@ -97,7 +104,31 @@ public abstract class Node {
 	public final Config getConfig() {
 		return config;
 	}
-	
+
+	/**
+	 * Returns the node that comes before this in the structure.
+	 * Note that a parent is <b>not</b> considered a previous node
+	 * and thus once you have reached {@code null} you should get
+	 * the parent via {@link Node#getParent()} if you wish to continue
+	 * traversing the structure.
+	 */
+	@Nullable
+	public Node getPrevious() {
+		return previous;
+	}
+
+	/**
+	 * @return the node that comes after this in the structure
+	 */
+	@Nullable
+	public Node getNext() {
+		return next;
+	}
+
+	public int getLineNum() {
+		return lineNum;
+	}
+
 	public void rename(final String newname) {
 		if (key == null)
 			throw new IllegalStateException("can't rename an anonymous node");

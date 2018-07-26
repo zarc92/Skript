@@ -20,42 +20,34 @@
 package ch.njol.skript.expressions;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Map.Entry;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
-import org.mozilla.javascript.Script;
 
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
-import ch.njol.skript.classes.Converter;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.Loop;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.Variable;
-import ch.njol.skript.lang.util.ConvertedExpression;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.log.ErrorQuality;
-import ch.njol.skript.registrations.Classes;
-import ch.njol.skript.registrations.Converters;
-import ch.njol.skript.util.ScriptOptions;
+import ch.njol.skript.sections.LoopSection;
 import ch.njol.skript.util.Utils;
 import ch.njol.util.Kleenean;
+import ch.njol.util.Pair;
+import ch.njol.util.StringUtils;
 
 /**
  * Used to access a loop's current value.
- * <p>
- * TODO expression to get the current # of execution (e.g. loop-index/number/count/etc (not number though));
- * 
- * @author Peter Güttinger
  */
 @Name("Loop value")
 @Description("The currently looped value.")
@@ -69,62 +61,77 @@ import ch.njol.util.Kleenean;
 		"		set loop-block-2 to any wool"})
 @Since("1.0")
 public class ExprLoopValue extends SimpleExpression<Object> {
+
 	static {
 		Skript.registerExpression(ExprLoopValue.class, Object.class, ExpressionType.SIMPLE, "[the] loop-<.+>");
 	}
 	
 	@SuppressWarnings("null")
-	private String name;
+	private String loopType;
 	
 	@SuppressWarnings("null")
-	private Loop loop;
-	
-	// whether this loops a variable
-	boolean isVariableLoop = false;
-	// if this loops a variable and isIndex is true, return the index of the variable instead of the value
-	boolean isIndex = false;
+	private LoopSection loop;
+
+	private boolean isVariableLoop;
+
+	private boolean isIndex;
 	
 	@Override
 	public boolean init(final Expression<?>[] vars, final int matchedPattern, final Kleenean isDelayed, final ParseResult parser) {
-		name = parser.expr;
-		String s = "" + parser.regexes.get(0).group();
-		int i = -1;
-		final Matcher m = Pattern.compile("^(.+)-(\\d+)$").matcher(s);
+		loopType = parser.regexes.get(0).group();
+
+		final Matcher m = Pattern.compile("^(.+)-(\\d+)$").matcher(loopType);
+
+		int specificLoop = -1;
 		if (m.matches()) {
-			s = "" + m.group(1);
-			i = Utils.parseInt("" + m.group(2));
-		}
-		final Class<?> c = Classes.getClassFromUserInput(s);
-		int j = 1;
-		Loop loop = null;
-		
-		@SuppressWarnings("null")
-		boolean b = ScriptOptions.getInstance().usesNewLoops(ScriptLoader.currentScript.getFile());
-		for (final Loop l : ScriptLoader.currentLoops) {
-			if ((c != null && c.isAssignableFrom(l.getLoopedExpression().getReturnType())) || (b ? "value".equals(s) : false) || l.getLoopedExpression().isLoopOf(s)) {
-				if (j < i) {
-					j++;
-					continue;
-				}
-				if (loop != null) {
-					Skript.error("There are multiple loops that match loop-" + s + ". Use loop-" + s + "-1/2/3/etc. to specify which loop's value you want.", ErrorQuality.SEMANTIC_ERROR);
-					return false;
-				}
-				loop = l;
-				if (j == i)
-					break;
+			loopType = "" + m.group(1);
+			specificLoop = Utils.parseInt("" + m.group(2));
+			if (specificLoop <= 0) {
+				Skript.error("The loop number may not be less than one");
+				return false;
 			}
+			specificLoop--; // human readable -> index
 		}
-		if (loop == null) {
-			Skript.error("There's no loop that matches 'loop-" + s + "'", ErrorQuality.SEMANTIC_ERROR);
+
+		if (ScriptLoader.currentLoops.isEmpty()) {
+			Skript.error("loop-" + loopType + " may only be used in loops");
 			return false;
 		}
-		if (loop.getLoopedExpression() instanceof Variable) {
-			isVariableLoop = true;
-			if (((Variable<?>) loop.getLoopedExpression()).isIndexLoop(s))
-				isIndex = true;
+
+
+		List<LoopSection> matchingLoops = ScriptLoader.currentLoops.stream()
+				.filter(l -> l.isLoopOf(loopType))
+				.collect(Collectors.toList());
+
+		if (matchingLoops.isEmpty()) {
+			Skript.error("There is no loop that matches 'loop-" + loopType + "'", ErrorQuality.SEMANTIC_ERROR);
+			return false;
 		}
-		this.loop = loop;
+
+		if (matchingLoops.size() == 1 && specificLoop != -1) {
+			Skript.error("There is only one matching loop, use 'loop-" + loopType + "' instead");
+			return false;
+		}
+
+		if (matchingLoops.size() != 1 && specificLoop == -1) {
+			Skript.error("There are multiple loops that match 'loop-" + loopType + "'. " +
+					"Specify which loop-" + loopType + " you want like 'loop-" + loopType + "-1'");
+			return false;
+		}
+
+		try {
+			this.loop = matchingLoops.get(specificLoop == -1 ? 0 : specificLoop);
+		} catch (IndexOutOfBoundsException e) {
+			Skript.error("There is no " + StringUtils.fancyOrderNumber(specificLoop) + " loop");
+			return false;
+		}
+
+
+		if (loop.getLoopedExpr() instanceof Variable<?>) {
+			isVariableLoop = true;
+			isIndex = ((Variable<?>) loop.getLoopedExpr()).isIndexLoop(loopType);
+		}
+
 		return true;
 	}
 	
@@ -132,62 +139,30 @@ public class ExprLoopValue extends SimpleExpression<Object> {
 	public boolean isSingle() {
 		return true;
 	}
+
+	@Override
+	public Class<?> getReturnType() {
+		return isIndex ? String.class : loop.getLoopedExpr().getReturnType();
+	}
 	
+	@Override
+	@Nullable
 	@SuppressWarnings("unchecked")
-	@Override
-	@Nullable
-	protected <R> ConvertedExpression<Object, ? extends R> getConvertedExpr(final Class<R>... to) {
-		if (isVariableLoop && !isIndex) {
-			return new ConvertedExpression<>(this, (Class<R>) Utils.getSuperType(to), new Converter<Object, R>() {
-				@Override
-				@Nullable
-				public R convert(final Object o) {
-					return Converters.convert(o, to);
-				}
-			});
-		} else {
-			return super.getConvertedExpr(to);
-		}
-	}
-	
-	@Override
-	public Class<? extends Object> getReturnType() {
-		if (isIndex)
-			return String.class;
-		return loop.getLoopedExpression().getReturnType();
-	}
-	
-	@Override
-	@Nullable
 	protected Object[] get(final Event e) {
+		Object[] value = (Object[]) Array.newInstance(getReturnType(), 1);
+		Object rawValue = loop.getLoopedObject(e);
 		if (isVariableLoop) {
-			@SuppressWarnings("unchecked")
-			final Entry<String, Object> current = (Entry<String, Object>) loop.getCurrent(e);
-			if (current == null)
-				return null;
-			if (isIndex)
-				return new String[] {current.getKey()};
-			final Object[] one = (Object[]) Array.newInstance(getReturnType(), 1);
-			one[0] = current.getValue();
-			return one;
+			Pair<String, Object> loopedVar = (Pair<String, Object>) rawValue;
+			value[0] = isIndex ? loopedVar.getFirst() : loopedVar.getSecond();
+		} else {
+			value[0] = rawValue;
 		}
-		final Object[] one = (Object[]) Array.newInstance(getReturnType(), 1);
-		one[0] = loop.getCurrent(e);
-		return one;
+		return value;
 	}
-	
+
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
-		if (e == null)
-			return name;
-		if (isVariableLoop) {
-			@SuppressWarnings("unchecked")
-			final Entry<String, Object> current = (Entry<String, Object>) loop.getCurrent(e);
-			if (current == null)
-				return Classes.getDebugMessage(null);
-			return isIndex ? "\"" + current.getKey() + "\"" : Classes.getDebugMessage(current.getValue());
-		}
-		return Classes.getDebugMessage(loop.getCurrent(e));
+		return "loop-" + loopType;
 	}
 	
 }

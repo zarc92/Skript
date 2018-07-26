@@ -28,16 +28,16 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
-import ch.njol.skript.lang.Conditional;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.Loop;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.TriggerItem;
 import ch.njol.skript.lang.TriggerSection;
-import ch.njol.skript.lang.While;
-import ch.njol.skript.lang.parser.ParserInstance;
+import ch.njol.skript.lang.util.LyingItem;
 import ch.njol.skript.log.ErrorQuality;
+import ch.njol.skript.sections.ConditionalSection;
+import ch.njol.skript.sections.LoopSection;
+import ch.njol.skript.sections.WhileSection;
 import ch.njol.util.Kleenean;
 
 /**
@@ -104,10 +104,18 @@ public class EffExit extends Effect { // TODO [code style] warn user about code 
 			return ScriptLoader.currentSections.size();
 		int r = 0;
 		for (final TriggerSection s : ScriptLoader.currentSections) {
-			if (type == CONDITIONALS ? s instanceof Conditional : s instanceof Loop || s instanceof While)
+			if (type == CONDITIONALS && s instanceof ConditionalSection)
+				r++;
+			else if (type == LOOPS && (s instanceof  LoopSection || s instanceof WhileSection))
 				r++;
 		}
 		return r;
+	}
+
+	private boolean shouldDecrement(TriggerItem item) {
+		return type == EVERYTHING
+				|| type == CONDITIONALS && item instanceof ConditionalSection
+				|| type == LOOPS && (item instanceof WhileSection || item instanceof LoopSection);
 	}
 	
 	@Override
@@ -121,10 +129,10 @@ public class EffExit extends Effect { // TODO [code style] warn user about code 
 				assert false : this;
 				return null;
 			}
-			if (type == EVERYTHING || type == CONDITIONALS && n instanceof Conditional || type == LOOPS && (n instanceof Loop || n instanceof While))
+			if (shouldDecrement(n))
 				i--;
 		}
-		return n instanceof Loop ? ((Loop) n).getActualNext() : n instanceof While ? ((While) n).getActualNext() : n.getNext();
+		return n instanceof LyingItem ? ((LyingItem) n).getTrueNext() : n.getNext();
 	}
 	
 	@Override

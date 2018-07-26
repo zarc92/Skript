@@ -25,6 +25,7 @@ import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
+import ch.njol.util.Kleenean;
 import ch.njol.util.StringUtils;
 
 /**
@@ -41,7 +42,9 @@ public abstract class TriggerItem implements Debuggable {
 	protected TriggerSection parent = null;
 	@Nullable
 	private TriggerItem next = null;
-	
+	@Nullable
+	private TriggerItem previous = null;
+
 	protected TriggerItem() {}
 	
 	protected TriggerItem(final TriggerSection parent) {
@@ -75,7 +78,13 @@ public abstract class TriggerItem implements Debuggable {
 	 * @return True if the next item should be run, or false for the item following this item's parent.
 	 */
 	protected abstract boolean run(Event e);
-	
+
+	public static boolean walkIfNonNull(@Nullable final TriggerItem start, final Event e) {
+		if (start == null)
+			return false;
+		return walk(start, e);
+	}
+
 	/**
 	 * @param start
 	 * @param e
@@ -155,9 +164,30 @@ public abstract class TriggerItem implements Debuggable {
 //			throw new IllegalStateException("TriggerItem without a Trigger detected!");
 		return (Trigger) i;
 	}
-	
+
+	/**
+	 * Not currently used in execution of scripts.
+	 * This can help you traverse a section from a single TriggerItem.
+	 *
+	 * Note that this will <b>not</b> be set in {@link SyntaxElement#init(Expression[], int, Kleenean, SkriptParser.ParseResult)}
+	 * in normal circumstances.
+	 */
+	@Nullable
+	public TriggerItem getPrevious() {
+		return previous;
+	}
+
 	public TriggerItem setNext(final @Nullable TriggerItem next) {
 		this.next = next;
+		return this;
+	}
+
+	/**
+	 * Sets the item that comes before this.
+	 * Currently not used in execution of scripts.
+	 */
+	public TriggerItem setPrevious(final @Nullable TriggerItem previous) {
+		this.previous = previous;
 		return this;
 	}
 	

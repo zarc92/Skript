@@ -91,7 +91,6 @@ import ch.njol.skript.lang.Statement;
 import ch.njol.skript.lang.SyntaxElementInfo;
 import ch.njol.skript.lang.Trigger;
 import ch.njol.skript.lang.TriggerItem;
-import ch.njol.skript.lang.TriggerSection;
 import ch.njol.skript.lang.VariableString;
 import ch.njol.skript.lang.function.Functions;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -109,6 +108,7 @@ import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.registrations.Comparators;
 import ch.njol.skript.registrations.Converters;
 import ch.njol.skript.registrations.EventValues;
+import ch.njol.skript.registrations.SectionBuilder;
 import ch.njol.skript.timings.SkriptTimings;
 import ch.njol.skript.util.EmptyStacktraceException;
 import ch.njol.skript.util.ExceptionUtils;
@@ -122,7 +122,6 @@ import ch.njol.skript.variables.Variables;
 import ch.njol.util.Closeable;
 import ch.njol.util.Kleenean;
 import ch.njol.util.NullableChecker;
-import ch.njol.util.Pair;
 import ch.njol.util.StringUtils;
 import ch.njol.util.coll.CollectionUtils;
 import ch.njol.util.coll.iterator.CheckedIterator;
@@ -1008,7 +1007,8 @@ public final class Skript extends JavaPlugin implements Listener {
 	private final static Collection<SyntaxElementInfo<? extends Effect>> effects = new ArrayList<>(50);
 	private final static Collection<SyntaxElementInfo<? extends Statement>> statements = new ArrayList<>(100);
 	private final static Collection<SyntaxElementInfo<? extends Section>> sections = new ArrayList<>();
-	
+	private final static Map<Class<? extends Section>, SyntaxElementInfo<? extends Section>> sectionInfos = new HashMap<>();
+
 	/**
 	 * registers a {@link Condition}.
 	 * 
@@ -1040,39 +1040,31 @@ public final class Skript extends JavaPlugin implements Listener {
 	/**
 	 * Registers a new section.
 	 *
-	 * @param name the name of this section, e.g. 'switch' used for errors
-	 * @param section the section's class
-	 * @throws IllegalArgumentException if registration is closed
-	 */
-	public static <E extends Section> void registerSection(final String name, final Class<E> section,
-														   final String... patterns) throws IllegalArgumentException  {
-		registerSection(name, section, null, patterns);
-	}
-
-
-	/**
-	 * Registers a new section.
+	 * If you want more options, such as allowed parent/child sections,
+	 * see {@link SectionBuilder}.
 	 *
 	 * @param name the name of this section, e.g. 'switch' used for errors
-	 * @param section the section's class
-	 * @param allowedSections the sections allowed within this section,
-	 *                           or null to accept everything (including trigger items).
-	 * @throws IllegalArgumentException if registration is closed
+	 * @param source the section's class
+	 * @throws IllegalArgumentException if registration is closed or invalid params are provided
 	 */
-	public static <E extends Section> void registerSection(final String name, final Class<E> section,
-														   @Nullable Class<? extends TriggerSection>[] allowedSections,
-														   final String... patterns) throws IllegalArgumentException  {
+	public static <E extends Section> void registerSection(final String name, final Class<E> source,
+			final String... patterns) throws IllegalArgumentException  {
 		checkAcceptRegistrations();
-		// TODO: actually enforce allowedSections
-		String originClassPath = Thread.currentThread().getStackTrace()[2].getClassName();
-		sections.add(new SyntaxElementInfo<>(patterns, section, originClassPath,
-					new Pair<>("allowed-sections", allowedSections), new Pair<>("name", name)));
+		SectionBuilder.create()
+				.name(name)
+				.source(source)
+				.patterns(patterns)
+				.register();
 	}
 
 	public static Collection<SyntaxElementInfo<? extends Section>> getSections() {
 		return sections;
 	}
-	
+
+	public static Map<Class<? extends Section>, SyntaxElementInfo<? extends Section>> getSectionInfos() {
+		return sectionInfos;
+	}
+
 	public static Collection<SyntaxElementInfo<? extends Statement>> getStatements() {
 		return statements;
 	}
@@ -1084,7 +1076,7 @@ public final class Skript extends JavaPlugin implements Listener {
 	public static Collection<SyntaxElementInfo<? extends Effect>> getEffects() {
 		return effects;
 	}
-	
+
 	// ================ EXPRESSIONS ==============
 
 	private final static List<ExpressionInfo<?, ?>> expressions = new ArrayList<>(100);

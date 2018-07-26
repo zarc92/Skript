@@ -29,6 +29,49 @@ import ch.njol.skript.Skript;
 
 public abstract class Section extends TriggerSection implements SyntaxElement {
 
+	public enum Placement {
+
+		/**
+		 * This section is allowed anywhere.
+		 *
+		 * This should only be used if the section does
+		 * not have any specific placement needs and even
+		 * then it is unlikely you will need this directly
+		 * as placement insensitive sections should
+		 * be using the shorter overload registration method.
+		 */
+		ANYWHERE,
+
+		/**
+		 * This section is allowed as a direct child to one of
+		 * it's allowed parent sections.
+		 *
+		 * For example:
+		 * <code>
+		 *     on click:
+		 *       switch type of clicked entity:
+		 *         case cow: # this is allowed
+		 *           case chicken: # this is not allowed as it's direct parent is a case section
+		 * </code>
+		 */
+		DIRECT_CHILD,
+
+		/**
+		 * This section is allowed as either a direct or indirect child
+		 * to one of it's allowed parent sections.
+		 *
+		 * For example:
+		 * <code>
+		 *     on click:
+		 *       switch type of clicked entity:
+		 *         case cow: # this is allowed
+		 *           case chicken: # this is also allowed as it's indirect parent is a switch section
+		 * </code>
+		 */
+		CHILD
+
+	}
+
 	@Nullable
 	@SuppressWarnings("unchecked")
 	public static Section parse(String s, @Nullable String defaultError) {
@@ -52,6 +95,20 @@ public abstract class Section extends TriggerSection implements SyntaxElement {
 	public TriggerItem walk(Event e) {
 		debug(e, true);
 		return walk(e, execute(e));
+	}
+
+	/**
+	 * Called before a section has it's trigger items parsed
+	 */
+	public void beforeParse() {
+
+	}
+
+	/**
+	 * Called after a section has it's trigger items parsed
+	 */
+	public void afterParse() {
+
 	}
 
 }

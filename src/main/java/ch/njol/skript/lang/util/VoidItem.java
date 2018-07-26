@@ -17,30 +17,38 @@
  *
  * Copyright 2011-2017 Peter Güttinger and contributors
  */
-package ch.njol.skript.sections.base;
+package ch.njol.skript.lang.util;
 
-import java.util.List;
-
+import org.bukkit.event.Event;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
-import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.TriggerItem;
 
 /**
- * A section that parses it's own innards.
- *
- * Note that when you parse the code within the section you should add and
- * remove it from {@link ch.njol.skript.ScriptLoader#currentSections} or
- * you may encounter some unexpected behavior.
+ * A TriggerItem that does nothing but continue execution.
+ * Mostly useful to hold a next/last item.
  */
-public abstract class SelfParsingSection extends Section {
+public class VoidItem extends TriggerItem {
 
-	/**
-	 * Does nothing in order to enforce that a SelfParsingSection must
-	 * really be self parsing.
-	 */
-	public final void setTriggerItems(@Nullable final List<TriggerItem> items) {
+	private String stringForm;
 
+	public VoidItem() {
+		this("void item");
+	}
+
+	public VoidItem(@NonNull String stringForm) {
+		this.stringForm = stringForm;
+	}
+
+	@Override
+	protected boolean run(Event e) {
+		return true;
+	}
+
+	@Override
+	public String toString(@Nullable Event e, boolean debug) {
+		return stringForm;
 	}
 
 }

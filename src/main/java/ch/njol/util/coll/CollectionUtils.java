@@ -19,12 +19,6 @@
  */
 package ch.njol.util.coll;
 
-import ch.njol.skript.registrations.Converters;
-import ch.njol.util.Pair;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
-
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,6 +28,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
+
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
+
+import ch.njol.util.Pair;
 
 /**
  * Utils for collections and arrays. All methods will not print any errors for <tt>null</tt> collections/arrays, but will return false/-1/etc.
@@ -47,7 +46,7 @@ public abstract class CollectionUtils {
 	 * Finds an object in an array using {@link Object#equals(Object)} (can find null elements).
 	 * 
 	 * @param array The array to search in
-	 * @param o The object to search for
+	 * @param t The object to search for
 	 * @return The index of the first occurrence of the given object or -1 if not found
 	 */
 	public static <T> int indexOf(final @Nullable T[] array, final @Nullable T t) {
@@ -394,7 +393,7 @@ public abstract class CollectionUtils {
 	}
 	
 	/**
-	 * Shorthand for <code>{@link permutation permutation}(0, length - 1)</code>
+	 * Shorthand for <code>{@link CollectionUtils#permutation(int, int)}(0, length - 1)</code>
 	 */
 	public static int[] permutation(final int length) {
 		return permutation(0, length - 1);
@@ -437,5 +436,14 @@ public abstract class CollectionUtils {
 		}
 		return wrapped;
 	}
+
+	@Nullable
+	public static <T> T getLast(List<T> from) {
+		if (from == null || from.isEmpty()) {
+			return null;
+		}
+		return from.get(from.size() - 1);
+	}
+
 	
 }
