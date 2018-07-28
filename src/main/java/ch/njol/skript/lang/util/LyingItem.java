@@ -19,6 +19,7 @@
  */
 package ch.njol.skript.lang.util;
 
+import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.lang.TriggerItem;
@@ -32,10 +33,11 @@ import ch.njol.skript.lang.TriggerItem;
  * @see ch.njol.skript.sections.LoopSection
  * @see ch.njol.skript.sections.WhileSection
  * @see ch.njol.skript.sections.ConditionalSection
+ * @see ch.njol.skript.effects.EffExit
  */
 public interface LyingItem {
 
 	@Nullable
-	TriggerItem getTrueNext();
+	TriggerItem getTrueNext(@Nullable Event e);
 
 }

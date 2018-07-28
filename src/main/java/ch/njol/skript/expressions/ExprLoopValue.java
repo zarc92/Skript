@@ -41,7 +41,6 @@ import ch.njol.skript.lang.Variable;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.skript.sections.LoopSection;
-import ch.njol.skript.util.Utils;
 import ch.njol.util.Kleenean;
 import ch.njol.util.Pair;
 import ch.njol.util.StringUtils;
@@ -85,7 +84,7 @@ public class ExprLoopValue extends SimpleExpression<Object> {
 		int specificLoop = -1;
 		if (m.matches()) {
 			loopType = "" + m.group(1);
-			specificLoop = Utils.parseInt("" + m.group(2));
+			specificLoop = Integer.parseInt("" + m.group(2));
 			if (specificLoop <= 0) {
 				Skript.error("The loop number may not be less than one");
 				return false;

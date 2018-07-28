@@ -51,7 +51,7 @@ public class LoopSection extends Section implements LyingItem {
 
 
 	@Nullable
-	private TriggerItem actualNext;
+	private TriggerItem trueNext;
 
 	private Map<Event, Iterator<?>> iterators = new WeakHashMap<>();
 	private Map<Event, Object> values = new WeakHashMap<>();
@@ -60,9 +60,11 @@ public class LoopSection extends Section implements LyingItem {
 	private Iterator<?> getIterator(Event e) {
 		Iterator<?> iterator = iterators.get(e);
 		if (iterator == null) {
-			iterator = loopedExpr instanceof Variable<?> ?
-					((Variable<?>) loopedExpr).variablesIterator(e)
-					: loopedExpr.iterator(e);
+			if (loopedExpr instanceof Variable<?>) {
+				iterator = ((Variable<Object>) loopedExpr).variablesIterator(e);
+			} else {
+				iterator = loopedExpr.iterator(e);
+			}
 			iterators.put(e, iterator);
 		}
 		return iterator;
@@ -79,6 +81,7 @@ public class LoopSection extends Section implements LyingItem {
 		return true;
 	}
 
+	@Override
 	@Nullable
 	public TriggerItem walk(Event e) {
 		if (execute(e)) {
@@ -86,27 +89,29 @@ public class LoopSection extends Section implements LyingItem {
 			return first;
  		} else {
 			debug(e, false);
-			iterators.remove(e);
-			return actualNext;
+			return getTrueNext(e);
 		}
 	}
 
 	@Override
 	@Nullable
-	public TriggerItem getTrueNext() {
-		return actualNext;
+	public TriggerItem getTrueNext(@Nullable Event e) {
+		if (e != null) // if we don't remove the iterator it may start from the old iterator's ending point next time
+			iterators.remove(e);
+		return trueNext;
 	}
 
 	@Override
 	public LoopSection setNext(@Nullable TriggerItem next) {
-		actualNext = next;
+		trueNext = next;
 		return this;
 	}
 
 	public boolean isLoopOf(String s) {
 		Class<?> type = Classes.getClassFromUserInput(s);
-		return (type != null && loopedExpr.getReturnType().isAssignableFrom(type))
-						|| loopedExpr.isLoopOf(s);
+		return (type != null && type.isAssignableFrom(loopedExpr.getReturnType()))
+				|| loopedExpr.isLoopOf(s)
+				|| s.equalsIgnoreCase("value");
 	}
 
 	/**

@@ -132,7 +132,7 @@ public class EffExit extends Effect { // TODO [code style] warn user about code 
 			if (shouldDecrement(n))
 				i--;
 		}
-		return n instanceof LyingItem ? ((LyingItem) n).getTrueNext() : n.getNext();
+		return n instanceof LyingItem ? ((LyingItem) n).getTrueNext(e) : n.getNext();
 	}
 	
 	@Override

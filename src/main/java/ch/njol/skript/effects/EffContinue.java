@@ -20,6 +20,7 @@
 package ch.njol.skript.effects;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.Nullable;
@@ -34,8 +35,9 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.TriggerItem;
+import ch.njol.skript.lang.TriggerSection;
 import ch.njol.skript.sections.LoopSection;
-import ch.njol.skript.util.Utils;
+import ch.njol.skript.sections.WhileSection;
 import ch.njol.util.Kleenean;
 import ch.njol.util.StringUtils;
 
@@ -56,7 +58,7 @@ public class EffContinue extends Effect {
 	}
 
 	@SuppressWarnings("null")
-	private LoopSection loop;
+	private TriggerSection loop;
 
 	@Override
 	protected void execute(Event e) {
@@ -66,9 +68,7 @@ public class EffContinue extends Effect {
 	@Nullable
 	@Override
 	protected TriggerItem walk(Event e) {
-		TriggerItem last = loop.getLast();
-		assert last != null;
-		return last.getNext();
+		return loop;
 	}
 
 	@Override
@@ -78,7 +78,9 @@ public class EffContinue extends Effect {
 
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-		List<LoopSection> loops = ScriptLoader.currentLoops;
+		List<TriggerSection> loops = ScriptLoader.currentSections.stream()
+				.filter(s -> s instanceof LoopSection || s instanceof WhileSection)
+				.collect(Collectors.toList());
 
 		if (loops.isEmpty()) {
 			Skript.error("Continue may only be used in loops");
@@ -90,12 +92,20 @@ public class EffContinue extends Effect {
 			return false;
 		}
 
-		int selectedLoop = matchedPattern == 0 ? loops.size() - 1 : Utils.parseInt(parseResult.regexes.get(0).group());
+		int specificLoop = loops.size() - 1;
+		if (matchedPattern == 1) {
+			specificLoop = Integer.parseInt(parseResult.regexes.get(0).group());
+			if (specificLoop <= 0) {
+				Skript.error("The loop number may not be less than one");
+				return false;
+			}
+			specificLoop--; // human readable -> index
+		}
 
 		try {
-			loop = loops.get(selectedLoop);
+			loop = loops.get(specificLoop);
 		} catch (IndexOutOfBoundsException e) {
-			Skript.error("There is no " + StringUtils.fancyOrderNumber(selectedLoop) + " loop");
+			Skript.error("There is no " + StringUtils.fancyOrderNumber(specificLoop) + " loop");
 			return false;
 		}
 

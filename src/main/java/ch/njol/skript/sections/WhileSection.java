@@ -60,7 +60,7 @@ public class WhileSection extends Section implements LyingItem {
 			return first;
 		} else {
 			debug(e, false);
-			return getTrueNext();
+			return getTrueNext(e);
 		}
 	}
 
@@ -80,7 +80,7 @@ public class WhileSection extends Section implements LyingItem {
 
 	@Nullable
 	@Override
-	public TriggerItem getTrueNext() {
+	public TriggerItem getTrueNext(@Nullable Event e) {
 		return trueNext;
 	}
 

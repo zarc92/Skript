@@ -29,7 +29,6 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.TriggerItem;
-import ch.njol.skript.lang.util.FunctionalItem;
 import ch.njol.skript.lang.util.LyingItem;
 import ch.njol.util.Kleenean;
 
@@ -62,30 +61,28 @@ public class ConditionalSection extends Section implements LyingItem {
 
 	static {
 		Skript.registerSection("condition", ConditionalSection.class,
-				"if <.+>",
+				"[(1¦if)] <.+>",
 				"else if <.+>",
 				"else"
 		);
 	}
 
 	@Override
-	@SuppressWarnings({"null", "ConstantConditions"}) // ecj will complain the condition may be null when it won't be
 	public boolean execute(Event e) {
-		if (type == ConditionType.ELSE || condition.check(e)) {
-			assert last != null;
-			last.setNext(new FunctionalItem(e2 ->  TriggerItem.walkIfNonNull(getTrueNext(), e2)));
-			TriggerItem.walkIfNonNull(first, e);
-		} else {
-			TriggerItem.walkIfNonNull(getNext(), e);
-		}
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Nullable
 	@Override
+	@SuppressWarnings({"null", "ConstantConditions"}) // ecj will complain the condition may be null when it won't be
 	public TriggerItem walk(Event e) {
-		execute(e);
-		return null;
+		if (type == ConditionType.ELSE || condition.check(e)) {
+			if (last != null)
+				last.setNext(getTrueNext(e));
+			return first != null ? first : getTrueNext(e);
+		} else {
+			return getNext();
+		}
 	}
 
 	@Override
@@ -108,12 +105,17 @@ public class ConditionalSection extends Section implements LyingItem {
 	 * @return the next trigger item that isn't part of this conditional
 	 */
 	@Nullable
-	public TriggerItem getTrueNext() {
+	public TriggerItem getTrueNext(@Nullable Event e) {
 		TriggerItem next = getNext();
 		while (next instanceof ConditionalSection && ((ConditionalSection) next).getType() != ConditionType.IF) {
 			next = next.getNext();
 		}
 		return next;
+	}
+
+	@Nullable
+	public Condition getCondition() {
+		return condition;
 	}
 
 	@Nullable
@@ -144,7 +146,10 @@ public class ConditionalSection extends Section implements LyingItem {
 
 		if (type == ConditionType.IF || type == ConditionType.ElSE_IF) {
 			String rawCond = parseResult.regexes.get(0).group();
-			condition = Condition.parse(rawCond, "Can't understand this condition: " + rawCond);
+			if (parseResult.mark == 1)
+				condition = Condition.parse(rawCond, "Can't understand this condition: " + rawCond);
+			else
+				condition = Condition.parse(rawCond, null);
 			return condition != null;
 		}
 
