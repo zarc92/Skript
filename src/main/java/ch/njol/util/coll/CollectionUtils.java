@@ -19,6 +19,7 @@
  */
 package ch.njol.util.coll;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -445,5 +446,10 @@ public abstract class CollectionUtils {
 		return from.get(from.size() - 1);
 	}
 
+	public static <T> List<T> reverseCopy(List<T> from) {
+		List<T> copy = new ArrayList<>(from);
+		Collections.reverse(copy);
+		return copy;
+	}
 	
 }

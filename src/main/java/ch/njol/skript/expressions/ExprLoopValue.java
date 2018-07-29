@@ -97,7 +97,6 @@ public class ExprLoopValue extends SimpleExpression<Object> {
 			return false;
 		}
 
-
 		List<LoopSection> matchingLoops = ScriptLoader.currentLoops.stream()
 				.filter(l -> l.isLoopOf(loopType))
 				.collect(Collectors.toList());

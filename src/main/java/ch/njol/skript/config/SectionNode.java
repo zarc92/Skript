@@ -267,7 +267,6 @@ public class SectionNode extends Node implements Iterable<Node> {
 		return "'" + s.replace("\t", "->").replace(' ', '_').replaceAll("\\s", "?") + "' [-> = tab, _ = space, ? = other whitespace]";
 	}
 
-
 	private void mapStructure() {
 		for (int i = 0; i < nodes.size(); i++) {
 			if (i != nodes.size() - 1)

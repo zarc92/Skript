@@ -953,32 +953,49 @@ final public class ScriptLoader {
 		return r;
 	}
 
-	private static boolean sectionIsAllowedHere(Section section, boolean printError) {
-		SyntaxElementInfo<? extends Section> info = Skript.getSectionInfos().get(section.getClass());
-		if (info == null) {
-			throw new IllegalArgumentException("Section has no info associated with it! Was it registered correctly?");
+	@SuppressWarnings("SuspiciousMethodCalls")
+	private static boolean itemIsAllowedHere(TriggerItem item, boolean printError) {
+
+		SyntaxElementInfo<? extends Section> itemInfo = Skript.getSectionInfos().get(item.getClass());
+
+		// we reverse it here to give the most specific error first
+		TriggerSection directParent = CollectionUtils.getLast(currentSections);
+		if (directParent instanceof Section) {
+			SyntaxElementInfo<? extends Section> parentInfo = Skript.getSectionInfos().get(directParent.getClass());
+			if (parentInfo == null)
+				throw new IllegalStateException(directParent + " has no info associated with it (was it registered correctly?)");
+			Class<? extends TriggerItem>[] allowedChildren = parentInfo.getData("child-items");
+			if (ArrayUtils.isNotEmpty(allowedChildren) && !ArrayUtils.contains(allowedChildren, item.getClass())) {
+				if (printError)
+					Skript.error(parentInfo.getData("illegal-child-error"));
+				return false;
+			}
 		}
-		Section.Placement allowedPlacement = info.getData("allowed-placement");
-		Class<? extends TriggerSection>[] allowedParents = info.getData("parent-sections");
+
+		// if no parents complained and itemInfo is null then it is allowed
+		if (itemInfo == null) {
+			return true;
+		}
+
+		Section.Placement allowedPlacement = itemInfo.getData("allowed-placement");
+		Class<? extends TriggerSection>[] allowedParents = itemInfo.getData("parent-sections");
+
 
 		if (ArrayUtils.isEmpty(allowedParents)) {
 			return true;
 		}
 
 		if (allowedPlacement == Section.Placement.DIRECT_CHILD) {
-			TriggerSection directParent = CollectionUtils.getLast(currentSections);
 			if (directParent == null || Stream.of(allowedParents).noneMatch(p -> p == directParent.getClass())) {
-				if (printError) {
-					Skript.error(info.getData("placement-error"));
-				}
+				if (printError)
+					Skript.error(itemInfo.getData("illegal-parent-error"));
 				return false;
 			}
 			return true;
 		} else if (allowedPlacement == Section.Placement.CHILD) {
 			if (currentSections.stream().noneMatch(s -> ArrayUtils.contains(allowedParents, s.getClass()))) {
-				if (printError) {
-					Skript.error(info.getData("placement-error"));
-				}
+				if (printError)
+					Skript.error(itemInfo.getData("illegal-parent-error"));
 				return false;
 			}
 			return true;
@@ -1011,7 +1028,7 @@ final public class ScriptLoader {
 				if (!SkriptParser.validateLine(s))
 					continue;
 				final Statement stmt = Statement.parse(s, "Can't understand this condition/effect: " + s);
-				if (stmt == null)
+				if (stmt == null || !itemIsAllowedHere(stmt, true))
 					continue;
 				if (Skript.debug() || n.debug())
 					Skript.debug(indentation + stmt.toString(null, true));
@@ -1028,13 +1045,11 @@ final public class ScriptLoader {
 				Section section = Section.parse(name, "Can't understand this section: " + name);
 				if (section != null) {
 
-					if (!sectionIsAllowedHere(section, true)) {
+					if (!itemIsAllowedHere(section, true))
 						continue;
-					}
 
 					items.add(section);
 
-					// TODO: enforce child placement
 					if (!(section instanceof SelfParsingSection)) {
 						currentSections.add(section);
 						/*

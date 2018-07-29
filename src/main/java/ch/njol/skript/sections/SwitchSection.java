@@ -39,6 +39,7 @@ public class SwitchSection extends Section {
 				.name("switch")
 				.source(SwitchSection.class)
 				.children(CaseSection.class)
+				.illegalChildError("A switch section may only contain case sections")
 				.patterns("switch %objects%")
 				.register();
 	}
@@ -48,11 +49,12 @@ public class SwitchSection extends Section {
 
 	@SuppressWarnings("null")
 	private Object[] switchedValues;
+	private boolean hasMatched;
 
 	@Override
 	public boolean execute(Event e) {
 		this.switchedValues = objectsToSwitch.getArray(e);
-		return true;
+		return switchedValues.length != 0;
 	}
 
 	private Object[] getSwitchedValues() {
@@ -78,22 +80,33 @@ public class SwitchSection extends Section {
 					.source(CaseSection.class)
 					.parents(SwitchSection.class)
 					.illegalPlacementError("A case section may only be used inside a switch section")
-					.patterns("case %objects%")
+					.patterns("case %objects%", "default [case]")
 					.register();
 		}
 
 		@SuppressWarnings("null")
 		private Expression<Object> objectsToMatch;
+		private boolean isDefaultCase;
+
+		@Nullable
+		private SwitchSection parent;
 
 		@Override
+		@SuppressWarnings("null")
 		public boolean execute(Event e) {
-			Object[] objectsToMatch = this.objectsToMatch.getArray(e);
 			SwitchSection parent = (SwitchSection) getParent();
 			assert parent != null;
+
+			if (isDefaultCase)
+				return !parent.hasMatched;
+
+			Object[] objectsToMatch = this.objectsToMatch.getArray(e);
 			Object[] switchedValues = parent.getSwitchedValues();
-			return switchedValues.length == objectsToMatch.length
+
+			return parent.hasMatched = (switchedValues.length != 0
+					&& switchedValues.length == objectsToMatch.length
 					&& IntStream.range(0, switchedValues.length)
-						.allMatch(i -> Comparators.areEqual(switchedValues[i], objectsToMatch[i]));
+						.allMatch(i -> Comparators.areEqual(switchedValues[i], objectsToMatch[i])));
 		}
 
 		@Override
@@ -102,10 +115,14 @@ public class SwitchSection extends Section {
 		}
 
 		@Override
+		@SuppressWarnings({"unchecked", "null"})
 		public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-			objectsToMatch = LiteralUtils.defendExpression(exprs[0]);
-			return LiteralUtils.canInitSafely(objectsToMatch);
+			isDefaultCase = matchedPattern == 1;
+			if (!isDefaultCase)
+				objectsToMatch = LiteralUtils.defendExpression(exprs[0]);
+			return isDefaultCase || LiteralUtils.canInitSafely(objectsToMatch);
 		}
+
 	}
 
 }

@@ -20,12 +20,14 @@
 package ch.njol.skript.registrations;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Section;
 import ch.njol.skript.lang.SyntaxElementInfo;
+import ch.njol.skript.lang.TriggerItem;
 import ch.njol.skript.lang.TriggerSection;
 import ch.njol.util.Pair;
 
@@ -34,6 +36,8 @@ import ch.njol.util.Pair;
  *
  * For simple sections (i.e. ones that do not have specific placement requirements),
  * you should use {@link ch.njol.skript.Skript#registerSection(String, Class, String...)}
+ *
+ * TODO: enforce inner events
  *
  * Example usage:
  * <code>
@@ -58,7 +62,7 @@ public final class SectionBuilder {
 	private String[] patterns;
 
 	@Nullable
-	private Class<? extends TriggerSection>[] children;
+	private Class<? extends TriggerItem>[] children;
 
 	@Nullable
 	private Section.Placement placement = Section.Placement.ANYWHERE;
@@ -67,7 +71,13 @@ public final class SectionBuilder {
 	private Class<? extends TriggerSection>[] parents;
 
 	@Nullable
-	private String illegalPlacementError;
+	private String illegalParentError;
+
+	@Nullable
+	private String illegalChildError;
+
+	@Nullable
+	private Class<? extends Event>[] innerEvents;
 
 	private SectionBuilder() {
 	}
@@ -115,7 +125,7 @@ public final class SectionBuilder {
 	 * if not called then everything will be allowed (including {@link ch.njol.skript.lang.TriggerItem}).
 	 */
 	@SafeVarargs
-	public final SectionBuilder children(Class<? extends TriggerSection>... children) {
+	public final SectionBuilder children(Class<? extends TriggerItem>... children) {
 		this.children = children;
 		return this;
 	}
@@ -156,14 +166,37 @@ public final class SectionBuilder {
 	}
 
 	/**
+	 * Sets the events that the code within this section will be parsed inside.
+	 *
+	 * Basically, this just sets {@link ch.njol.skript.ScriptLoader#currentEvents}
+	 * to {@code events} before the inner code is parsed.
+	 */
+	@SafeVarargs
+	public final SectionBuilder innerEvents(Class<? extends Event>... events) {
+		this.innerEvents = events;
+		return this;
+	}
+
+	/**
 	 * Defines the error printed when the section is placed somewhere
 	 * it shouldn't be as defined by {@link SectionBuilder#parents(Class[])}
 	 * and the allowed children of another method.
 	 */
 	public SectionBuilder illegalPlacementError(String error) {
-		this.illegalPlacementError = error;
+		illegalParentError(error);
+		return illegalChildError(error);
+	}
+
+	public SectionBuilder illegalParentError(String error) {
+		this.illegalParentError = error;
 		return this;
 	}
+
+	public SectionBuilder illegalChildError(String error) {
+		this.illegalChildError = error;
+		return this;
+	}
+
 
 	/**
 	 * Registers this section.
@@ -177,11 +210,15 @@ public final class SectionBuilder {
 		}
 
 		if (source == null) {
-			throw new IllegalStateException("A section must have an owning class!");
+			throw new IllegalStateException("A section must have a source!");
 		}
 
-		if (illegalPlacementError == null) {
-			illegalPlacementError = "A " + name + " section may not be used here";
+		if (illegalParentError == null) {
+			illegalParentError = "A " + name + " section may not be used here";
+		}
+
+		if (illegalChildError == null) {
+			illegalChildError = "This statement may not be used in a " + name + " section";
 		}
 
 		if (patterns == null) {
@@ -196,9 +233,11 @@ public final class SectionBuilder {
 
 		SyntaxElementInfo<? extends Section> info = new SyntaxElementInfo<>(patterns, source, originClassPath,
 				new Pair<>("parent-sections", parents),
-				new Pair<>("child-sections", children),
+				new Pair<>("child-items", children),
 				new Pair<>("allowed-placement", placement),
-				new Pair<>("placement-error", illegalPlacementError), new Pair<>("name", name));
+				new Pair<>("inner-events", innerEvents),
+				new Pair<>("illegal-child-error", illegalChildError),
+				new Pair<>("illegal-parent-error", illegalParentError), new Pair<>("name", name));
 
 		Skript.getSectionInfos().put(source, info);
 

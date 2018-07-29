@@ -125,10 +125,6 @@ public abstract class Node {
 		return next;
 	}
 
-	public int getLineNum() {
-		return lineNum;
-	}
-
 	public void rename(final String newname) {
 		if (key == null)
 			throw new IllegalStateException("can't rename an anonymous node");
