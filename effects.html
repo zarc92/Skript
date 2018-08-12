@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev36</title>
+  <title>Skript Documentation - 2.2-dev37c</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -28,6 +28,7 @@
 <p><a href="#EffChange">Change: Set/Add/Remove/Delete/Reset</a></p>
 <p><a href="#EffColorArmor">Colour Items</a></p>
 <p><a href="#EffCommand">Command</a></p>
+<p><a href="#EffContinue">Continue</a></p>
 <p><a href="#EffHealth">Damage/Heal/Repair</a></p>
 <p><a href="#Delay">Delay</a></p>
 <p><a href="#EffDrop">Drop</a></p>
@@ -54,6 +55,7 @@
 <p><a href="#EffPvP">PvP</a></p>
 <p><a href="#EffReplace">Replace</a></p>
 <p><a href="#EffReturn">Return</a></p>
+<p><a href="#EffSendBlockChange">Send Block Change</a></p>
 <p><a href="#EffShear">Shear</a></p>
 <p><a href="#EffShoot">Shoot</a></p>
 <p><a href="#EffSpawn">Spawn</a></p>
@@ -381,6 +383,46 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
     <div class="skript-code-block">
       make player execute command "/suicide"
 <br>execute console command "/say Hello everyone!"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="EffContinue" class="item-title">Continue</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">continue [loop]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Skips the value currently being looped, moving on to the next value if it exists.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      loop all players:
+	if loop-value does not have permission "moderator":
+		continue # filter out non moderators
+	broadcast "%loop-player% is a moderator!" # only moderators get broadcast
     </div>
 
   </div>
@@ -991,8 +1033,8 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">force %<a href='classes.html#player'>players</a>% to [(stop|start)] fly[ing]</span></li>
-<li><span class="skript-code-inline">make %<a href='classes.html#player'>players</a>% (stop|start) flying</span></li>
+          <li><span class="skript-code-inline">force %<a href='classes.html#player'>players</a>% to [(start|stop)] fly[ing]</span></li>
+<li><span class="skript-code-inline">make %<a href='classes.html#player'>players</a>% (start|stop) flying</span></li>
 <li><span class="skript-code-inline">make %<a href='classes.html#player'>players</a>% fly</span></li>
 
         </ul>
@@ -1008,6 +1050,7 @@ NB: Using 'server.log' as the log file will write to the default server log. Omi
 
   <div class="item-description">
     Forces a player to start/stop flying.
+Be aware that this also changes the <a href='expressions.html#ExprFlightMode'>flight mode</a> of the player.
   </div>
 
   <div class="item-examples">
@@ -1420,6 +1463,43 @@ Starting with 2.2-dev24, you can replace items in a inventory too.
     <div class="skript-code-block">
       function double(i: number) :: number:
 <br>	return 2 * {_i}
+    </div>
+
+  </div>
+</div>
+
+
+<div id="EffSendBlockChange" class="item-title">Send Block Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">make %<a href='classes.html#player'>players</a>% see %<a href='classes.html#block'>blocks</a>% as %<a href='classes.html#itemtype'>item type</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Makes a player see a block as something it really isn't
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      make player see block at player as dirt
     </div>
 
   </div>

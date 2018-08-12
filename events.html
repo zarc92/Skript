@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev36</title>
+  <title>Skript Documentation - 2.2-dev37c</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -77,6 +77,7 @@
 <p><a href="#item_spawn">On Item Spawn</a></p>
 <p><a href="#join">On Join</a></p>
 <p><a href="#kick">On Kick</a></p>
+<p><a href="#language_change">On Language Change</a></p>
 <p><a href="#leaves_decay">On Leaves Decay</a></p>
 <p><a href="#level_change">On Level Change</a></p>
 <p><a href="#lightning_strike">On Lightning Strike</a></p>
@@ -96,6 +97,7 @@
 <p><a href="#projectile_hit">On Projectile Hit</a></p>
 <p><a href="#quit">On Quit</a></p>
 <p><a href="#redstone">On Redstone</a></p>
+<p><a href="#region_enterleave">On Region Enter/Leave</a></p>
 <p><a href="#respawn">On Respawn</a></p>
 <p><a href="#resurrect_attempt">On Resurrect Attempt</a></p>
 <p><a href="#script_loadunload">On Script Load/Unload</a></p>
@@ -2264,6 +2266,47 @@ This event cannot be cancelled.
 </div>
 
 
+<div id="language_change" class="item-title">On Language Change</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[player] (language|locale) chang(e|ing)</span></li>
+<li><span class="skript-code-inline">[player] chang(e|ing) (language|locale)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called after a player changed their language in the game settings. You can use the <a href='expressions.html#ExprLanguage'>language</a> expression to get the current language of the player.
+This event requires Minecraft 1.12+.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on language change:
+<br>	if player's language starts with "en":
+<br>		send "Hello!"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="leaves_decay" class="item-title">On Leaves Decay</div>
 <div class="item-content">
   <table>
@@ -2973,6 +3016,46 @@ A damage event will even be fired if the damage is 0, e.g. when throwing snowbal
 
     <div class="skript-code-block">
       
+    </div>
+
+  </div>
+</div>
+
+
+<div id="region_enterleave" class="item-title">On Region Enter/Leave</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">(enter[ing]|leav(e|ing)|exit[ing]) [of] ([a] region|[[the] region] %<a href='classes.html#region'>regions</a>%)</span></li>
+<li><span class="skript-code-inline">region (enter[ing]|leav(e|ing)|exit[ing])</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Called when a player enters or leaves a <a href='../classes/#region'>region</a>.
+This event requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on region exit:
+<br>	message "Leaving %region%."
     </div>
 
   </div>

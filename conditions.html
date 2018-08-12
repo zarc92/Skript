@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1.0">
-  <title>Skript Documentation - 2.2-dev36</title>
+  <title>Skript Documentation - 2.2-dev37c</title>
   <link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -21,7 +21,8 @@
   <nav>
     <p id="nav-title">Table of Contents</p>
     <div id="nav-contents">
-      <p><a href="#CondCanHold">Can Hold</a></p>
+      <p><a href="#CondCanBuild">Can Build</a></p>
+<p><a href="#CondCanHold">Can Hold</a></p>
 <p><a href="#CondChance">Chance</a></p>
 <p><a href="#CondCompare">Comparison</a></p>
 <p><a href="#CondContains">Contains</a></p>
@@ -41,6 +42,8 @@
 <p><a href="#CondIsFlammable">Is Flammable</a></p>
 <p><a href="#CondIsFlying">Is Flying</a></p>
 <p><a href="#CondItemInHand">Is Holding</a></p>
+<p><a href="#CondIsLoaded">Is Loaded</a></p>
+<p><a href="#CondIsMember">Is Member/Owner of Region</a></p>
 <p><a href="#CondIsOnline">Is Online</a></p>
 <p><a href="#CondIsPoisoned">Is Poisoned</a></p>
 <p><a href="#CondIsRiding">Is Riding</a></p>
@@ -55,6 +58,7 @@
 <p><a href="#CondIsOfType">Is of Type</a></p>
 <p><a href="#CondIsOnGround">Is on Ground</a></p>
 <p><a href="#CondPvP">PvP</a></p>
+<p><a href="#CondRegionContains">Region Contains</a></p>
 <p><a href="#CondStartsWith">Starts/Ends With</a></p>
 <p><a href="#CondDate">Time</a></p>
 <p><a href="#CondWeather">Weather</a></p>
@@ -64,6 +68,51 @@
   <div id="content">
     <h1>Conditions</h1>
 
+
+
+<div id="CondCanBuild" class="item-title">Can Build</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (can|(is|are) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (can('t|not)|(is|are)(n't| not) allowed to) build %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.0</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Tests whether a player is allowed to build at a certain location.
+This condition requires a supported <a href='../classes/#region'>regions</a> plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      command /setblock <material>:
+<br>	description: set the block at your crosshair to a different type
+<br>	trigger:
+<br>		player cannot build at the targeted block:
+<br>			message "You do not have permission to change blocks there!"
+<br>			stop
+<br>		set the targeted block to argument
+    </div>
+
+  </div>
+</div>
 
 
 <div id="CondCanHold" class="item-title">Can Hold</div>
@@ -289,7 +338,7 @@ Note: This is the only element where not all patterns are shown. It has actually
 <br>	apply fire resistance to the victim for 30 seconds
 <br>	remove 1 potion of fire resistance from the victim
 <br># prevent mobs from dropping items under certain circumstances
-<br>on death;
+<br>on death:
 <br>	entity is not a player
 <br>	damage wasn't caused by a block explosion, an attack, a projectile, a potion, fire, burning, thorns or poison
 <br>	clear drops
@@ -388,8 +437,8 @@ Note: This is the only element where not all patterns are shown. It has actually
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">%<a href='classes.html#metadataholder'>types.metadataholder</a>% (has|have) metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#metadataholder'>types.metadataholder</a>% (doesn't|does not|do not|don't) have metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>%</span></li>
+          <li><span class="skript-code-inline">%<a href='classes.html#metadataholder'>metadata holders</a>% (has|have) metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#metadataholder'>metadata holders</a>% (doesn't|does not|do not|don't) have metadata [(value|tag)[s]] %<a href='classes.html#string'>texts</a>%</span></li>
 
         </ul>
       </td>
@@ -889,6 +938,86 @@ Note: This is the only element where not all patterns are shown. It has actually
     <div class="skript-code-block">
       player is holding a stick
 <br>victim isn't holding a sword of sharpness
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsLoaded" class="item-title">Is Loaded</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#world'>worlds</a>/<a href='classes.html#chunk'>chunks</a>% (is|are) loaded</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#world'>worlds</a>/<a href='classes.html#chunk'>chunks</a>% (isn't|is not|aren't|are not) loaded</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>INSERT VERSION</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether or not a chunk/world is loaded
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      if chunk at {home::%player's uuid%} is loaded:
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondIsMember" class="item-title">Is Member/Owner of Region</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>% (is|are) ([a] member|[(the|an)] owner) of [[the] region] %<a href='classes.html#region'>regions</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#offlineplayer'>offline players</a>% (is|are)(n't| not) ([a] member|[(the|an)] owner) of [[the] region] %<a href='classes.html#region'>regions</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a player is a member or owner of a particular region.
+This condition requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on region enter:
+<br>	player is the owner of the region
+<br>	message "Welcome back to %region%!"
+<br>	send "%player% just entered %region%!" to all members of the region
     </div>
 
   </div>
@@ -1440,6 +1569,50 @@ Note: This is the only element where not all patterns are shown. It has actually
     <div class="skript-code-block">
       PvP is enabled
 <br>PvP is disabled in "world"
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondRegionContains" class="item-title">Region Contains</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[[the] region] %<a href='classes.html#region'>regions</a>% contain[s] %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>locations</a>% (is|are) ([contained] in|part of) [[the] region] %<a href='classes.html#region'>regions</a>%</span></li>
+<li><span class="skript-code-inline">[[the] region] %<a href='classes.html#region'>regions</a>% (do|does)(n't| not) contain %<a href='classes.html#direction'>directions</a>% %<a href='classes.html#location'>locations</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#location'>locations</a>% (is|are)(n't| not) (contained in|part of) [[the] region] %<a href='classes.html#region'>regions</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.1</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether a location is contained in a particular <a href='../classes/#region'>region</a>.
+This condition requires a supported regions plugin to be installed.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      player is in the region {regions::3}
+<br>on region enter:
+<br>	region contains {flags.%world%.red}
+<br>	message "The red flag is near!"
     </div>
 
   </div>
