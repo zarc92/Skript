@@ -90,13 +90,14 @@
 <p><a href="#ExprHash">Hash</a></p>
 <p><a href="#ExprEyeLocation">Head location</a></p>
 <p><a href="#ExprHealth">Health</a></p>
+<p><a href="#ExprHiddenPlayers">Hidden Players</a></p>
 <p><a href="#ExprHighestSolidBlock">Highest Solid Block</a></p>
 <p><a href="#ExprHotbarSlot">Hotbar Slot</a></p>
 <p><a href="#ExprHumidity">Humidity</a></p>
 <p><a href="#ExprIP">IP</a></p>
 <p><a href="#ExprIdOf">Id</a></p>
 <p><a href="#ExprIndexOf">Index Of</a></p>
-<p><a href="#ExprIndexes">Indexes of List</a></p>
+<p><a href="#ExprIndexes">Indices of List</a></p>
 <p><a href="#ExprInventory">Inventory</a></p>
 <p><a href="#ExprInventoryAction">Inventory Action</a></p>
 <p><a href="#ExprInventoryInfo">Inventory Holder/Viewers/Rows</a></p>
@@ -169,6 +170,7 @@
 <p><a href="#ExprTamer">Tamer</a></p>
 <p><a href="#ExprTarget">Target</a></p>
 <p><a href="#ExprTargetedBlock">Targeted Block</a></p>
+<p><a href="#ExprTeleportCause">Teleport Cause</a></p>
 <p><a href="#ExprTemperature">Temperature</a></p>
 <p><a href="#ExprTernary">Ternary</a></p>
 <p><a href="#ExprTime">Time</a></p>
@@ -1082,7 +1084,7 @@ This expression requires a supported regions plugin to be installed.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev37</td>
     </tr>
 
   </table>
@@ -2972,6 +2974,44 @@ Please note that this location is only accurate for entities whose head is exact
 </div>
 
 
+<div id="ExprHiddenPlayers" class="item-title">Hidden Players</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] hidden players (of|for) %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">[(all [[of] the]|the)] players hidden (from|for|by) %<a href='classes.html#player'>players</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev37c</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The players hidden from a player that hidden using the <a href='effects.html#EffPlayerVisibility'>player visibility</a> effect.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      message "<light red>You are currently hiding: <light gray>%hidden players of the player%"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="ExprHighestSolidBlock" class="item-title">Highest Solid Block</div>
 <div class="item-content">
   <table>
@@ -3203,7 +3243,7 @@ Please note that this location is only accurate for entities whose head is exact
 </div>
 
 
-<div id="ExprIndexes" class="item-title">Indexes of List</div>
+<div id="ExprIndexes" class="item-title">Indices of List</div>
 <div class="item-content">
   <table>
 
@@ -3211,8 +3251,8 @@ Please note that this location is only accurate for entities whose head is exact
       <td class="item-table-label">Pattern:</td>
       <td>
         <ul>
-          <li><span class="skript-code-inline">[(all [[of] the]|the)] indexes of %<a href='classes.html#object'>objects</a>%</span></li>
-<li><span class="skript-code-inline">%<a href='classes.html#object'>objects</a>%'s indexes</span></li>
+          <li><span class="skript-code-inline">[(all [[of] the]|the)] indices of %<a href='classes.html#object'>objects</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#object'>objects</a>%'s indices</span></li>
 
         </ul>
       </td>
@@ -3220,13 +3260,13 @@ Please note that this location is only accurate for entities whose head is exact
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev37</td>
     </tr>
 
   </table>
 
   <div class="item-description">
-    Returns all the indexes of a list variable
+    Gets indices of a list variable.
   </div>
 
   <div class="item-examples">
@@ -3235,7 +3275,7 @@ Please note that this location is only accurate for entities whose head is exact
 
     <div class="skript-code-block">
       set {l::*} to "some", "cool" and "values"
-broadcast "%all indexes of {l::*}%" # result is 1, 2 and 3
+broadcast "%all indices of {l::*}%" # Result is 1, 2 and 3
     </div>
 
   </div>
@@ -3695,7 +3735,7 @@ Please note that the positions of the items in the inventory are not saved, only
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev37</td>
     </tr>
 
   </table>
@@ -5899,7 +5939,7 @@ This expression requires a supported regions plugin to be installed.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev37</td>
     </tr>
 
   </table>
@@ -6154,6 +6194,43 @@ Please note that changing a player's speed will change his FOV just like potions
 <br>command /setblock <material>:
 <br>    trigger:
 <br>        set targeted block to argument
+    </div>
+
+  </div>
+</div>
+
+
+<div id="ExprTeleportCause" class="item-title">Teleport Cause</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">[the] teleport (cause|reason|type)</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev35</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    The <a href='../classes/#teleportcause'>teleport cause</a> within a player teleport event.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      teleport cause is nether portal, end portal or end gateway
     </div>
 
   </div>

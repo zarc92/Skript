@@ -23,6 +23,7 @@
     <div id="nav-contents">
       <p><a href="#CondCanBuild">Can Build</a></p>
 <p><a href="#CondCanHold">Can Hold</a></p>
+<p><a href="#CondCanSee">Can See</a></p>
 <p><a href="#CondChance">Chance</a></p>
 <p><a href="#CondCompare">Comparison</a></p>
 <p><a href="#CondContains">Contains</a></p>
@@ -148,6 +149,47 @@ This condition requires a supported <a href='../classes/#region'>regions</a> plu
     <div class="skript-code-block">
       block can hold 200 cobblestone
 <br>player has enough space for 64 feathers
+    </div>
+
+  </div>
+</div>
+
+
+<div id="CondCanSee" class="item-title">Can See</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are) [(in)]visible for %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% can see %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% (is|are)(n't| not) [(in)]visible for %<a href='classes.html#player'>players</a>%</span></li>
+<li><span class="skript-code-inline">%<a href='classes.html#player'>players</a>% can('t| not) see %<a href='classes.html#player'>players</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev37c</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Checks whether the given players can see another players.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      if the player can't see the player-argument:
+<br>	message "<light red>The player %player-argument% is not online!"
     </div>
 
   </div>
@@ -961,7 +1003,7 @@ Note: This is the only element where not all patterns are shown. It has actually
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev37</td>
     </tr>
 
   </table>

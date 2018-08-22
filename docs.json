@@ -411,28 +411,6 @@
   "examples" : ""
 },
 {
-  "id" : "spawnreason",
-  "name" : "Spawn Reason",
-  "patterns" : [
-    
-    "pattern_end"
-  ],
-  "since" : "INSERT VERSION",
-  "description" : "The spawn reason in a <a href='events.html#spawn'>spawn</a> event.",
-  "examples" : "natural, jockey, chunk generation, mob spawner, egg, spawn egg, lightning, built snowman, built iron golem, built wither, village defense, village invasion, breed, slime split, reinforcements, nether portal, spawn reasons.dispense_egg, infection, cured, ocelot baby, silverfish reveal, mount, trap, ender pearl, perching, customized, default"
-},
-{
-  "id" : "teleportcause",
-  "name" : "Teleport Cause",
-  "patterns" : [
-    
-    "pattern_end"
-  ],
-  "since" : "2.2-dev35",
-  "description" : "The teleport cause in a <a href='events.html#teleport'>teleport</a> event.",
-  "examples" : "ender pearl, command, plugin, nether portal, end portal, spectate, gateway, chorus, unknown"
-},
-{
   "id" : "string",
   "name" : "Text",
   "patterns" : [
@@ -589,6 +567,21 @@
   "since" : "1.0",
   "description" : "Tests whether a player or a chest can hold the given item.",
   "examples" : "block can hold 200 cobblestone\\nplayer has enough space for 64 feathers"
+},
+{
+  "id" : "CondCanSee",
+  "name" : "Can See",
+  "patterns" : [
+    "%<a href='classes.html#player'>players</a>% (is|are) [(in)]visible for %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>% can see %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>% (is|are)(n't| not) [(in)]visible for %<a href='classes.html#player'>players</a>%",
+"%<a href='classes.html#player'>players</a>% can('t| not) see %<a href='classes.html#player'>players</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev37c",
+  "description" : "Checks whether the given players can see another players.",
+  "examples" : "if the player can't see the player-argument:\\n    message \"<light red>The player %player-argument% is not online!\""
 },
 {
   "id" : "CondChance",
@@ -876,7 +869,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev37",
   "description" : "Checks whether or not a chunk/world is loaded",
   "examples" : "if chunk at {home::%player's uuid%} is loaded:"
 },
@@ -1243,7 +1236,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev37",
   "description" : "Skips the value currently being looped, moving on to the next value if it exists.",
   "examples" : "loop all players:
     if loop-value does not have permission \"moderator\":
@@ -1458,6 +1451,19 @@
   "examples" : "make player fly\\nforce all players to stop flying"
 },
 {
+  "id" : "EffMakeSay",
+  "name" : "Make Say",
+  "patterns" : [
+    "make %<a href='classes.html#player'>players</a>% (say|send [the] message[s]) %<a href='classes.html#string'>texts</a>%",
+"force %<a href='classes.html#player'>players</a>% to (say|send [the] message[s]) %<a href='classes.html#string'>texts</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev37b",
+  "description" : "Forces a player to send a message to the chat. If the message starts with a slash it will force the player to use command.",
+  "examples" : "make the player say \"Hello.\"\\nforce all players to send the message \"I love this server\""
+},
+{
   "id" : "EffMessage",
   "name" : "Message",
   "patterns" : [
@@ -1507,6 +1513,19 @@
   "since" : "2.2-dev28",
   "description" : "Plays a sound at given location for everyone or just for given players. Playing sounds from resource packs is supported.",
   "examples" : ""
+},
+{
+  "id" : "EffPlayerVisibility",
+  "name" : "Player Visibility",
+  "patterns" : [
+    "hide %<a href='classes.html#player'>players</a>% [(from|for) %<a href='classes.html#player'>players</a>%]",
+"reveal %<a href='classes.html#player'>players</a>% [(to|for|from) %<a href='classes.html#player'>players</a>%]",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev37c",
+  "description" : "Change visibility of a player for the given players.\\nWhen reveal is used in combination of the <a href='expressions.html#ExprHiddenPlayers'>hidden players</a> expression and the viewers are not specified, this will default it to the given player in the hidden players expression.\\n\\nNote: if a player was hidden and relogs, this player will be visible again.",
+  "examples" : "on join:\\n    if {vanished::%player's uuid%} is true:\\n        hide the player from all players\\n\\nreveal hidden players of {_player}"
 },
 {
   "id" : "EffPoison",
@@ -1595,7 +1614,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev37",
   "description" : "Makes a player see a block as something it really isn't",
   "examples" : "make player see block at player as dirt"
 },
@@ -2428,7 +2447,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev37",
   "description" : "Called after a player changed their language in the game settings. You can use the <a href='expressions.html#ExprLanguage'>language</a> expression to get the current language of the player.\\nThis event requires Minecraft 1.12+.",
   "examples" : "on language change:\\n    if player's language starts with \"en\":\\n        send \"Hello!\""
 },
@@ -3362,7 +3381,7 @@
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev37",
   "description" : "The time a furnace takes to burn an item in a <a href='events.html#fuel_burn'>fuel burn</a> event.\\nCan also be used to change the burn/cook time of a placed furnace.",
   "examples" : "on fuel burn:\\n    if fuel slot is coal:\\n        set burning time to 1 tick"
 },
@@ -3968,6 +3987,19 @@
   "examples" : "message \"You have %health% HP left.\""
 },
 {
+  "id" : "ExprHiddenPlayers",
+  "name" : "Hidden Players",
+  "patterns" : [
+    "[(all [[of] the]|the)] hidden players (of|for) %<a href='classes.html#player'>players</a>%",
+"[(all [[of] the]|the)] players hidden (from|for|by) %<a href='classes.html#player'>players</a>%",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev37c",
+  "description" : "The players hidden from a player that hidden using the <a href='effects.html#EffPlayerVisibility'>player visibility</a> effect.",
+  "examples" : "message \"<light red>You are currently hiding: <light gray>%hidden players of the player%\""
+},
+{
   "id" : "ExprHighestSolidBlock",
   "name" : "Highest Solid Block",
   "patterns" : [
@@ -4045,17 +4077,17 @@
 },
 {
   "id" : "ExprIndexes",
-  "name" : "Indexes of List",
+  "name" : "Indices of List",
   "patterns" : [
-    "[(all [[of] the]|the)] indexes of %<a href='classes.html#object'>objects</a>%",
-"%<a href='classes.html#object'>objects</a>%'s indexes",
+    "[(all [[of] the]|the)] indices of %<a href='classes.html#object'>objects</a>%",
+"%<a href='classes.html#object'>objects</a>%'s indices",
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
-  "description" : "Returns all the indexes of a list variable",
+  "since" : "2.2-dev37",
+  "description" : "Gets indices of a list variable.",
   "examples" : "set {l::*} to \"some\", \"cool\" and \"values\"
-broadcast \"%all indexes of {l::*}%\" # result is 1, 2 and 3"
+broadcast \"%all indices of {l::*}%\" # Result is 1, 2 and 3"
 },
 {
   "id" : "ExprInventory",
@@ -4209,7 +4241,7 @@ broadcast \"%all indexes of {l::*}%\" # result is 1, 2 and 3"
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev37",
   "description" : "Currently selected game language of a player. The value of the language is not defined properly.\\nThe vanilla Minecraft client will use lowercase language / country pairs separated by an underscore, but custom resource packs may use any format they wish.",
   "examples" : "message player's current language"
 },
@@ -4899,7 +4931,7 @@ broadcast \"%all indexes of {l::*}%\" # result is 1, 2 and 3"
 
     "pattern_end"
   ],
-  "since" : "INSERT VERSION",
+  "since" : "2.2-dev37",
   "description" : "The entity a player is currently spectating. This can be set and cleared whenthe given player is in spectator mode.",
   "examples" : "set spectator target of player to last spawned creeper"
 },
@@ -4984,6 +5016,18 @@ broadcast \"%all indexes of {l::*}%\" # result is 1, 2 and 3"
   "since" : "1.0",
   "description" : "The block at the crosshair. This regards all blocks that are not air as fully opaque, e.g. torches will be like a solid stone block for this expression.",
   "examples" : "# A command to set the block a player looks at to a specific type:\\ncommand /setblock <material>:\\n    trigger:\\n        set targeted block to argument"
+},
+{
+  "id" : "ExprTeleportCause",
+  "name" : "Teleport Cause",
+  "patterns" : [
+    "[the] teleport (cause|reason|type)",
+
+    "pattern_end"
+  ],
+  "since" : "2.2-dev35",
+  "description" : "The <a href='../classes/#teleportcause'>teleport cause</a> within a player teleport event.",
+  "examples" : "teleport cause is nether portal, end portal or end gateway"
 },
 {
   "id" : "ExprTemperature",

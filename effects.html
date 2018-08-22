@@ -45,10 +45,12 @@
 <p><a href="#EffLog">Log</a></p>
 <p><a href="#EffScriptOptionLoops">Loop Version</a></p>
 <p><a href="#EffMakeFly">Make Fly</a></p>
+<p><a href="#EffMakeSay">Make Say</a></p>
 <p><a href="#EffMessage">Message</a></p>
 <p><a href="#EffOpenInventory">Open/Close Inventory</a></p>
 <p><a href="#EffVisualEffect">Play Effect</a></p>
 <p><a href="#EffPlaySound">Play Sound</a></p>
+<p><a href="#EffPlayerVisibility">Player Visibility</a></p>
 <p><a href="#EffPoison">Poison/Cure</a></p>
 <p><a href="#EffPotion">Potion Effects</a></p>
 <p><a href="#EffPush">Push</a></p>
@@ -405,7 +407,7 @@ Starting with Skript 2.1.1 and Bukkit 1.7.2 R0.4, one can also ban players with 
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev37</td>
     </tr>
 
   </table>
@@ -1066,6 +1068,45 @@ Be aware that this also changes the <a href='expressions.html#ExprFlightMode'>fl
 </div>
 
 
+<div id="EffMakeSay" class="item-title">Make Say</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">make %<a href='classes.html#player'>players</a>% (say|send [the] message[s]) %<a href='classes.html#string'>texts</a>%</span></li>
+<li><span class="skript-code-inline">force %<a href='classes.html#player'>players</a>% to (say|send [the] message[s]) %<a href='classes.html#string'>texts</a>%</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev37b</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Forces a player to send a message to the chat. If the message starts with a slash it will force the player to use command.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      make the player say "Hello."
+<br>force all players to send the message "I love this server"
+    </div>
+
+  </div>
+</div>
+
+
 <div id="EffMessage" class="item-title">Message</div>
 <div class="item-content">
   <table>
@@ -1219,6 +1260,51 @@ Please note that some effects can only be played on entities, e..g wolf hearts o
 
     <div class="skript-code-block">
       
+    </div>
+
+  </div>
+</div>
+
+
+<div id="EffPlayerVisibility" class="item-title">Player Visibility</div>
+<div class="item-content">
+  <table>
+
+    <tr>
+      <td class="item-table-label">Pattern:</td>
+      <td>
+        <ul>
+          <li><span class="skript-code-inline">hide %<a href='classes.html#player'>players</a>% [(from|for) %<a href='classes.html#player'>players</a>%]</span></li>
+<li><span class="skript-code-inline">reveal %<a href='classes.html#player'>players</a>% [(to|for|from) %<a href='classes.html#player'>players</a>%]</span></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="item-table-label">Since:</td>
+      <td>2.2-dev37c</td>
+    </tr>
+
+  </table>
+
+  <div class="item-description">
+    Change visibility of a player for the given players.
+When reveal is used in combination of the <a href='expressions.html#ExprHiddenPlayers'>hidden players</a> expression and the viewers are not specified, this will default it to the given player in the hidden players expression.
+
+Note: if a player was hidden and relogs, this player will be visible again.
+  </div>
+
+  <div class="item-examples">
+
+    Examples:
+
+    <div class="skript-code-block">
+      on join:
+<br>	if {vanished::%player's uuid%} is true:
+<br>		hide the player from all players
+<br>
+<br>reveal hidden players of {_player}
     </div>
 
   </div>
@@ -1485,7 +1571,7 @@ Starting with 2.2-dev24, you can replace items in a inventory too.
 
     <tr>
       <td class="item-table-label">Since:</td>
-      <td>INSERT VERSION</td>
+      <td>2.2-dev37</td>
     </tr>
 
   </table>
