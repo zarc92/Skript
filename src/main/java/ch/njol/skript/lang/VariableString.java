@@ -246,6 +246,7 @@ public class VariableString implements Expression<String> {
 						@SuppressWarnings("unchecked")
 						final Expression<?> expr = new SkriptParser("" + s.substring(c + 1, c2), SkriptParser.PARSE_EXPRESSIONS, ParseContext.DEFAULT).parseExpression(Object.class);
 						if (expr == null) {
+							elements++; // The expression as whole counts as an element
 							log.printErrors("Can't understand this expression: " + s.substring(c + 1, c2));
 							return null;
 						} else {
