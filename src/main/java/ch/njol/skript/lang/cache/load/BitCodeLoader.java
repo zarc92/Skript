@@ -2,6 +2,7 @@ package ch.njol.skript.lang.cache.load;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Queue;
 
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.lang.Expression;
@@ -16,7 +17,7 @@ import ch.njol.skript.lang.cache.BitCode;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.util.Kleenean;
 
-public class BitCodeLoader implements BitCode {
+public class BitCodeLoader implements BitCode, LoadableElement<Deque<Expression<?>>> {
 	
 	private Deque<Expression<?>> stack;
 
@@ -116,6 +117,11 @@ public class BitCodeLoader implements BitCode {
 	public void simpleLiteral(Object literal) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Deque<Expression<?>> load() {
+		return stack;
 	}
 	
 }

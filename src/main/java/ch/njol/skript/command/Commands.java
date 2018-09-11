@@ -517,8 +517,12 @@ public abstract class Commands {
 		Commands.currentArguments = currentArguments;
 		final ScriptCommand c;
 		try {
+			String patternStr = pattern.toString();
+			assert patternStr != null;
+			parsed.pattern(patternStr);
+			
 			SkriptParser.compiled = parsed.trigger();
-			c = new ScriptCommand(config, command, "" + pattern.toString(), currentArguments, description, usage,
+			c = new ScriptCommand(config, command, patternStr, currentArguments, description, usage,
 					aliases, permission, permissionMessage, cooldown, cooldownMessage, cooldownBypass, cooldownStorage,
 					executableBy, ScriptLoader.loadItems(trigger));
 		} finally {
