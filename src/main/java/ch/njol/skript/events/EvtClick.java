@@ -25,6 +25,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
@@ -40,6 +41,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.aliases.Aliases;
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.bukkitutil.PlayerUtils;
 import ch.njol.skript.classes.Comparator.Relation;
@@ -72,13 +74,28 @@ public class EvtClick extends SkriptEvent {
 	private final static int HOLDING = 4;
 	
 	static {
-		Class<? extends PlayerEvent> clickEvent;
-		if (twoHanded) // Armor stand support!
-			clickEvent = PlayerInteractAtEntityEvent.class;
+		/*
+		 * On 1.9 and above, handling entity click events is a mess, because
+		 * just listening for one event is enough.
+		 * 
+		 * PlayerInteractEntityEvent
+		 * Good: when it is fired, you can cancel it
+		 * Bad: not fired for armor stands, at all
+		 * 
+		 * PlayerInteractAtEntityEvent
+		 * Good: catches clicks on armor stands
+		 * Bad: cannot be cancelled if entity is item frame or villager (!)
+		 * 
+		 * Just use both? Well, not so simple, as in many cases both are
+		 * called. To make matters worse, handling both events sometimes
+		 * causes PlayerInteractAtEntityEvent to be called TWICE.
+		 */
+		Class<? extends PlayerEvent>[] eventTypes;
+		if (twoHanded)
+			eventTypes = CollectionUtils.array(PlayerInteractEvent.class, PlayerInteractAtEntityEvent.class, PlayerInteractEntityEvent.class);
 		else
-			clickEvent = PlayerInteractEntityEvent.class;
+			eventTypes = CollectionUtils.array(PlayerInteractEvent.class, PlayerInteractEntityEvent.class);
 		
-		Class<? extends PlayerEvent>[] eventTypes = CollectionUtils.array(PlayerInteractEvent.class, clickEvent);
 		Skript.registerEvent("Click", EvtClick.class, eventTypes,
 				"[(" + RIGHT + "¦right|" + LEFT + "¦left)(| |-)][mouse(| |-)]click[ing] [on %-entitydata/itemtype%] [(with|using|" + HOLDING + "¦holding) %itemtype%]",
 				"[(" + RIGHT + "¦right|" + LEFT + "¦left)(| |-)][mouse(| |-)]click[ing] (with|using|" + HOLDING + "¦holding) %itemtype% on %entitydata/itemtype%")
@@ -100,10 +117,12 @@ public class EvtClick extends SkriptEvent {
 	private int click = ANY;
 	boolean isHolding = false;
 	
+	// Entity event spaghetti handling
+	@Nullable
+	private Object lastInteractAtEvent;
+	
 	@Override
 	public boolean init(final Literal<?>[] args, final int matchedPattern, final ParseResult parser) {
-		//Skript.info("matchedPattern is " + matchedPattern);
-		//Skript.info("args is " + Arrays.toString(args));
 		click = parser.mark == 0 ? ANY : parser.mark;
 		types = args[matchedPattern];
 		if (types != null && !ItemType.class.isAssignableFrom(types.getReturnType())) {
@@ -126,6 +145,21 @@ public class EvtClick extends SkriptEvent {
 		
 		if (e instanceof PlayerInteractEntityEvent) {
 			PlayerInteractEntityEvent clickEvent = ((PlayerInteractEntityEvent) e);
+			
+			// Usually, don't handle these events
+			if (clickEvent instanceof PlayerInteractAtEntityEvent) {
+				// But armor stands are an exception
+				// Later, there may be more exceptions...
+				Entity clicked = clickEvent.getRightClicked();
+				if (!(clicked instanceof ArmorStand))
+					return false;
+			}
+			
+			// Guard against PlayerInteractAtEvent being called twice
+			if (lastInteractAtEvent == e) // Intentional identity comparison
+				return false; // Don't handle same event twice
+			lastInteractAtEvent = e; // We're first event, second must not pass
+			
 			if (twoHanded) {
 				//ItemStack mainHand = clickEvent.getPlayer().getInventory().getItemInMainHand();
 				//ItemStack offHand = clickEvent.getPlayer().getInventory().getItemInOffHand();
@@ -218,6 +252,11 @@ public class EvtClick extends SkriptEvent {
 		return (click == LEFT ? "left" : click == RIGHT ? "right" : "") + "click" + (types != null ? " on " + types.toString(e, debug) : "") + (tools != null ? " holding " + tools.toString(e, debug) : "");
 	}
 	
+	private static final ItemType offUsableItems = Aliases.javaItemType("usable in off hand");
+	private static final ItemType mainUsableItems = Aliases.javaItemType("usable in main hand");
+	private static final ItemType usableBlocks = Aliases.javaItemType("usable block");
+	private static final ItemType usableBlocksMainOnly = Aliases.javaItemType("block usable with main hand");
+	
 	public static boolean checkUseOffHand(Player player, int clickType, @Nullable Block block, @Nullable Entity entity) {
 		if (clickType != RIGHT) return false; // Attacking with off hand is not possible
 		
@@ -234,72 +273,16 @@ public class EvtClick extends SkriptEvent {
 		//Skript.info("block is " + block);
 		//Skript.info("entity is " + entity);
 		
-		switch (offHand.getType()) {
-			case BOW:
-			case EGG:
-			case SPLASH_POTION:
-			case SNOW_BALL:
-			case BUCKET:
-			case FISHING_ROD:
-			case FLINT_AND_STEEL:
-			case WOOD_HOE:
-			case STONE_HOE:
-			case IRON_HOE:
-			case GOLD_HOE:
-			case DIAMOND_HOE:
-			case LEASH:
-			case SHEARS:
-			case WOOD_SPADE:
-			case STONE_SPADE:
-			case IRON_SPADE:
-			case GOLD_SPADE:
-			case DIAMOND_SPADE:
-			case SHIELD:
-			case ENDER_PEARL:
-			case MONSTER_EGG:
-				offUsable = true;
-				break;
-				//$CASES-OMITTED$
-			default:
-				offUsable = false;
-		}
+		if (offUsableItems.isOfType(offHand))
+			offUsable = true;
 		
 		// Seriously? Empty hand -> block in hand, since id of AIR < 256 :O
 		if ((offMat.isBlock() && offMat != Material.AIR) || PlayerUtils.canEat(player, offMat)) {
 			offUsable = true;
 		}
 		
-		switch (mainHand.getType()) {
-			case BOW:
-			case EGG:
-			case SPLASH_POTION:
-			case SNOW_BALL:
-			case BUCKET:
-			case FISHING_ROD:
-			case FLINT_AND_STEEL:
-			case WOOD_HOE:
-			case STONE_HOE:
-			case IRON_HOE:
-			case GOLD_HOE:
-			case DIAMOND_HOE:
-			case LEASH:
-			case SHEARS:
-			case WOOD_SPADE:
-			case STONE_SPADE:
-			case IRON_SPADE:
-			case GOLD_SPADE:
-			case DIAMOND_SPADE:
-			case ENDER_PEARL:
-			case EYE_OF_ENDER:
-			case MONSTER_EGG:
-			case BOOK_AND_QUILL:
-			case WRITTEN_BOOK:
-				mainUsable = true;
-				break;
-				//$CASES-OMITTED$
-			default:
-				mainUsable = false;
-		}
+		if (mainUsableItems.isOfType(mainHand))
+			mainUsable = true;
 		
 		// Seriously? Empty hand -> block in hand, since id of AIR < 256 :O
 		if ((mainMat.isBlock() && mainMat != Material.AIR) || PlayerUtils.canEat(player, mainMat)) {
@@ -309,52 +292,10 @@ public class EvtClick extends SkriptEvent {
 		boolean blockUsable = false;
 		boolean mainOnly = false;
 		if (block != null) {
-			switch (block.getType()) {
-				case ANVIL:
-				case BEACON:
-				case BED:
-				case BREWING_STAND:
-				case CAULDRON:
-				case CHEST:
-				case TRAPPED_CHEST:
-				case ENDER_CHEST:
-				case WORKBENCH:
-				case ENCHANTMENT_TABLE:
-				case FURNACE:
-				case WOODEN_DOOR:
-				case ACACIA_DOOR:
-				case JUNGLE_DOOR:
-				case DARK_OAK_DOOR:
-				case SPRUCE_DOOR:
-				case BIRCH_DOOR:
-				case IRON_DOOR:
-				case TRAP_DOOR:
-				case IRON_TRAPDOOR:
-				case FENCE_GATE:
-				case ACACIA_FENCE_GATE:
-				case JUNGLE_FENCE_GATE:
-				case DARK_OAK_FENCE_GATE:
-				case SPRUCE_FENCE_GATE:
-				case BIRCH_FENCE_GATE:
-				case HOPPER:
-				case DISPENSER:
-				case DROPPER:
-				case LEVER:
-				case WOOD_BUTTON:
-				case STONE_BUTTON:
-				case COMMAND:
-				case ITEM_FRAME:
-				case SIGN_POST:
-				case WALL_SIGN: // 2 signs...
-					blockUsable = true;
-					break;
-				case CAKE_BLOCK:
-					mainOnly = true;
-					break;
-					//$CASES-OMITTED$
-				default:
-					blockUsable = false;
-			}
+			if (usableBlocks.isOfType(block))
+				blockUsable = true;
+			if (usableBlocksMainOnly.isOfType(block))
+				mainOnly = true;
 		} else if (entity != null) {
 			switch (entity.getType()) {
 				case ITEM_FRAME:

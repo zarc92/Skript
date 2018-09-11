@@ -26,7 +26,17 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -54,6 +64,7 @@ import java.util.zip.ZipFile;
 import ch.njol.skript.lang.Trigger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -67,8 +78,12 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.eclipse.jdt.annotation.Nullable;
 
+import com.google.gson.Gson;
+
 import ch.njol.skript.Updater.UpdateState;
 import ch.njol.skript.aliases.Aliases;
+import ch.njol.skript.bukkitutil.BukkitUnsafe;
+import ch.njol.skript.bukkitutil.BurgerHelper;
 import ch.njol.skript.bukkitutil.Workarounds;
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Comparator;
@@ -269,6 +284,8 @@ public final class Skript extends JavaPlugin implements Listener {
 			return;
 		}
 		
+		handleJvmArguments(); // JVM arguments
+		
 		version = new Version("" + getDescription().getVersion()); // Skript version
 		
 		Language.loadDefault(getAddonInstance());
@@ -296,10 +313,10 @@ public final class Skript extends JavaPlugin implements Listener {
 						final File cf = new File(getDataFolder(), e.getName());
 						if (!cf.exists())
 							saveTo = cf;
-					} else if (e.getName().startsWith("aliases-") && e.getName().endsWith(".sk") && !e.getName().contains("/")) {
-						final File af = new File(getDataFolder(), e.getName());
-						if (!af.exists())
-							saveTo = af;
+//					} else if (e.getName().startsWith("aliases-") && e.getName().endsWith(".sk") && !e.getName().contains("/")) {
+//						final File af = new File(getDataFolder(), e.getName());
+//						if (!af.exists())
+//							saveTo = af;
 					} else if (e.getName().startsWith("features.sk")) {
 						final File af = new File(getDataFolder(), e.getName());
 						if (!af.exists())
@@ -315,7 +332,7 @@ public final class Skript extends JavaPlugin implements Listener {
 						}
 					}
 				}
-				info("Successfully generated the config, the example scripts and the aliases files.");
+				info("Successfully generated the config and the example scripts.");
 			} catch (final ZipException e) {} catch (final IOException e) {
 				error("Error generating the default files: " + ExceptionUtils.toString(e));
 			} finally {
@@ -349,6 +366,9 @@ public final class Skript extends JavaPlugin implements Listener {
 			return;
 		}
 		
+		BukkitUnsafe.initialize(); // Needed for aliases
+		Aliases.load(); // Loaded before anything that might use them
+		
 		// If loading can continue (platform ok), check for potentially thrown error
 		if (classLoadError != null) {
 			exception(classLoadError);
@@ -380,8 +400,6 @@ public final class Skript extends JavaPlugin implements Listener {
 		
 		if (SkriptConfig.checkForNewVersion.value()) // We only start updater automatically if it was asked
 			Updater.start();
-		
-		Aliases.load();
 		
 		Commands.registerListeners();
 		
@@ -640,6 +658,67 @@ public final class Skript extends JavaPlugin implements Listener {
 		
 		// Tell Timings that we are here!
 		SkriptTimings.setSkript(this);
+	}
+	
+	/**
+	 * Handles -Dskript.stuff command line arguments.
+	 */
+	private void handleJvmArguments() {
+		Path folder = getDataFolder().toPath();
+		
+		/*
+		 * Burger is a Python application that extracts data from Minecraft.
+		 * Datasets for most common versions are available for download.
+		 * Skript uses them to provide minecraft:material to Bukkit
+		 * Material mappings on Minecraft 1.12 and older.
+		 */
+		String burgerEnabled = System.getProperty("skript.burger.enable");
+		if (burgerEnabled != null) {
+			String version = System.getProperty("skript.burger.version");
+			String burgerInput;
+			if (version == null) { // User should have provided JSON file path
+				String inputFile = System.getProperty("skript.burger.file");
+				if (inputFile == null) {
+					Skript.exception("burger enabled but skript.burger.file not provided");
+					return;
+				}
+				try {
+					burgerInput = new String(Files.readAllBytes(Paths.get(inputFile)), StandardCharsets.UTF_8);
+				} catch (IOException e) {
+					Skript.exception(e);
+					return;
+				}
+			} else { // Try to download Burger dataset for this version
+				try {
+					Path data = folder.resolve("burger-" + version + ".json");
+					if (!Files.exists(data)) {
+						URL url = new URL("https://pokechu22.github.io/Burger/" + version + ".json");
+						try (InputStream is = url.openStream()) {
+							Files.copy(is, data);
+						}
+					}
+					burgerInput = new String(Files.readAllBytes(data), StandardCharsets.UTF_8);
+				} catch (IOException e) {
+					Skript.exception(e);
+					return;
+				}
+			}
+			
+			// Use BurgerHelper to create some mappings, then dump them as JSON
+			try {
+				BurgerHelper burger = new BurgerHelper(burgerInput);
+				Map<String,Material> materials = burger.mapMaterials();
+				Map<Integer,Material> ids = BurgerHelper.mapIds();
+				
+				Gson gson = new Gson();
+				Files.write(folder.resolve("materials_mappings.json"), gson.toJson(materials)
+						.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
+				Files.write(folder.resolve("id_mappings.json"), gson.toJson(ids)
+						.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
+			} catch (IOException e) {
+				Skript.exception(e);
+			}
+		}
 	}
 	
 	private static Version minecraftVersion = new Version(666);
@@ -1044,7 +1123,8 @@ public final class Skript extends JavaPlugin implements Listener {
 	 */
 	public static <E extends Condition> void registerCondition(final Class<E> condition, final String... patterns) throws IllegalArgumentException {
 		checkAcceptRegistrations();
-		final SyntaxElementInfo<E> info = new SyntaxElementInfo<>(patterns, condition);
+		String originClassPath = Thread.currentThread().getStackTrace()[2].getClassName();
+		final SyntaxElementInfo<E> info = new SyntaxElementInfo<>(patterns, condition, originClassPath);
 		conditions.add(info);
 		statements.add(info);
 	}
@@ -1057,7 +1137,8 @@ public final class Skript extends JavaPlugin implements Listener {
 	 */
 	public static <E extends Effect> void registerEffect(final Class<E> effect, final String... patterns) throws IllegalArgumentException {
 		checkAcceptRegistrations();
-		final SyntaxElementInfo<E> info = new SyntaxElementInfo<>(patterns, effect);
+		String originClassPath = Thread.currentThread().getStackTrace()[2].getClassName();
+		final SyntaxElementInfo<E> info = new SyntaxElementInfo<>(patterns, effect, originClassPath);
 		effects.add(info);
 		statements.add(info);
 	}
@@ -1093,7 +1174,8 @@ public final class Skript extends JavaPlugin implements Listener {
 		checkAcceptRegistrations();
 		if (returnType.isAnnotation() || returnType.isArray() || returnType.isPrimitive())
 			throw new IllegalArgumentException("returnType must be a normal type");
-		final ExpressionInfo<E, T> info = new ExpressionInfo<>(patterns, returnType, c);
+		String originClassPath = Thread.currentThread().getStackTrace()[2].getClassName();
+		final ExpressionInfo<E, T> info = new ExpressionInfo<>(patterns, returnType, c, originClassPath);
 		for (int i = type.ordinal() + 1; i < ExpressionType.values().length; i++) {
 			expressionTypesStartIndices[i]++;
 		}
@@ -1138,7 +1220,8 @@ public final class Skript extends JavaPlugin implements Listener {
 	@SuppressWarnings({"unchecked"})
 	public static <E extends SkriptEvent> SkriptEventInfo<E> registerEvent(final String name, final Class<E> c, final Class<? extends Event> event, final String... patterns) {
 		checkAcceptRegistrations();
-		final SkriptEventInfo<E> r = new SkriptEventInfo<>(name, patterns, c, CollectionUtils.array(event));
+		String originClassPath = Thread.currentThread().getStackTrace()[2].getClassName();
+		final SkriptEventInfo<E> r = new SkriptEventInfo<>(name, patterns, c, originClassPath, CollectionUtils.array(event));
 		events.add(r);
 		return r;
 	}
@@ -1154,7 +1237,8 @@ public final class Skript extends JavaPlugin implements Listener {
 	 */
 	public static <E extends SkriptEvent> SkriptEventInfo<E> registerEvent(final String name, final Class<E> c, final Class<? extends Event>[] events, final String... patterns) {
 		checkAcceptRegistrations();
-		final SkriptEventInfo<E> r = new SkriptEventInfo<>(name, patterns, c, events);
+		String originClassPath = Thread.currentThread().getStackTrace()[2].getClassName();
+		final SkriptEventInfo<E> r = new SkriptEventInfo<>(name, patterns, c, originClassPath, events);
 		Skript.events.add(r);
 		return r;
 	}
@@ -1326,7 +1410,7 @@ public final class Skript extends JavaPlugin implements Listener {
 			checkedPlugins = true; // No need to do this next time
 		}
 		
-		String issuesUrl = "https://github.com/bensku/Skript/issues";
+		String issuesUrl = "https://github.com/SkriptLang/Skript/issues";
 		
 		logEx();
 		logEx("[Skript] Severe Error:");

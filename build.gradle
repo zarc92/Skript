@@ -15,56 +15,43 @@ repositories {
 		url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
 	}
 
-//	maven {
-//		url 'https://oss.sonatype.org/content/groups/public/'
-//	}
-
 	maven {
 		url 'http://maven.sk89q.com/repo'
 	}
 
 	maven {
-		url 'https://mvn.yawk.at'
+		url 'https://repo.destroystokyo.com/repository/maven-public//'
 	}
 
-//	maven {
-//		url 'http://nexus.theyeticave.net/content/repositories/pub_releases'
-//	}
-
-	maven {
-		url 'https://repo.destroystokyo.com/repository/maven-public/'
-	}
-	
 	maven {
 		url 'http://ci.emc.gs/nexus/content/groups/aikar/'
 	}
-	
+
 	maven {
 		url 'http://nexus.hc.to/content/repositories/pub_releases'
 	}
-	
-//	maven {
-//		url 'http://maven.elmakers.com/repository/'
-//	}
-	
-	
+
 	maven {
 		url 'https://jitpack.io'
+	}
+	
+	maven {
+		url = "https://oss.sonatype.org/content/repositories/snapshots/"
 	}
 }
 
 dependencies {
-	compile 'com.destroystokyo.paper:paper-api:1.12.1-R0.1-SNAPSHOT'
-	compile 'org.eclipse.jdt:org.eclipse.jdt.annotation:1.1.0'
-	compile 'com.google.code.findbugs:findbugs:2.0.3'
-	compile 'com.sk89q:worldguard:6.1.1-SNAPSHOT'
-	compile 'net.milkbowl.vault:Vault:1.6.6'
-	compile 'com.github.marcelo-mason:PreciousStones:24e3d4bf67b7240ae36b32be10e99d4091938c5c'
+	implementation 'com.destroystokyo.paper:paper-api:1.13.1-R0.1-SNAPSHOT'
+	implementation 'org.eclipse.jdt:org.eclipse.jdt.annotation:1.1.0'
+	implementation 'com.google.code.findbugs:findbugs:2.0.3'
+	implementation 'com.sk89q:worldguard:6.1.1-SNAPSHOT'
+	implementation 'net.milkbowl.vault:Vault:1.6.6'
+	implementation 'com.github.marcelo-mason:PreciousStones:24e3d4bf67b7240ae36b32be10e99d4091938c5c'
 
-	testCompile 'junit:junit:4.12'
-	testCompile 'org.easymock:easymock:3.4'
+	testImplementation 'junit:junit:4.12'
+	testImplementation 'org.easymock:easymock:3.4'
 
-	compile fileTree(dir: 'lib', include: '*.jar')
+	implementation fileTree(dir: 'lib', include: '*.jar')
 }
 
 configurations.all {
@@ -81,18 +68,24 @@ processResources {
 
 jar {
 	archiveName System.getenv('SKRIPT_JAR_NAME') == null ? 'Skript.jar' : System.getenv("SKRIPT_JAR_NAME")
-	
+
 	manifest {
 		attributes("Name": "ch/njol/skript",
 				"Sealed": "true")
+	}
+	
+	from('skript-aliases') {
+	    into('aliases-english') // Change this if we get aliases in other languages
 	}
 }
 
 license {
     header file('licenseheader.txt')
     exclude('**/Metrics.java') // Not under GPLv3
+    exclude('**/BurgerHelper.java') // Not exclusively GPLv3
     exclude('**/*.sk') // Sample scripts and maybe aliases
-    exclude('**/*.lang') // Language files
+    exclude('**/*.lang') // Language files do not have headers (still under GPLv3)
+    exclude('**/*.json') // JSON files do not have headers
 }
 
 configurations {
@@ -132,10 +125,18 @@ publishing {
 			}
 		}
 	}
-	
+
 	repositories {
 		maven {
 			url "file:///itemapi_repo/"
 		}
 	}
 }
+
+/*
+  Set compile encoding to UTF-8
+  Fixes issue #850
+ */
+compileJava.options.encoding = 'UTF-8'
+
+compileTestJava.options.encoding = 'UTF-8'

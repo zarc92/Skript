@@ -276,6 +276,9 @@ public abstract class SkriptConfig {
 	public final static Option<Boolean> keepLastUsageDates = new Option<Boolean>("keep command last usage dates", false)
 			.optional(true);
 	
+	public final static Option<Boolean> loadDefaultAliases = new Option<Boolean>("load default aliases", true)
+			.optional(true);
+
 	public final static Option<Boolean> executeFunctionsWithMissingParams = new Option<Boolean>("execute functions with missing parameters", true)
 			.optional(true)
 			.setter(new Setter<Boolean>() {

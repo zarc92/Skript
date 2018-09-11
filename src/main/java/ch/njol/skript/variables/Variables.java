@@ -106,7 +106,7 @@ public abstract class Variables {
 		});
 	}
 	
-	static List<VariablesStorage> storages = new ArrayList<VariablesStorage>();
+	static List<VariablesStorage> storages = new ArrayList<>();
 	
 	public static boolean load() {
 		assert variables.treeMap.isEmpty();
@@ -243,13 +243,34 @@ public abstract class Variables {
 	/**
 	 * Not accessed concurrently
 	 */
-	private final static WeakHashMap<Event, VariablesMap> localVariables = new WeakHashMap<Event, VariablesMap>();
+	private final static WeakHashMap<Event, VariablesMap> localVariables = new WeakHashMap<>();
 	
 	/**
 	 * Remember to lock with {@link #getReadLock()} and to not make any changes!
 	 */
 	static TreeMap<String, Object> getVariables() {
 		return variables.treeMap;
+	}
+	
+	/**
+	 * Removes local variables associated with given event and returns them,
+	 * if they exist.
+	 * @param event Event.
+	 * @return Local variables or null.
+	 */
+	@Nullable
+	public static VariablesMap removeLocals(Event event) {
+		return localVariables.remove(event);
+	}
+	
+	/**
+	 * Sets local variables associated with given event.
+	 * Warning: this can overwrite local variables!
+	 * @param event Event.
+	 * @param map New local variables.
+	 */
+	public static void setLocalVariables(Event event, Object map) {
+		localVariables.put(event, (VariablesMap) map);
 	}
 	
 	/**
@@ -307,7 +328,6 @@ public abstract class Variables {
         }
 	    if (value != null) {
 			assert !n.endsWith("::*");
-			@SuppressWarnings("null")
 			final ClassInfo<?> ci = Classes.getSuperClassInfo(value.getClass());
 			final Class<?> sas = ci.getSerializeAs();
 			if (sas != null) {
@@ -341,7 +361,7 @@ public abstract class Variables {
 	 * <p>
 	 * Access must be synchronised.
 	 */
-	final static SynchronizedReference<Map<String, NonNullPair<Object, VariablesStorage>>> tempVars = new SynchronizedReference<Map<String, NonNullPair<Object, VariablesStorage>>>(new HashMap<String, NonNullPair<Object, VariablesStorage>>());
+	final static SynchronizedReference<Map<String, NonNullPair<Object, VariablesStorage>>> tempVars = new SynchronizedReference<>(new HashMap<String, NonNullPair<Object, VariablesStorage>>());
 	
 	private static final int MAX_CONFLICT_WARNINGS = 50;
 	private static int loadConflicts = 0;
@@ -375,7 +395,7 @@ public abstract class Variables {
 						Skript.warning("[!] More than " + MAX_CONFLICT_WARNINGS + " variables were loaded more than once from different databases, no more warnings will be printed.");
 					v.getSecond().save(name, null, null);
 				}
-				tvs.put(name, new NonNullPair<Object, VariablesStorage>(value, source));
+				tvs.put(name, new NonNullPair<>(value, source));
 				return false;
 			}
 		}
@@ -452,7 +472,7 @@ public abstract class Variables {
 		queue.add(serialize(name, value));
 	}
 	
-	final static BlockingQueue<SerializedVariable> queue = new LinkedBlockingQueue<SerializedVariable>();
+	final static BlockingQueue<SerializedVariable> queue = new LinkedBlockingQueue<>();
 	
 	static volatile boolean closed = false;
 	

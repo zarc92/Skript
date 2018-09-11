@@ -211,8 +211,11 @@ public class VariableString implements Expression<String> {
 			if (c != 0) {
 				String part = s.substring(0, c);
 				string.add(part);
+				assert part != null;
 				SkriptParser.compiled.stringLiteral(part);
 			}
+			
+			int elements = 0;
 			while (c != s.length()) {
 				int c2 = s.indexOf('%', c + 1);
 				
@@ -287,17 +290,20 @@ public class VariableString implements Expression<String> {
 					if (string.size() > 0 && string.get(string.size() - 1) instanceof String) {
 						// We can append last string part in the list, so let's do so
 						string.set(string.size() - 1, (String) string.get(string.size() - 1) + l);
-						SkriptParser.compiled.stringLiteral(l);
 					} else { // Can't append, just add new part
 						string.add(l);
-						SkriptParser.compiled.stringLiteral(l);
 					}
+					SkriptParser.compiled.stringLiteral(l);
+					elements++;
 				}
 			}
+			
+			SkriptParser.compiled.variableString(elements);
 		} else {
 			// Only one string, no variable parts
 			string.add(s);
 			SkriptParser.compiled.stringLiteral(s);
+			SkriptParser.compiled.variableString(1);
 		}
 		
 		checkVariableConflicts(s, mode, string);

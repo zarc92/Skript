@@ -36,10 +36,12 @@ import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.VariableString;
 import ch.njol.skript.lang.cache.BitCode;
 import ch.njol.skript.lang.cache.ParsedCommand;
 import ch.njol.skript.lang.cache.debug.DebugCommand;
+import ch.njol.skript.lang.util.SimpleLiteral;
 import ch.njol.skript.util.StringMode;
 import ch.njol.skript.util.Timespan;
 import org.apache.commons.lang.Validate;
@@ -437,9 +439,19 @@ public abstract class Commands {
 		
 		final String permission = ScriptLoader.replaceOptions(node.get("permission", ""));
 		parsed.permission(permission);
-		final String permissionMessage = ScriptLoader.replaceOptions(node.get("permission message", ""));
-		parsed.permissionMessage(permissionMessage);
-		
+
+
+		final String rawPermissionMessage = ScriptLoader.replaceOptions(node.get("permission message", ""));
+		parsed.permissionMessage(rawPermissionMessage);
+
+		Expression<String> permissionMessage = rawPermissionMessage.isEmpty() ?
+				null
+				: VariableString.newInstance(rawPermissionMessage);
+
+		if (permissionMessage != null && ((VariableString) permissionMessage).isSimple()) {
+			permissionMessage = new SimpleLiteral<>(rawPermissionMessage, false);
+		}
+
 		final SectionNode trigger = (SectionNode) node.get("trigger");
 		if (trigger == null)
 			return null;
@@ -478,7 +490,7 @@ public abstract class Commands {
 		String cooldownBypass = ScriptLoader.replaceOptions(node.get("cooldown bypass", ""));
 		parsed.cooldownBypass(cooldownBypass);
 
-		if (!permissionMessage.isEmpty() && permission.isEmpty()) {
+		if (permissionMessage != null && permission.isEmpty()) {
 			Skript.warning("command /" + command + " has a permission message set, but not a permission");
 		}
 

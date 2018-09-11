@@ -63,12 +63,10 @@ public class ExprOffTool extends ExprTool {
 			public Slot get(final LivingEntity p) {
 				if (!delayed) {
 					if (e instanceof PlayerItemHeldEvent && ((PlayerItemHeldEvent) e).getPlayer() == p) {
-						Skript.info("ItemHeldEvent");
 						final PlayerInventory i = ((PlayerItemHeldEvent) e).getPlayer().getInventory();
 						assert i != null;
 						return new InventorySlot(i, getTime() >= 0 ? ((PlayerItemHeldEvent) e).getNewSlot() : ((PlayerItemHeldEvent) e).getPreviousSlot());
 					} else if (e instanceof PlayerBucketEvent && ((PlayerBucketEvent) e).getPlayer() == p) {
-						Skript.info("PlayerBucketEvent");
 						final PlayerInventory i = ((PlayerBucketEvent) e).getPlayer().getInventory();
 						assert i != null;
 						return new InventorySlot(i, ((PlayerBucketEvent) e).getPlayer().getInventory().getHeldItemSlot()) {
@@ -95,7 +93,7 @@ public class ExprOffTool extends ExprTool {
 				return new EquipmentSlot(e, EquipmentSlot.EquipSlot.OFF_HAND) {
 					@Override
 					public String toString(@Nullable Event event, boolean debug) {
-						return "the " + (getTime() == 1 ? "future " : getTime() == -1 ? "former " : "") + Classes.toString(getItem());
+						return (getTime() == 1 ? "future " : getTime() == -1 ? "former " : "") + Classes.toString(getItem());
 					}
 				};
 			}

@@ -1,4 +1,4 @@
-# Skript [![Build Status](https://travis-ci.org/bensku/Skript.svg?branch=master)](https://travis-ci.org/bensku/Skript)
+# Skript [![Build Status](https://travis-ci.org/SkriptLang/Skript.svg?branch=master)](https://travis-ci.org/SkriptLang/Skript)
 Skript is a plugin for Bukkit/Spigot, which allows server owners and other people
 to modify their servers without learning Java. It can also be useful if you
 *do* know Java; some tasks are quicker to do with Skript, and so it can be used
@@ -7,10 +7,11 @@ for prototyping etc.
 This Github fork of Skript is based on Mirreski's improvements which was built
 on Njol's original Skript. It is supported for **Spigot** (not Bukkit) versions of
 Minecraft 1.9-1.12. Other versions might work, but no guarantees. **Paper** is
-recommended, but not mandatory - without it, timings of scripts will not work.
+recommended, but not mandatory - without it, some features such as timings
+will be not available.
 
 ## Documentation
-Documentation is available [here](http://bensku.github.io/Skript/) for the
+Documentation is available [here](http://skriptlang.github.io/Skript/) for the
 latest version of Skript.
 
 ## Reporting Issues
@@ -92,46 +93,76 @@ So, you want to work with Skript's codebase? There are a few guidelines for you:
 Of course, these are just recommendations. However, not following them may get
 your pull requests rejected.
 
+More clear code style guidelines are probably coming in future.
+
 ### Maven repository
 If you use Skript as (soft) dependency for your plugin, and use maven or Gradle,
 this is for you.
 
-First, you need the repository. Skript is not in Maven Central.
-```
-maven {
-    url "https://raw.githubusercontent.com/bensku/mvn-repo/master"
+First, you need to add the JitPack repository at the **END** of all your repositories. Skript is not available in Maven Central.
+```gradle
+repositories {
+    jcenter()
+    ...
+    maven { 
+        url 'https://jitpack.io' 
+    }
 }
 ```
 
 Or, if you use Maven:
+```maven
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 ```
+
+For versions of Skript after dev37 you might need to add the paper-api repository to prevent build issues.
+
+```gradle
+maven { 
+    url 'https://repo.destroystokyo.com/repository/maven-public/' 
+}
+```
+
+Or, if you use Maven:
+```maven
 <repository>
-    <id>bensku-repo</id>
-    <url>https://raw.githubusercontent.com/bensku/mvn-repo/master</url>
+    <id>destroystokyo-repo</id>
+    <url>https://repo.destroystokyo.com/content/repositories/snapshots/</url>
 </repository>
 ```
 
 Then you will also need to add Skript as a dependency.
+```gradle
+dependencies {
+    implementation 'com.github.SkriptLang:Skript:[versionTag]'
+}
 ```
-compile "ch.njol:skript:2.2-RELEASE_TAG"
-```
+
+An example of the version tag would be ```dev37c```.
+
+> Note: If Gradle isn't able to resolve Skript's dependencies, just [disable the resolution of transitive dependencies](https://docs.gradle.org/current/userguide/managing_transitive_dependencies.html#sub:disabling_resolution_transitive_dependencies) for Skript in your project.
 
 Or, if you use Maven:
 ```
 <dependency>
-    <groupId>ch.njol</groupId>
-    <artifactId>skript</artifactId>
-    <version>2.2-RELEASE_TAG</version>
+    <groupId>com.github.SkriptLang</groupId>
+    <artifactId>Skript</artifactId>
+    <version>[versionTag]</version>
 </dependency>
 ```
 
-Note that these repositories are provided as-is, for now. I cannot currently spend time to add nice, but not mandatory, features like Javadoc.
+> Note that these repositories are provided as-is, for now. I cannot currently spend time to add nice, but not mandatory, features like Javadoc.
 
 ## Relevant Links
 * [SkUnity Forums](https://forums.skunity.com/)
 * [Original Skript at BukkitDev](https://dev.bukkit.org/bukkit-plugins/skript/) (inactive)
 * [Addon Releases @SkUnity](https://forums.skunity.com/forums/addon-releases/)
-* [Skript Chat Discord invite](https://discord.gg/0lx4QhQvwelCZbEX)
+* [Skript Chat Discord Invite](https://discord.gg/0lx4QhQvwelCZbEX)
 * [Skript Hub](https://skripthub.net/)
 
 Note that these resources are not maintained by me. If you notice something wrong with them, do not contact me.
@@ -141,6 +172,8 @@ Current team behind Skript:
 
 * [bensku](https://github.com/bensku) (Skript maintainer/developer)
 * [Snow-Pyon](https://github.com/Snow-Pyon) (Skript developer)
+* [Pikachu920](https://github.com/Pikachu920) (Skript developer)
+* [Nicofisi](https://github.com/Nicofisi) (Skript developer)
 * [TheBentoBox](https://github.com/TheBentoBox) (issue tracker manager)
 
 Also, of course, we should thank [Njol](https://github.com/Njol) for creating

@@ -34,6 +34,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
 import ch.njol.skript.Skript;
@@ -56,7 +57,7 @@ import ch.njol.yggdrasil.YggdrasilSerializable;
  * @author Peter Güttinger
  */
 public final class VisualEffect implements SyntaxElement, YggdrasilSerializable {
-	public static boolean EFFECT_LIB = false;
+
 	private final static String LANGUAGE_NODE = "visual effects";
 	
 	public static enum Type implements YggdrasilSerializable {
@@ -106,7 +107,7 @@ public final class VisualEffect implements SyntaxElement, YggdrasilSerializable 
 		FLYING_GLYPH(Particle.ENCHANTMENT_TABLE),
 		FLAME(Particle.FLAME),
 		LAVA_POP(Particle.LAVA),
-		FOOTSTEP(Particle.FOOTSTEP),
+		FOOTSTEP("FOOTSTEP"), // 1.13 removed
 		SPLASH(Particle.WATER_SPLASH),
 		PARTICLE_SMOKE(Particle.SMOKE_NORMAL), // Why separate particle... ?
 		EXPLOSION_HUGE(Particle.EXPLOSION_HUGE),
@@ -193,7 +194,7 @@ public final class VisualEffect implements SyntaxElement, YggdrasilSerializable 
 		@SuppressWarnings("deprecation")
 		private Type(final Effect effect) {
 			this.effect = effect;
-			this.name = effect.getName();
+			this.name = effect.name();
 		}
 		
 		private Type(final EntityEffect effect) {
@@ -296,9 +297,18 @@ public final class VisualEffect implements SyntaxElement, YggdrasilSerializable 
 				}
 				final String[] ps = patterns.toArray(new String[patterns.size()]);
 				assert ps != null;
-				info = new SyntaxElementInfo<>(ps, VisualEffect.class);
+
+				info = new SyntaxElementInfo<>(ps, VisualEffect.class, getOriginPath(VisualEffect.class));
 			}
 		});
+	}
+
+	static String getOriginPath(Class<VisualEffect> c){
+		String path = c.getName();
+		if (path != null){
+			return path;
+		}
+		return "<null>";
 	}
 	
 	private Type type;
@@ -431,7 +441,8 @@ public final class VisualEffect implements SyntaxElement, YggdrasilSerializable 
 			} else {
 				// Non-particle effect (whatever Spigot API says, there are a few)
 				if (ps == null) {
-					l.getWorld().spigot().playEffect(l, (Effect) type.effect, 0, 0, dX, dY, dZ, speed, count, radius);
+					//l.getWorld().spigot().playEffect(l, (Effect) type.effect, 0, 0, dX, dY, dZ, speed, count, radius);
+					l.getWorld().playEffect(l, (Effect) type.effect, 0, radius);
 				} else {
 					for (final Player p : ps)
 						p.playEffect(l, (Effect) type.effect, type.getData(data, l));

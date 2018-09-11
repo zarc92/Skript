@@ -93,6 +93,7 @@ import ch.njol.skript.registrations.Converters;
 import ch.njol.skript.util.Date;
 import ch.njol.skript.util.ExceptionUtils;
 import ch.njol.skript.util.Task;
+import ch.njol.skript.variables.TypeHints;
 import ch.njol.skript.variables.Variables;
 import ch.njol.util.Callback;
 import ch.njol.util.Kleenean;
@@ -777,11 +778,13 @@ final public class ScriptLoader {
 	}
 	
 	/**
-	 * Loads structures of all scripts in given directory.
-	 * 
-	 * @param directory
+	 * Loads structures of all scripts in the given directory, or of the passed script if it's a normal file
+	 *
+	 * @param directory a directory or a single file
 	 */
-	public final static List<Config> loadStructures(final File directory) {
+	public static List<Config> loadStructures(final File directory) {
+		if (!directory.isDirectory())
+			return loadStructures(new File[]{directory});
 		final File[] files = directory.listFiles(scriptFilter);
 		Arrays.sort(files);
 		
@@ -940,7 +943,10 @@ final public class ScriptLoader {
 		
 		return new ScriptInfo(); // Return that we unloaded literally nothing
 	}
-	
+
+	/**
+	 * Replaces options in a string.
+	 */
 	public final static String replaceOptions(final String s) {
 		final String r = StringUtils.replaceAll(s, "\\{@(.+?)\\}", new Callback<String, Matcher>() {
 			@Override
@@ -987,6 +993,7 @@ final public class ScriptLoader {
 				String name = replaceOptions("" + n.getKey());
 				if (!SkriptParser.validateLine(name))
 					continue;
+				TypeHints.enterScope(); // Begin conditional type hints
 				
 				if (StringUtils.startsWithIgnoreCase(name, "loop ")) {
 					final String l = "" + name.substring("loop ".length());
@@ -1064,6 +1071,9 @@ final public class ScriptLoader {
 					items.add(new Conditional(cond, (SectionNode) n));
 					hasDelayBefore = hadDelayBefore.or(hasDelayBefore.and(Kleenean.UNKNOWN));
 				}
+				
+				// Destroy these conditional type hints
+				TypeHints.exitScope();
 			}
 		}
 		

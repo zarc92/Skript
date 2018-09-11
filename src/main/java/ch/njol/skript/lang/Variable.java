@@ -33,6 +33,7 @@ import java.util.TreeMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.eclipse.jdt.annotation.NonNull;
@@ -54,6 +55,7 @@ import ch.njol.skript.registrations.Comparators;
 import ch.njol.skript.registrations.Converters;
 import ch.njol.skript.util.StringMode;
 import ch.njol.skript.util.Utils;
+import ch.njol.skript.variables.TypeHints;
 import ch.njol.skript.variables.Variables;
 import ch.njol.util.Checker;
 import ch.njol.util.Kleenean;
@@ -141,10 +143,6 @@ public class Variable<T> implements Expression<T> {
 	 */
 	@Nullable
 	public static <T> Variable<T> newInstance(String name, final Class<? extends T>[] types) {
-//		if (name.startsWith(LOCAL_VARIABLE_TOKEN) && name.contains(SEPARATOR)) {
-//			Skript.error("Local variables cannot be lists, i.e. must not contain the separator '" + SEPARATOR + "' (error in variable {" + name + "})");
-//			return null;
-//		} else
 		name = "" + name.trim();
 		if (!isValidVariableName(name, true, true))
 			return null;
@@ -152,15 +150,65 @@ public class Variable<T> implements Expression<T> {
 		if (vs == null)
 			return null;
 		
-		boolean local = name.startsWith(LOCAL_VARIABLE_TOKEN);
-		boolean list = name.endsWith(SEPARATOR + "*");
-		SkriptParser.compiled.variable(types, local, list);
-		return new Variable<>(vs, types, local, list, null);
+		boolean isLocal = name.startsWith(LOCAL_VARIABLE_TOKEN);
+		boolean isPlural = name.endsWith(SEPARATOR + "*");
+		return newInstance(vs, types, isLocal, isPlural);
 	}
 	
+	/**
+	 * Prints errors
+	 */
 	@Nullable
-	public static <T> Variable<T> newInstance(VariableString name, Class<? extends T>[] types, boolean local, boolean list) {
-		return new Variable<>(name, types, local, list, null);
+	public static <T> Variable<T> newInstance(VariableString vs, final Class<? extends T>[] types, boolean isLocal, boolean isPlural) {
+//		if (name.startsWith(LOCAL_VARIABLE_TOKEN) && name.contains(SEPARATOR)) {
+//			Skript.error("Local variables cannot be lists, i.e. must not contain the separator '" + SEPARATOR + "' (error in variable {" + name + "})");
+//			return null;
+//		} else
+		
+		// Check for local variable type hints
+		if (isLocal && vs.isSimple()) { // Only variable names we fully know already
+			Class<?> hint = TypeHints.get(vs.toString());
+			if (hint != null && !hint.equals(Object.class)) { // Type hint available
+				// See if we can get correct type without conversion
+				for (Class<? extends T> type : types) {
+					assert type != null;
+					if (type.isAssignableFrom(hint)) {
+						// Hint matches, use variable with exactly correct type
+						return new Variable<>(vs, CollectionUtils.array(type), isLocal, isPlural, null);
+					}
+				}
+				
+				// Or with conversion?
+				for (Class<? extends T> type : types) {
+					assert type != null;
+					if (Converters.converterExists(hint, type)) {
+						// Hint matches, even though converter is needed
+						return new Variable<>(vs, CollectionUtils.array(type), isLocal, isPlural, null);
+					}
+					
+					// Special cases
+					if (type.isAssignableFrom(World.class) && hint.isAssignableFrom(String.class)) {
+						// String->World conversion is weird spaghetti code
+						return new Variable<>(vs, types, isLocal, isPlural, null);
+					} else if (type.isAssignableFrom(Player.class) && hint.isAssignableFrom(String.class)) {
+						// String->Player conversion is not available at this point
+						return new Variable<>(vs, types, isLocal, isPlural, null);
+					}
+				}
+				
+				// Hint exists and does NOT match any types requested
+				ClassInfo<?>[] infos = new ClassInfo[types.length];
+				for (int i = 0; i < types.length; i++) {
+					infos[i] = Classes.getExactClassInfo(types[i]);
+				}
+				Skript.warning("Variable '{" + vs.toString() + "}' is " + Classes.toString(Classes.getExactClassInfo(hint))
+						+ ", not " + Classes.toString(infos, false));
+				// Fall back to not having any type hints
+			}
+		}
+		
+		SkriptParser.compiled.variable(types, isLocal, isPlural);
+		return new Variable<>(vs, types, isLocal, isPlural, null);
 	}
 	
 	@Override
@@ -469,7 +517,12 @@ public class Variable<T> implements Expression<T> {
 						for (final Object d : delta) {
 							for (final Entry<String, Object> i : o.entrySet()) {
 								if (Relation.EQUAL.is(Comparators.compare(i.getValue(), d))) {
-									rem.add(i.getKey());
+									String key = i.getKey();
+									if (key == null)
+										continue; // This is NOT a part of list variable
+									
+									// Otherwise, we'll mark that key to be set to null
+									rem.add(key);
 									break;
 								}
 							}
