@@ -208,14 +208,15 @@ public class VariableString implements Expression<String> {
 		
 		int c = s.indexOf('%');
 		if (c != -1) {
+			int elements = 0;
 			if (c != 0) {
 				String part = s.substring(0, c);
 				string.add(part);
 				assert part != null;
 				SkriptParser.compiled.stringLiteral(part);
+				elements++;
 			}
 			
-			int elements = 0;
 			while (c != s.length()) {
 				int c2 = s.indexOf('%', c + 1);
 				
@@ -299,12 +300,12 @@ public class VariableString implements Expression<String> {
 				}
 			}
 			
-			SkriptParser.compiled.variableString(elements);
+			SkriptParser.compiled.variableString(orig, elements, false, mode);
 		} else {
 			// Only one string, no variable parts
 			string.add(s);
 			SkriptParser.compiled.stringLiteral(s);
-			SkriptParser.compiled.variableString(1);
+			SkriptParser.compiled.variableString(orig, 1, true, mode);
 		}
 		
 		checkVariableConflicts(s, mode, string);
@@ -322,6 +323,13 @@ public class VariableString implements Expression<String> {
 			Skript.warning(expr + " is already a text, so you should not put it in one (e.g. " + expr + " instead of " + "\"%" + expr.replace("\"", "\"\"") + "%\")");
 		}
 		return new VariableString(orig, sa, mode);
+	}
+	
+	public static VariableString newInstance(String original, Object[] string, boolean isSimple, StringMode mode) {
+		if (string.length == 1)
+			return new VariableString((String) string[0]);
+		else
+			return new VariableString(original, string, mode);
 	}
 	
 	private static void checkVariableConflicts(final String name, final StringMode mode, final @Nullable Iterable<Object> string) {

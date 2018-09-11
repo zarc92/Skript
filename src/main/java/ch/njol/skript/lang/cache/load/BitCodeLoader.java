@@ -11,15 +11,18 @@ import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.LiteralList;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxElement;
+import ch.njol.skript.lang.UnparsedLiteral;
 import ch.njol.skript.lang.Variable;
 import ch.njol.skript.lang.VariableString;
 import ch.njol.skript.lang.cache.BitCode;
+import ch.njol.skript.lang.util.SimpleLiteral;
 import ch.njol.skript.registrations.Classes;
+import ch.njol.skript.util.StringMode;
 import ch.njol.util.Kleenean;
 
-public class BitCodeLoader implements BitCode, LoadableElement<Deque<Expression<?>>> {
+public class BitCodeLoader implements BitCode, LoadableElement<Object> {
 	
-	private Deque<Expression<?>> stack;
+	private Deque<Object> stack;
 
 	public BitCodeLoader() {
 		stack = new ArrayDeque<>();
@@ -38,12 +41,12 @@ public class BitCodeLoader implements BitCode, LoadableElement<Deque<Expression<
 		// Take exprs from the stack
 		Expression<?>[] exprs = new Expression<?>[parseResult.exprs.length];
 		for (int i = 0; i < parseResult.exprs.length; i++) {
-			exprs[i] = stack.pop();
+			exprs[i] = (Expression<?>) stack.pop();
 		}
 		
 		// Initialize element and push to stack
 		element.init(exprs, matchedPattern, isDelayed, parseResult);
-		stack.push((Expression<?>) element);
+		stack.push(element);
 	}
 
 	@Override
@@ -90,37 +93,38 @@ public class BitCodeLoader implements BitCode, LoadableElement<Deque<Expression<
 	}
 
 	@Override
-	public void variableString(int size) {
-		// TODO Auto-generated method stub
-		
+	public void variableString(String original, int size, boolean isSimple, StringMode mode) {
+		Object[] elements = new Object[size];
+		for (int i = 0; i < size; i++) {
+			elements[i] = stack.pop();
+		}
+		stack.push(VariableString.newInstance(original, elements, isSimple, mode));
 	}
 
 	@Override
 	public void stringLiteral(String str) {
-		// TODO Auto-generated method stub
-		
+		stack.push(str);
 	}
 
 	@Override
 	public void unparsedLiteral(String unparsed) {
-		// TODO Auto-generated method stub
-		
+		stack.push(new UnparsedLiteral(unparsed));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void convertedExpression(Class<?> type) {
-		// TODO Auto-generated method stub
-		
+		Expression<?> expr = (Expression<?>) stack.pop();
+		stack.push(expr.getConvertedExpression(type));
 	}
 
 	@Override
 	public void simpleLiteral(Object literal) {
-		// TODO Auto-generated method stub
-		
+		stack.push(new SimpleLiteral<>(literal, false));
 	}
 
 	@Override
-	public Deque<Expression<?>> load() {
+	public Deque<Object> load() {
 		return stack;
 	}
 	

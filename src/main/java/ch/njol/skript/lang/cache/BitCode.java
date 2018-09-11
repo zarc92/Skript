@@ -20,6 +20,7 @@
 package ch.njol.skript.lang.cache;
 
 import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.util.StringMode;
 import ch.njol.util.Kleenean;
 import ch.njol.skript.lang.SyntaxElement;
 
@@ -37,7 +38,7 @@ public interface BitCode {
 	
 	void functionCall(String function);
 	
-	void variableString(int size);
+	void variableString(String original, int size, boolean isSimple, StringMode mode);
 	
 	void stringLiteral(String str);
 	
