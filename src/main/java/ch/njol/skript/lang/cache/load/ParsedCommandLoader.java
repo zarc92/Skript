@@ -1,10 +1,12 @@
 package ch.njol.skript.lang.cache.load;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.annotation.Nullable;
 
+import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.command.Argument;
 import ch.njol.skript.command.ScriptCommand;
@@ -21,23 +23,19 @@ public class ParsedCommandLoader implements ParsedCommand, LoadableElement<Scrip
 	private String pattern;
 	
 	private List<Argument<?>> arguments;
-	@Nullable
 	private String usage;
-	@Nullable
 	private String description;
 	private List<String> aliases;
 	
-	@Nullable
 	private String permission;
 	@Nullable
-	private String permissionMessage;
+	private BitCodeLoader permissionMessage;
 	private int executableBy;
 	
 	@Nullable
 	private Timespan cooldown;
 	@Nullable
 	private BitCodeLoader cooldownMessage;
-	@Nullable
 	private String cooldownBypass;
 	@Nullable
 	private BitCodeLoader cooldownStorage;
@@ -48,7 +46,11 @@ public class ParsedCommandLoader implements ParsedCommand, LoadableElement<Scrip
 		this.name = "";
 		this.pattern = "";
 		this.arguments = new ArrayList<>();
+		this.usage = "";
+		this.description = "";
 		this.aliases = new ArrayList<>();
+		this.permission = "";
+		this.cooldownBypass = "";
 		this.trigger = new BitCodeLoader();
 	}
 	
@@ -90,8 +92,11 @@ public class ParsedCommandLoader implements ParsedCommand, LoadableElement<Scrip
 	}
 
 	@Override
-	public void permissionMessage(String message) {
-		this.permissionMessage = message;
+	public BitCode permissionMessage() {
+		if (permissionMessage == null)
+			permissionMessage = new BitCodeLoader();
+		assert permissionMessage != null;
+		return permissionMessage;
 	}
 
 	@Override
@@ -132,6 +137,9 @@ public class ParsedCommandLoader implements ParsedCommand, LoadableElement<Scrip
 
 	@Override
 	public ScriptCommand load() {
+		VariableString permissionMsg = null;
+		if (permissionMessage != null)
+			permissionMsg = (VariableString) permissionMessage.load().pop();
 		VariableString cooldownMsg = null;
 		if (cooldownMessage != null)
 			cooldownMsg = (VariableString) cooldownMessage.load().pop();
@@ -139,7 +147,8 @@ public class ParsedCommandLoader implements ParsedCommand, LoadableElement<Scrip
 		if (cooldownStorage != null)
 			storageVar = (VariableString) cooldownStorage.load().pop();
 		
-		List<TriggerItem> items; // TODO ouch, this needs large-scale Skript changes
+		List<TriggerItem> items = ScriptLoader.loadTriggerStack(trigger.load());
+		return new ScriptCommand(new File("unknown"), name, pattern, arguments, description, usage, aliases, permission, permissionMsg, cooldown, cooldownMsg, cooldownBypass, storageVar, executableBy, items);
 	}
 	
 }

@@ -28,11 +28,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -137,7 +139,7 @@ final public class ScriptLoader {
 	 * @param state The new value for {@link ScriptLoader#callPreLoadEvent}
 	 * @param addon A non-null SkriptAddon
 	 */
-	public static void setCallPreloadEvent(boolean state, @NonNull SkriptAddon addon) {
+	public static void setCallPreloadEvent(boolean state, SkriptAddon addon) {
 		Validate.notNull(addon);
 		callPreLoadEvent = state;
 		if (state)
@@ -155,6 +157,7 @@ final public class ScriptLoader {
 	 * that have called {@link ScriptLoader#setCallPreloadEvent(boolean, SkriptAddon)}
 	 * with true.
 	 */
+	@SuppressWarnings("null")
 	public static Set<SkriptAddon> getPreloadListeners() {
 		return Collections.unmodifiableSet(preloadListeners);
 	}
@@ -182,6 +185,7 @@ final public class ScriptLoader {
 	 * @param name
 	 * @param events
 	 */
+	@SafeVarargs
 	public static void setCurrentEvent(final String name, final @Nullable Class<? extends Event>... events) {
 		currentEventName = name;
 		currentEvents = events;
@@ -476,7 +480,6 @@ final public class ScriptLoader {
 	 * @param config Config for script to be loaded.
 	 * @return Info about script that is loaded
 	 */
-	@SuppressWarnings("unchecked")
 	private final static ScriptInfo loadScript(final @Nullable Config config) {
 		if (config == null) { // Something bad happened, hopefully got logged to console
 			return new ScriptInfo();
@@ -828,7 +831,8 @@ final public class ScriptLoader {
 	 * @param source Source input stream.
 	 * @param name Name of source "file".
 	 */
-	public final static @Nullable Config loadStructure(final InputStream source, final String name) {
+	@Nullable
+	public final static Config loadStructure(final InputStream source, final String name) {
 		try {
 			final Config config = new Config(source, name,
 					Skript.getInstance().getDataFolder().toPath().resolve(Skript.SCRIPTSFOLDER).resolve(name).toFile(), true, false, ":");
@@ -845,8 +849,8 @@ final public class ScriptLoader {
 	 * actually loading that script.
 	 * @param config Config object for the script.
 	 */
-	@SuppressWarnings("unchecked")
-	public final static @Nullable Config loadStructure(final Config config) {
+	@Nullable
+	public final static Config loadStructure(final Config config) {
 		try {
 			//final CountingLogHandler numErrors = SkriptLogger.startLogHandler(new CountingLogHandler(SkriptLogger.SEVERE));
 			
@@ -870,7 +874,7 @@ final public class ScriptLoader {
 						
 						setCurrentEvent("function", FunctionEvent.class);
 						
-						final Signature<?> func = Functions.loadSignature(config.getFileName(), node);
+						Functions.loadSignature(config.getFileName(), node);
 						
 						deleteCurrentEvent();
 						
@@ -1086,6 +1090,34 @@ final public class ScriptLoader {
 			indentation = "" + indentation.substring(0, indentation.length() - 4);
 		
 		return items;
+	}
+	
+	/**
+	 * Loads a stack of trigger items.
+	 * @param trigger Trigger items.
+	 * @return The items in a list.
+	 */
+	@SuppressWarnings({"unchecked"})
+	public static List<TriggerItem> loadTriggerStack(Deque<Object> trigger) {
+		List<Object> elements = new ArrayList<>();
+		elements.addAll(trigger);
+		assert checkTriggerList(elements) : "abuse of generics in trigger stack";
+		Collections.reverse(elements);
+		return (List<TriggerItem>) (Object) elements; // VERY unchecked cast
+	}
+	
+	/**
+	 * Ensures that given list actually contains trigger items and thus will
+	 * not cause heap corruption.
+	 * @param list List of (hopefully only) trigger items.
+	 * @return Whether the list contains only trigger items or something else.
+	 */
+	private static boolean checkTriggerList(List<Object> list) {
+		for (Object o : list) {
+			if (!(o instanceof TriggerItem))
+				return false;
+		}
+		return true;
 	}
 	
 	/**

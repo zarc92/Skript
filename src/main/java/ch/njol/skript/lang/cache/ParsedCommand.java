@@ -41,7 +41,7 @@ public interface ParsedCommand extends ParsedElement {
 	
 	void permission(String permission);
 	
-	void permissionMessage(String message);
+	BitCode permissionMessage();
 	
 	void executableBy(int executable);
 	
