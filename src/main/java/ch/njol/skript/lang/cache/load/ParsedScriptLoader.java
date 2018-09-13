@@ -25,8 +25,9 @@ public class ParsedScriptLoader implements ParsedScript, LoadableElement<List<Lo
 
 	@Override
 	public ParsedTrigger trigger() {
-		// TODO Auto-generated method stub
-		return null;
+		ParsedTriggerLoader trigger = new ParsedTriggerLoader();
+		elements.add(trigger);
+		return trigger;
 	}
 
 	@Override
